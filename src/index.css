@@ -1,4 +1,38 @@
-@theme {
-  /* Aquí puedes poner tus variables de diseño si quieres, si no, déjalo vacío */
-}
 @import "tailwindcss";
+
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap');
+
+@theme {
+
+  --font-satoshi: 'Satoshi', sans-serif;
+  
+  /* Fondo principal ultra oscuro y superficies institucionales */
+  --color-liberty-bg: #110419;          /* El violeta casi negro de los bordes del banner */
+  --color-liberty-surface: #1B0A26;     /* El violeta medio del fondo */
+  --color-liberty-card: #261135;        /* Un tono más claro para contrastar componentes */
+  --color-liberty-border: #3D1E54;      /* Bordes sutiles basados en la marca */
+
+  /* Identidad y Acciones Principales (El Magenta/Fucsia del ala superior) */
+  --color-liberty-primary: #D946EF;     /* Fucsia/Magenta vibrante del logo */
+  --color-liberty-primary-hover: #F472B6;
+
+  /* Destacados Secundarios (El Cyan del ala izquierda) */
+  --color-liberty-cyan: #06B6D4;        /* El celeste/cyan vivo del ala */
+  --color-liberty-cyan-hover: #22D3EE;
+
+  /* Toques de Energía (El Amarillo/León del ala inferior) */
+  --color-liberty-accent: #EAB308;      /* Amarillo dorado oficial */
+  --color-liberty-accent-hover: #FACC15;
+
+  /* Tipografía y Textos */
+  --color-liberty-text: #FFFFFF;        /* Blanco puro para títulos (como el logo) */
+  --color-liberty-text-secondary: #E9D5FF; /* Violeta muy claro para textos de lectura */
+  --color-liberty-muted: #94A3B8;       /* Gris azulado para datos secundarios */
+
+  /* Efectos de Iluminación de Interfaz (Glows) */
+  --shadow-glow: 0 0 25px rgba(217, 70, 239, 0.35); /* Brillo magenta para botones */
+  --shadow-cyan-glow: 0 0 25px rgba(6, 182, 212, 0.35); /* Brillo cyan */
+
+  /* El degradado exacto del encabezado de X (Twitter) */
+  --background-image-hero-gradient: linear-gradient(135deg, #110419 0%, #1B0A26 50%, #350F43 100%);
+}
