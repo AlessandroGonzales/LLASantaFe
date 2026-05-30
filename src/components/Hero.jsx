@@ -1,14 +1,23 @@
 import logoLibertad from "../assets/logoLibertad.png";
-import backgroundImage from "../assets/grupoSantaFe.png"; // Reemplaza con la ruta real de tu imagen
+import backgroundImage from "../assets/mileidiezz.png"; // Para mobile
+import backgroundImageDos from "../assets/mileidiez.png"; // Para Desktop
 
 export default function Hero() {
   return (
     <header className="relative min-h-[100vh] bg-hero-gradient flex flex-col justify-center items-center px-4 overflow-hidden border-b border-liberty-border">
-      {/* Imagen de fondo */}
+      
+      {/* IMAGEN PARA MOBILE: Se muestra por defecto y se oculta a partir de pantallas medianas (md) */}
       <img
         src={backgroundImage}
-        alt="Grupo de Santa Fe"
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-20 object-top md:object-[center_28%]"
+        alt="Grupo de Santa Fe Mobile"
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-45 object-top md:hidden "
+      />
+
+      {/* IMAGEN PARA DESKTOP: Oculta por defecto (hidden) y se activa solo en pantallas md en adelante */}
+      <img
+        src={backgroundImageDos}
+        alt="Grupo de Santa Fe Desktop"
+        className="hidden md:block absolute inset-0 w-full h-full object-cover z-0 opacity-45 object-[center_20%]"
       />
 
       {/* Efectos de iluminación sutiles en el fondo */}
@@ -22,34 +31,29 @@ export default function Hero() {
           <img
             src={logoLibertad}
             alt="Águila La Libertad Avanza"
-            className="h-36 md:h-40 w-auto object-contain drop-shadow-[0_0_30px_rgba(212,175,55,0.3)]"
+            className="h-36 md:h-45 w-auto object-contain drop-shadow-[0_0_30px_rgba(212,175,55,0.3)]"
             onError={(e) => {
-              // Si no encuentra la imagen todavía, oculta el recuadro roto para que no moleste
               e.target.style.display = "none";
             }}
           />
         </div>
 
-        {/* Título Principal - Satoshi al extremo con font-black */}
-        <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-none uppercase text-white">
-          La Libertad{" "}
-          <span className="bg-gradient-to-r from-liberty-primary via-liberty-cyan to-liberty-accent bg-clip-text text-transparent">
-            Avanza
-          </span>
+        <h1 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight leading-none uppercase text-white drop-shadow-md">
+          La Libertad Avanza
         </h1>
 
-        <p className="text-xl md:text-2xl font-light tracking-widest text-liberty-text-secondary">
+        <p className="text-lg md:text-2xl font-light tracking-widest text-liberty-text-secondary">
           SANTA FE
         </p>
 
         {/* CTAs Principales con Glows configurados */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <button className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold bg-liberty-card border border-liberty-border text-liberty-text transition-all duration-300 hover:bg-liberty-border/40 hover:text-liberty-cyan cursor-pointer">
-            Quiero Fiscalizar
+          <button className="w-full sm:w-auto px-10 py-4 rounded-4xl font-bold bg-liberty-card border border-liberty-border text-liberty-text transition-all duration-300 hover:bg-liberty-border/40 hover:text-liberty-cyan cursor-pointer">
+            Conocer Propuestas
           </button>
 
-          <button className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold bg-liberty-card border border-liberty-border text-liberty-text transition-all duration-300 hover:bg-liberty-border/40 hover:text-liberty-cyan cursor-pointer">
-            Plataforma de Ideas
+          <button className="w-full sm:w-auto px-10 py-4 rounded-4xl font-bold bg-liberty-card border border-liberty-border text-liberty-text transition-all duration-300 hover:bg-liberty-border/40 hover:text-liberty-cyan cursor-pointer">
+            Sumate al movimiento
           </button>
         </div>
       </div>

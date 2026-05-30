@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; 
-import logo from '../assets/aguila.png'; 
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import logo from "../assets/aguila.png";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // Estado para controlar el menú mobile
 
+  // Efecto para cambiar el estilo al hacer scroll
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
@@ -14,37 +16,51 @@ export default function Navbar() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Bloquear el scroll de la página de fondo cuando el menú esté abierto
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isOpen]);
 
   return (
     <header
       className={`w-full fixed top-0 left-0 z-50 h-16 transition-all duration-300 font-satoshi ${
-        isScrolled
-          ? 'bg-liberty-bg/90 backdrop-blur-md shadow-lg border-b border-liberty-border'
-          : 'bg-transparent border-b border-transparent'
+        isScrolled || isOpen
+          ? "bg-liberty-bg/90 backdrop-blur-md shadow-lg border-b border-liberty-border"
+          : "bg-transparent border-b border-transparent"
       }`}
     >
       <nav className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
-        
-        {/* LOGO E IDENTIDAD (Equilibrado) */}
-        <Link to="/" className="flex items-center  group">
+        {/* LOGO E IDENTIDAD */}
+        <Link
+          to="/"
+          onClick={() => setIsOpen(false)}
+          className="flex items-center group z-50"
+        >
           <div className="relative flex items-center h-9 w-auto transition-transform duration-300 group-hover:scale-105">
             <img
               src={logo}
               alt="La Libertad Avanza Santa Fe"
-              className="h-18 w-auto object-contain brightness-100 group-hover:brightness-110 transition-all"
+              className="h-16 w-auto object-contain brightness-100 group-hover:brightness-110 transition-all"
               onError={(e) => {
-                e.target.style.display = 'none';
+                e.target.style.display = "none";
               }}
             />
           </div>
-          
-          {/* Texto que equilibra la falta de logo horizontal */}
-          <div className="flex flex-col justify-center leading-none">
+
+          <div className="flex flex-col justify-center leading-none ml-2">
             <span className="text-[11px] font-black tracking-tight text-white uppercase group-hover:text-liberty-primary transition-colors">
-              LA LIBERTAD <span className="text-liberty-primary group-hover:text-liberty-cyan transition-colors">AVANZA</span>
+              LA LIBERTAD{" "}
+              <span className="text-liberty-primary group-hover:text-liberty-cyan transition-colors">
+                AVANZA
+              </span>
             </span>
             <span className="text-[9px] font-bold tracking-widest text-liberty-cyan uppercase mt-0.5">
               SANTA FE
@@ -54,39 +70,112 @@ export default function Navbar() {
 
         {/* MENÚ DE NAVEGACIÓN CENTRAL (Desktop) */}
         <div className="hidden md:flex items-center gap-8 text-sm font-medium">
-          <Link 
-            to="/propuestas" 
+          <Link
+            to="/prensa"
+            className="text-liberty-text-secondary hover:text-liberty-cyan transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-cyan after:transition-all hover:after:w-full"
+          >
+            Nosotros
+          </Link>
+          <Link
+            to="/propuestas"
             className="text-liberty-text-secondary hover:text-liberty-cyan transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-cyan after:transition-all hover:after:w-full"
           >
             Propuestas
           </Link>
-          <Link 
-            to="/departamentos" 
-            className="text-liberty-text-secondary hover:text-liberty-cyan transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-cyan after:transition-all hover:after:w-full"
-          >
-            Departamentos
-          </Link>
-          <Link 
-            to="/prensa" 
-            className="text-liberty-text-secondary hover:text-liberty-cyan transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-cyan after:transition-all hover:after:w-full"
-          >
-            Prensa
-          </Link>
-        </div>
-
-        {/* BOTÓN DE ACCIÓN DESTACADO */}
-        <div className="flex items-center">
           <Link
-            to="/militancia"
-            className="relative inline-flex items-center justify-center px-5 py-2 text-xs font-bold uppercase tracking-wider text-white rounded-xl bg-liberty-card border border-liberty-border overflow-hidden transition-all duration-300 hover:border-liberty-primary hover:text-white hover:scale-[1.03] shadow-sm hover:shadow-glow group cursor-pointer"
+            to="/departamentos"
+            className="text-liberty-text-secondary hover:text-liberty-cyan transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-cyan after:transition-all hover:after:w-full"
           >
-            <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-liberty-primary/20 to-transparent -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
-            <span className="relative z-10 flex items-center gap-1.5">
-              Portal Militante
-            </span>
+            Ciudades
+          </Link>
+          <Link
+            to="/prensa"
+            className="text-liberty-text-secondary hover:text-liberty-cyan transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-cyan after:transition-all hover:after:w-full"
+          >
+            Representantes
           </Link>
         </div>
 
+        {/* BOTÓN HAMBURGUESA (Mobile) */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="flex flex-col justify-center items-center md:hidden z-50 w-8 h-8 rounded-lg border border-liberty-border/40 bg-liberty-card/50 space-y-1.5 focus:outline-none cursor-pointer"
+          aria-label="Toggle Menu"
+        >
+          <span
+            className={`block w-4 h-0.5 bg-white transition-all duration-300 ease-out ${
+              isOpen ? "rotate-45 translate-y-2 w-5" : ""
+            }`}
+          />
+          <span
+            className={`block w-5 h-0.5 bg-white transition-all duration-300 ease-out ${
+              isOpen ? "opacity-0" : ""
+            }`}
+          />
+          <span
+            className={`block w-4 h-0.5 bg-white transition-all duration-300 ease-out ${
+              isOpen ? "-rotate-45 -translate-y-2 w-5" : ""
+            }`}
+          />
+        </button>
+
+        <div
+          className={`fixed inset-0 top-0 left-0 w-full h-screen bg-liberty-bg/100 backdrop-blur-xl flex flex-col justify-between transition-all duration-300 md:hidden pt-24 pb-12 px-10 ${
+            isOpen
+              ? "opacity-100 pointer-events-auto translate-x-0"
+              : "opacity-0 pointer-events-none translate-x-full"
+          }`}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-liberty-bg/20 via-transparent to-liberty-bg pointer-events-none" />
+
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-liberty-primary/15 rounded-full blur-[140px] pointer-events-none" />
+
+          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-liberty-cyan/10 rounded-full blur-[120px] pointer-events-none" />
+
+          <div className="absolute top-1/2 right-0 w-[250px] h-[250px] bg-liberty-primary/10 rounded-full blur-[100px] pointer-events-none" />
+
+          {/* ENLACES ALINEADOS A LA IZQUIERDA */}
+          <div className="relative z-10 flex flex-col flex-1 justify-center space-y-6 text-2xl font-black uppercase tracking-widest">
+            <Link
+              to="/prensa"
+              onClick={() => setIsOpen(false)}
+              className="w-full max-w-md text-white hover:text-liberty-cyan transition-colors duration-200 border-b border-liberty-border/30 pb-2 flex justify-center items-center group relative"
+            >
+              <span>Nosotros</span>
+            </Link>
+
+            <Link
+              to="/propuestas"
+              onClick={() => setIsOpen(false)}
+              className="w-full max-w-md text-white hover:text-liberty-cyan transition-colors duration-200 border-b border-liberty-border/30 pb-2 flex justify-center items-center group relative"
+            >
+              <span>Propuestas</span>
+            </Link>
+
+            <Link
+              to="/departamentos"
+              onClick={() => setIsOpen(false)}
+              className="w-full max-w-md text-white hover:text-liberty-cyan transition-colors duration-200 border-b border-liberty-border/30 pb-2 flex justify-center items-center group relative"
+            >
+              <span>Ciudades</span>
+            </Link>
+
+            <Link
+              to="/representantes"
+              onClick={() => setIsOpen(false)}
+              className="w-full max-w-md text-white hover:text-liberty-cyan transition-colors duration-200 border-b border-liberty-border/30 pb-2 flex justify-center items-center group relative"
+            >
+              <span>Representantes</span>
+            </Link>
+          </div>
+
+          {/* FRASE DEL PARTIDO EN LA BASE DEL MENÚ */}
+          <div className="relative z-10 text-center mt-auto pt-8 border-t border-liberty-border/90">
+            <p className="text-sm md:text-sm font-light tracking-wide text-liberty-text-secondary/60 max-w-xs mx-auto leading-relaxed">
+              "Una vida sin libertad no merece ser vivida"
+            </p>
+          </div>
+        </div>
       </nav>
     </header>
   );
