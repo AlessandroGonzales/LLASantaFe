@@ -4,6 +4,8 @@ import ScrollToTop from "./scrolltotop";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import NewsCarousel from "./components/NewCarousel";
+import PropuestasPreview from "./components/PropuestasPreview";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
       <Navbar />
       <Hero/>
       <NewsCarousel/>
+      <PropuestasPreview/>
+      <Footer/>
       </div>
      
     </BrowserRouter>

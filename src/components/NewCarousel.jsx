@@ -1,6 +1,5 @@
 import { useRef } from "react";
 
-// Datos de prueba (Reemplázalos con tus noticias reales o tu llamada a la API)
 const newsData = [
   {
     id: 1,
@@ -177,7 +176,6 @@ export default function NewsCarousel() {
         </div>
       </div>
 
-      {/* Se inyecta así para asegurar que funcione sin necesidad de instalar plugins extra en tu tailwind.config.js */}
       <style
         dangerouslySetInnerHTML={{
           __html: `
