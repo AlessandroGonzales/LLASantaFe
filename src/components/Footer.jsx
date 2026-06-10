@@ -1,4 +1,4 @@
-import logo from "../assets/aguila.png"; // Usamos el águila que ya tenés en el proyecto
+import logo from "../assets/aguila.png"; 
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -6,11 +6,11 @@ export default function Footer() {
   return (
     <footer className="relative bg-liberty-bg border-t border-liberty-border/100 pt-10 pb-8 px-6 font-satoshi overflow-hidden">
       {/* Brillo sutil de fondo para integrarlo a la estética general de la web */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[150px] bg-liberty-primary/10 rounded-full blur-[100px] pointer-events-none z-0" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[150px] bg-liberty-primary/30 rounded-full blur-[100px] pointer-events-none z-0" />
 
       <div className="max-w-7xl mx-auto flex flex-col items-center relative z-10">
         {/* LOGO Y NOMBRE */}
-        <div className="flex flex-col items-center mb-10 group cursor-default">
+        <div className="flex flex-col items-center mb-8 group cursor-default">
           <img
             src={logo}
             alt="La Libertad Avanza Logo"
@@ -18,10 +18,7 @@ export default function Footer() {
             className="h-20 w-auto mb-4 opacity-90 transition-all duration-500 group-hover:scale-105 group-hover:brightness-110 group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.2)]"
           />
           <h3 className="text-white font-black tracking-widest text-lg md:text-xl uppercase text-center">
-            La Libertad{" "}
-            <span className="text-liberty-cyan transition-colors duration-300">
-              Avanza
-            </span>
+            La Libertad Avanza
           </h3>
           <p className="text-liberty-text-secondary font-bold tracking-[0.3em] text-xs md:text-sm mt-1 uppercase text-center">
             Santa Fe
@@ -29,7 +26,7 @@ export default function Footer() {
         </div>
 
         {/* REDES SOCIALES */}
-        <div className="flex gap-8 mb-4 items-center">
+        <div className="flex gap-8 mb-2 items-center">
           {/* Instagram */}
           <a
             href="https://www.instagram.com/lalibertadavanzasantafe/"
