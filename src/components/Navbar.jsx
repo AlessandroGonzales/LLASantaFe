@@ -56,13 +56,11 @@ export default function Navbar() {
           </div>
 
           <div className="flex flex-col justify-center leading-none ml-2">
-            <span className="text-[11px] font-black tracking-tight text-white uppercase group-hover:text-liberty-primary transition-colors">
-              LA LIBERTAD{" "}
-              <span className="text-liberty-primary group-hover:text-liberty-cyan transition-colors">
-                AVANZA
-              </span>
+            <span className="text-[11px] font-black tracking-tight  uppercase group-hover:text-liberty-primary transition-colors">
+              LA LIBERTAD AVANZA
+
             </span>
-            <span className="text-[9px] font-bold tracking-widest text-liberty-cyan uppercase mt-0.5">
+            <span className="text-[9px] font-bold tracking-widest text-white uppercase mt-0.5">
               SANTA FE
             </span>
           </div>
@@ -76,12 +74,12 @@ export default function Navbar() {
           >
             Nosotros
           </Link>
-          <Link
-            to="/propuestas"
+          <a
+            href="#preview"
             className="text-liberty-text-secondary hover:text-liberty-cyan transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-cyan after:transition-all hover:after:w-full"
           >
             Propuestas
-          </Link>
+          </a>
           <Link
             to="/departamentos"
             className="text-liberty-text-secondary hover:text-liberty-cyan transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-cyan after:transition-all hover:after:w-full"

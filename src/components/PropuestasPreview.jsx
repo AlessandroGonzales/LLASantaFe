@@ -3,7 +3,7 @@ import mapaSantaFe from "../assets/mapaSantaFe.png"; // Reemplaza la ruta si est
 
 export default function PropuestasPreview() {
   return (
-    <section className="relative w-full py-6 lg:py-32 bg-liberty-bg overflow-hidden font-satoshi mb-10">
+    <section id="preview" className="relative w-full py-6 lg:py-32 bg-liberty-bg overflow-hidden font-satoshi mb-10">
       {/* LUZ DE FONDO */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-liberty-primary/10 rounded-full blur-[120px] pointer-events-none z-0" />
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-liberty-cyan/5 rounded-full blur-[100px] pointer-events-none z-0" />
