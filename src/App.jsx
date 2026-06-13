@@ -7,6 +7,7 @@ import NewsCarousel from "./components/NewCarousel";
 import PropuestasPreview from "./components/PropuestasPreview";
 import Footer from "./components/Footer";
 import SeccionPropuestas from "./components/SeccionPropuestas";
+import PropuestaDetalle from "./components/PropuestaDetalle";
 
 function Home() {
   return (
@@ -28,10 +29,8 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route
-            path="/propuestas"
-            element={<SeccionPropuestas />}
-          />
+          <Route path="/propuestas" element={<SeccionPropuestas />}/>
+          <Route path="/propuesta/:id" element={<PropuestaDetalle />}/>
         </Routes>
 
         <Footer />

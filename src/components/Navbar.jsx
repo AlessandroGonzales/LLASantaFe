@@ -142,13 +142,13 @@ export default function Navbar() {
               <span>Nosotros</span>
             </Link>
 
-            <Link
-              to="/propuestas"
+            <a
+              href="#preview"
               onClick={() => setIsOpen(false)}
               className="w-full max-w-md text-white hover:text-liberty-cyan transition-colors duration-200 border-b border-liberty-border/30 pb-2 flex justify-center items-center group relative"
             >
               <span>Propuestas</span>
-            </Link>
+            </a>
 
             <Link
               to="/departamentos"
