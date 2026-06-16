@@ -1,43 +1,7 @@
 import { useRef } from "react";
+import { newsData } from "../data/noticiasData";
 
-const newsData = [
-  {
-    id: 1,
-    category: "Legislatura",
-    title: "Reducción de Impuestos",
-    description:
-      "Presentamos el nuevo proyecto para aliviar la carga fiscal en la provincia de Santa Fe.",
-    image:
-      "https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?q=80&w=1000&auto=format&fit=crop",
-  },
-  {
-    id: 2,
-    category: "Gira Provincial",
-    title: "Recorrida en Rosario",
-    description:
-      "Encuentro multitudinario con vecinos y comerciantes del centro rosarino.",
-    image:
-      "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?q=80&w=1000&auto=format&fit=crop",
-  },
-  {
-    id: 3,
-    category: "Juventud",
-    title: "Encuentro de Jóvenes",
-    description:
-      "Más de 500 jóvenes debatieron las bases para el futuro de la provincia.",
-    image:
-      "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=1000&auto=format&fit=crop",
-  },
-  {
-    id: 4,
-    category: "Economía",
-    title: "Plan de Crecimiento",
-    description:
-      "Nuevas medidas propuestas en el bloque para fomentar la inversión privada.",
-    image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop",
-  },
-];
+
 
 export default function NewsCarousel() {
   const carouselRef = useRef(null);

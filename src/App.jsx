@@ -8,6 +8,8 @@ import PropuestasPreview from "./components/PropuestasPreview";
 import Footer from "./components/Footer";
 import SeccionPropuestas from "./components/SeccionPropuestas";
 import PropuestaDetalle from "./components/PropuestaDetalle";
+import NoticiaDetalle from "./components/NoticiasDetalle";
+import Sumate from "./components/Sumate";
 
 function Home() {
   return (
@@ -31,6 +33,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/propuestas" element={<SeccionPropuestas />}/>
           <Route path="/propuesta/:id" element={<PropuestaDetalle />}/>
+          <Route path="/noticia/:id" element={<NoticiaDetalle/>} />
+          <Route path="/sumate" element={<Sumate />}/>
         </Routes>
 
         <Footer />

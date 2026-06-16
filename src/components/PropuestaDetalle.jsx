@@ -40,24 +40,7 @@ export default function PropuestaDetalle() {
       <div className="absolute bottom-20 left-0 w-[600px] h-[600px] bg-liberty-cyan/5 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
-        
-        {/* Botón de Volver Integrado */}
-        <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-12"
-        >
-          <Link 
-            to="/propuestas" 
-            className="inline-flex items-center gap-3 text-liberty-primary hover:text-white transition-colors group text-xs md:text-sm font-black tracking-[0.2em] uppercase"
-          >
-            <span className="p-2 rounded-full bg-liberty-primary/10 group-hover:bg-liberty-primary group-hover:text-black transition-colors duration-300">
-              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            </span>
-            Volver a las propuestas
-          </Link>
-        </motion.div>
+   
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* COLUMNA PRINCIPAL (Contenido) */}

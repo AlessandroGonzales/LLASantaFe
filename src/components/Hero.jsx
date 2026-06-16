@@ -1,7 +1,7 @@
 import logoLibertad from "../assets/logoLibertad.png";
 import backgroundImage from "../assets/mileidiezz.png"; // Para mobile
 import backgroundImageDos from "../assets/mileidiez.png"; // Para Desktop
-
+import { Link } from "react-router-dom";
 export default function Hero() {
   return (
     <header className="relative min-h-[100vh] bg-hero-gradient flex flex-col justify-center items-center px-4 overflow-hidden border-b border-liberty-border">
@@ -50,13 +50,14 @@ export default function Hero() {
           <a href="#preview" className="w-full sm:w-auto px-10 py-4 rounded-4xl font-bold bg-liberty-card border border-liberty-border text-liberty-text transition-all duration-300 hover:bg-liberty-border/40 hover:text-liberty-cyan cursor-pointer">
             Conocer Propuestas
           </a>
-          <button
+          <Link
+            to="/sumate"
             className="w-full sm:w-auto px-10 py-4 rounded-4xl font-bold 
                  bg-[#C026D3] border border-[#C026D3] 
                  text-white hover:bg-[#A21CAF] transition-all duration-300 cursor-pointer"
           >
-            Sumate al partido
-          </button>
+            Súmate al partido
+          </Link>
         </div>
       </div>
     </header>

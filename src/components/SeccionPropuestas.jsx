@@ -23,7 +23,7 @@ export default function SeccionPropuestas() {
       {/* Luces ambientales centradas para acompañar la simetría */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-liberty-cyan/5 rounded-full blur-[160px] pointer-events-none" />
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-liberty-primary/5 rounded-full blur-[140px] pointer-events-none" />
-
+    
       <div className="max-w-6xl mx-auto relative z-10 ">
         {/* ========================================================================= */}
         {/* ENCABEZADO TOTALMENTE CENTRADO Y SIMÉTRICO */}
