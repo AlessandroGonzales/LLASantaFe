@@ -26,7 +26,7 @@ export default function NewsCarousel() {
   };
 
   return (
-    <section className="w-full py-25 bg-liberty-bg border-t border-liberty-border/30 overflow-hidden font-satoshi">
+    <section id="noticias"className="w-full py-25 bg-liberty-bg border-t border-liberty-border/30 overflow-hidden font-satoshi">
         
       {/* TÍTULO DE LA SECCIÓN */}
       <div className="max-w-7xl mx-auto px-6 mb-12 text-center">

@@ -7,9 +7,9 @@
   --font-satoshi: 'Satoshi', sans-serif;
   
   /* Fondo principal ultra oscuro y superficies institucionales */
-  --color-liberty-bg: #110419;          /* El violeta casi negro de los bordes del banner */
-  --color-liberty-surface: #1B0A26;     /* El violeta medio del fondo */
-  --color-liberty-card: #261135;        /* Un tono más claro para contrastar componentes */
+  --color-liberty-bg: #1A0626;       /* El violeta casi negro de los bordes del banner */
+  --color-liberty-surface: #220D30;     /* El violeta medio del fondo */
+  --color-liberty-card: #2D153E;       /* Un tono más claro para contrastar componentes */
   --color-liberty-border: #3D1E54;      /* Bordes sutiles basados en la marca */
 
   /* Identidad y Acciones Principales (El Magenta/Fucsia del ala superior) */

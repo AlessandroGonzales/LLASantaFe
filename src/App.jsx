@@ -10,6 +10,8 @@ import SeccionPropuestas from "./components/SeccionPropuestas";
 import PropuestaDetalle from "./components/PropuestaDetalle";
 import NoticiaDetalle from "./components/NoticiasDetalle";
 import Sumate from "./components/Sumate";
+import NosotrosPreview from "./components/NosotrosPreview";
+import NosotrosHistoria from "./components/NosotrosHistoria";
 
 function Home() {
   return (
@@ -17,6 +19,7 @@ function Home() {
       <Hero />
       <NewsCarousel />
       <PropuestasPreview />
+      <NosotrosPreview/>
     </>
   );
 }
@@ -35,6 +38,7 @@ function App() {
           <Route path="/propuesta/:id" element={<PropuestaDetalle />}/>
           <Route path="/noticia/:id" element={<NoticiaDetalle/>} />
           <Route path="/sumate" element={<Sumate />}/>
+          <Route path="/nosotros" element={<NosotrosHistoria />}/>
         </Routes>
 
         <Footer />

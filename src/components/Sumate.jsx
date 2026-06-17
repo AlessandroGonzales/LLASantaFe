@@ -130,7 +130,7 @@ export default function Sumate() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="w-full max-w-2xl"
         >
-          <div className="bg-liberty-card/40 backdrop-blur-2xl border border-liberty-border/50 rounded-[1.5rem] md:rounded-[2rem] p-6 sm:p-8 md:p-12 shadow-2xl relative overflow-hidden">
+          <div className="bg-liberty-card backdrop-blur-2xl border border-liberty-border/50 rounded-[1.5rem] md:rounded-[2rem] p-6 sm:p-8 md:p-12 shadow-2xl relative overflow-hidden">
             {/* Brillo interno superior */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[2px] bg-gradient-to-r from-transparent via-[#C026D3] to-transparent opacity-50" />
 
