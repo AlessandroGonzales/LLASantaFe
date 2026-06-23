@@ -1,8 +1,6 @@
 import { useRef } from "react";
 import { newsData } from "../data/noticiasData";
 
-
-
 export default function NewsCarousel() {
   const carouselRef = useRef(null);
   const scrollLeft = () => {

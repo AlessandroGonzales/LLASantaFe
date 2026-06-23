@@ -8,8 +8,56 @@ import {
   ShieldCheck,
   ArrowRight,
   CheckCircle2,
+  Users,
+  Flag,
+  Sparkles,
+  Handshake,
+  HeartHandshake,
+  BadgeInfo,
 } from "lucide-react";
 import afiliacion from "../assets/mileirosario.png";
+
+const stats = [
+  { value: "+12.000", label: "voluntarios", icon: Users },
+  { value: "19", label: "departamentos", icon: Flag },
+  { value: "1", label: "misión común", icon: Sparkles },
+];
+
+const benefits = [
+  {
+    title: "Participá de actividades",
+    description:
+      "Eventos, recorridas, encuentros y acciones territoriales en toda la provincia.",
+    icon: Handshake,
+  },
+  {
+    title: "Sumate a equipos de trabajo",
+    description:
+      "Encontrá tu lugar en comunicación, fiscalización, organización o militancia digital.",
+    icon: Users,
+  },
+  {
+    title: "Recibí acompañamiento",
+    description:
+      "Te contacta un referente local para orientarte y darte los próximos pasos.",
+    icon: HeartHandshake,
+  },
+];
+
+const steps = [
+  {
+    title: "Completá tus datos",
+    description: "Ingresá tu información real para poder contactarte.",
+  },
+  {
+    title: "Te contacta un referente",
+    description: "Recibís el seguimiento del equipo de tu localidad.",
+  },
+  {
+    title: "Entrás al movimiento",
+    description: "Te incorporás a actividades, equipos y acciones concretas.",
+  },
+];
 
 export default function Sumate() {
   const [enviado, setEnviado] = useState(false);
@@ -40,269 +88,349 @@ export default function Sumate() {
 
       await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
-        mode: "no-cors", // <-- ESTA ES LA MAGIA QUE SOLUCIONA EL ERROR
+        mode: "no-cors",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
-      // Como usamos 'no-cors', la respuesta es opaca y no podemos leerla.
-      // Pero si el código llegó hasta acá sin saltar al 'catch', el envío fue exitoso.
       setEnviado(true);
     } catch (error) {
       console.error("Error al enviar:", error);
-      alert(
-        "Hubo un problema de conexión. Revisá tu internet e intentá de nuevo.",
-      );
+      alert("Hubo un problema de conexión. Revisá tu internet e intentá de nuevo.");
     } finally {
       setCargando(false);
     }
   };
 
   return (
-    <main className="min-h-screen bg-liberty-bg text-white font-satoshi relative overflow-hidden flex flex-col items-center py-10 md:py-24">
-      {/* Elementos ambientales de fondo */}
-      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#C026D3]/15 via-liberty-bg to-liberty-bg pointer-events-none" />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-liberty-primary/5 rounded-full blur-[150px] pointer-events-none" />
+    <main className="min-h-screen bg-liberty-bg text-white font-satoshi relative overflow-hidden ">
+      {/* Ambient background */}
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top,rgba(217,70,239,0.18)_0%,rgba(30,8,45,0.08)_30%,rgba(30,8,45,0)_65%)]" />
+      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full bg-liberty-primary/10 blur-[180px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-liberty-cyan/10 blur-[160px] pointer-events-none" />
 
-      <div className="w-full max-w-5xl px-4 md:px-6 relative z-10 flex flex-col items-center space-y-12 md:space-y-20">
-        {/* SECCIÓN SUPERIOR: COPY MOTIVACIONAL CENTRADO */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="flex flex-col items-center text-center space-y-6 md:space-y-8 max-w-4xl px-2"
-        >
-          <div className="inline-block mt-16">
-            <span className="bg-[#C026D3]/10 text-[#C026D3] border border-[#C026D3]/30 px-4 md:px-6 py-2 rounded-full text-[10px] sm:text-xs md:text-sm font-black uppercase tracking-[0.15em] shadow-[0_0_20px_rgba(192,38,211,0.15)] block md:inline ">
-              La historia la escriben los que se animan
-            </span>
-          </div>
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-8 md:py-12 mt-14">
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-14 items-start">
+          {/* Left / narrative */}
+          <motion.section
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="pt-10 md:pt-14"
+          >
+            <div className="inline-flex items-center gap-2 rounded-full border border-liberty-border/70 bg-white/5 px-4 py-2 text-[10px] sm:text-xs font-black uppercase tracking-[0.24em] text-liberty-primary shadow-[0_0_24px_rgba(217,70,239,0.12)]">
+              <BadgeInfo className="h-3.5 w-3.5" />
+              No es un formulario. Es un compromiso.
+            </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-6xl font-black uppercase tracking-tight leading-[1.05] md:leading-[0.95] text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-gray-400">
-            La Reconstrucción <br />
-            <span className="text-[#C026D3] drop-shadow-[0_0_15px_rgba(192,38,211,0.4)]">
-              Necesita Leones.
-            </span>
-          </h1>
+            <h1 className="mt-7 max-w-3xl text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-tight text-white">
+              La reconstrucción <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-liberty-primary via-fuchsia-300 to-liberty-cyan drop-shadow-[0_0_18px_rgba(217,70,239,0.25)]">
+                necesita leones.
+              </span>
+            </h1>
 
-          <div className="space-y-4 md:space-y-4 text-base sm:text-lg md:text-xl text-liberty-text-secondary font-light leading-relaxed max-w-3xl mx-auto pt-2 md:pt-4 ">
-            <p>
-              A vos, que te levantás todos los días al alba para sostener a tu
-              familia. A vos, que conseguiste todo por{" "}
-              <strong className="text-white font-bold">mérito propio</strong> y
-              viste cómo políticos corruptos te arrebataban el fruto de tu
-              trabajo. Nos robaron los sueños, pero jamás nos van a quebrar la
-              voluntad. No podemos ser simplistas ni mirar para otro lado; la
-              destrucción que dejaron es total, y{" "}
-              <strong className="text-white font-bold">
-                la obligación de repararla es nuestra.
-              </strong>
+            <p className="mt-6 max-w-2xl text-base sm:text-lg md:text-xl leading-relaxed text-liberty-text-secondary">
+              A vos, que te levantás todos los días para sostener a tu familia.
+              A vos, que construiste tu camino con mérito propio y no te resignaste.
+              Esta provincia necesita personas que den un paso al frente, con convicción,
+              con fuerza y con coraje.
             </p>
-            <p className="text-[#C026D3] font-medium">
-              Este no es un espacio para tibios. Necesitamos tu osadía, tu
-              fuerza y tu valor.
+
+            <p className="mt-4 max-w-2xl text-base sm:text-lg font-medium text-liberty-primary">
+              Este movimiento no busca espectadores. Busca protagonistas.
             </p>
-          </div>
-        </motion.div>
 
-        {/* IMAGEN PANORÁMICA OPCIONAL */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="w-full relative h-48 sm:h-64 md:h-80 rounded-[2rem] overflow-hidden border border-white/10 group shadow-2xl"
-        >
-          <div className="absolute inset-0 bg-black/30 z-10 group-hover:bg-transparent transition-colors duration-700" />
-          <img
-            src={afiliacion}
-            alt="Multitud Bandera Argentina"
-            className="w-full h-full object-cover object-center scale-105 group-hover:scale-100 transition-transform duration-1000"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-liberty-bg via-transparent to-transparent z-15" />
-        </motion.div>
+            {/* Stats */}
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {stats.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <motion.div
+                    key={item.label}
+                    whileHover={{ y: -4 }}
+                    className="rounded-2xl border border-liberty-border/70 bg-liberty-card/70 backdrop-blur-xl p-5 shadow-xl"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="text-3xl font-black tracking-tight text-white">
+                          {item.value}
+                        </div>
+                        <div className="mt-1 text-xs uppercase tracking-[0.2em] text-liberty-text-secondary/80">
+                          {item.label}
+                        </div>
+                      </div>
+                      <div className="rounded-xl border border-white/10 bg-white/5 p-3 text-liberty-cyan">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
 
-        {/* SECCIÓN INFERIOR: FORMULARIO CENTRADO */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="w-full max-w-2xl"
-        >
-          <div className="bg-liberty-card backdrop-blur-2xl border border-liberty-border/50 rounded-[1.5rem] md:rounded-[2rem] p-6 sm:p-8 md:p-12 shadow-2xl relative overflow-hidden">
-            {/* Brillo interno superior */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[2px] bg-gradient-to-r from-transparent via-[#C026D3] to-transparent opacity-50" />
+            {/* Benefits */}
+            <div className="mt-10 grid gap-4">
+              {benefits.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <motion.div
+                    key={item.title}
+                    whileHover={{ x: 4 }}
+                    className="rounded-2xl border border-liberty-border/60 bg-black/20 p-5 md:p-6 shadow-lg backdrop-blur-md"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="rounded-xl border border-liberty-primary/25 bg-liberty-primary/10 p-3 text-liberty-primary">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg md:text-xl font-bold text-white">
+                          {item.title}
+                        </h3>
+                        <p className="mt-1 text-sm md:text-base text-liberty-text-secondary leading-relaxed">
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
 
-            {enviado ? (
-              <div className="flex flex-col items-center justify-center text-center py-10 md:py-16 space-y-6">
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                >
-                  <CheckCircle2 className="w-20 h-20 md:w-24 md:h-24 text-green-500 drop-shadow-[0_0_20px_rgba(34,197,94,0.4)]" />
-                </motion.div>
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tight text-white">
-                  ¡Bienvenido a las fuerzas del cielo!
-                </h3>
-                <p className="text-gray-400 text-base md:text-lg max-w-md">
-                  Tus datos fueron recibidos. Un referente de tu localidad te va
-                  a contactar por WhatsApp en los próximos días.
-                </p>
-                <button
-                  onClick={() => (window.location.href = "/")}
-                  className="mt-6 md:mt-8 px-8 md:px-10 py-3 md:py-4 rounded-full font-bold bg-white text-black hover:bg-gray-200 transition-colors uppercase tracking-widest text-xs md:text-sm"
-                >
-                  Volver al inicio
-                </button>
+            {/* Steps */}
+            <div className="mt-10 rounded-[2rem] border border-liberty-border/60 bg-liberty-surface/80 backdrop-blur-xl p-6 md:p-8 shadow-2xl">
+              <h2 className="text-sm uppercase tracking-[0.25em] text-liberty-cyan font-black">
+                Qué sucede después
+              </h2>
+              <div className="mt-5 grid gap-4">
+                {steps.map((step, index) => (
+                  <div
+                    key={step.title}
+                    className="flex gap-4 rounded-2xl border border-white/6 bg-black/20 p-4"
+                  >
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-liberty-primary/15 border border-liberty-primary/25 text-liberty-primary font-black">
+                      {index + 1}
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-white">{step.title}</h3>
+                      <p className="mt-1 text-sm leading-relaxed text-liberty-text-secondary">
+                        {step.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
-                <div className="text-center mb-6 md:mb-10">
-                  <h2 className="text-2xl md:text-3xl font-black uppercase text-white mb-2 md:mb-3 tracking-wide">
-                    Ficha de Pre-Afiliación
-                  </h2>
-                  <p className="text-xs md:text-sm text-gray-400">
-                    Completá tus datos reales para que podamos contactarte
-                    oficialmente.
+            </div>
+          </motion.section>
+
+          {/* Right / image + form */}
+          <motion.section
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, delay: 0.1 }}
+            className="lg:sticky lg:top-8 pt-6 md:pt-10"
+          >
+            <div className="space-y-6">
+              {/* Hero image */}
+              <div className="relative overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
+                <div className="absolute inset-0 z-10 bg-gradient-to-t from-liberty-bg via-transparent to-transparent opacity-90" />
+                <div className="absolute inset-0 z-10 bg-gradient-to-br from-liberty-primary/10 via-transparent to-liberty-cyan/10" />
+                <img
+                  src={afiliacion}
+                  alt="Militancia y encuentro"
+                  className="h-[300px] md:h-[360px] w-full object-cover object-center scale-[1.03]"
+                />
+
+                <div className="absolute left-5 right-5 bottom-5 z-20 rounded-2xl border border-white/10 bg-black/35 backdrop-blur-xl p-4 md:p-5">
+                  <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] font-black text-liberty-text-secondary">
+                    <span className="h-2 w-2 rounded-full bg-liberty-primary shadow-[0_0_16px_rgba(217,70,239,0.55)]" />
+                    El momento es hoy
+                  </div>
+                  <p className="mt-2 text-lg md:text-xl font-semibold italic text-white">
+                    “Despertando leones”
                   </p>
                 </div>
+              </div>
 
-                {/* Input: Nombre */}
-                <div className="space-y-2 md:space-y-3">
-                  <label className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-gray-400 ml-1">
-                    Nombre y Apellido
-                  </label>
-                  <div className="relative group">
-                    <div className="absolute inset-y-0 left-0 pl-4 md:pl-5 flex items-center pointer-events-none">
-                      <User className="h-4 w-4 md:h-5 md:w-5 text-gray-500 group-focus-within:text-[#C026D3] transition-colors" />
+              {/* Form card */}
+              <div className="rounded-[2rem] border border-liberty-border/70 bg-liberty-card/90 backdrop-blur-2xl shadow-2xl overflow-hidden">
+                <div className="h-1 w-full bg-gradient-to-r from-liberty-primary via-fuchsia-300 to-liberty-cyan" />
+
+                <div className="p-6 sm:p-8 md:p-10">
+                  {enviado ? (
+                    <div className="flex flex-col items-center justify-center text-center py-12 md:py-16 space-y-5">
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", stiffness: 180, damping: 14 }}
+                      >
+                        <CheckCircle2 className="w-20 h-20 md:w-24 md:h-24 text-green-400 drop-shadow-[0_0_20px_rgba(74,222,128,0.35)]" />
+                      </motion.div>
+                      <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white">
+                        ¡Bienvenido a La Libertad Avanza!
+                      </h3>
+                      <p className="text-sm md:text-base text-liberty-text-secondary max-w-md leading-relaxed">
+                        Tus datos fueron recibidos. Un referente de tu localidad te va
+                        a contactar por WhatsApp en los próximos días.
+                      </p>
+                      <button
+                        onClick={() => (window.location.href = "/")}
+                        className="mt-4 inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-sm font-black uppercase tracking-widest text-black transition hover:bg-gray-200"
+                      >
+                        Volver al inicio
+                      </button>
                     </div>
-                    <input
-                      required
-                      type="text"
-                      name="nombre"
-                      value={formData.nombre}
-                      onChange={handleChange}
-                      className="w-full bg-black/40 border border-liberty-border rounded-xl md:rounded-2xl py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-white placeholder-gray-600 focus:outline-none focus:border-[#C026D3] focus:ring-1 focus:ring-[#C026D3] transition-all text-base md:text-lg"
-                      placeholder="Ej: Javier Milei"
-                    />
-                  </div>
-                </div>
-
-                {/* Input: DNI & WhatsApp (Grid) */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
-                  <div className="space-y-2 md:space-y-3">
-                    <label className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-gray-400 ml-1">
-                      DNI (Sin puntos)
-                    </label>
-                    <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-4 md:pl-5 flex items-center pointer-events-none">
-                        <CreditCard className="h-4 w-4 md:h-5 md:w-5 text-gray-500 group-focus-within:text-[#C026D3] transition-colors" />
+                  ) : (
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                      <div className="mb-6">
+                        <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white">
+                          Ingreso al movimiento
+                        </h2>
+                        <p className="mt-2 text-sm md:text-base text-liberty-text-secondary leading-relaxed">
+                          Completá tus datos reales para que podamos contactarte oficialmente.
+                        </p>
                       </div>
-                      <input
-                        required
-                        type="number"
-                        name="dni"
-                        value={formData.dni}
-                        onChange={handleChange}
-                        className="w-full bg-black/40 border border-liberty-border rounded-xl md:rounded-2xl py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-white placeholder-gray-600 focus:outline-none focus:border-[#C026D3] focus:ring-1 focus:ring-[#C026D3] transition-all appearance-none text-base md:text-lg"
-                        placeholder="12345678"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-2 md:space-y-3">
-                    <label className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-gray-400 ml-1">
-                      WhatsApp
-                    </label>
-                    <div className="relative group">
-                      <div className="absolute inset-y-0 left-0 pl-4 md:pl-5 flex items-center pointer-events-none">
-                        <Phone className="h-4 w-4 md:h-5 md:w-5 text-gray-500 group-focus-within:text-[#C026D3] transition-colors" />
+
+                      {/* Nombre */}
+                      <div className="space-y-2">
+                        <label className="ml-1 text-[10px] md:text-xs font-black uppercase tracking-[0.24em] text-gray-300">
+                          Nombre y apellido
+                        </label>
+                        <div className="relative group">
+                          <div className="absolute inset-y-0 left-0 flex items-center pl-4 md:pl-5 pointer-events-none">
+                            <User className="h-4 w-4 md:h-5 md:w-5 text-gray-500 group-focus-within:text-liberty-primary transition-colors" />
+                          </div>
+                          <input
+                            required
+                            type="text"
+                            name="nombre"
+                            value={formData.nombre}
+                            onChange={handleChange}
+                            className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-600 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70"
+                            placeholder="Ej: Javier Milei"
+                          />
+                        </div>
                       </div>
-                      <input
-                        required
-                        type="tel"
-                        name="whatsapp"
-                        value={formData.whatsapp}
-                        onChange={handleChange}
-                        className="w-full bg-black/40 border border-liberty-border rounded-xl md:rounded-2xl py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-white placeholder-gray-600 focus:outline-none focus:border-[#C026D3] focus:ring-1 focus:ring-[#C026D3] transition-all text-base md:text-lg"
-                        placeholder="+54 9 341..."
-                      />
-                    </div>
-                  </div>
-                </div>
 
-                {/* Input: Localidad */}
-                <div className="space-y-2 md:space-y-3">
-                  <label className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-gray-400 ml-1">
-                    Localidad (Santa Fe)
-                  </label>
-                  <div className="relative group">
-                    <div className="absolute inset-y-0 left-0 pl-4 md:pl-5 flex items-center pointer-events-none">
-                      <MapPin className="h-4 w-4 md:h-5 md:w-5 text-gray-500 group-focus-within:text-[#C026D3] transition-colors" />
-                    </div>
-                    <input
-                      required
-                      type="text"
-                      name="localidad"
-                      value={formData.localidad}
-                      onChange={handleChange}
-                      className="w-full bg-black/40 border border-liberty-border rounded-xl md:rounded-2xl py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-white placeholder-gray-600 focus:outline-none focus:border-[#C026D3] focus:ring-1 focus:ring-[#C026D3] transition-all text-base md:text-lg"
-                      placeholder="Ej: Rosario, Santa Fe..."
-                    />
-                  </div>
-                </div>
+                      {/* DNI + WhatsApp */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div className="space-y-2">
+                          <label className="ml-1 text-[10px] md:text-xs font-black uppercase tracking-[0.24em] text-gray-300">
+                            DNI
+                          </label>
+                          <div className="relative group">
+                            <div className="absolute inset-y-0 left-0 flex items-center pl-4 md:pl-5 pointer-events-none">
+                              <CreditCard className="h-4 w-4 md:h-5 md:w-5 text-gray-500 group-focus-within:text-liberty-primary transition-colors" />
+                            </div>
+                            <input
+                              required
+                              type="number"
+                              name="dni"
+                              value={formData.dni}
+                              onChange={handleChange}
+                              className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-600 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70 appearance-none"
+                              placeholder="12345678"
+                            />
+                          </div>
+                        </div>
 
-                {/* Checkbox: Fiscalización */}
-                <div className="pt-4 md:pt-6 mt-2 md:mt-4 border-t border-liberty-border/30">
-                  <label className="flex items-start space-x-3 md:space-x-5 cursor-pointer group bg-black/20 p-4 md:p-5 rounded-xl md:rounded-2xl border border-transparent hover:border-liberty-border/50 transition-colors">
-                    <div className="relative flex-shrink-0 mt-1">
-                      <input
-                        type="checkbox"
-                        name="quiereFiscalizar"
-                        checked={formData.quiereFiscalizar}
-                        onChange={handleChange}
-                        className="sr-only peer"
-                      />
-                      <div className="w-6 h-6 md:w-7 md:h-7 bg-black border-2 border-gray-600 rounded-lg peer-checked:bg-[#C026D3] peer-checked:border-[#C026D3] transition-colors flex items-center justify-center">
-                        <ShieldCheck
-                          className={`w-4 h-4 md:w-5 md:h-5 text-white opacity-0 peer-checked:opacity-100 transition-opacity`}
-                        />
+                        <div className="space-y-2">
+                          <label className="ml-1 text-[10px] md:text-xs font-black uppercase tracking-[0.24em] text-gray-300">
+                            WhatsApp
+                          </label>
+                          <div className="relative group">
+                            <div className="absolute inset-y-0 left-0 flex items-center pl-4 md:pl-5 pointer-events-none">
+                              <Phone className="h-4 w-4 md:h-5 md:w-5 text-gray-500 group-focus-within:text-liberty-primary transition-colors" />
+                            </div>
+                            <input
+                              required
+                              type="tel"
+                              name="whatsapp"
+                              value={formData.whatsapp}
+                              onChange={handleChange}
+                              className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-600 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70"
+                              placeholder="+54 9 341..."
+                            />
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-white font-bold uppercase tracking-wide text-base md:text-lg">
-                        Quiero ser Fiscal
-                      </span>
-                      <span className="text-xs md:text-sm text-gray-400 mt-1 leading-relaxed">
-                        Las elecciones se ganan cuidando los votos. Marcá esta
-                        casilla si estás dispuesto a defender las urnas en tu
-                        ciudad el día de la elección.
-                      </span>
-                    </div>
-                  </label>
-                </div>
 
-                {/* Botón de Submit */}
-                <button
-                  type="submit"
-                  disabled={cargando}
-                  className={`w-full mt-6 md:mt-10 flex items-center justify-center gap-2 md:gap-3 bg-[#C026D3] text-white font-black uppercase tracking-widest py-4 md:py-6 px-4 md:px-6 rounded-xl md:rounded-2xl transition-all duration-300 group text-sm md:text-lg ${cargando ? "opacity-70 cursor-not-allowed" : "hover:bg-[#A21CAF] hover:shadow-[0_0_40px_rgba(192,38,211,0.5)]"}`}
-                >
-                  {cargando ? "Enviando..." : "Sumarme al Equipo"}
-                  {!cargando && (
-                    <ArrowRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-2 transition-transform" />
+                      {/* Localidad */}
+                      <div className="space-y-2">
+                        <label className="ml-1 text-[10px] md:text-xs font-black uppercase tracking-[0.24em] text-gray-300">
+                          Localidad
+                        </label>
+                        <div className="relative group">
+                          <div className="absolute inset-y-0 left-0 flex items-center pl-4 md:pl-5 pointer-events-none">
+                            <MapPin className="h-4 w-4 md:h-5 md:w-5 text-gray-500 group-focus-within:text-liberty-primary transition-colors" />
+                          </div>
+                          <input
+                            required
+                            type="text"
+                            name="localidad"
+                            value={formData.localidad}
+                            onChange={handleChange}
+                            className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-600 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70"
+                            placeholder="Ej: Rosario, Santa Fe"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Checkbox */}
+                      <div className="pt-2">
+                        <label className="group flex cursor-pointer items-start gap-4 rounded-2xl border border-liberty-border/50 bg-black/20 p-4 md:p-5 transition hover:border-liberty-primary/40 hover:bg-black/25">
+                          <div className="relative mt-1 flex-shrink-0">
+                            <input
+                              type="checkbox"
+                              name="quiereFiscalizar"
+                              checked={formData.quiereFiscalizar}
+                              onChange={handleChange}
+                              className="peer sr-only"
+                            />
+                            <div className="flex h-7 w-7 items-center justify-center rounded-lg border-2 border-gray-600 bg-black transition peer-checked:border-liberty-primary peer-checked:bg-liberty-primary">
+                              <ShieldCheck className="h-4 w-4 text-white opacity-0 transition-opacity peer-checked:opacity-100" />
+                            </div>
+                          </div>
+                          <div>
+                            <span className="block text-base md:text-lg font-bold uppercase tracking-wide text-white">
+                              Quiero ser fiscal
+                            </span>
+                            <span className="mt-1 block text-sm md:text-base leading-relaxed text-liberty-text-secondary">
+                              Las elecciones se ganan cuidando los votos. Marcá esta casilla si
+                              estás dispuesto a defender las urnas en tu ciudad el día de la elección.
+                            </span>
+                          </div>
+                        </label>
+                      </div>
+
+                      {/* Submit */}
+                      <button
+                        type="submit"
+                        disabled={cargando}
+                        className={`group mt-3 flex w-full items-center justify-center gap-3 rounded-2xl px-5 py-4 md:py-5 text-sm md:text-lg font-black uppercase tracking-[0.2em] text-white transition-all duration-300 cursor-pointer ${
+                          cargando
+                            ? "cursor-not-allowed bg-liberty-primary/65 opacity-80"
+                            : "bg-gradient-to-r from-liberty-primary via-fuchsia-500 to-liberty-cyan hover:shadow-[0_0_40px_rgba(217,70,239,0.45)] hover:scale-[1.01]"
+                        }`}
+                      >
+                        {cargando ? "Enviando..." : "Quiero ser parte"}
+                        {!cargando && (
+                          <ArrowRight className="h-5 w-5 md:h-6 md:w-6 transition-transform group-hover:translate-x-1.5" />
+                        )}
+                      </button>
+
+                      <p className="mt-3 text-center text-[10px] md:text-xs uppercase tracking-[0.22em] text-gray-300">
+                        Al enviar, acepto ser contactado por los referentes territoriales.
+                      </p>
+                    </form>
                   )}
-                </button>
-
-                <p className="text-[9px] md:text-[11px] text-center text-gray-500 uppercase tracking-widest mt-4 md:mt-6">
-                  Al enviar, acepto ser contactado por los referentes
-                  territoriales.
-                </p>
-              </form>
-            )}
-          </div>
-        </motion.div>
+                </div>
+              </div>
+            </div>
+          </motion.section>
+        </div>
       </div>
     </main>
   );

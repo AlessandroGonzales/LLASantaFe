@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from 'react-router-dom'
-import rominapropuestas from "../assets/rominapropuestas.png"
+import rominapropuestas from "../assets/rominanuevo.jpeg"
 import fotopropuestas from "../assets/fotopropuestas.jpeg"
 import  { propuestasData } from "../data/propuestasData"
 
@@ -118,15 +118,15 @@ export default function SeccionPropuestas() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="col-span-4 h-[70%] mt-auto rounded-3xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.8)] relative z-20 -ml-12 md:-ml-20 mb-8 md:mb-12 group bg-liberty-card"
+                className="col-span-4 h-[84%] mt-auto rounded-3xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.8)] relative z-20 -ml-12 md:-ml-20 mb-8 md:mb-12 group bg-liberty-card"
               >
                 <img
                   src={rominapropuestas} /* REEMPLAZAR */
                   alt="Romina Diez"
                   loading="lazy"
-                  className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"
+                  className="w-full h-full object-cover "
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-liberty-bg/95 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-liberty-bg/45 to-transparent" />
                 <div className="absolute inset-0 bg-liberty-primary/5 group-hover:bg-transparent transition-colors duration-500" />
                 
               </motion.div>

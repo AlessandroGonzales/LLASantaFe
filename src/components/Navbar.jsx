@@ -68,24 +68,24 @@ export default function Navbar() {
 
         {/* MENÚ DE NAVEGACIÓN CENTRAL (Desktop) */}
         <div className="hidden md:flex items-center gap-8 text-sm font-medium">
-          <a
-            href="#noticias"
+          <Link
+            to="/#noticias"
             className="text-liberty-text-secondary hover:text-liberty-cyan transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-cyan after:transition-all hover:after:w-full"
           >
             Noticias
-          </a>
-          <a
-            href="#preview"
+          </Link>
+          <Link
+            to="/#preview"
             className="text-liberty-text-secondary hover:text-liberty-cyan transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-cyan after:transition-all hover:after:w-full"
           >
             Propuestas
-          </a>
-          <a
-            href="#nosotros"
+          </Link>
+          <Link
+            to="/#nosotros"
             className="text-liberty-text-secondary hover:text-liberty-cyan transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-cyan after:transition-all hover:after:w-full cursor-pointer"
           >
             Nosotros
-          </a>
+          </Link>
           <Link
             to="/prensa"
             className="text-liberty-text-secondary hover:text-liberty-cyan transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-cyan after:transition-all hover:after:w-full"
@@ -134,29 +134,29 @@ export default function Navbar() {
 
           {/* ENLACES ALINEADOS A LA IZQUIERDA */}
           <div className="relative z-10 flex flex-col flex-1 justify-center space-y-6 text-2xl font-black uppercase tracking-widest">
-            <a
-              href="#noticias"
+            <Link
+              to="/#noticias"
               onClick={() => setIsOpen(false)}
               className="w-full max-w-md text-white hover:text-liberty-cyan transition-colors duration-200 border-b border-liberty-border/30 pb-2 flex justify-center items-center group relative"
             >
               <span>Noticias</span>
-            </a>
+            </Link>
 
-            <a
-              href="#preview"
+            <Link
+              to="/#preview"
               onClick={() => setIsOpen(false)}
               className="w-full max-w-md text-white hover:text-liberty-cyan transition-colors duration-200 border-b border-liberty-border/30 pb-2 flex justify-center items-center group relative"
             >
               <span>Propuestas</span>
-            </a>
+            </Link>
 
-            <a
-              href="#nosotros"
+            <Link
+              to="/#nosotros"
               onClick={() => setIsOpen(false)}
               className="w-full max-w-md text-white hover:text-liberty-cyan transition-colors duration-200 border-b border-liberty-border/30 pb-2 flex justify-center items-center group relative cursor-pointer"
             >
               <span>Nosotros</span>
-            </a>
+            </Link>
 
             <Link
               to="/representantes"

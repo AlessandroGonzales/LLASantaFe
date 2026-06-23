@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import uno from "../assets/santafe.jpeg"
 import santafedos from "../assets/santafedos.jpeg"
 import santafetres from "../assets/santafetres.jpeg"
-import rominasantafe from "../assets/romisantafe.jpeg"
+import rominasantafe from "../assets/romisantafe.png"
 import karina from "../assets/karina.jpeg"
 import libertad from "../assets/libertad.jpeg"
 

@@ -42,7 +42,7 @@ export default function NoticiaDetalle() {
     <main className="bg-liberty-bg text-white min-h-screen font-satoshi relative overflow-hidden pb-20">
       {/* IMAGEN HERO INMERSIVA */}
       <div className="relative w-full h-[40vh] md:h-[50vh] overflow-hidden">
-        <div className="absolute inset-0 bg-black/50 z-10" />
+        <div className="absolute inset-0 bg-black/30 z-10" />
         <div className="absolute inset-0 bg-gradient-to-t from-liberty-bg via-liberty-bg/80 to-transparent z-10" />
         <img
           src={noticia.image}
@@ -119,7 +119,7 @@ export default function NoticiaDetalle() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="sticky top-24 bg-gradient-to-b from-liberty-card to-liberty-bg border border-liberty-border/50 rounded-2xl p-6 lg:p-8 shadow-2xl"
+              className="sticky top-24 bg-gradient-to-b from-liberty-card to-liberty-bg border border-liberty-border/50 rounded-2xl p-6 lg:p-6 shadow-2xl"
             >
               <div className="absolute -top-px left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-liberty-primary/70 to-transparent" />
 
@@ -192,7 +192,7 @@ export default function NoticiaDetalle() {
                 {/* Botón Compartir (WSP/General) */}
                 <button
                   onClick={handleShare}
-                  className="w-full flex items-center justify-center gap-3 bg-liberty-primary/10 text-liberty-primary border border-liberty-primary/30 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-liberty-primary hover:text-black transition-all duration-300"
+                  className="w-full flex items-center justify-center gap-3 bg-liberty-primary/10 text-liberty-primary border border-liberty-primary/30 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-liberty-primary hover:text-black transition-all duration-300  cursor-pointer"
                 >
                   <Share2 className="w-5 h-5" />
                   Copiar Enlace

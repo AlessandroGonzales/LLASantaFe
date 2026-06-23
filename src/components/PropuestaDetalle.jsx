@@ -83,7 +83,7 @@ export default function PropuestaDetalle() {
             >
               {/* Resumen Ejecutivo Destacado */}
               <div className="bg-gradient-to-br from-liberty-card to-liberty-bg border border-liberty-border/50 rounded-2xl p-8 mb-10 relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-liberty-primary/10 rounded-full blur-[40px] group-hover:bg-liberty-primary/20 transition-colors duration-700" />
+                <div className="absolute top-0 right-0 w-36 h-40 bg-liberty-primary/30 rounded-full blur-[50px] group-hover:bg-liberty-primary/20 transition-colors duration-700" />
                 <h3 className="text-sm font-black uppercase tracking-[0.2em] mb-4 text-liberty-primary">
                   Resumen Ejecutivo
                 </h3>
@@ -122,7 +122,7 @@ export default function PropuestaDetalle() {
                 {/* Botón Descargar PDF */}
                 <button
                   onClick={handleDownloadPDF}
-                  className="w-full flex items-center justify-center gap-3 bg-liberty-primary text-black font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-white hover:-translate-y-1 transition-all duration-300 shadow-[0_5px_20px_rgba(255,215,0,0.15)] hover:shadow-[0_10px_30px_rgba(255,215,0,0.3)]"
+                  className="w-full flex items-center justify-center gap-3 bg-liberty-primary text-black font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-white hover:-translate-y-1 transition-all duration-300 shadow-[0_5px_20px_rgba(255,215,0,0.15)] hover:shadow-[0_10px_30px_rgba(255,215,0,0.3)]  cursor-pointer"
                 >
                   <Download className="w-5 h-5" />
                   Descargar Proyecto
@@ -131,7 +131,7 @@ export default function PropuestaDetalle() {
                 {/* Botón Compartir WSP */}
                 <button
                   onClick={handleShareWSP}
-                  className="w-full flex items-center justify-center gap-3 bg-liberty-card text-white border border-liberty-border/50 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-[#25D366] hover:border-[#25D366] hover:-translate-y-1 transition-all duration-300 group"
+                  className="w-full flex items-center justify-center gap-3 bg-liberty-card text-white border border-liberty-border/50 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-[#25D366] hover:border-[#25D366] hover:-translate-y-1 transition-all duration-300 group  cursor-pointer"
                 >
                   <Share2 className="w-5 h-5 group-hover:text-white text-[#25D366] transition-colors" />
                   Compartir vía WhatsApp

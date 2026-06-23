@@ -4,7 +4,7 @@ import nosotrosimg from "../assets/nosotros.jpg";
 
 export default function NosotrosPreview() {
   return (
-    <section className="relative w-full py-24 md:py-40 flex justify-center px-4 md:px-8 z-10 overflow-hidden bg-liberty-bg">
+    <section id="nosotros"className="relative w-full py-24 md:py-40 flex justify-center px-4 md:px-8 z-10 overflow-hidden bg-liberty-bg">
       
       {/* Luces cinematográficas de fondo - Más amplias y difusas */}
       <div className="absolute top-0 left-1/4 -translate-x-1/2 w-[800px] h-[800px] bg-liberty-cyan/5 rounded-full blur-[150px] pointer-events-none mix-blend-screen" />

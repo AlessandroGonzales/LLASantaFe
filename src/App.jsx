@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import ScrollToTop from "./ScrollToTop";
 import Navbar from "./components/Navbar";
@@ -14,6 +15,26 @@ import NosotrosPreview from "./components/NosotrosPreview";
 import NosotrosHistoria from "./components/NosotrosHistoria";
 
 function Home() {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Si la URL tiene un hash (ej: #preview), hacemos scroll suave hacia él
+    if (location.hash) {
+      const id = location.hash.replace("#", ""); // Quitamos el "#"
+      const element = document.getElementById(id);
+      
+      if (element) {
+        // Usamos un pequeño timeout para asegurar que React ya renderizó la sección
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+    } else {
+      // Si estamos en el home pero no hay hash, vamos arriba de todo
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [location]);
+  
   return (
     <>
       <Hero />
