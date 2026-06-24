@@ -34,12 +34,12 @@ export default function PropuestaDetalle() {
   };
 
   return (
-    <main className="bg-liberty-bg text-white min-h-screen font-satoshi relative overflow-hidden pt-24 pb-20">
+    <main className="bg-liberty-bg text-white min-h-screen font-satoshi relative  pt-24 pb-20">
       {/* Fondos ambientales épicos */}
       <div className="absolute top-0 right-0 w-[800px] h-[600px] bg-liberty-primary/5 rounded-full blur-[160px] pointer-events-none" />
       <div className="absolute bottom-20 left-0 w-[600px] h-[600px] bg-liberty-cyan/5 rounded-full blur-[150px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
+      <div className="w-full md:max-w-9/12 mx-auto px-6 md:px-12 relative z-10">
    
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
@@ -70,7 +70,7 @@ export default function PropuestaDetalle() {
               
               <div className="relative mb-12">
                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-liberty-primary to-transparent" />
-                <p className="text-xl md:text-2xl text-liberty-text-secondary font-light leading-relaxed pl-6 lg:pl-8">
+                <p className="text-xl md:text-2xl text-liberty-text-secondary  leading-relaxed pl-6 lg:pl-8">
                   {propuesta.bajada}
                 </p>
               </div>
@@ -93,7 +93,7 @@ export default function PropuestaDetalle() {
               </div>
 
               {/* Texto Minucioso Completo */}
-              <div className="whitespace-pre-line text-base md:text-lg font-light text-liberty-text-secondary leading-loose">
+              <div className="whitespace-pre-line text-base md:text-lg text-liberty-text-secondary leading-loose">
                 {/* 
                   Nota: Si tu data no tiene 'contenidoCompleto' aún, esto mostrará el 'detalle' por defecto para que no quede vacío.
                   Asegúrate de agregar 'contenidoCompleto' a tus objetos en propuestasData.
@@ -114,7 +114,7 @@ export default function PropuestaDetalle() {
               {/* Acento superior */}
               <div className="absolute -top-px left-1/2 -translate-x-1/2 w-1/2 h-[2px] bg-gradient-to-r from-transparent via-liberty-primary to-transparent" />
 
-              <h4 className="text-xs uppercase tracking-[0.2em] text-white/50 mb-8 font-black text-center">
+              <h4 className="text-xs uppercase tracking-[0.2em] text-white mb-8 font-black text-center">
                 Involucrate
               </h4>
 
@@ -138,8 +138,8 @@ export default function PropuestaDetalle() {
                 </button>
               </div>
 
-              <div className="mt-8 pt-8 border-t border-liberty-border/20 text-center">
-                <p className="text-xs text-liberty-text-secondary leading-relaxed font-medium">
+              <div className="mt-6 pt-4 border-t border-liberty-border/20 text-center">
+                <p className="text-sm text-liberty-text-secondary leading-relaxed font-medium">
                   Difundiendo nuestras ideas nos ayudás a romper el cerco
                   mediático.
                   <span className="block mt-2 text-white font-black tracking-widest uppercase">

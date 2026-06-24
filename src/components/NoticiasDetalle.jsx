@@ -39,9 +39,9 @@ export default function NoticiaDetalle() {
   };
 
   return (
-    <main className="bg-liberty-bg text-white min-h-screen font-satoshi relative overflow-hidden pb-20">
+    <main className="bg-liberty-bg text-white min-h-screen font-satoshi relative pb-20">
       {/* IMAGEN HERO INMERSIVA */}
-      <div className="relative w-full h-[40vh] md:h-[50vh] overflow-hidden">
+      <div className="relative w-full h-[40vh] md:h-[50vh]">
         <div className="absolute inset-0 bg-black/30 z-10" />
         <div className="absolute inset-0 bg-gradient-to-t from-liberty-bg via-liberty-bg/80 to-transparent z-10" />
         <img
@@ -53,7 +53,7 @@ export default function NoticiaDetalle() {
       </div>
 
       {/* CONTENIDO PRINCIPAL */}
-      <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-20 -mt-20 md:-mt-32">
+      <div className="max-w-5/6 mx-auto px-6 md:px-12 relative z-20 -mt-20 md:-mt-32">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* COLUMNA IZQUIERDA (Texto de la Noticia) */}
           <div className="lg:col-span-8">
@@ -78,7 +78,7 @@ export default function NoticiaDetalle() {
               </h1>
 
               {/* Bajada */}
-              <p className="text-xl md:text-2xl text-liberty-primary font-light leading-relaxed mb-10 border-l-2 border-liberty-primary pl-6">
+              <p className="text-xl md:text-2xl text-liberty-primary   mb-10 border-l-2 border-liberty-primary pl-6">
                 {noticia.description}
               </p>
             </motion.div>
@@ -107,14 +107,14 @@ export default function NoticiaDetalle() {
               </div>
 
               {/* Cuerpo de la noticia */}
-              <div className="whitespace-pre-line text-base md:text-lg font-light text-gray-300 leading-loose">
+              <div className="whitespace-pre-line text-base md:text-lg text-gray-200 leading-loose">
                 {noticia.contenido}
               </div>
             </motion.div>
           </div>
 
           {/* COLUMNA DERECHA (Acciones y Redes - Sticky) */}
-          <div className="lg:col-span-4 relative">
+          <div className="lg:col-span-3 relative">
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -126,7 +126,7 @@ export default function NoticiaDetalle() {
               <h4 className="text-sm uppercase tracking-[0.2em] text-white mb-2 font-black text-center">
                 Rompé el cerco
               </h4>
-              <p className="text-xs text-liberty-text-secondary text-center mb-8 leading-relaxed">
+              <p className="text-sm text-liberty-text-secondary text-center mb-8 leading-relaxed">
                 Los medios no te van a mostrar esto. Ayudanos a difundir la
                 verdad compartiendo esta noticia.
               </p>

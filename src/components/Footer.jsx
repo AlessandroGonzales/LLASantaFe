@@ -15,6 +15,7 @@ export default function Footer() {
             src={logo}
             alt="La Libertad Avanza Logo"
             loading="lazy"
+            decoding="async"
             className="h-20 w-auto mb-4 opacity-90 transition-all duration-500 group-hover:scale-105 group-hover:brightness-110 group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.2)]"
           />
           <h3 className="text-white font-black tracking-widest text-lg md:text-xl uppercase text-center">

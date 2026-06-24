@@ -9,13 +9,13 @@ import libertad from "../assets/libertad.jpeg"
 
 export default function NosotrosHistoria() {
   return (
-    <section className="relative w-full py-24 md:py-32 bg-liberty-bg text-white overflow-hidden">
+    <section className="relative w-full py-24  bg-liberty-bg text-white overflow-hidden">
       
       {/* Brillos sutiles de fondo */}
       <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-liberty-primary/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute bottom-1/4 left-0 w-[600px] h-[600px] bg-liberty-cyan/5 rounded-full blur-[150px] pointer-events-none" />
 
-      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12 space-y-32 md:space-y-48 relative z-10">
+      <div className="w-full  px-4 md:px-8 xl:px-12 space-y-32 md:space-y-48 relative z-10">
         
         {/* =========================================
             BLOQUE 1: AÑO 2023 - EL DESPERTAR

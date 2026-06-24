@@ -4,7 +4,7 @@ import mapaSantaFe from "../assets/mapaSantaFe.png"; // Reemplaza la ruta si est
 
 export default function PropuestasPreview() {
   return (
-    <section id="preview" className="relative w-full py-6 lg:py-22 bg-liberty-bg overflow-hidden font-satoshi mb-10">
+    <section id="preview" className="relative w-full py-1 lg:py-14 bg-liberty-bg overflow-hidden font-satoshi mb-10">
       
       {/* LUZ DE FONDO (Animada sutilmente) */}
       <motion.div 
@@ -55,12 +55,12 @@ export default function PropuestasPreview() {
             className="w-full lg:w-1/2 flex justify-center relative group"
           >
             {/* Círculo de luz dinámico detrás del mapa */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-liberty-primary/20 to-transparent rounded-full blur-[60px] lg:blur-[80px] opacity-40 group-hover:opacity-80 transition-opacity duration-700" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-liberty-primary/30 to-transparent rounded-full blur-[60px] lg:blur-[80px] opacity-40 group-hover:opacity-80 transition-opacity duration-700" />
 
             <img
               src={mapaSantaFe}
               alt="Mapa de los Departamentos de Santa Fe"
-              className="w-3/5 sm:w-1/2 lg:w-3/4 h-auto object-contain drop-shadow-[0_0_30px_rgba(212,175,55,0.15)] transition-transform duration-700 group-hover:-translate-y-3 group-hover:scale-105 z-10 relative"
+              className="w-4/5 sm:w-1/2 lg:w-4/5 h-auto object-contain drop-shadow-[0_0_30px_rgba(212,175,55,0.15)] transition-transform duration-700 group-hover:-translate-y-3 group-hover:scale-105 z-10 relative"
             />
           </motion.div>
 
@@ -78,7 +78,7 @@ export default function PropuestasPreview() {
               <span className="text-xs md:text-sm font-bold tracking-[0.3em] text-liberty-cyan uppercase">
                 El plan para la provincia
               </span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-none drop-shadow-md mt-5">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase drop-shadow-md mt-3">
                 Nuestras <br className="hidden lg:block" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-liberty-text-secondary">
                   Propuestas
@@ -92,9 +92,9 @@ export default function PropuestasPreview() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-              className="text-base md:text-lg text-liberty-text-secondary font-light leading-relaxed max-w-2xl"
+              className="text-base md:text-lg text-liberty-text-secondary max-w-2xl"
             >
-              Tenemos un plan integral diseñado para transformar cada rincón de la provincia de Santa Fe. Desde el norte productivo hasta el sur industrial, nuestras ideas nacen de escuchar a los santafesinos y aplicar los valores de la libertad para volver a ser el motor del país.
+              Tenemos un plan integral diseñado para transformar cada rincón de la provincia de Santa Fe. Desde el norte productivo hasta el sur industrial, nuestras ideas nacen de escuchar a los santafesinos y aplicar los valores de la libertad para volver a ser el grande el país nuevamente.
             </motion.p>
 
             {/* Botón de Acción */}

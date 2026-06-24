@@ -111,8 +111,12 @@ export default function Sumate() {
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full bg-liberty-primary/10 blur-[180px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-liberty-cyan/10 blur-[160px] pointer-events-none" />
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-8 md:py-12 mt-14">
-        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-14 items-start">
+      {/* CONTENEDOR PRINCIPAL: Expansivo con padding dinámico en lugar de max-w */}
+      <div className="relative z-10 w-full px-6 md:px-16 lg:px-24 xl:px-32 py-8 md:py-12 mt-14">
+        
+        {/* GRID: Aumentamos el gap (lg:gap-20 xl:gap-24) para aprovechar la amplitud */}
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-20 xl:gap-24 items-start">
+          
           {/* Left / narrative */}
           <motion.section
             initial={{ opacity: 0, y: 22 }}
@@ -140,7 +144,7 @@ export default function Sumate() {
             </p>
 
             <p className="mt-4 max-w-2xl text-base sm:text-lg font-medium text-liberty-primary">
-              Este movimiento no busca espectadores. Busca protagonistas.
+              Queremos que seas parte de esta convocatoria histórica. 
             </p>
 
             {/* Stats */}
@@ -230,7 +234,7 @@ export default function Sumate() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.1 }}
-            className="lg:sticky lg:top-8 pt-6 md:pt-10"
+            className="sticky lg:top-8 pt-6 md:pt-10"
           >
             <div className="space-y-6">
               {/* Hero image */}
@@ -242,16 +246,6 @@ export default function Sumate() {
                   alt="Militancia y encuentro"
                   className="h-[300px] md:h-[360px] w-full object-cover object-center scale-[1.03]"
                 />
-
-                <div className="absolute left-5 right-5 bottom-5 z-20 rounded-2xl border border-white/10 bg-black/35 backdrop-blur-xl p-4 md:p-5">
-                  <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] font-black text-liberty-text-secondary">
-                    <span className="h-2 w-2 rounded-full bg-liberty-primary shadow-[0_0_16px_rgba(217,70,239,0.55)]" />
-                    El momento es hoy
-                  </div>
-                  <p className="mt-2 text-lg md:text-xl font-semibold italic text-white">
-                    “Despertando leones”
-                  </p>
-                </div>
               </div>
 
               {/* Form card */}
@@ -277,7 +271,7 @@ export default function Sumate() {
                       </p>
                       <button
                         onClick={() => (window.location.href = "/")}
-                        className="mt-4 inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-sm font-black uppercase tracking-widest text-black transition hover:bg-gray-200"
+                        className="mt-4 inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-sm font-black uppercase tracking-widest text-black transition hover:bg-gray-200 cursor-pointer"
                       >
                         Volver al inicio
                       </button>
@@ -300,7 +294,7 @@ export default function Sumate() {
                         </label>
                         <div className="relative group">
                           <div className="absolute inset-y-0 left-0 flex items-center pl-4 md:pl-5 pointer-events-none">
-                            <User className="h-4 w-4 md:h-5 md:w-5 text-gray-500 group-focus-within:text-liberty-primary transition-colors" />
+                            <User className="h-4 w-4 md:h-5 md:w-5 text-gray-200 group-focus-within:text-liberty-primary transition-colors" />
                           </div>
                           <input
                             required
@@ -322,7 +316,7 @@ export default function Sumate() {
                           </label>
                           <div className="relative group">
                             <div className="absolute inset-y-0 left-0 flex items-center pl-4 md:pl-5 pointer-events-none">
-                              <CreditCard className="h-4 w-4 md:h-5 md:w-5 text-gray-500 group-focus-within:text-liberty-primary transition-colors" />
+                              <CreditCard className="h-4 w-4 md:h-5 md:w-5 text-gray-200 group-focus-within:text-liberty-primary transition-colors" />
                             </div>
                             <input
                               required
@@ -342,7 +336,7 @@ export default function Sumate() {
                           </label>
                           <div className="relative group">
                             <div className="absolute inset-y-0 left-0 flex items-center pl-4 md:pl-5 pointer-events-none">
-                              <Phone className="h-4 w-4 md:h-5 md:w-5 text-gray-500 group-focus-within:text-liberty-primary transition-colors" />
+                              <Phone className="h-4 w-4 md:h-5 md:w-5 text-gray-200 group-focus-within:text-liberty-primary transition-colors" />
                             </div>
                             <input
                               required
@@ -364,7 +358,7 @@ export default function Sumate() {
                         </label>
                         <div className="relative group">
                           <div className="absolute inset-y-0 left-0 flex items-center pl-4 md:pl-5 pointer-events-none">
-                            <MapPin className="h-4 w-4 md:h-5 md:w-5 text-gray-500 group-focus-within:text-liberty-primary transition-colors" />
+                            <MapPin className="h-4 w-4 md:h-5 md:w-5 text-gray-200 group-focus-within:text-liberty-primary transition-colors" />
                           </div>
                           <input
                             required
