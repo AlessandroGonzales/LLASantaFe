@@ -16,7 +16,7 @@ export default function Footer() {
             alt="La Libertad Avanza Logo"
             loading="lazy"
             decoding="async"
-            className="h-20 w-auto mb-4 opacity-90 transition-all duration-500 group-hover:scale-105 group-hover:brightness-110 group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.2)]"
+            className="h-22 w-auto mb-2 opacity-100 transition-all duration-500 group-hover:scale-105 group-hover:brightness-110 group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.2)]"
           />
           <h3 className="text-white font-black tracking-widest text-lg md:text-xl uppercase text-center">
             La Libertad Avanza
@@ -71,7 +71,7 @@ export default function Footer() {
         <div className="w-full max-w-2xl h-px bg-gradient-to-r from-transparent via-liberty-border/40 to-transparent mb-6" />
 
         {/* COPYRIGHT Y TEXTO LEGAL */}
-        <div className="flex flex-col justify-between w-full items-center gap-4 text-liberty-text-secondary/80 text-[10px] md:text-xs uppercase tracking-[2px] ">
+        <div className="flex flex-col justify-between w-full items-center gap-4 text-liberty-text-secondary/80 text-[11px] md:text-xs uppercase tracking-[2px] ">
           <p className="text-center">
             © {currentYear} LLA SANTA FE - TODOS LOS DERECHOS RESERVADOS.
           </p>

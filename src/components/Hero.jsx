@@ -11,7 +11,7 @@ export default function Hero() {
       {/* IMAGEN PARA MOBILE: Se muestra por defecto y se oculta a partir de pantallas medianas (md) */}
       <motion.img
         initial={{ opacity: 0, scale: 1.05 }}
-        animate={{ opacity: 0.75, scale: 1 }}
+        animate={{ opacity: 0.85, scale: 1 }}
         transition={{ duration: 1.5, ease: "easeOut" }}
         src={backgroundImage}
         alt="Grupo de Santa Fe Mobile"
@@ -21,7 +21,7 @@ export default function Hero() {
       {/* IMAGEN PARA DESKTOP: Oculta por defecto (hidden) y se activa solo en pantallas md en adelante */}
       <motion.img
         initial={{ opacity: 0, scale: 1.05 }}
-        animate={{ opacity: 0.75, scale: 1 }}
+        animate={{ opacity: 0.85, scale: 1 }}
         transition={{ duration: 1.5, ease: "easeOut" }}
         src={backgroundImageDos}
         alt="Grupo de Santa Fe Desktop"
@@ -78,7 +78,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.6 }}
-          className="text-lg md:text-2xl font-light tracking-widest text-liberty-text-secondary mb-32"
+          className="text-lg md:text-2xl tracking-widest text-liberty-text-secondary mb-32"
         >
           SANTA FE
         </motion.p>

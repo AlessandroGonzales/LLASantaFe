@@ -33,13 +33,13 @@ export default function SeccionPropuestas() {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[120px] bg-liberty-primary/30 rounded-full blur-[100px] pointer-events-none z-0" />
             <h1 className="relative z-10 text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight leading-[0.95] max-w-4xl">
               El Plan para Transformar <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-liberty-primary to-white">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-liberty-primary">
                 Santa Fe
               </span>
             </h1>
           </div>
 
-          <p className="text-liberty-text-secondary font-light leading-relaxed max-w-3xl mt-10 text-lg md:text-xl">
+          <p className="text-liberty-text-secondary leading-relaxed max-w-3xl mt-10 text-lg md:text-xl">
             No venimos a solucionar un sistema que está roto. Presentamos un
             esquema de reformas estructurales basado en las ideas de la
             libertad, la desregulación económica y el orden institucional para
@@ -47,14 +47,14 @@ export default function SeccionPropuestas() {
             provincia.
           </p>
 
-          <div className="w-full md:max-w-9/12 mt-20 grid gap-6 md:grid-cols-3 bg-gradient-to-b from-liberty-card to-liberty-card/40 border border-liberty-border/50 rounded-2xl p-6 lg:p-8 relative shadow-xl text-left">
+          <div className="w-full md:max-w-3/5 mt-20 grid gap-6 md:grid-cols-3 bg-gradient-to-b from-liberty-card to-liberty-card/40 border border-liberty-border/50 rounded-2xl p-6 lg:p-8 relative shadow-xl text-left">
             <div className="absolute -top-px left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-liberty-primary/70 to-transparent" />
 
             <div className="space-y-2">
               <div className="text-liberty-primary font-black text-lg">
                 01. Gasto Político
               </div>
-              <p className="text-base md:text-base text-liberty-text-secondary leading-relaxed font-light">
+              <p className="text-base md:text-base text-liberty-text-secondary leading-relaxed ">
                 Reducción Drástica: Todo el ahorro fiscal generado por el
                 achicamiento del Estado vuelve directo al bolsillo de los
                 contribuyentes.
@@ -65,7 +65,7 @@ export default function SeccionPropuestas() {
               <div className="text-liberty-primary font-black text-lg">
                 02. Sector Privado
               </div>
-              <p className="text-base md:text-base text-liberty-text-secondary leading-relaxed font-light">
+              <p className="text-base md:text-base text-liberty-text-secondary leading-relaxed ">
                 Fin del Ajuste: Eliminación absoluta de trabas regulatorias,
                 tasas municipales obsoletas e impuestos distorsivos a la
                 producción.
@@ -76,7 +76,7 @@ export default function SeccionPropuestas() {
               <div className="text-liberty-primary font-black text-lg">
                 03. Orden Absoluto
               </div>
-              <p className="text-base md:text-base text-liberty-text-secondary leading-relaxed font-light">
+              <p className="text-base md:text-base text-liberty-text-secondary leading-relaxed ">
                 Seguridad y Justicia: Respaldo político e institucional total a
                 nuestras fuerzas policiales para recuperar el control de las
                 calles.
@@ -166,7 +166,7 @@ export default function SeccionPropuestas() {
             className="flex justify-center md:justify-end mt-8"
           >
             <div className="max-w-2xl text-center md:text-right">
-              <p className="text-liberty-text-secondary text-base md:text-xl leading-relaxed font-light">
+              <p className="text-liberty-text-secondary text-base md:text-xl leading-relaxed">
                 No vinimos a guiar corderos, vinimos a despertar leones. Es hora
                 de llevar las banderas de la libertad económica, el orden
                 absoluto y el progreso a cada rincón de nuestra provincia. El

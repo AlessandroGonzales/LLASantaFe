@@ -39,7 +39,7 @@ export default function PropuestasPreview() {
               </span>
               <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none mt-5">
                 Nuestras{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-liberty-text-secondary">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-liberty-primary">
                   Propuestas
                 </span>
               </h2>
@@ -80,7 +80,7 @@ export default function PropuestasPreview() {
               </span>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase drop-shadow-md mt-3">
                 Nuestras <br className="hidden lg:block" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-liberty-text-secondary">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-liberty-primary ">
                   Propuestas
                 </span>
               </h2>

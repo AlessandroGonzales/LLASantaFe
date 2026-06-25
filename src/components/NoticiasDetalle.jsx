@@ -53,7 +53,7 @@ export default function NoticiaDetalle() {
       </div>
 
       {/* CONTENIDO PRINCIPAL */}
-      <div className="max-w-5/6 mx-auto px-6 md:px-12 relative z-20 -mt-20 md:-mt-32">
+      <div className="w-full md:max-w-4/5 mx-auto px-6 md:px-12 relative z-20 -mt-20 md:-mt-32">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* COLUMNA IZQUIERDA (Texto de la Noticia) */}
           <div className="lg:col-span-8">

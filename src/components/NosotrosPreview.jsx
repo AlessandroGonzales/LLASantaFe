@@ -52,11 +52,11 @@ export default function NosotrosPreview() {
 
               <h2 className="text-5xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.85]">
                 El rugido que <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-br from-liberty-primary via-white to-liberty-cyan drop-shadow-2xl">
                   despertó
-                </span>{" "}
                 <br />
-                a Santa Fe.
+                <span className="text-transparent bg-clip-text bg-gradient-to-br from-white to-liberty-primary">
+                  a Santa Fe
+                </span>{" "}
               </h2>
             </div>
 

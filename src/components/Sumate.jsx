@@ -112,7 +112,7 @@ export default function Sumate() {
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-liberty-cyan/10 blur-[160px] pointer-events-none" />
 
       {/* CONTENEDOR PRINCIPAL: Expansivo con padding dinámico en lugar de max-w */}
-      <div className="relative z-10 w-full px-6 md:px-16 lg:px-24 xl:px-32 py-8 md:py-12 mt-14">
+      <div className="relative z-10 w-full px-6 md:px-16 lg:px-24 xl:px-32 py-8 md:py-12 mt-10">
         
         {/* GRID: Aumentamos el gap (lg:gap-20 xl:gap-24) para aprovechar la amplitud */}
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-20 xl:gap-24 items-start">
@@ -129,7 +129,7 @@ export default function Sumate() {
               No es un formulario. Es un compromiso.
             </div>
 
-            <h1 className="mt-7 max-w-3xl text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-tight text-white">
+            <h1 className="mt-7 max-w-3xl text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-black uppercase leading-[0.95] tracking-tight text-white">
               La reconstrucción <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-liberty-primary via-fuchsia-300 to-liberty-cyan drop-shadow-[0_0_18px_rgba(217,70,239,0.25)]">
                 necesita leones.
@@ -249,8 +249,8 @@ export default function Sumate() {
               </div>
 
               {/* Form card */}
-              <div className="rounded-[2rem] border border-liberty-border/70 bg-liberty-card/90 backdrop-blur-2xl shadow-2xl overflow-hidden">
-                <div className="h-1 w-full bg-gradient-to-r from-liberty-primary via-fuchsia-300 to-liberty-cyan" />
+              <div className="rounded-[2rem]  border border-liberty-border/70 bg-liberty-card/90 backdrop-blur-2xl shadow-2xl overflow-hidden">
+                <div className="h-1 w-full  bg-gradient-to-r from-liberty-primary via-fuchsia-300 to-liberty-cyan" />
 
                 <div className="p-6 sm:p-8 md:p-10">
                   {enviado ? (
@@ -280,7 +280,7 @@ export default function Sumate() {
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="mb-6">
                         <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white">
-                          Ingreso al movimiento
+                          Ingreso al partido
                         </h2>
                         <p className="mt-2 text-sm md:text-base text-liberty-text-secondary leading-relaxed">
                           Completá tus datos reales para que podamos contactarte oficialmente.

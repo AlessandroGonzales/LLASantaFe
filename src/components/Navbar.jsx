@@ -87,7 +87,7 @@ export default function Navbar() {
             Nosotros
           </Link>
           <Link
-            to="/prensa"
+            to="/#representantes"
             className="text-liberty-text-secondary hover:text-liberty-cyan transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-cyan after:transition-all hover:after:w-full"
           >
             Representantes
@@ -159,7 +159,7 @@ export default function Navbar() {
             </Link>
 
             <Link
-              to="/representantes"
+              to="/#representantes"
               onClick={() => setIsOpen(false)}
               className="w-full max-w-md text-white hover:text-liberty-cyan transition-colors duration-200 border-b border-liberty-border/30 pb-2 flex justify-center items-center group relative"
             >

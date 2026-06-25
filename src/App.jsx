@@ -13,6 +13,8 @@ import NoticiaDetalle from "./components/NoticiasDetalle";
 import Sumate from "./components/Sumate";
 import NosotrosPreview from "./components/NosotrosPreview";
 import NosotrosHistoria from "./components/NosotrosHistoria";
+import RepresentantesPreview from "./components/RepresentantesPreview";
+import SeccionRepresentantes from "./components/SeccionRepresentantes";
 
 function Home() {
   const location = useLocation();
@@ -40,7 +42,8 @@ function Home() {
       <Hero />
       <NewsCarousel />
       <PropuestasPreview />
-      <NosotrosPreview/>
+      <NosotrosPreview />
+      <RepresentantesPreview />
     </>
   );
 }
@@ -60,6 +63,7 @@ function App() {
           <Route path="/noticia/:id" element={<NoticiaDetalle/>} />
           <Route path="/sumate" element={<Sumate />}/>
           <Route path="/nosotros" element={<NosotrosHistoria />}/>
+          <Route path="/representantes" element={<SeccionRepresentantes />}/>
         </Routes>
 
         <Footer />
