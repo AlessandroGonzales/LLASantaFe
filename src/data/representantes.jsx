@@ -211,7 +211,7 @@ export const concejalesData = [
       twitter: "@Sanfi78800David" 
     },
     mail: "david.sanfilippo@hotmail.com",
-    telefono: "03462-576736",
+    telefono: "3462576736",
     proyectos: "https://www.instagram.com/sanfilippo.david",
     descripcion: "Como concejal liberal libertario en Teodelina, el objetivo no es prometer más cosas, es que el municipio moleste menos y deje que la gente produzca más.",
     foto: david

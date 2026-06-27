@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 // Elimina Instagram del import
-import { ArrowLeft, Share2, TrendingDown, TrendingUp } from "lucide-react";
+import { ArrowLeft, Share2 } from "lucide-react";
 // import { newsData } from "../data/newsData";
 import { newsData } from "../data/noticiasData";
 
@@ -49,7 +49,6 @@ export default function NoticiaDetalle() {
           alt={noticia.title}
           className="w-full h-full object-cover object-center scale-100"
         />
-     
       </div>
 
       {/* CONTENIDO PRINCIPAL */}
@@ -78,7 +77,7 @@ export default function NoticiaDetalle() {
               </h1>
 
               {/* Bajada */}
-              <p className="text-xl md:text-2xl text-liberty-primary   mb-10 border-l-2 border-liberty-primary pl-6">
+              <p className="text-xl md:text-2xl text-liberty-primary  mb-10 border-l-2 border-liberty-primary pl-6">
                 {noticia.description}
               </p>
             </motion.div>
@@ -89,26 +88,34 @@ export default function NoticiaDetalle() {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               {/* Tarjeta de Datos Duros (Para mostrar gestión real) */}
-              <div className="grid grid-cols-2 gap-4 mb-10">
-                <div className="bg-liberty-card/50 border border-liberty-border/50 rounded-xl p-6 flex flex-col items-center justify-center text-center">
-                  <TrendingDown className="w-8 h-8 text-green-400 mb-2" />
-                  <span className="text-3xl font-black text-white">1.2%</span>
-                  <span className="text-xs uppercase tracking-widest text-liberty-text-secondary mt-1">
-                    Inflación mensual
-                  </span>
-                </div>
-                <div className="bg-liberty-card/50 border border-liberty-border/50 rounded-xl p-6 flex flex-col items-center justify-center text-center">
-                  <TrendingUp className="w-8 h-8 text-liberty-primary mb-2" />
-                  <span className="text-3xl font-black text-white">+4.5%</span>
-                  <span className="text-xs uppercase tracking-widest text-liberty-text-secondary mt-1">
-                    Rebote del PBI
-                  </span>
-                </div>
-              </div>
 
               {/* Cuerpo de la noticia */}
-              <div className="whitespace-pre-line text-base md:text-lg text-gray-200 leading-loose">
-                {noticia.contenido}
+              <div className="text-base md:text-lg leading-loose space-y-8">
+                {/* Texto Parte 1 */}
+                <div className="whitespace-pre-line">
+                  {noticia.contenidoParte1}
+                </div>
+
+                {/* Imagen en el medio (Con estilo editorial) */}
+                {noticia.imagenSecundaria && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl my-2 border border-white/10"
+                  >
+                    <img
+                      src={noticia.imagenSecundaria}
+                      alt="Más información"
+                      className="w-full h-full object-cover"
+                    />
+                  </motion.div>
+                )}
+
+                {/* Texto Parte 2 */}
+                <div className="whitespace-pre-line">
+                  {noticia.contenidoParte2}
+                </div>
               </div>
             </motion.div>
           </div>

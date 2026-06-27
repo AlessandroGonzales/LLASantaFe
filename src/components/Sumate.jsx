@@ -8,41 +8,11 @@ import {
   ShieldCheck,
   ArrowRight,
   CheckCircle2,
-  Users,
-  Flag,
-  Sparkles,
-  Handshake,
-  HeartHandshake,
   BadgeInfo,
 } from "lucide-react";
 import afiliacion from "../assets/mileirosario.png";
 
-const stats = [
-  { value: "+12.000", label: "voluntarios", icon: Users },
-  { value: "19", label: "departamentos", icon: Flag },
-  { value: "1", label: "misión común", icon: Sparkles },
-];
 
-const benefits = [
-  {
-    title: "Participá de actividades",
-    description:
-      "Eventos, recorridas, encuentros y acciones territoriales en toda la provincia.",
-    icon: Handshake,
-  },
-  {
-    title: "Sumate a equipos de trabajo",
-    description:
-      "Encontrá tu lugar en comunicación, fiscalización, organización o militancia digital.",
-    icon: Users,
-  },
-  {
-    title: "Recibí acompañamiento",
-    description:
-      "Te contacta un referente local para orientarte y darte los próximos pasos.",
-    icon: HeartHandshake,
-  },
-];
 
 const steps = [
   {
@@ -132,7 +102,7 @@ export default function Sumate() {
             <h1 className="mt-7 max-w-3xl text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-black uppercase leading-[0.95] tracking-tight text-white">
               La reconstrucción <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-liberty-primary via-fuchsia-300 to-liberty-cyan drop-shadow-[0_0_18px_rgba(217,70,239,0.25)]">
-                necesita leones.
+                te necesita
               </span>
             </h1>
 
@@ -147,65 +117,11 @@ export default function Sumate() {
               Queremos que seas parte de esta convocatoria histórica. 
             </p>
 
-            {/* Stats */}
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {stats.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <motion.div
-                    key={item.label}
-                    whileHover={{ y: -4 }}
-                    className="rounded-2xl border border-liberty-border/70 bg-liberty-card/70 backdrop-blur-xl p-5 shadow-xl"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="text-3xl font-black tracking-tight text-white">
-                          {item.value}
-                        </div>
-                        <div className="mt-1 text-xs uppercase tracking-[0.2em] text-liberty-text-secondary/80">
-                          {item.label}
-                        </div>
-                      </div>
-                      <div className="rounded-xl border border-white/10 bg-white/5 p-3 text-liberty-cyan">
-                        <Icon className="h-5 w-5" />
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-
-            {/* Benefits */}
-            <div className="mt-10 grid gap-4">
-              {benefits.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <motion.div
-                    key={item.title}
-                    whileHover={{ x: 4 }}
-                    className="rounded-2xl border border-liberty-border/60 bg-black/20 p-5 md:p-6 shadow-lg backdrop-blur-md"
-                  >
-                    <div className="flex items-start gap-4">
-                      <div className="rounded-xl border border-liberty-primary/25 bg-liberty-primary/10 p-3 text-liberty-primary">
-                        <Icon className="h-5 w-5" />
-                      </div>
-                      <div>
-                        <h3 className="text-lg md:text-xl font-bold text-white">
-                          {item.title}
-                        </h3>
-                        <p className="mt-1 text-sm md:text-base text-liberty-text-secondary leading-relaxed">
-                          {item.description}
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
+         
 
             {/* Steps */}
             <div className="mt-10 rounded-[2rem] border border-liberty-border/60 bg-liberty-surface/80 backdrop-blur-xl p-6 md:p-8 shadow-2xl">
-              <h2 className="text-sm uppercase tracking-[0.25em] text-liberty-cyan font-black">
+              <h2 className="text-sm uppercase tracking-[0.25em] text-center md:text-left font-black">
                 Qué sucede después
               </h2>
               <div className="mt-5 grid gap-4">
@@ -302,7 +218,7 @@ export default function Sumate() {
                             name="nombre"
                             value={formData.nombre}
                             onChange={handleChange}
-                            className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-600 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70"
+                            className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-400 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70"
                             placeholder="Ej: Javier Milei"
                           />
                         </div>
@@ -324,7 +240,7 @@ export default function Sumate() {
                               name="dni"
                               value={formData.dni}
                               onChange={handleChange}
-                              className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-600 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70 appearance-none"
+                              className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-400 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70 appearance-none"
                               placeholder="12345678"
                             />
                           </div>
@@ -344,7 +260,7 @@ export default function Sumate() {
                               name="whatsapp"
                               value={formData.whatsapp}
                               onChange={handleChange}
-                              className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-600 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70"
+                              className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-400 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70"
                               placeholder="+54 9 341..."
                             />
                           </div>
@@ -366,7 +282,7 @@ export default function Sumate() {
                             name="localidad"
                             value={formData.localidad}
                             onChange={handleChange}
-                            className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-600 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70"
+                            className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-400 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70"
                             placeholder="Ej: Rosario, Santa Fe"
                           />
                         </div>
@@ -403,10 +319,10 @@ export default function Sumate() {
                       <button
                         type="submit"
                         disabled={cargando}
-                        className={`group mt-3 flex w-full items-center justify-center gap-3 rounded-2xl px-5 py-4 md:py-5 text-sm md:text-lg font-black uppercase tracking-[0.2em] text-white transition-all duration-300 cursor-pointer ${
+                        className={`group mt-3 flex w-2/4 w-auto items-center justify-center gap-3 rounded-2xl px-5 py-4 md:py-4 text-sm md:text-lg font-black uppercase tracking-[0.2em] text-white transition-all duration-300 cursor-pointer ${
                           cargando
                             ? "cursor-not-allowed bg-liberty-primary/65 opacity-80"
-                            : "bg-gradient-to-r from-liberty-primary via-fuchsia-500 to-liberty-cyan hover:shadow-[0_0_40px_rgba(217,70,239,0.45)] hover:scale-[1.01]"
+                            : "bg-gradient-to-r bg-liberty-primary hover:shadow-[0_0_40px_rgba(217,70,239,0.45)] hover:scale-[1.01]"
                         }`}
                       >
                         {cargando ? "Enviando..." : "Quiero ser parte"}

@@ -122,7 +122,7 @@ export default function RepresentantesPreview() {
               </h2>
 
               <p className="text-lg text-liberty-text-secondary max-w-lg lg:mx-0 mb-10">
-                Ellos son la primera línea de defensa de las ideas de la libertad. Conoce a los representantes que están dando la batalla cultural y política en los concejos deliberantes de toda la provincia de Santa Fe.
+                Ellos son la primera línea de defensa de las ideas de la libertad. Conoce a los representantes que están dando la batalla cultural y política en los concejos de toda la provincia de Santa Fe.
               </p>
             </motion.div>
 

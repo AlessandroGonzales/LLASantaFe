@@ -48,7 +48,7 @@ export default function Navbar() {
             <img
               src={logo}
               alt="La Libertad Avanza Santa Fe"
-              className="h-16 w-auto object-contain brightness-100 group-hover:brightness-110 transition-all"
+              className="h-16 w-auto object-contain brightness-200 group-hover:brightness-110 transition-all"
               onError={(e) => {
                 e.target.style.display = "none";
               }}
@@ -56,18 +56,18 @@ export default function Navbar() {
           </div>
 
           <div className="flex flex-col justify-center leading-none ml-2">
-            <span className="text-[11px] font-black tracking-tight  uppercase group-hover:text-liberty-primary transition-colors">
+            <span className="text-[12px] font-black tracking-tight  uppercase group-hover:text-liberty-primary transition-colors">
               LA LIBERTAD AVANZA
 
             </span>
-            <span className="text-[9px] font-bold tracking-widest text-white uppercase mt-0.5">
+            <span className="text-[10px] font-bold tracking-widest text-white uppercase mt-0.5">
               SANTA FE
             </span>
           </div>
         </Link>
 
         {/* MENÚ DE NAVEGACIÓN CENTRAL (Desktop) */}
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium">
+        <div className="hidden md:flex items-center gap-8 text-[15px] font-medium">
           <Link
             to="/#noticias"
             className="text-liberty-text-secondary hover:text-liberty-cyan transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-cyan after:transition-all hover:after:w-full"
@@ -168,8 +168,8 @@ export default function Navbar() {
           </div>
 
           {/* FRASE DEL PARTIDO EN LA BASE DEL MENÚ */}
-          <div className="relative z-10 text-center mt-auto pt-8 border-t border-liberty-border/90">
-            <p className="text-sm md:text-sm font-light tracking-wide text-liberty-text-secondary/60 max-w-xs mx-auto leading-relaxed">
+          <div className="relative z-10 text-center mt-auto pt-8 border-t border-liberty-border">
+            <p className="text-sm md:text-sm tracking-wide text-liberty-text-secondary max-w-xs mx-auto leading-relaxed">
               "Una vida sin libertad no merece ser vivida"
             </p>
           </div>

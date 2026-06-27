@@ -34,12 +34,14 @@ export default function PropuestaDetalle() {
   };
 
   return (
-    <main className="bg-liberty-bg text-white min-h-screen font-satoshi relative  pt-24 pb-20">
+    <main className="bg-liberty-bg text-white min-h-screen font-satoshi relative pt-24 pb-20">
       {/* Fondos ambientales épicos */}
-      <div className="absolute top-0 right-0 w-[800px] h-[600px] bg-liberty-primary/5 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute bottom-20 left-0 w-[600px] h-[600px] bg-liberty-cyan/5 rounded-full blur-[150px] pointer-events-none" />
-
-      <div className="w-full md:max-w-9/12 mx-auto px-6 md:px-12 relative z-10">
+     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-0 right-0 w-[800px] h-[600px] bg-liberty-primary/5 rounded-full blur-[160px]" />
+        <div className="absolute bottom-20 left-0 w-[600px] h-[600px] bg-liberty-cyan/5 rounded-full blur-[150px]" />
+      </div>
+      
+      <div className="w-full max-w-7xl mx-auto px-4 md:px-8 relative z-10">
    
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">

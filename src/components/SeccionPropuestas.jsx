@@ -48,7 +48,7 @@ export default function SeccionPropuestas() {
           </p>
 
           <div className="w-full md:max-w-3/5 mt-20 grid gap-6 md:grid-cols-3 bg-gradient-to-b from-liberty-card to-liberty-card/40 border border-liberty-border/50 rounded-2xl p-6 lg:p-8 relative shadow-xl text-left">
-            <div className="absolute -top-px left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-liberty-primary/70 to-transparent" />
+            <div className="absolute -top-px left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-liberty-primary to-transparent" />
 
             <div className="space-y-2">
               <div className="text-liberty-primary font-black text-lg">
@@ -66,7 +66,7 @@ export default function SeccionPropuestas() {
                 02. Sector Privado
               </div>
               <p className="text-base md:text-base text-liberty-text-secondary leading-relaxed ">
-                Fin del Ajuste: Eliminación absoluta de trabas regulatorias,
+                Fin del Ajuste: Eliminación de trabas regulatorias,
                 tasas municipales obsoletas e impuestos distorsivos a la
                 producción.
               </p>
@@ -78,7 +78,7 @@ export default function SeccionPropuestas() {
               </div>
               <p className="text-base md:text-base text-liberty-text-secondary leading-relaxed ">
                 Seguridad y Justicia: Respaldo político e institucional total a
-                nuestras fuerzas policiales para recuperar el control de las
+                los policiales para recuperar el control de las
                 calles.
               </p>
             </div>
@@ -267,16 +267,16 @@ export default function SeccionPropuestas() {
                           : item.alcance}
                       </span>
                       <span className="text-xs text-liberty-primary font-bold tracking-wide drop-shadow-sm">
-                        {item.categoria === "seguridad" && "🛡️ Seguridad"}
-                        {item.categoria === "economia" && "📈 Economía"}
-                        {item.categoria === "burocracia" && "⚙️ Reforma"}
+                        {item.categoria === "seguridad" && "Seguridad"}
+                        {item.categoria === "economia" && "Economía"}
+                        {item.categoria === "burocracia" && "Reforma"}
                       </span>
                     </div>
 
                     <h3 className="text-xl md:text-2xl font-black text-white tracking-tight mb-3 leading-snug">
                       {item.titulo}
                     </h3>
-                    <p className="text-liberty-text-secondary text-sm md:text-base leading-relaxed mb-6 font-light">
+                    <p className="text-liberty-text-secondary text-sm md:text-base leading-relaxed mb-6 ">
                       {item.bajada}
                     </p>
                   </div>
@@ -289,7 +289,7 @@ export default function SeccionPropuestas() {
             </div>
           ) : (
             <div className="text-center py-20 border border-dashed border-liberty-border rounded-xl bg-liberty-card/50">
-              <p className="text-liberty-text-secondary text-lg font-light">
+              <p className="text-liberty-text-secondary text-lg ">
                 No se encontraron propuestas específicas para esta combinación
                 de filtros.
               </p>

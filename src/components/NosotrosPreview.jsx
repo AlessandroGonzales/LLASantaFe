@@ -43,7 +43,7 @@ export default function NosotrosPreview() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col space-y-12 lg:col-span-7 pr-0 lg:pr-10"
           >
-            <div className="space-y-6 md:space-y-8">
+            <div className="space-y-3 md:space-y-4">
               <div className="flex items-center gap-4">
                 <span className="text-liberty-cyan text-[13px] md:text-sm font-black uppercase tracking-[0.4em] shadow-liberty-cyan-glow">
                   Nuestra Historia
@@ -67,8 +67,7 @@ export default function NosotrosPreview() {
               cambiar el rumbo.
             </p>
 
-            <div className="relative pl-6 md:pl-8 border-l border-white/10 space-y-8 py-2">
-              <div className="absolute top-0 left-[-1px] w-[2px] h-1/3 bg-gradient-to-b from-liberty-primary to-transparent" />
+            <div className="relative pl-3 md:pl-4 space-y-7 py-1">
 
               <motion.div whileHover={{ x: 5 }} className="flex items-start gap-5 group transition-transform">
                 <History className="w-6 h-6 text-liberty-primary shrink-0 group-hover:scale-110 transition-all duration-500" />
