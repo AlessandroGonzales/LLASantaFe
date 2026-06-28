@@ -90,8 +90,9 @@ export default function NewsCarousel() {
           style={{ scrollPaddingLeft: "1.5rem" }}
         >
           {newsData.map((news) => (
-            <div
+            <Link
               key={news.id}
+              to={`/noticia/${news.id}`}
               className="relative flex-none w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[31vw] h-[60vh] md:h-[500px] bg-liberty-card rounded-2xl overflow-hidden snap-center md:snap-start group border border-liberty-border/50"
             >
               {/* IMAGEN - Agregado loading="lazy" y aceleración GPU en la transición */}
@@ -119,7 +120,7 @@ export default function NewsCarousel() {
                   {news.title}
                 </h3>
 
-                <p className="text-sm md:text-base text-gray-200 mb-6 line-clamp-2 drop-shadow-md opacity-90">
+                <p className="text-sm md:text-base text-gray-200 mb-6 line-clamp-2 drop-shadow-md   ">
                   {news.description}
                 </p>
 
@@ -133,7 +134,7 @@ export default function NewsCarousel() {
                   </Link>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

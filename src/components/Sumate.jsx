@@ -12,8 +12,6 @@ import {
 } from "lucide-react";
 import afiliacion from "../assets/mileirosario.png";
 
-
-
 const steps = [
   {
     title: "Completá tus datos",
@@ -68,7 +66,9 @@ export default function Sumate() {
       setEnviado(true);
     } catch (error) {
       console.error("Error al enviar:", error);
-      alert("Hubo un problema de conexión. Revisá tu internet e intentá de nuevo.");
+      alert(
+        "Hubo un problema de conexión. Revisá tu internet e intentá de nuevo.",
+      );
     } finally {
       setCargando(false);
     }
@@ -83,10 +83,8 @@ export default function Sumate() {
 
       {/* CONTENEDOR PRINCIPAL: Expansivo con padding dinámico en lugar de max-w */}
       <div className="relative z-10 w-full px-6 md:px-16 lg:px-24 xl:px-32 py-8 md:py-12 mt-10">
-        
         {/* GRID: Aumentamos el gap (lg:gap-20 xl:gap-24) para aprovechar la amplitud */}
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-20 xl:gap-24 items-start">
-          
           {/* Left / narrative */}
           <motion.section
             initial={{ opacity: 0, y: 22 }}
@@ -101,23 +99,21 @@ export default function Sumate() {
 
             <h1 className="mt-7 max-w-3xl text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-black uppercase leading-[0.95] tracking-tight text-white">
               La reconstrucción <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-liberty-primary via-fuchsia-300 to-liberty-cyan drop-shadow-[0_0_18px_rgba(217,70,239,0.25)]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r text-white">
                 te necesita
               </span>
             </h1>
 
             <p className="mt-6 max-w-2xl text-base sm:text-lg md:text-xl leading-relaxed text-liberty-text-secondary">
               A vos, que te levantás todos los días para sostener a tu familia.
-              A vos, que construiste tu camino con mérito propio y no te resignaste.
-              Esta provincia necesita personas que den un paso al frente, con convicción,
-              con fuerza y con coraje.
+              A vos, que construiste tu camino con mérito propio y no te
+              resignaste. Esta provincia necesita personas que den un paso al
+              frente, con convicción, con fuerza y con coraje.
             </p>
 
             <p className="mt-4 max-w-2xl text-base sm:text-lg font-medium text-liberty-primary">
-              Queremos que seas parte de esta convocatoria histórica. 
+              Queremos que seas parte de esta convocatoria histórica.
             </p>
-
-         
 
             {/* Steps */}
             <div className="mt-10 rounded-[2rem] border border-liberty-border/60 bg-liberty-surface/80 backdrop-blur-xl p-6 md:p-8 shadow-2xl">
@@ -174,7 +170,11 @@ export default function Sumate() {
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
-                        transition={{ type: "spring", stiffness: 180, damping: 14 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 180,
+                          damping: 14,
+                        }}
                       >
                         <CheckCircle2 className="w-20 h-20 md:w-24 md:h-24 text-green-400 drop-shadow-[0_0_20px_rgba(74,222,128,0.35)]" />
                       </motion.div>
@@ -182,8 +182,8 @@ export default function Sumate() {
                         ¡Bienvenido a La Libertad Avanza!
                       </h3>
                       <p className="text-sm md:text-base text-liberty-text-secondary max-w-md leading-relaxed">
-                        Tus datos fueron recibidos. Un referente de tu localidad te va
-                        a contactar por WhatsApp en los próximos días.
+                        Tus datos fueron recibidos. Un referente de tu localidad
+                        te va a contactar por WhatsApp en los próximos días.
                       </p>
                       <button
                         onClick={() => (window.location.href = "/")}
@@ -199,7 +199,8 @@ export default function Sumate() {
                           Ingreso al partido
                         </h2>
                         <p className="mt-2 text-sm md:text-base text-liberty-text-secondary leading-relaxed">
-                          Completá tus datos reales para que podamos contactarte oficialmente.
+                          Completá tus datos reales para que podamos contactarte
+                          oficialmente.
                         </p>
                       </div>
 
@@ -308,8 +309,9 @@ export default function Sumate() {
                               Quiero ser fiscal
                             </span>
                             <span className="mt-1 block text-sm md:text-base leading-relaxed text-liberty-text-secondary">
-                              Las elecciones se ganan cuidando los votos. Marcá esta casilla si
-                              estás dispuesto a defender las urnas en tu ciudad el día de la elección.
+                              Las elecciones se ganan cuidando los votos. Marcá
+                              esta casilla si estás dispuesto a defender las
+                              urnas en tu ciudad el día de la elección.
                             </span>
                           </div>
                         </label>
@@ -319,7 +321,7 @@ export default function Sumate() {
                       <button
                         type="submit"
                         disabled={cargando}
-                        className={`group mt-3 flex w-2/4 w-auto items-center justify-center gap-3 rounded-2xl px-5 py-4 md:py-4 text-sm md:text-lg font-black uppercase tracking-[0.2em] text-white transition-all duration-300 cursor-pointer ${
+                        className={`group mt-3 mx-auto flex w-full sm:w-fit items-center justify-center gap-3 rounded-2xl px-5 py-4 md:py-4 text-[14px] md:text-[15px] font-black uppercase tracking-[0.2em] text-white transition-all duration-300 cursor-pointer ${
                           cargando
                             ? "cursor-not-allowed bg-liberty-primary/65 opacity-80"
                             : "bg-gradient-to-r bg-liberty-primary hover:shadow-[0_0_40px_rgba(217,70,239,0.45)] hover:scale-[1.01]"
@@ -332,7 +334,8 @@ export default function Sumate() {
                       </button>
 
                       <p className="mt-3 text-center text-[10px] md:text-xs uppercase tracking-[0.22em] text-gray-300">
-                        Al enviar, acepto ser contactado por los referentes territoriales.
+                        Al enviar, acepto ser contactado por los referentes
+                        territoriales.
                       </p>
                     </form>
                   )}
