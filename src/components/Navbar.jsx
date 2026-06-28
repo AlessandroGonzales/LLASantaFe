@@ -9,16 +9,17 @@ export default function Navbar() {
   // Efecto para cambiar el estilo al hacer scroll
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
+      // Solo actualiza el estado si realmente cambia la condición
+      if (window.scrollY > 10 && !isScrolled) {
         setIsScrolled(true);
-      } else {
+      } else if (window.scrollY <= 10 && isScrolled) {
         setIsScrolled(false);
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true }); // passive: true mejora el scroll en mobile
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isScrolled]); // Agrega isScrolled a las dependencias
 
   // Bloquear el scroll de la página de fondo cuando el menú esté abierto
   useEffect(() => {
@@ -58,7 +59,6 @@ export default function Navbar() {
           <div className="flex flex-col justify-center leading-none ml-2">
             <span className="text-[12px] font-black tracking-tight  uppercase group-hover:text-liberty-primary transition-colors">
               LA LIBERTAD AVANZA
-
             </span>
             <span className="text-[10px] font-bold tracking-widest text-white uppercase mt-0.5">
               SANTA FE
@@ -178,4 +178,3 @@ export default function Navbar() {
     </header>
   );
 }
-

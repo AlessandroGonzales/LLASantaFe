@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-import rep1 from "../assets/lautaro.jpeg";
+import rep1 from "../assets/lautaro.webp";
 import rep2 from "../assets/giselle.jpeg";
 import rep3 from "../assets/silvia.jpg";
 import rep4 from "../assets/david.png";
