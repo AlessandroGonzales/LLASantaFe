@@ -54,7 +54,7 @@ export default function RepresentantesPreview() {
                 transition={{ duration: 1, delay: 0.6 }}
                 className="absolute top-[1%] left-0 w-[50%] md:w-[45%] aspect-square rounded-lg overflow-hidden hover:grayscale-0 hover:opacity-100 hover:z-50 transition-all duration-500 border-[6px] border-liberty-bg shadow-lg cursor-pointer"
               >
-                <img src={rep4} alt="Concejal 4" className="w-full h-full object-cover" />
+                <img src={rep4} alt="Concejal 4" className="w-full h-full object-cover"  loading="lazy" decoding="async"/>
               </motion.div>
 
               {/* Imagen 3 */}
@@ -65,7 +65,7 @@ export default function RepresentantesPreview() {
                 transition={{ duration: 1, delay: 0.4 }}
                 className="absolute top-[1%] right-0 w-[55%] md:w-[50%] aspect-square rounded-lg overflow-hidden hover:grayscale-0 hover:opacity-100 hover:z-50 transition-all duration-500 border-[6px] border-liberty-bg shadow-lg z-20 cursor-pointer"
               >
-                <img src={rep3} alt="Concejal 3" className="w-full h-full object-cover" />
+                <img src={rep3} alt="Concejal 3" className="w-full h-full object-cover"  loading="lazy" decoding="async"/>
               </motion.div>
 
               {/* Imagen 2 */}
@@ -76,7 +76,7 @@ export default function RepresentantesPreview() {
                 transition={{ duration: 1, delay: 0.2 }}
                 className="absolute bottom-[10%] left-[2%] w-[58%] md:w-[55%] aspect-square rounded-lg overflow-hidden hover:grayscale-0 hover:opacity-100 hover:z-50 transition-all duration-500 border-[6px] border-liberty-bg shadow-lg z-30 cursor-pointer"
               >
-                <img src={rep2} alt="Concejal 2" className="w-full h-full object-cover" />
+                <img src={rep2} alt="Concejal 2" className="w-full h-full object-cover"  loading="lazy" decoding="async" />
               </motion.div>
 
               {/* Imagen 1 */}
@@ -90,6 +90,8 @@ export default function RepresentantesPreview() {
                 <img 
                   src={rep1} 
                   alt="Concejal Principal" 
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover contrast-110 opacity-90 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105" 
                 />
               </motion.div>

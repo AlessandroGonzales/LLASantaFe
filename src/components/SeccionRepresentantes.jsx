@@ -85,6 +85,8 @@ export default function SeccionRepresentantes() {
               <img
                 src={concejal.foto}
                 alt={concejal.nombre}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
@@ -127,6 +129,8 @@ export default function SeccionRepresentantes() {
                 <img
                   src={selectedConcejal.foto}
                   alt={selectedConcejal.nombre}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-center"
                 />
                 <div className="hidden lg:block absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-liberty-bg to-transparent" />

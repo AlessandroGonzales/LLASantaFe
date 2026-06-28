@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import logoLibertad from "../assets/logoLibertad.png";
-import backgroundImage from "../assets/mileidiezz.png"; // Para mobile
-import backgroundImageDos from "../assets/mileidiez.png"; // Para Desktop
+import backgroundImage from "../assets/mileidiezz.webp"; // Para mobile
+import backgroundImageDos from "../assets/mileidiez.webp"; // Para Desktop
 import { Link } from "react-router-dom";
 
 export default function Hero() {

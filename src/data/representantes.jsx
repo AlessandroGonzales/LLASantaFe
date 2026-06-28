@@ -1,14 +1,14 @@
 import carlos from "../assets/carlos.jpg"
 import david from "../assets/david.png"
 import giselle from "../assets/giselle.jpeg"
-import lautaro from "../assets/lautaro.jpeg"
+import lautaro from "../assets/lautaro.webp"
 import maria from "../assets/maria.jpeg"
 import mariano from "../assets/mariano.jpeg"
 import marisel from "../assets/marisel.jpg"
 import matias from "../assets/matias.jpg"
 import miguel from "../assets/miguel.jpeg"
 import pamela from "../assets/pamela.jpg"
-import santiago from "../assets/santiago.jpeg"
+import santiago from "../assets/santiago.webp"
 import silvia from "../assets/silvia.jpg"
 
 export const concejalesData = [
