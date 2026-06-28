@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { History, ShieldAlert, TrendingUp } from "lucide-react";
 
 import nosotrosimg1 from "../assets/uplunidos.jpg";
@@ -24,6 +25,9 @@ const gallery = [
 ];
 
 export default function NosotrosPreview() {
+
+  const navigate = useNavigate();
+
   return (
     <section
       id="nosotros"
@@ -94,7 +98,7 @@ export default function NosotrosPreview() {
             {/* BOTÓN — solo en desktop, debajo del texto */}
             <div className="hidden lg:block">
               <button
-                onClick={() => (window.location.href = "/nosotros")}
+                onClick={() => navigate("/nosotros")}
                 className="group relative inline-flex items-center justify-center w-1/3 px-8 py-4 font-bold text-white transition-all duration-300 bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-cyan hover:shadow-[0_0_20px_rgba(0,255,255,0.1)] overflow-hidden cursor-pointer"
               >
                 Conocer nuestra historia
@@ -112,7 +116,7 @@ export default function NosotrosPreview() {
           >
             <div
               className="relative w-full cursor-pointer"
-              onClick={() => (window.location.href = "/nosotros")}
+              onClick={() => navigate("/nosotros")}
             >
               <div className="rounded-[2.25rem] border border-white/10 bg-white/[0.02] backdrop-blur-[2px]">
                 <div className="grid grid-cols-2 gap-3 auto-rows-[250px] lg:auto-rows-[360px]">
@@ -142,7 +146,7 @@ export default function NosotrosPreview() {
             {/* BOTÓN — solo en mobile, debajo de las imágenes */}
             <div className="pt-6 lg:hidden">
               <button
-                onClick={() => (window.location.href = "/nosotros")}
+                onClick={() => navigate("/nosotros")}
                 className="group relative  items-center justify-center w-full md:w-3.5 px-8 py-4 font-bold text-white transition-all duration-300 bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-cyan hover:shadow-[0_0_20px_rgba(0,255,255,0.1)] overflow-hidden cursor-pointer"
               >
                 Conocer nuestra historia
