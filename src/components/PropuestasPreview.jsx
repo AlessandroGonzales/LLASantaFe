@@ -3,19 +3,28 @@ import { Link } from "react-router-dom";
 import mapaSantaFe from "../assets/mapaSantaFe.png"; // Reemplaza la ruta si está en otra carpeta
 
 export default function PropuestasPreview() {
+  // 1. Verificamos si las animaciones ya se ejecutaron en esta sesión
+  const hasAnimated = sessionStorage.getItem("propuestas_animated") === "true";
+
+  // 2. Función que se dispara cuando el componente entra en pantalla
+  const markAsAnimated = () => {
+    sessionStorage.setItem("propuestas_animated", "true");
+  };
+
   return (
     <section id="preview" className="relative w-full py-1 lg:py-14 bg-liberty-bg overflow-hidden font-satoshi mb-10">
       
       {/* LUZ DE FONDO (Animada sutilmente) */}
       <motion.div 
-        initial={{ opacity: 0 }}
+        onViewportEnter={markAsAnimated} // Guardamos en memoria que ya se vio
+        initial={hasAnimated ? { opacity: 1 } : { opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1.5 }}
         className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-liberty-primary/10 rounded-full blur-[120px] pointer-events-none z-0" 
       />
       <motion.div 
-        initial={{ opacity: 0 }}
+        initial={hasAnimated ? { opacity: 1 } : { opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1.5, delay: 0.3 }}
@@ -27,7 +36,7 @@ export default function PropuestasPreview() {
 
           {/* TÍTULO MOBILE (solo en mobile) */}
           <motion.div 
-            initial={{ opacity: 0, y: 30 }}
+            initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
@@ -48,7 +57,7 @@ export default function PropuestasPreview() {
 
           {/* COLUMNA IZQUIERDA: Mapa de Santa Fe */}
           <motion.div 
-            initial={{ opacity: 0, x: -50 }}
+            initial={hasAnimated ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -69,7 +78,7 @@ export default function PropuestasPreview() {
 
             {/* Títulos (solo desktop) */}
             <motion.div 
-              initial={{ opacity: 0, y: 30 }}
+              initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
@@ -88,7 +97,7 @@ export default function PropuestasPreview() {
 
             {/* Descripción */}
             <motion.p 
-              initial={{ opacity: 0, y: 20 }}
+              initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
@@ -99,7 +108,7 @@ export default function PropuestasPreview() {
 
             {/* Botón de Acción */}
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
+              initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.4, delay: 0.4, ease: "easeOut" }}
