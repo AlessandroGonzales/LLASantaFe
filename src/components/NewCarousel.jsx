@@ -4,7 +4,7 @@ import { newsData } from "../data/noticiasData";
 
 export default function NewsCarousel() {
   const carouselRef = useRef(null);
-  
+
   const scrollLeft = () => {
     const cardWidth =
       carouselRef.current?.querySelector("div")?.offsetWidth || 500;
@@ -26,8 +26,10 @@ export default function NewsCarousel() {
   };
 
   return (
-    <section id="noticias" className="w-full py-25 bg-liberty-bg border-t border-liberty-border/30 overflow-hidden font-satoshi">
-        
+    <section
+      id="noticias"
+      className="w-full py-25 bg-liberty-bg border-t border-liberty-border/30 overflow-hidden font-satoshi"
+    >
       {/* TÍTULO DE LA SECCIÓN */}
       <div className="max-w-7xl mx-auto px-6 mb-12 text-center">
         <div>
@@ -42,7 +44,6 @@ export default function NewsCarousel() {
 
       {/* CONTENEDOR DEL CARRUSEL */}
       <div className="relative">
-        
         {/* GRADIENTE IZQUIERDO */}
         <div className="hidden lg:flex absolute left-0 top-0 h-full w-28 bg-gradient-to-r from-liberty-bg via-liberty-bg/20 to-transparent z-20 items-center pl-4 pointer-events-none">
           <button
@@ -58,7 +59,11 @@ export default function NewsCarousel() {
               stroke="currentColor"
               strokeWidth={2.5}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 19.5L8.25 12l7.5-7.5"
+              />
             </svg>
           </button>
         </div>
@@ -78,7 +83,11 @@ export default function NewsCarousel() {
               stroke="currentColor"
               strokeWidth={2.5}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M8.25 4.5l7.5 7.5-7.5 7.5"
+              />
             </svg>
           </button>
         </div>
@@ -86,21 +95,19 @@ export default function NewsCarousel() {
         {/* CARRUSEL - Agregado transform-gpu para aceleración por hardware */}
         <div
           ref={carouselRef}
-          className="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-6 pb-8 hide-scrollbar scroll-smooth transform-gpu"
+          className="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-6 pb-8 hide-scrollbar scroll-smooth"
           style={{ scrollPaddingLeft: "1.5rem" }}
         >
           {newsData.map((news) => (
             <Link
               key={news.id}
               to={`/noticia/${news.id}`}
-              className="relative flex-none w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[31vw] h-[60vh] md:h-[500px] bg-liberty-card rounded-2xl overflow-hidden snap-center md:snap-start group border border-liberty-border/50"
+              className="relative flex-none w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[31vw] h-[60dvh] md:h-[500px] bg-liberty-card rounded-2xl overflow-hidden snap-center md:snap-start group border border-liberty-border/50"
             >
               {/* IMAGEN - Agregado loading="lazy" y aceleración GPU en la transición */}
               <img
                 src={news.image}
                 alt={news.title}
-                loading="lazy"
-                decoding="async"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 transform-gpu will-change-transform group-hover:scale-105 bg-liberty-bg/50"
               />
 

@@ -20,6 +20,7 @@ export default function Hero() {
         <img
           src={backgroundImage}
           alt="Fondo La Libertad Avanza Santa Fe"
+          fetchpriority="high"
           className="w-full h-full object-cover object-top md:object-[center_1%]"
         />
       </motion.picture>
@@ -37,6 +38,7 @@ export default function Hero() {
         <img
           src={backgroundImage}
           alt="Fondo La Libertad Avanza Santa Fe"
+          fetchpriority="high"
           className="w-full h-full object-cover object-top md:object-[center_1%]"
         />
       </motion.picture>
@@ -72,6 +74,7 @@ export default function Hero() {
           <img
             src={logoLibertad}
             alt="Águila La Libertad Avanza"
+            fetchpriority="high"
             className="h-36 md:h-45 w-auto object-contain drop-shadow-[0_0_30px_rgba(212,175,55,0.3)]"
             onError={(e) => {
               e.target.style.display = "none";

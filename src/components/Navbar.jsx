@@ -49,6 +49,7 @@ export default function Navbar() {
             <img
               src={logo}
               alt="La Libertad Avanza Santa Fe"
+              fetchpriority="high"
               className="h-16 w-auto object-contain brightness-200 group-hover:brightness-110 transition-all"
               onError={(e) => {
                 e.target.style.display = "none";
