@@ -28,6 +28,14 @@ export default function NosotrosPreview() {
 
   const navigate = useNavigate();
 
+  // 1. Verificamos si las animaciones ya se ejecutaron en esta sesión
+  const hasAnimated = sessionStorage.getItem("nosotros_animated") === "true";
+
+  // 2. Función que se dispara cuando el componente entra en pantalla
+  const markAsAnimated = () => {
+    sessionStorage.setItem("nosotros_animated", "true");
+  };
+
   return (
     <section
       id="nosotros"
@@ -41,7 +49,8 @@ export default function NosotrosPreview() {
 
           {/* TEXTO */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            onViewportEnter={markAsAnimated} // Guardamos en memoria que ya se vio
+            initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
@@ -108,7 +117,7 @@ export default function NosotrosPreview() {
 
           {/* GALERÍA */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96, filter: "blur(10px)" }}
+            initial={hasAnimated ? { opacity: 1, scale: 1, filter: "blur(0px)" } : { opacity: 0, scale: 0.96, filter: "blur(10px)" }}
             whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.1, delay: 0.2, ease: "easeOut" }}
@@ -123,7 +132,7 @@ export default function NosotrosPreview() {
                   {gallery.map((item, index) => (
                     <motion.div
                       key={item.alt}
-                      initial={{ opacity: 0, y: 18 }}
+                      initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: "-50px" }}
                       transition={{ duration: 0.8, delay: 0.1 * index, ease: "easeOut" }}
@@ -147,7 +156,7 @@ export default function NosotrosPreview() {
             <div className="pt-6 lg:hidden">
               <button
                 onClick={() => navigate("/nosotros")}
-                className="group relative  items-center justify-center w-full md:w-3.5 px-8 py-4 font-bold text-white transition-all duration-300 bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-cyan hover:shadow-[0_0_20px_rgba(0,255,255,0.1)] overflow-hidden cursor-pointer"
+                className="group relative items-center justify-center w-full md:w-3.5 px-8 py-4 font-bold text-white transition-all duration-300 bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-cyan hover:shadow-[0_0_20px_rgba(0,255,255,0.1)] overflow-hidden cursor-pointer"
               >
                 Conocer nuestra historia
               </button>

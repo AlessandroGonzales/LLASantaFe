@@ -3,12 +3,20 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import rominapropuestas from "../assets/rominanuevo.jpeg";
 import fotopropuestas from "../assets/fotopropuestas.jpeg";
-import tercerafoto from "../assets/lla.webp"; // REEMPLAZAR con la tercera imagen real
+import tercerafoto from "../assets/lla.webp";
 import { propuestasData } from "../data/propuestasData";
 
 export default function SeccionPropuestas() {
   const [alcanceFiltro, setAlcanceFiltro] = useState("todos");
   const [categoriaFiltro, setCategoriaFiltro] = useState("todas");
+
+  // 1. Verificamos si las animaciones ya se ejecutaron en esta sesión
+  const hasAnimated = sessionStorage.getItem("seccionPropuestas_animated") === "true";
+
+  // 2. Función que se dispara cuando el componente entra en pantalla
+  const markAsAnimated = () => {
+    sessionStorage.setItem("seccionPropuestas_animated", "true");
+  };
 
   const propuestasFiltradas = propuestasData.filter((propuesta) => {
     const matchesAlcance =
@@ -32,7 +40,8 @@ export default function SeccionPropuestas() {
           <div className="relative inline-block">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[120px] bg-liberty-primary/30 rounded-full blur-[100px] pointer-events-none z-0" />
             <motion.h1 
-              initial={{ opacity: 0, y: 40 }}
+              onViewportEnter={markAsAnimated}
+              initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut" }}
@@ -46,7 +55,7 @@ export default function SeccionPropuestas() {
           </div>
 
           <motion.p 
-            initial={{ opacity: 0, y: 30 }}
+            initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3, duration: 0.7 }}
@@ -60,7 +69,7 @@ export default function SeccionPropuestas() {
           </motion.p>
 
           <motion.div 
-            initial={{ opacity: 0, y: 40 }}
+            initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.5, duration: 0.8 }}
@@ -70,7 +79,7 @@ export default function SeccionPropuestas() {
 
             {/* Card 1 */}
             <motion.div 
-              initial={{ opacity: 0, y: 30 }}
+              initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.6 }}
@@ -89,7 +98,7 @@ export default function SeccionPropuestas() {
 
             {/* Card 2 */}
             <motion.div 
-              initial={{ opacity: 0, y: 30 }}
+              initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.75 }}
@@ -108,7 +117,7 @@ export default function SeccionPropuestas() {
 
             {/* Card 3 */}
             <motion.div 
-              initial={{ opacity: 0, y: 30 }}
+              initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.9 }}
@@ -136,7 +145,7 @@ export default function SeccionPropuestas() {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-6 mb-12">
             {/* Imagen 1 */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="col-span-2 md:col-span-1 relative group overflow-hidden aspect-square md:aspect-[3/4] bg-liberty-card"
@@ -157,7 +166,7 @@ export default function SeccionPropuestas() {
 
             {/* Imagen 2 */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.15 }}
@@ -179,7 +188,7 @@ export default function SeccionPropuestas() {
 
             {/* Imagen 3 */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
@@ -202,7 +211,7 @@ export default function SeccionPropuestas() {
 
           {/* TEXTO INFERIOR */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="flex justify-center md:justify-end mt-8"
@@ -230,7 +239,7 @@ export default function SeccionPropuestas() {
           {/* Sección de Filtros Activa */}
           <div className="mb-10 text-center md:text-left ">
             <motion.h3 
-              initial={{ opacity: 0 }}
+              initial={hasAnimated ? { opacity: 1 } : { opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               className="text-xl font-black uppercase tracking-tight text-white mb-2"
@@ -238,7 +247,7 @@ export default function SeccionPropuestas() {
               Explorar Propuestas
             </motion.h3>
             <motion.p 
-              initial={{ opacity: 0 }}
+              initial={hasAnimated ? { opacity: 1 } : { opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
@@ -250,7 +259,7 @@ export default function SeccionPropuestas() {
 
           {/* Barra de Filtros */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className=" flex flex-col gap-6 mb-10 bg-liberty-card p-6 rounded-xl border border-liberty-border/50 shadow-lg"
@@ -269,7 +278,7 @@ export default function SeccionPropuestas() {
                   <motion.button
                     key={t.id}
                     onClick={() => setAlcanceFiltro(t.id)}
-                    initial={{ opacity: 0, scale: 0.9 }}
+                    initial={{ opacity: 1, scale: 1 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.1 * index }}
                     whileHover={{ scale: 1.05 }}
@@ -300,7 +309,7 @@ export default function SeccionPropuestas() {
                   <motion.button
                     key={c.id}
                     onClick={() => setCategoriaFiltro(c.id)}
-                    initial={{ opacity: 0, scale: 0.9 }}
+                    initial={{ opacity: 1, scale: 1 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.1 * index + 0.2 }}
                     whileHover={{ scale: 1.05 }}
@@ -382,7 +391,7 @@ export default function SeccionPropuestas() {
             </motion.div>
           ) : (
             <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={hasAnimated ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               className="text-center py-20 border border-dashed border-liberty-border rounded-xl bg-liberty-card/50"
             >
