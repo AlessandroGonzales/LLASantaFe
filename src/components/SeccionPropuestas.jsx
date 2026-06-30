@@ -331,7 +331,7 @@ export default function SeccionPropuestas() {
           {propuestasFiltradas.length > 0 ? (
             <motion.div 
               className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
-              initial="hidden"
+              initial={hasAnimated ? "visible" : "hidden"}
               whileInView="visible"
               viewport={{ once: true }}
               variants={{
@@ -339,7 +339,7 @@ export default function SeccionPropuestas() {
                 visible: {
                   opacity: 1,
                   transition: {
-                    staggerChildren: 0.1
+                    staggerChildren: hasAnimated ? 0 : 0.1
                   }
                 }
               }}
@@ -352,7 +352,7 @@ export default function SeccionPropuestas() {
                     visible: { 
                       opacity: 1, 
                       y: 0,
-                      transition: { duration: 0.5, ease: "easeOut" }
+                      transition: { duration: hasAnimated ? 0 : 0.5, ease: "easeOut" }
                     }
                   }}
                 >
