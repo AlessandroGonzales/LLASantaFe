@@ -12,8 +12,25 @@ import santiago from "../assets/santiago.webp"
 import silvia from "../assets/silvia.jpg"
 
 export const concejalesData = [
-  {
+    {
     id: 1,
+    nombre: "Lautaro Enriquez",
+    edad: 21,
+    cargo: "Concejal de Rosario",
+    profesion: "Lic. Ciencia Política",
+    ciudad: "Rosario",
+    redes: { 
+      instagram: "@lautaroenriquezz", 
+      twitter: "@LnEnriquez" 
+    },
+    mail: "lautaroenriquez@concejorosario.gov.ar",
+    telefono: null,
+    proyectos: "https://drive.google.com/drive/folders/1D-cZMt2yHRhOlWNPx9tuMK5eZ1RcYha2",
+    descripcion: "Desregular, desburocratizar y eliminar todas las tasas posibles en Rosario. Hay que sacarle al vecino la bota del estado de la cabeza.",
+    foto: lautaro
+  },
+  {
+    id: 2,
     nombre: "Carlos Bonetto",
     edad: null,
     cargo: "Concejal",
@@ -30,7 +47,7 @@ export const concejalesData = [
     foto: carlos
   },
   {
-    id: 2,
+    id: 3,
     nombre: "Santiago Fontana",
     edad: 24,
     cargo: "Concejal",
@@ -47,7 +64,7 @@ export const concejalesData = [
     foto: santiago
   },
   {
-    id: 3,
+    id: 4,
     nombre: "Mariano Javier Trossero",
     edad: 43,
     cargo: "Concejal",
@@ -64,7 +81,7 @@ export const concejalesData = [
     foto: mariano
   },
   {
-    id: 4,
+    id: 5,
     nombre: "Silvia Nardin",
     edad: 58,
     cargo: "Concejal",
@@ -81,7 +98,7 @@ export const concejalesData = [
     foto: silvia
   },
   {
-    id: 5,
+    id: 6,
     nombre: "Maria Giselle Miravete",
     edad: 52,
     cargo: "Concejal",
@@ -98,7 +115,7 @@ export const concejalesData = [
     foto: giselle
   },
   {
-    id: 6,
+    id: 7,
     nombre: "Matías Nicolás Tomasi",
     edad: 39,
     cargo: "Concejal",
@@ -115,7 +132,7 @@ export const concejalesData = [
     foto: matias
   },
   {
-    id: 7,
+    id: 8,
     nombre: "Miguel Angel Chiarena",
     edad: 57,
     cargo: "Concejal",
@@ -132,7 +149,7 @@ export const concejalesData = [
     foto: miguel
   },
   {
-    id: 8,
+    id: 9,
     nombre: "Marianela De los Santos",
     edad: 43,
     cargo: "Concejal",
@@ -149,7 +166,7 @@ export const concejalesData = [
     foto: maria
   },
   {
-    id: 9,
+    id: 10,
     nombre: "Marisel Analia Fabiani",
     edad: 50,
     cargo: "Concejal",
@@ -164,23 +181,6 @@ export const concejalesData = [
     proyectos: "https://drive.google.com/drive/folders/1oCJptOAskKJuEYDM6utqaJDQbGaejeci",
     descripcion: "Representar al ciudadano en el concejo y presentar proyectos que alivien su día a día. Crecer profesionalmente.",
     foto: marisel
-  },
-  {
-    id: 10,
-    nombre: "Lautaro Enriquez",
-    edad: 21,
-    cargo: "Concejal de Rosario",
-    profesion: "Lic. Ciencia Política",
-    ciudad: "Rosario",
-    redes: { 
-      instagram: "@lautaroenriquezz", 
-      twitter: "@LnEnriquez" 
-    },
-    mail: "lautaroenriquez@concejorosario.gov.ar",
-    telefono: null,
-    proyectos: "https://drive.google.com/drive/folders/1D-cZMt2yHRhOlWNPx9tuMK5eZ1RcYha2",
-    descripcion: "Desregular, desburocratizar y eliminar todas las tasas posibles en Rosario. Hay que sacarle al vecino la bota del estado de la cabeza.",
-    foto: lautaro
   },
   {
     id: 11,

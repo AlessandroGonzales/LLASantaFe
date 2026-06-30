@@ -116,7 +116,7 @@ export default function Sumate() {
             </p>
 
             {/* Steps */}
-            <div className="mt-10 rounded-[2rem] border border-liberty-border/60 bg-liberty-surface/80 backdrop-blur-xl p-6 md:p-8 shadow-2xl">
+            <div className="mt-10 rounded-[2rem] border border-liberty-border bg-liberty-surface/2 cbackdrop-blur-xl p-6 md:p-8 shadow-2xl">
               <h2 className="text-sm uppercase tracking-[0.25em] text-center md:text-left font-black">
                 Qué sucede después
               </h2>

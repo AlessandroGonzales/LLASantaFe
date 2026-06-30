@@ -57,13 +57,13 @@ export default function NosotrosPreview() {
             className="flex flex-col space-y-12 lg:col-span-7 pr-0 lg:pr-10"
           >
             <div className="space-y-3 md:space-y-4">
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 justify-center lg:justify-start">
                 <span className="text-liberty-cyan text-[13px] md:text-sm font-black uppercase tracking-[0.4em] shadow-liberty-cyan-glow">
                   Nuestra Historia
                 </span>
               </div>
 
-              <h2 className="text-5xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.85]">
+              <h2 className="text-5xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.85] text-center lg:text-left">
                 El rugido que <br />
                   despertó
                 <br />
@@ -73,7 +73,7 @@ export default function NosotrosPreview() {
               </h2>
             </div>
 
-            <p className="text-lg text-liberty-text-secondary leading-relaxed max-w-2xl">
+            <p className="text-lg text-liberty-text-secondary leading-relaxed max-w-2xl text-center lg:text-left">
               No somos políticos tradicionales. Somos ciudadanos de a pie, trabajadores y estudiantes
               cansados de que nos roben el futuro. Somos la{" "}
               <strong className="text-white font-medium drop-shadow-md">única opción real</strong> para
