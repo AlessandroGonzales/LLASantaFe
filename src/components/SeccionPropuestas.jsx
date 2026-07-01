@@ -120,7 +120,7 @@ export default function SeccionPropuestas() {
               initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.9 }}
+              transition={{ delay: 0.8 }}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
               className="space-y-2 md:pl-4"
             >

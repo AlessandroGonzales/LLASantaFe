@@ -99,7 +99,7 @@ export default function Sumate() {
 
             <h1 className="mt-7 max-w-3xl text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-black uppercase leading-[0.95] tracking-tight text-white">
               La reconstrucción <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r text-white">
+              <span className="text-transparent  bg-clip-text bg-gradient-to-r from-white via-liberty-primary to-liberty-primary-hover">
                 te necesita
               </span>
             </h1>

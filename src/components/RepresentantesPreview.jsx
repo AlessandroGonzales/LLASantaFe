@@ -120,13 +120,13 @@ export default function RepresentantesPreview() {
               transition={{ duration: 0.6 }}
               className="hidden lg:block"
             >
-              <span className="text-sm font-bold tracking-[0.3em] text-liberty-cyan uppercase block mb-4">
+              <span className="text-sm font-bold tracking-[0.3em] text-liberty-primary uppercase block mb-4">
                 El equipo en el territorio
               </span>
 
               <h2 className="text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
                 Nuestros <br className="hidden md:block" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-liberty-primary">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-liberty-primary to-liberty-primary-hover">
                   Concejales
                 </span>
               </h2>

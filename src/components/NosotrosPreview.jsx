@@ -58,7 +58,7 @@ export default function NosotrosPreview() {
           >
             <div className="space-y-3 md:space-y-4">
               <div className="flex items-center gap-4 justify-center lg:justify-start">
-                <span className="text-liberty-cyan text-[13px] md:text-sm font-black uppercase tracking-[0.4em] shadow-liberty-cyan-glow">
+                <span className="text-liberty-primary text-[13px] md:text-sm font-black uppercase tracking-[0.4em] shadow-liberty-cyan-glow">
                   Nuestra Historia
                 </span>
               </div>
@@ -67,7 +67,7 @@ export default function NosotrosPreview() {
                 El rugido que <br />
                   despertó
                 <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-br from-white to-liberty-primary">
+                <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-liberty-primary to-liberty-primary-hover">
                   a Santa Fe
                 </span>{" "}
               </h2>

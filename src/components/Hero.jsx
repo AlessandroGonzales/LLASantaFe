@@ -97,9 +97,9 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.6 }}
-          className="text-lg md:text-2xl tracking-widest text-liberty-text-secondary"
+          className="text-lg md:text-2xl tracking-widest text-liberty-text-secondary "
         >
-          SANTA FE
+          SANTA FE 
         </motion.p>
       </div>
 

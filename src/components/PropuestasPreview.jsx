@@ -43,12 +43,12 @@ export default function PropuestasPreview() {
             className="w-full text-center lg:hidden"
           >
             <div className="space-y-2">
-              <span className="text-xs font-bold tracking-[0.3em] text-liberty-cyan uppercase">
+              <span className="text-xs font-bold tracking-[0.3em] text-liberty-primary uppercase">
                 El plan para la provincia
               </span>
               <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none mt-5">
                 Nuestras{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-liberty-primary">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r  from-white via-liberty-primary to-liberty-primary-hover">
                   Propuestas
                 </span>
               </h2>
@@ -84,12 +84,12 @@ export default function PropuestasPreview() {
               transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
               className="space-y-2 hidden lg:block"
             >
-              <span className="text-xs md:text-sm font-bold tracking-[0.3em] text-liberty-cyan uppercase">
+              <span className="text-xs md:text-sm font-bold tracking-[0.3em] text-liberty-primary uppercase">
                 El plan para la provincia
               </span>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase drop-shadow-md mt-3">
                 Nuestras <br className="hidden lg:block" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-liberty-primary ">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-liberty-primary to-liberty-primary-hover">
                   Propuestas
                 </span>
               </h2>
