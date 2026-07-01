@@ -7,7 +7,6 @@ import ScrollToTop from "./ScrollToTop";
 
 // Lazy imports
 const Hero = lazy(() => import("./components/Hero"));
-const NewsCarousel = lazy(() => import("./components/NewCarousel"));
 const PropuestasPreview = lazy(() => import("./components/PropuestasPreview"));
 const NosotrosPreview = lazy(() => import("./components/NosotrosPreview"));
 const RepresentantesPreview = lazy(() => import("./components/RepresentantesPreview"));
@@ -51,7 +50,6 @@ function Home() {
   return (
     <>
       <Hero />
-      <NewsCarousel />
       <PropuestasPreview />
       <NosotrosPreview />
       <DiputadosPreview />
