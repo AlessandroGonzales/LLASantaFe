@@ -60,7 +60,7 @@ export default function PropuestaDetalle() {
                     ? "Provincia de Santa Fe"
                     : propuesta.alcance}
                 </span>
-                <span className="text-[10px] md:text-xs uppercase tracking-widest font-black text-white border border-liberty-border/50 px-4 py-2 rounded-sm bg-white/5 backdrop-blur-sm">
+                <span className="text-[10px] md:text-xs uppercase tracking-widest font-black text-white border border-liberty-border/50 px-4 py-2 rounded-sm bg-white/5 ">
                   {propuesta.categoria}
                 </span>
               </div>
@@ -111,7 +111,7 @@ export default function PropuestaDetalle() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="sticky top-32 bg-gradient-to-b from-liberty-card to-liberty-card/20 border border-liberty-border/40 rounded-2xl p-6 lg:p-8 shadow-2xl backdrop-blur-xl"
+              className="sticky top-32 bg-gradient-to-b from-liberty-card to-liberty-card/20 border border-liberty-border/40 rounded-2xl p-6 lg:p-8 shadow-2xl "
             >
               {/* Acento superior */}
               <div className="absolute -top-px left-1/2 -translate-x-1/2 w-1/2 h-[2px] bg-gradient-to-r from-transparent via-liberty-primary to-transparent" />

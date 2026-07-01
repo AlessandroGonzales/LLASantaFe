@@ -127,7 +127,7 @@ export default function NosotrosPreview() {
               className="relative w-full cursor-pointer"
               onClick={() => navigate("/nosotros")}
             >
-              <div className="rounded-[2.25rem] border border-white/10 bg-white/[0.02] backdrop-blur-[2px]">
+              <div className="rounded-[2.25rem] border border-white/10 bg-white/[0.02]">
                 <div className="grid grid-cols-2 gap-3 auto-rows-[250px] lg:auto-rows-[360px]">
                   {gallery.map((item, index) => (
                     <motion.div

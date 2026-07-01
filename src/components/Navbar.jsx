@@ -37,7 +37,7 @@ export default function Navbar() {
     <header
       className={`w-full fixed top-0 left-0 z-50 h-16 transition-all duration-300 font-satoshi ${
         isScrolled || isOpen
-          ? "bg-liberty-bg/90 backdrop-blur-md shadow-lg border-b border-liberty-border"
+          ? "bg-liberty-bg/95 shadow-lg border-b border-liberty-border"
           : "bg-transparent border-b border-transparent"
       }`}
     >
@@ -149,7 +149,7 @@ export default function Navbar() {
             MENÚ FULLSCREEN (Mobile)
         ========================================= */}
         <div
-          className={`fixed inset-0 top-0 left-0 w-full h-screen bg-liberty-bg/100 backdrop-blur-xl flex flex-col justify-between transition-all duration-300 md:hidden pt-24 pb-12 px-10 ${
+          className={`fixed inset-0 top-0 left-0 w-full h-screen bg-liberty-bg/100  flex flex-col justify-between transition-all duration-300 md:hidden pt-24 pb-12 px-10 ${
             isOpen
               ? "opacity-100 pointer-events-auto translate-x-0"
               : "opacity-0 pointer-events-none translate-x-full"

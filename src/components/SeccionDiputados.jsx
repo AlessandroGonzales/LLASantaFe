@@ -122,7 +122,7 @@ export default function SeccionDiputados() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md p-0 md:p-6 lg:p-12"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90  p-0 md:p-6 lg:p-12"
           >
             <motion.div
               initial={{ y: 50, opacity: 0, scale: 0.95 }}
@@ -133,7 +133,7 @@ export default function SeccionDiputados() {
             >
               <button
                 onClick={() => setSelectedDiputado(null)}
-                className="absolute top-4 right-4 md:top-8 md:right-8 z-50 p-2 md:p-3 bg-black/40 hover:bg-liberty-primary text-white rounded-full backdrop-blur-md transition-all duration-300 group cursor-pointer border border-white/10 hover:border-transparent"
+                className="absolute top-4 right-4 md:top-8 md:right-8 z-50 p-2 md:p-3 bg-black/40 hover:bg-liberty-primary text-white rounded-full  transition-all duration-300 group cursor-pointer border border-white/10 hover:border-transparent"
               >
                 <X className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </button>

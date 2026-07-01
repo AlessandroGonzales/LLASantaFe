@@ -116,7 +116,7 @@ export default function Sumate() {
             </p>
 
             {/* Steps */}
-            <div className="mt-10 rounded-[2rem] border border-liberty-border bg-liberty-surface/2 cbackdrop-blur-xl p-6 md:p-8 shadow-2xl">
+            <div className="mt-10 rounded-[2rem] border border-liberty-border bg-liberty-surface/2  p-6 md:p-8 shadow-2xl">
               <h2 className="text-sm uppercase tracking-[0.25em] text-center md:text-left font-black">
                 Qué sucede después
               </h2>
@@ -161,7 +161,7 @@ export default function Sumate() {
               </div>
 
               {/* Form card */}
-              <div className="rounded-[2rem]  border border-liberty-border/70 bg-liberty-card/90 backdrop-blur-2xl shadow-2xl overflow-hidden">
+              <div className="rounded-[2rem]  border border-liberty-border/70 bg-liberty-card/90 shadow-2xl overflow-hidden">
                 <div className="h-1 w-full  bg-gradient-to-r from-liberty-primary via-fuchsia-300 to-liberty-cyan" />
 
                 <div className="p-6 sm:p-8 md:p-10">

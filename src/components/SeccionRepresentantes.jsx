@@ -197,7 +197,7 @@ export default function SeccionRepresentantes() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-0 md:p-6 lg:p-12"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80  p-0 md:p-6 lg:p-12"
           >
             <motion.div
               initial={{ y: 50, opacity: 0, scale: 0.95 }}
@@ -208,7 +208,7 @@ export default function SeccionRepresentantes() {
             >
               <button
                 onClick={() => setSelectedConcejal(null)}
-                className="absolute top-4 right-4 md:top-8 md:right-8 z-50 p-2 md:p-3 bg-black/20 hover:bg-liberty-primary text-white rounded-full backdrop-blur-md transition-colors duration-300 group cursor-pointer"
+                className="absolute top-4 right-4 md:top-8 md:right-8 z-50 p-2 md:p-3 bg-black/20 hover:bg-liberty-primary text-white rounded-full  transition-colors duration-300 group cursor-pointer"
               >
                 <X className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </button>
