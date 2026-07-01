@@ -1,8 +1,8 @@
-import pautacero from "../assets/pautacero.jpg"
+import pautacero from "../assets/pautacero.webp"
 import rigi from "../assets/rigi.webp"
 import rm from "../assets/romiymilei.jpeg"
 import kari from "../assets/karinadiputados.jpeg"
-import cierre from "../assets/cierreupl.jpeg"
+import cierre from "../assets/cierreupl.webp"
 import utn from "../assets/utn.png"
 
 export const newsData = [

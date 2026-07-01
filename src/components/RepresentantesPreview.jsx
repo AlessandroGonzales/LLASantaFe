@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 import rep1 from "../assets/lautaro.webp";
-import rep2 from "../assets/giselle.jpeg";
-import rep3 from "../assets/maria.jpeg";
-import rep4 from "../assets/david.png";
-import rep5 from "../assets/marisel.jpg"
+import rep2 from "../assets/giselle.webp";
+import rep3 from "../assets/maria.webp";
+import rep4 from "../assets/david.webp";
+import rep5 from "../assets/marisel.webp"
 
 export default function RepresentantesPreview() {
   const hasAnimated =

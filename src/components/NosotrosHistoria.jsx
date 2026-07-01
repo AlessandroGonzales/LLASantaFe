@@ -2,12 +2,12 @@ import { motion } from "framer-motion";
 import uno from "../assets/santafe.jpeg";
 import santafedos from "../assets/santafedos.jpeg";
 import santafetres from "../assets/santafetres.jpeg";
-import rominasantafe from "../assets/romisantafe.png";
+import rominasantafe from "../assets/romisantafe.webp";
 import karina from "../assets/karina.jpeg";
 import libertad from "../assets/libertad.jpeg";
 // Importes para las 3 fotos de UPL (Modifica las rutas según tu proyecto)
 import uplUno from "../assets/utn.png";
-import uplDos from "../assets/cierreupl.jpeg";
+import uplDos from "../assets/cierreupl.webp";
 import uplTres from "../assets/uplunidos.jpg";
 
 export default function NosotrosHistoria() {

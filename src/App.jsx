@@ -19,6 +19,7 @@ const NoticiaDetalle = lazy(() => import("./components/NoticiasDetalle"));
 const Sumate = lazy(() => import("./components/Sumate"));
 const NosotrosHistoria = lazy(() => import("./components/NosotrosHistoria"));
 const SeccionRepresentantes = lazy(() => import("./components/SeccionRepresentantes"));
+const SeccionDiputados = lazy(() => import("./components/SeccionDiputados"));
 
 // Fallback más profesional
 const PageLoader = () => (
@@ -53,7 +54,7 @@ function Home() {
       <NewsCarousel />
       <PropuestasPreview />
       <NosotrosPreview />
-        <DiputadosPreview />
+      <DiputadosPreview />
       <RepresentantesPreview />
     </>
   );
@@ -77,6 +78,7 @@ function App() {
             <Route path="/sumate" element={<Sumate />} />
             <Route path="/nosotros" element={<NosotrosHistoria />} />
             <Route path="/representantes" element={<SeccionRepresentantes />} />
+            <Route path="/diputados" element={<SeccionDiputados />}/>
           </Routes>
         </Suspense>
 

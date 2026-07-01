@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import mapaSantaFe from "../assets/mapaSantaFe.png"; // Reemplaza la ruta si está en otra carpeta
+import mapaSantaFe from "../assets/mapaSantaFe.webp"; // Reemplaza la ruta si está en otra carpeta
 
 export default function PropuestasPreview() {
   // 1. Verificamos si las animaciones ya se ejecutaron en esta sesión
