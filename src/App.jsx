@@ -11,6 +11,7 @@ const NewsCarousel = lazy(() => import("./components/NewCarousel"));
 const PropuestasPreview = lazy(() => import("./components/PropuestasPreview"));
 const NosotrosPreview = lazy(() => import("./components/NosotrosPreview"));
 const RepresentantesPreview = lazy(() => import("./components/RepresentantesPreview"));
+const DiputadosPreview = lazy(() => import("./components/DiputadosPreview"));
 
 const SeccionPropuestas = lazy(() => import("./components/SeccionPropuestas"));
 const PropuestaDetalle = lazy(() => import("./components/PropuestaDetalle"));
@@ -52,6 +53,7 @@ function Home() {
       <NewsCarousel />
       <PropuestasPreview />
       <NosotrosPreview />
+        <DiputadosPreview />
       <RepresentantesPreview />
     </>
   );

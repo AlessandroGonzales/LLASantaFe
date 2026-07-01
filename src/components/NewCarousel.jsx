@@ -1,9 +1,29 @@
-import { useRef } from "react";
-import { Link } from "react-router-dom"; // Importamos Link
+import { useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { newsData } from "../data/noticiasData";
 
 export default function NewsCarousel() {
   const carouselRef = useRef(null);
+
+  // 1. Restauramos la posición del scroll al montar el componente
+  useEffect(() => {
+    const savedScrollPosition = sessionStorage.getItem("newsCarouselScroll");
+    if (savedScrollPosition && carouselRef.current) {
+      // Usamos un pequeño timeout para asegurar que el DOM esté listo y las imágenes cargadas
+      setTimeout(() => {
+        if (carouselRef.current) {
+          carouselRef.current.scrollLeft = parseInt(savedScrollPosition, 10);
+        }
+      }, 50);
+    }
+  }, []);
+
+  // 2. Función para guardar la posición exacta antes de ir a la noticia
+  const handleNewsClick = () => {
+    if (carouselRef.current) {
+      sessionStorage.setItem("newsCarouselScroll", carouselRef.current.scrollLeft);
+    }
+  };
 
   const scrollLeft = () => {
     const cardWidth =
@@ -92,7 +112,7 @@ export default function NewsCarousel() {
           </button>
         </div>
 
-        {/* CARRUSEL - Agregado transform-gpu para aceleración por hardware */}
+        {/* CARRUSEL */}
         <div
           ref={carouselRef}
           className="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-6 pb-8 hide-scrollbar scroll-smooth"
@@ -102,17 +122,19 @@ export default function NewsCarousel() {
             <Link
               key={news.id}
               to={`/noticia/${news.id}`}
-              className="relative flex-none w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[31vw] h-[60dvh] md:h-[500px] bg-liberty-card rounded-2xl overflow-hidden snap-center md:snap-start group border border-liberty-border/50"
+              onClick={handleNewsClick} // <-- Guardamos la posición al hacer clic
+              className="relative flex-none w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[31vw] h-[60dvh] md:h-[500px] bg-liberty-card rounded-2xl overflow-hidden snap-center md:snap-start group border border-liberty-border/50 block"
             >
-              {/* IMAGEN - Agregado loading="lazy" y aceleración GPU en la transición */}
+              {/* IMAGEN */}
               <img
                 src={news.image}
                 alt={news.title}
+                loading="lazy"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 transform-gpu will-change-transform group-hover:scale-105 bg-liberty-bg/50"
               />
 
               {/* OVERLAY */}
-              <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/90 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/90 pointer-events-none" />
 
               {/* CATEGORÍA */}
               <div className="absolute top-6 left-6 z-10">
@@ -127,18 +149,16 @@ export default function NewsCarousel() {
                   {news.title}
                 </h3>
 
-                <p className="text-sm md:text-base text-gray-200 mb-6 line-clamp-2 drop-shadow-md   ">
+                <p className="text-sm md:text-base text-gray-200 mb-6 line-clamp-2 drop-shadow-md">
                   {news.description}
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-3">
-                  {/* Cambiado <a> por <Link> */}
-                  <Link
-                    to={`/noticia/${news.id}`}
-                    className="w-full sm:w-auto px-10 py-3 rounded-4xl font-bold text-sm bg-liberty-card border border-liberty-border text-white transition-all duration-300 hover:bg-liberty-border/40 hover:text-liberty-cyan text-center cursor-pointer"
+                  <span
+                    className="w-full sm:w-auto px-10 py-3 rounded-4xl font-bold text-sm bg-liberty-card border border-liberty-border text-white transition-all duration-300 group-hover:bg-liberty-border/40 group-hover:text-liberty-cyan text-center cursor-pointer inline-block"
                   >
                     Ver más
-                  </Link>
+                  </span>
                 </div>
               </div>
             </Link>
