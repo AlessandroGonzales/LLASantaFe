@@ -2,44 +2,51 @@ import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useCinematicTransition } from "../context/TransitionContext";
-import logoLibertad from "../assets/logoLibertad.png"; // Asegúrate de ajustar la ruta
+import logoLibertad from "../assets/logoLibertad.svg";
 
 // =========================================
-// VARIANTS DE ANIMACIÓN
+// VARIANTS ULTRA-OPTIMIZADOS (Mobile & Desktop)
 // =========================================
 
-// El fondo oscurece ligeramente la pantalla actual
 const backgroundVariants = {
   hidden: { opacity: 0 },
+  // Eliminamos el backdrop-blur, usamos un color negro sólido
   visible: { opacity: 1, transition: { duration: 0.3 } },
   exit: { opacity: 0, transition: { duration: 0.5, delay: 0.2 } },
 };
 
-// El Águila: Nace pequeña, se vuelve masiva y vuela hacia la cámara
 const eagleFlyVariants = {
   hidden: {
     scale: 0.1,
     opacity: 0,
-    filter: "drop-shadow(0px 0px 0px rgba(212,175,55,0))",
   },
   flying: {
-    // Escala brutal de 0.1 a 25 para que "traspase" la pantalla
-    scale: [0.1, 1.5, 25], 
+    // Reducimos la escala máxima a 12 (suficiente para cubrir la pantalla sin lag)
+    scale: [0.1, 1.5, 12], 
     opacity: [0, 1, 1, 0], 
-    filter: [
-      "drop-shadow(0px 0px 0px rgba(212,175,55,0))",
-      "drop-shadow(0px 0px 40px rgba(212,175,55,0.8))",
-      "drop-shadow(0px 0px 150px rgba(212,175,55,1))",
-    ],
     transition: {
-      duration: 1.1, // 1100ms
-      times: [0, 0.5, 1], // Control exacto de los keyframes
-      ease: "easeIn", // Aceleración (empieza lento, termina rapidísimo)
+      duration: 1.1,
+      times: [0, 0.5, 1],
+      ease: "easeIn",
     },
   },
 };
 
-// El impacto ("PUM"): Flash blanco/dorado en el clímax
+// Separamos el glow (brillo dorado) de la imagen principal.
+// Animar un div con box-shadow es un 90% más rápido que un drop-shadow en una imagen PNG.
+const cheapGlowVariants = {
+  hidden: { opacity: 0, scale: 0.1 },
+  flying: {
+    opacity: [0, 0.8, 0],
+    scale: [0.1, 1.5, 8],
+    transition: {
+      duration: 1.1,
+      times: [0, 0.5, 1],
+      ease: "easeIn",
+    }
+  }
+};
+
 const impactFlashVariants = {
   hidden: { opacity: 0 },
   flash: {
@@ -47,7 +54,7 @@ const impactFlashVariants = {
     transition: {
       duration: 0.4,
       times: [0, 0.5, 1],
-      delay: 0.8, // Explota justo a los 800ms (cuando el águila está enorme)
+      delay: 0.8, 
       ease: "easeInOut",
     },
   },
@@ -59,17 +66,14 @@ export default function GlobalTransition() {
 
   useEffect(() => {
     if (transitionData.active && transitionData.to) {
-      // 1. Sincronizamos la navegación con el "PUM" (Flash) a los 850ms
       const navTimer = setTimeout(() => {
         navigate(transitionData.to);
-        // Desplazamos al inicio de la página nueva
         window.scrollTo(0, 0); 
-      }, 150);
+      }, 850);
 
-      // 2. Terminamos toda la secuencia a los 1200ms
       const endTimer = setTimeout(() => {
         endTransition();
-      }, 400);
+      }, 1200);
 
       return () => {
         clearTimeout(navTimer);
@@ -82,28 +86,37 @@ export default function GlobalTransition() {
     <AnimatePresence>
       {transitionData.active && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center pointer-events-auto">
-          {/* Fondo oscuro con Blur */}
+          {/* 1. Fondo Oscuro Puro */}
           <motion.div
-            className="absolute inset-0 bg-black/90 backdrop-blur-md"
+            className="absolute inset-0 bg-black"
             variants={backgroundVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
           />
 
-          {/* Flash Cinematográfico */}
+          {/* 2. Flash de Impacto Optimizado (Sin mix-blend) */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-t from-white via-yellow-100 to-white mix-blend-overlay z-20 pointer-events-none"
+            className="absolute inset-0 bg-white z-20 pointer-events-none"
             variants={impactFlashVariants}
             initial="hidden"
             animate="flash"
           />
 
-          {/* El Águila */}
+          {/* 3. El Glow Dorado (Truco de Performance) */}
+          <motion.div 
+            className="absolute z-25 w-32 h-32 rounded-full bg-yellow-500 blur-[40px] will-change-transform"
+            variants={cheapGlowVariants}
+            initial="hidden"
+            animate="flying"
+          />
+
+          {/* 4. El Águila sin filtros CSS pesados */}
           <motion.img
             src={logoLibertad}
             alt="Transición"
-            className="relative z-30 w-48 h-auto object-contain will-change-transform"
+            // Agregamos translate-z-0 para forzar la aceleración por hardware en iOS
+            className="relative z-30 w-48 h-auto object-contain will-change-transform transform-gpu translate-z-0"
             variants={eagleFlyVariants}
             initial="hidden"
             animate="flying"
