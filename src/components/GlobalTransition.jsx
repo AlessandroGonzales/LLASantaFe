@@ -64,12 +64,12 @@ export default function GlobalTransition() {
         navigate(transitionData.to);
         // Desplazamos al inicio de la página nueva
         window.scrollTo(0, 0); 
-      }, 850);
+      }, 150);
 
       // 2. Terminamos toda la secuencia a los 1200ms
       const endTimer = setTimeout(() => {
         endTransition();
-      }, 1200);
+      }, 400);
 
       return () => {
         clearTimeout(navTimer);
