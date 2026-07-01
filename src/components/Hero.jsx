@@ -3,6 +3,7 @@ import logoLibertad from "../assets/logoLibertad.png";
 import backgroundImage from "../assets/mileidiezz.webp"; // Para mobile
 import backgroundImageDos from "../assets/mileidiez.webp"; // Para Desktop
 import { Link } from "react-router-dom";
+import CinematicLink from "./CinematicLink";
 
 // =========================================
 // VARIANTS DE ANIMACIÓN (Cinematográfica)
@@ -179,12 +180,12 @@ export default function Hero() {
           >
             Conocer Propuestas
           </Link>
-          <Link
+          <CinematicLink
             to="/sumate"
             className="w-full sm:w-auto px-10 py-4 rounded-4xl font-bold bg-[#C026D3] border border-[#C026D3] text-white hover:bg-[#A21CAF] transition-all duration-300 cursor-pointer text-center"
           >
             Súmate al partido
-          </Link>
+          </CinematicLink>
         </div>
       </motion.div>
     </header>

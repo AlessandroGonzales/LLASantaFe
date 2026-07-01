@@ -1,5 +1,7 @@
 import { useEffect, Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { TransitionProvider } from "./context/TransitionContext";
+import GlobalTransition from "./components/GlobalTransition";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -10,7 +12,9 @@ const Hero = lazy(() => import("./components/Hero"));
 const NewsCarousel = lazy(() => import("./components/NewCarousel"));
 const PropuestasPreview = lazy(() => import("./components/PropuestasPreview"));
 const NosotrosPreview = lazy(() => import("./components/NosotrosPreview"));
-const RepresentantesPreview = lazy(() => import("./components/RepresentantesPreview"));
+const RepresentantesPreview = lazy(
+  () => import("./components/RepresentantesPreview"),
+);
 const DiputadosPreview = lazy(() => import("./components/DiputadosPreview"));
 
 const SeccionPropuestas = lazy(() => import("./components/SeccionPropuestas"));
@@ -18,7 +22,9 @@ const PropuestaDetalle = lazy(() => import("./components/PropuestaDetalle"));
 const NoticiaDetalle = lazy(() => import("./components/NoticiasDetalle"));
 const Sumate = lazy(() => import("./components/Sumate"));
 const NosotrosHistoria = lazy(() => import("./components/NosotrosHistoria"));
-const SeccionRepresentantes = lazy(() => import("./components/SeccionRepresentantes"));
+const SeccionRepresentantes = lazy(
+  () => import("./components/SeccionRepresentantes"),
+);
 const SeccionDiputados = lazy(() => import("./components/SeccionDiputados"));
 
 // Fallback más profesional
@@ -62,29 +68,35 @@ function Home() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      
-      <div className="min-h-screen bg-liberty-bg text-liberty-text font-satoshi antialiased selection:bg-liberty-primary selection:text-white">
-        <Navbar />
+    <TransitionProvider>
+      <BrowserRouter>
+        <GlobalTransition />
+        <ScrollToTop />
 
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            
-            <Route path="/propuestas" element={<SeccionPropuestas />} />
-            <Route path="/propuesta/:id" element={<PropuestaDetalle />} />
-            <Route path="/noticia/:id" element={<NoticiaDetalle />} />
-            <Route path="/sumate" element={<Sumate />} />
-            <Route path="/nosotros" element={<NosotrosHistoria />} />
-            <Route path="/representantes" element={<SeccionRepresentantes />} />
-            <Route path="/diputados" element={<SeccionDiputados />}/>
-          </Routes>
-        </Suspense>
+        <div className="min-h-screen bg-liberty-bg text-liberty-text font-satoshi antialiased selection:bg-liberty-primary selection:text-white">
+          <Navbar />
 
-        <Footer />
-      </div>
-    </BrowserRouter>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+
+              <Route path="/propuestas" element={<SeccionPropuestas />} />
+              <Route path="/propuesta/:id" element={<PropuestaDetalle />} />
+              <Route path="/noticia/:id" element={<NoticiaDetalle />} />
+              <Route path="/sumate" element={<Sumate />} />
+              <Route path="/nosotros" element={<NosotrosHistoria />} />
+              <Route
+                path="/representantes"
+                element={<SeccionRepresentantes />}
+              />
+              <Route path="/diputados" element={<SeccionDiputados />} />
+            </Routes>
+          </Suspense>
+
+          <Footer />
+        </div>
+      </BrowserRouter>
+    </TransitionProvider>
   );
 }
 

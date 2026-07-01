@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { newsData } from "../data/noticiasData";
+import CinematicLink from "./CinematicLink";
 
 export default function NewsCarousel() {
   const carouselRef = useRef(null);
@@ -119,7 +119,7 @@ export default function NewsCarousel() {
           style={{ scrollPaddingLeft: "1.5rem" }}
         >
           {newsData.map((news) => (
-            <Link
+            <CinematicLink
               key={news.id}
               to={`/noticia/${news.id}`}
               onClick={handleNewsClick} // <-- Guardamos la posición al hacer clic
@@ -161,7 +161,7 @@ export default function NewsCarousel() {
                   </span>
                 </div>
               </div>
-            </Link>
+            </CinematicLink>
           ))}
         </div>
       </div>
