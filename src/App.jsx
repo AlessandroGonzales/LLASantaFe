@@ -1,10 +1,17 @@
-import { Suspense, lazy } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect, Suspense, lazy } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTop from "./ScrollToTop";
-import HomePage from "./pages/HomePage";
+
+// Lazy imports
+const Hero = lazy(() => import("./components/Hero"));
+const NewsCarousel = lazy(() => import("./components/NewCarousel"));
+const PropuestasPreview = lazy(() => import("./components/PropuestasPreview"));
+const NosotrosPreview = lazy(() => import("./components/NosotrosPreview"));
+const RepresentantesPreview = lazy(() => import("./components/RepresentantesPreview"));
+const DiputadosPreview = lazy(() => import("./components/DiputadosPreview"));
 
 const SeccionPropuestas = lazy(() => import("./components/SeccionPropuestas"));
 const PropuestaDetalle = lazy(() => import("./components/PropuestaDetalle"));
@@ -24,6 +31,34 @@ const PageLoader = () => (
   </div>
 );
 
+function Home() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 150);
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+  }, [location]);
+
+  return (
+    <>
+      <Hero />
+      <NewsCarousel />
+      <PropuestasPreview />
+      <NosotrosPreview />
+      <DiputadosPreview />
+      <RepresentantesPreview />
+    </>
+  );
+}
 
 function App() {
   return (
@@ -35,7 +70,7 @@ function App() {
 
         <Suspense fallback={<PageLoader />}>
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<Home />} />
             
             <Route path="/propuestas" element={<SeccionPropuestas />} />
             <Route path="/propuesta/:id" element={<PropuestaDetalle />} />
