@@ -81,10 +81,6 @@ export default function Sumate() {
           ========================================= */}
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top,rgba(217,70,239,0.18)_0%,rgba(30,8,45,0.08)_30%,rgba(30,8,45,0)_65%)] transform-gpu translate-z-0" />
       
-      {/* Reemplazamos el blur-[180px] por un gradiente nativo. 0% impacto en GPU. */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-[radial-gradient(circle,rgba(212,175,55,0.1)_0%,transparent_60%)] pointer-events-none transform-gpu translate-z-0" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(34,211,238,0.1)_0%,transparent_60%)] pointer-events-none transform-gpu translate-z-0" />
-
       {/* CONTENEDOR PRINCIPAL */}
       <div className="relative z-10 w-full px-6 md:px-16 lg:px-24 xl:px-32 py-8 md:py-12 mt-10">
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-20 xl:gap-24 items-start">
@@ -114,7 +110,7 @@ export default function Sumate() {
             <p className="mt-6 max-w-2xl text-base sm:text-lg md:text-xl leading-relaxed text-liberty-text-secondary">
               A vos, que te levantás todos los días para sostener a tu familia.
               A vos, que construiste tu camino con mérito propio y no te
-              resignaste. Esta provincia necesita personas que den un paso al
+              
               frente, con convicción, con fuerza y con coraje.
             </p>
 
@@ -160,8 +156,6 @@ export default function Sumate() {
             <div className="space-y-6">
               {/* Imagen Hero Optimizada */}
               <div className="relative overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.45)] transform-gpu translate-z-0">
-                <div className="absolute inset-0 z-10 bg-gradient-to-t from-liberty-bg via-transparent to-transparent opacity-90" />
-                <div className="absolute inset-0 z-10 bg-gradient-to-br from-liberty-primary/10 via-transparent to-liberty-cyan/10" />
                 <img
                   src={afiliacion}
                   alt="Militancia y encuentro"
@@ -181,7 +175,6 @@ export default function Sumate() {
                       
                       {/* Animación de Éxito Optimizada (Sin drop-shadow en animación) */}
                       <div className="relative flex justify-center items-center">
-                        <div className="absolute w-24 h-24 bg-[radial-gradient(circle,rgba(74,222,128,0.35)_0%,transparent_70%)] pointer-events-none transform-gpu translate-z-0" />
                         <motion.div
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
@@ -316,7 +309,7 @@ export default function Sumate() {
                               className="peer sr-only"
                             />
                             <div className="flex h-7 w-7 items-center justify-center rounded-lg border-2 border-gray-600 bg-black transition peer-checked:border-liberty-primary peer-checked:bg-liberty-primary">
-                              <ShieldCheck className="h-4 w-4 text-white opacity-0 transition-opacity peer-checked:opacity-100" />
+                              <ShieldCheck className="h-4 w-4 text-white opacity-0 " />
                             </div>
                           </div>
                           <div>
@@ -335,7 +328,7 @@ export default function Sumate() {
                       <button
                         type="submit"
                         disabled={cargando}
-                        className={`group mt-3 mx-auto flex w-full sm:w-fit items-center justify-center gap-3 rounded-2xl px-5 py-4 md:py-4 text-[14px] md:text-[15px] font-black uppercase tracking-[0.2em] text-white transition-all duration-300 cursor-pointer will-change-transform transform-gpu translate-z-0 ${
+                        className={`group mt-3 mx-auto flex w-full sm:w-fit items-center justify-center gap-3 rounded-2xl px-5 py-4 md:py-4 text-[14px] md:text-[15px] font-black uppercase tracking-[0.2em] text-white cursor-pointer will-change-transform   ${
                           cargando
                             ? "cursor-not-allowed bg-liberty-primary/65 opacity-80"
                             : "bg-gradient-to-r bg-liberty-primary hover:shadow-[0_0_40px_rgba(217,70,239,0.45)] hover:scale-[1.01]"
@@ -343,7 +336,7 @@ export default function Sumate() {
                       >
                         {cargando ? "Enviando..." : "Quiero ser parte"}
                         {!cargando && (
-                          <ArrowRight className="h-5 w-5 md:h-6 md:w-6 transition-transform group-hover:translate-x-1.5" />
+                          <ArrowRight className="h-5 w-5 md:h-6 md:w-6  group-hover:translate-x-1.5" />
                         )}
                       </button>
 
