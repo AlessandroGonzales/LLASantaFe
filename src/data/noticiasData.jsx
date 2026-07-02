@@ -78,13 +78,4 @@ export const newsData = [
     image:
       cierre,
   },
-  {
-    id: 4,
-    category: "Economía",
-    title: "Plan de Crecimiento",
-    description:
-      "Nuevas medidas propuestas en el bloque para fomentar la inversión privada.",
-    image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop",
-  },
 ];
