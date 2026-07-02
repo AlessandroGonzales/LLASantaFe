@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
-import uno from "../assets/santafe.jpeg";
-import santafedos from "../assets/santafedos.jpeg";
-import santafetres from "../assets/santafetres.jpeg";
+import uno from "../assets/santafe.webp";
+import santafedos from "../assets/santafedos.webp";
+import santafetres from "../assets/santafetres.webp";
 import rominasantafe from "../assets/romisantafe.webp";
 import karina from "../assets/karina.jpeg";
-import libertad from "../assets/libertad.jpeg";
+import libertad from "../assets/libertad.webp";
 // Importes para las 3 fotos de UPL
 import uplUno from "../assets/utn.webp";
 import uplDos from "../assets/cierreupl.webp";
@@ -98,13 +98,12 @@ export default function NosotrosHistoria() {
               alt="Campaña Presidencial 2023 Santa Fe" 
               className="w-full h-full object-cover group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1.5s] ease-out"
             />
-            <div className="absolute inset-0 bg-gradient-to-t via-transparent to-transparent opacity-60" />
           </motion.div>
 
         </div>
 
         {/* Separador Visual Elegante */}
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-liberty-text-secondary/70 to-transparent" />
 
         {/* =========================================
             BLOQUE 2: AÑO 2024 - LA CONSOLIDACIÓN
@@ -184,7 +183,7 @@ export default function NosotrosHistoria() {
         </div>
 
         {/* Separador Visual Elegante */}
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-liberty-text-secondary/70 to-transparent" />
 
         {/* =========================================
             BLOQUE 3: AÑO 2024 - EL NACIMIENTO DE UPL

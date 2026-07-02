@@ -10,7 +10,7 @@ import {
   CheckCircle2,
   BadgeInfo,
 } from "lucide-react";
-import afiliacion from "../assets/mileirosario.webp";
+import afiliacion from "../assets/militantes.webp";
 
 const steps = [
   {

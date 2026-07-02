@@ -1,20 +1,10 @@
 import { useParams } from "react-router-dom";
-import { motion } from "framer-motion";
 import { Share2 } from "lucide-react";
 import { newsData } from "../data/noticiasData";
 
 export default function NoticiaDetalle() {
   const { id } = useParams();
   const noticia = newsData.find((n) => n.id === parseInt(id || "")) || newsData[0];
-
-  // === Lógica para animar solo una vez ===
-  const hasAnimated = sessionStorage.getItem("noticia_animated") === "true";
-
-  const markAsAnimated = () => {
-    if (!hasAnimated) {
-      sessionStorage.setItem("noticia_animated", "true");
-    }
-  };
 
   const handleShare = () => {
     const text = `Entérate de la última noticia de La Libertad Avanza Santa Fe: *${noticia.title}*\n\nLee más acá: ${window.location.href}`;
@@ -27,7 +17,6 @@ export default function NoticiaDetalle() {
       
       {/* IMAGEN HERO INMERSIVA */}
       <div className="relative w-full h-[40vh] md:h-[50vh] overflow-hidden">
-        <div className="absolute inset-0 bg-black/40 z-10" />
         <div className="absolute inset-0 bg-gradient-to-t from-liberty-bg via-liberty-bg/70 to-transparent z-10" />
         
         <img
@@ -45,12 +34,7 @@ export default function NoticiaDetalle() {
           
           {/* COLUMNA IZQUIERDA */}
           <div className="lg:col-span-8">
-            <motion.div
-              onViewportEnter={markAsAnimated}
-              initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              animate={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            >
+            <div>
               {/* Meta info */}
               <div className="flex flex-wrap items-center gap-3 mb-6">
                 <span className="text-[10px] md:text-xs uppercase tracking-[0.2em] font-black px-4 py-2 bg-liberty-primary text-black rounded-sm">
@@ -70,13 +54,9 @@ export default function NoticiaDetalle() {
               <p className="text-xl md:text-2xl text-liberty-primary mb-10 border-l-2 border-liberty-primary pl-6">
                 {noticia.description}
               </p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={hasAnimated ? { opacity: 1 } : { opacity: 0 }}
-              animate={hasAnimated ? { opacity: 1 } : { opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.15 }}
-            >
+            <div>
               {/* Cuerpo de la noticia */}
               <div className="text-base md:text-lg leading-loose space-y-8 text-balance">
                 <div className="whitespace-pre-line">
@@ -84,13 +64,7 @@ export default function NoticiaDetalle() {
                 </div>
 
                 {noticia.imagenSecundaria && (
-                  <motion.div
-                    initial={hasAnimated ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.98 }}
-                    whileInView={hasAnimated ? false : { opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
-                    className="relative w-full aspect-video rounded-xl overflow-hidden my-8 border border-white/10"
-                  >
+                  <div className="relative w-full aspect-video rounded-xl overflow-hidden my-8 border border-white/10">
                     <img
                       src={noticia.imagenSecundaria}
                       alt="Imagen complementaria"
@@ -98,24 +72,19 @@ export default function NoticiaDetalle() {
                       className="w-full h-full object-cover"
                       decoding="async"
                     />
-                  </motion.div>
+                  </div>
                 )}
 
                 <div className="whitespace-pre-line">
                   {noticia.contenidoParte2}
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* COLUMNA DERECHA - Sticky */}
           <div className="lg:col-span-3 relative">
-            <motion.div
-              initial={hasAnimated ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
-              animate={hasAnimated ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="sticky top-20 lg:top-24 bg-gradient-to-b from-liberty-card to-liberty-bg border border-liberty-border/50 rounded-2xl p-6 shadow-xl"
-            >
+            <div className="sticky top-20 lg:top-24 bg-gradient-to-b from-liberty-card to-liberty-bg border border-liberty-border/50 rounded-2xl p-6 shadow-xl">
               <div className="absolute -top-px left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-liberty-primary/60 to-transparent" />
 
               <h4 className="text-sm uppercase tracking-[0.2em] text-white mb-2 font-black text-center">
@@ -177,7 +146,7 @@ export default function NoticiaDetalle() {
                   VLLC
                 </span>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

@@ -80,7 +80,6 @@ export default function SeccionPropuestas() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.6 }}
-              whileHover={{ y: -8, transition: { duration: 0.3 } }}
               className="space-y-2"
             >
               <div className="text-liberty-primary font-black text-lg">
@@ -98,8 +97,6 @@ export default function SeccionPropuestas() {
               initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.75 }}
-              whileHover={{ y: -8, transition: { duration: 0.3 } }}
               className="space-y-2 md:border-x md:border-liberty-border/30 md:px-6"
             >
               <div className="text-liberty-primary font-black text-lg">
@@ -118,7 +115,6 @@ export default function SeccionPropuestas() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.8 }}
-              whileHover={{ y: -8, transition: { duration: 0.3 } }}
               className="space-y-2 md:pl-4"
             >
               <div className="text-liberty-primary font-black text-lg">

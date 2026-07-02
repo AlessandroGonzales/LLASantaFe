@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 // Asegurate de cambiar esto por la ruta de tu foto cinematográfica
-import proponeBg from "../assets/militantes.webp";
+import proponeBg from "../assets/mileirosario.webp";
 
 export default function ProponePreview() {
   const hasAnimated = sessionStorage.getItem("propone_animated") === "true";

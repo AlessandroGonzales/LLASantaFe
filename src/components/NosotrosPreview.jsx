@@ -4,8 +4,8 @@ import CinematicLink from "./CinematicLink";
 
 
 import nosotrosimg1 from "../assets/uplunidos.webp";
-import nosotrosimg2 from "../assets/nosotros.jpg";
-import nosotrosimg3 from "../assets/inicios.jpeg";
+import nosotrosimg2 from "../assets/nosotros.webp";
+import nosotrosimg3 from "../assets/inicios.webp";
 
 const gallery = [
   {
