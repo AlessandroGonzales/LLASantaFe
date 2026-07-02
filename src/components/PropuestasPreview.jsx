@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import mapaSantaFe from "../assets/mapaSantaFe.webp"; // Reemplaza la ruta si está en otra carpeta
+import mapaSantaFe from "../assets/mapaSantaFe.webp"; 
 
 export default function PropuestasPreview() {
-  // 1. Verificamos si las animaciones ya se ejecutaron en esta sesión
+  // 1. Verificamos si las animaciones ya se ejecutaron
   const hasAnimated = sessionStorage.getItem("propuestas_animated") === "true";
 
   // 2. Función que se dispara cuando el componente entra en pantalla
@@ -12,43 +12,43 @@ export default function PropuestasPreview() {
   };
 
   return (
-    <section id="preview" className="relative w-full py-1 lg:py-14 bg-liberty-bg overflow-hidden font-satoshi mb-10">
+    <section id="preview" className="relative w-full py-1 lg:py-14 bg-liberty-bg overflow-hidden font-satoshi mb-10 transform-gpu translate-z-0">
       
-      {/* LUZ DE FONDO (Animada sutilmente) */}
+      {/* LUZ DE FONDO (Forzadas a la GPU para evitar recalcular el Blur en el scroll) */}
       <motion.div 
-        onViewportEnter={markAsAnimated} // Guardamos en memoria que ya se vio
+        onViewportEnter={markAsAnimated}
         initial={hasAnimated ? { opacity: 1 } : { opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1.5 }}
-        className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-liberty-primary/10 rounded-full blur-[120px] pointer-events-none z-0" 
+        className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-liberty-primary/10 rounded-full blur-[120px] pointer-events-none z-0 transform-gpu translate-z-0 will-change-opacity" 
       />
       <motion.div 
         initial={hasAnimated ? { opacity: 1 } : { opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1.5, delay: 0.3 }}
-        className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-liberty-cyan/5 rounded-full blur-[100px] pointer-events-none z-0" 
+        className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-liberty-cyan/5 rounded-full blur-[100px] pointer-events-none z-0 transform-gpu translate-z-0 will-change-opacity" 
       />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
 
-          {/* TÍTULO MOBILE (solo en mobile) */}
+          {/* TÍTULO MOBILE */}
           <motion.div 
             initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="w-full text-center lg:hidden"
+            className="w-full text-center lg:hidden will-change-transform"
           >
             <div className="space-y-2">
               <span className="text-xs font-bold tracking-[0.3em] text-liberty-primary uppercase">
                 El plan para la provincia
               </span>
-              <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-none mt-5">
+              <h2 className="text-5xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.99] text-center lg:text-left">
                 Nuestras{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r  from-white via-liberty-primary to-liberty-primary-hover">
+                <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-liberty-primary to-liberty-primary-hover">
                   Propuestas
                 </span>
               </h2>
@@ -61,33 +61,35 @@ export default function PropuestasPreview() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full lg:w-1/2 flex justify-center relative group"
+            className="w-full lg:w-1/2 flex justify-center relative group will-change-transform"
           >
-            {/* Círculo de luz dinámico detrás del mapa */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-liberty-primary/30 to-transparent rounded-full blur-[60px] lg:blur-[80px] opacity-40 group-hover:opacity-80 transition-opacity duration-700" />
+            {/* Círculo de luz dinámico (hace de sombra y resplandor, mucho más óptimo) */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-liberty-primary/30 to-transparent rounded-full blur-[60px] lg:blur-[80px] opacity-40 group-hover:opacity-80 transition-opacity duration-700 transform-gpu translate-z-0" />
 
             <img
               src={mapaSantaFe}
               alt="Mapa de los Departamentos de Santa Fe"
-              className="w-4/5 sm:w-1/2 lg:w-4/5 h-auto object-contain drop-shadow-[0_0_30px_rgba(212,175,55,0.15)] transition-transform duration-700 group-hover:-translate-y-3 group-hover:scale-105 z-10 relative"
+              loading="lazy"
+              decoding="async"
+              className="w-4/5 sm:w-1/2 lg:w-4/5 h-auto object-contain transition-transform duration-700 group-hover:-translate-y-3 group-hover:scale-105 z-10 relative transform-gpu will-change-transform"
             />
           </motion.div>
 
           {/* COLUMNA DERECHA: Texto y Botón */}
           <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 lg:space-y-8">
 
-            {/* Títulos (solo desktop) */}
+            {/* Títulos Desktop */}
             <motion.div 
               initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-              className="space-y-2 hidden lg:block"
+              className="space-y-2 hidden lg:block will-change-transform"
             >
               <span className="text-xs md:text-sm font-bold tracking-[0.3em] text-liberty-primary uppercase">
                 El plan para la provincia
               </span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase drop-shadow-md mt-3">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase mt-3 [text-shadow:_0_2px_8px_rgba(0,0,0,0.8)]">
                 Nuestras <br className="hidden lg:block" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-liberty-primary to-liberty-primary-hover">
                   Propuestas
@@ -101,7 +103,7 @@ export default function PropuestasPreview() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-              className="text-base md:text-lg text-liberty-text-secondary max-w-2xl"
+              className="text-base md:text-lg text-liberty-text-secondary max-w-2xl will-change-transform"
             >
               Tenemos un plan integral diseñado para transformar cada rincón de la provincia de Santa Fe. Desde el norte productivo hasta el sur industrial, nuestras ideas nacen de escuchar a los santafesinos y aplicar los valores de la libertad para volver a ser el grande el país nuevamente.
             </motion.p>
@@ -112,11 +114,11 @@ export default function PropuestasPreview() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.4, delay: 0.4, ease: "easeOut" }}
-              className="pt-2 w-full sm:w-auto"
+              className="pt-2 w-full sm:w-auto will-change-transform"
             >
               <Link
                 to="/propuestas"
-                className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 font-bold text-white transition-all duration-300 bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-cyan hover:shadow-[0_0_20px_rgba(0,255,255,0.1)] overflow-hidden"
+                className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 font-bold text-white transition-all duration-300 bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-cyan hover:shadow-[0_0_20px_rgba(0,255,255,0.1)] overflow-hidden transform-gpu translate-z-0"
               >
                 <div className="absolute inset-0 w-full h-full -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                 <span className="relative z-10 flex items-center gap-3">

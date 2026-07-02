@@ -73,7 +73,7 @@ function App() {
         <GlobalTransition />
         <ScrollToTop />
 
-        <div className="min-h-screen bg-liberty-bg text-liberty-text font-satoshi antialiased selection:bg-liberty-primary selection:text-white">
+        <div className="min-h-screen bg-liberty-bg text-liberty-text font-satoshi">
           <Navbar />
 
           <Suspense fallback={<PageLoader />}>

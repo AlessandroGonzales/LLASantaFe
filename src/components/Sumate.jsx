@@ -75,31 +75,38 @@ export default function Sumate() {
   };
 
   return (
-    <main className="min-h-screen bg-liberty-bg text-white font-satoshi relative overflow-hidden ">
-      {/* Ambient background */}
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top,rgba(217,70,239,0.18)_0%,rgba(30,8,45,0.08)_30%,rgba(30,8,45,0)_65%)]" />
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full bg-liberty-primary/10 blur-[180px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-liberty-cyan/10 blur-[160px] pointer-events-none" />
+    <main className="min-h-screen bg-liberty-bg text-white font-satoshi relative overflow-hidden">
+      {/* =========================================
+          FONDOS AMBIENTALES (Optimizados con radial-gradient en vez de blur)
+          ========================================= */}
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top,rgba(217,70,239,0.18)_0%,rgba(30,8,45,0.08)_30%,rgba(30,8,45,0)_65%)] transform-gpu translate-z-0" />
+      
+      {/* Reemplazamos el blur-[180px] por un gradiente nativo. 0% impacto en GPU. */}
+      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-[radial-gradient(circle,rgba(212,175,55,0.1)_0%,transparent_60%)] pointer-events-none transform-gpu translate-z-0" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(34,211,238,0.1)_0%,transparent_60%)] pointer-events-none transform-gpu translate-z-0" />
 
-      {/* CONTENEDOR PRINCIPAL: Expansivo con padding dinámico en lugar de max-w */}
+      {/* CONTENEDOR PRINCIPAL */}
       <div className="relative z-10 w-full px-6 md:px-16 lg:px-24 xl:px-32 py-8 md:py-12 mt-10">
-        {/* GRID: Aumentamos el gap (lg:gap-20 xl:gap-24) para aprovechar la amplitud */}
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-20 xl:gap-24 items-start">
-          {/* Left / narrative */}
+          
+          {/* =========================================
+              LADO IZQUIERDO: Textos
+              ========================================= */}
           <motion.section
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="pt-10 md:pt-14"
+            className="pt-10 md:pt-14 will-change-transform transform-gpu translate-z-0"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-liberty-border/70 bg-white/5 px-4 py-2 text-[10px] sm:text-xs font-black uppercase tracking-[0.24em] text-liberty-primary shadow-[0_0_24px_rgba(217,70,239,0.12)]">
+            <div className="inline-flex items-center gap-2 rounded-full border border-liberty-border/70 bg-white/5 px-4 py-2 text-[10px] sm:text-xs font-black uppercase tracking-[0.24em] text-liberty-primary shadow-[0_0_24px_rgba(217,70,239,0.12)] transform-gpu translate-z-0">
               <BadgeInfo className="h-3.5 w-3.5" />
               No es un formulario. Es un compromiso.
             </div>
 
             <h1 className="mt-7 max-w-3xl text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-black uppercase leading-[0.95] tracking-tight text-white">
               La reconstrucción <br />
-              <span className="text-transparent  bg-clip-text bg-gradient-to-r from-white via-liberty-primary to-liberty-primary-hover">
+              {/* bg-clip-text está bien si el texto es estático */}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-liberty-primary to-liberty-primary-hover">
                 te necesita
               </span>
             </h1>
@@ -116,7 +123,7 @@ export default function Sumate() {
             </p>
 
             {/* Steps */}
-            <div className="mt-10 rounded-[2rem] border border-liberty-border bg-liberty-surface/2  p-6 md:p-8 shadow-2xl">
+            <div className="mt-10 rounded-[2rem] border border-liberty-border bg-liberty-surface/2 p-6 md:p-8 shadow-2xl transform-gpu translate-z-0">
               <h2 className="text-sm uppercase tracking-[0.25em] text-center md:text-left font-black">
                 Qué sucede después
               </h2>
@@ -141,43 +148,54 @@ export default function Sumate() {
             </div>
           </motion.section>
 
-          {/* Right / image + form */}
+          {/* =========================================
+              LADO DERECHO: Imagen + Formulario
+              ========================================= */}
           <motion.section
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.1 }}
-            className="sticky lg:top-8 pt-6 md:pt-10"
+            className="sticky lg:top-8 pt-6 md:pt-10 will-change-transform transform-gpu translate-z-0"
           >
             <div className="space-y-6">
-              {/* Hero image */}
-              <div className="relative overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
+              {/* Imagen Hero Optimizada */}
+              <div className="relative overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.45)] transform-gpu translate-z-0">
                 <div className="absolute inset-0 z-10 bg-gradient-to-t from-liberty-bg via-transparent to-transparent opacity-90" />
                 <div className="absolute inset-0 z-10 bg-gradient-to-br from-liberty-primary/10 via-transparent to-liberty-cyan/10" />
                 <img
                   src={afiliacion}
                   alt="Militancia y encuentro"
-                  className="h-[300px] md:h-[360px] w-full object-cover object-center scale-[1.03]"
+                  fetchPriority="high"
+                  decoding="async"
+                  className="h-[300px] md:h-[360px] w-full object-cover object-center scale-[1.03] transform-gpu translate-z-0"
                 />
               </div>
 
-              {/* Form card */}
-              <div className="rounded-[2rem]  border border-liberty-border/70 bg-liberty-card/90 shadow-2xl overflow-hidden">
-                <div className="h-1 w-full  bg-gradient-to-r from-liberty-primary via-fuchsia-300 to-liberty-cyan" />
+              {/* Form Card */}
+              <div className="rounded-[2rem] border border-liberty-border/70 bg-liberty-card/90 shadow-2xl overflow-hidden transform-gpu translate-z-0">
+                <div className="h-1 w-full bg-gradient-to-r from-liberty-primary via-fuchsia-300 to-liberty-cyan" />
 
                 <div className="p-6 sm:p-8 md:p-10">
                   {enviado ? (
                     <div className="flex flex-col items-center justify-center text-center py-12 md:py-16 space-y-5">
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 180,
-                          damping: 14,
-                        }}
-                      >
-                        <CheckCircle2 className="w-20 h-20 md:w-24 md:h-24 text-green-400 drop-shadow-[0_0_20px_rgba(74,222,128,0.35)]" />
-                      </motion.div>
+                      
+                      {/* Animación de Éxito Optimizada (Sin drop-shadow en animación) */}
+                      <div className="relative flex justify-center items-center">
+                        <div className="absolute w-24 h-24 bg-[radial-gradient(circle,rgba(74,222,128,0.35)_0%,transparent_70%)] pointer-events-none transform-gpu translate-z-0" />
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 180,
+                            damping: 14,
+                          }}
+                          className="relative z-10 will-change-transform transform-gpu translate-z-0"
+                        >
+                          <CheckCircle2 className="w-20 h-20 md:w-24 md:h-24 text-green-400" />
+                        </motion.div>
+                      </div>
+
                       <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white">
                         ¡Bienvenido a La Libertad Avanza!
                       </h3>
@@ -187,13 +205,13 @@ export default function Sumate() {
                       </p>
                       <button
                         onClick={() => (window.location.href = "/")}
-                        className="mt-4 inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-sm font-black uppercase tracking-widest text-black transition hover:bg-gray-200 cursor-pointer"
+                        className="mt-4 inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-sm font-black uppercase tracking-widest text-black transition hover:bg-gray-200 cursor-pointer will-change-transform"
                       >
                         Volver al inicio
                       </button>
                     </div>
                   ) : (
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-6 relative z-20">
                       <div className="mb-6">
                         <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white">
                           Ingreso al partido
@@ -204,7 +222,7 @@ export default function Sumate() {
                         </p>
                       </div>
 
-                      {/* Nombre */}
+                      {/* Inputs (Se eliminaron clases innecesarias, estructura limpia) */}
                       <div className="space-y-2">
                         <label className="ml-1 text-[10px] md:text-xs font-black uppercase tracking-[0.24em] text-gray-300">
                           Nombre y apellido
@@ -219,13 +237,12 @@ export default function Sumate() {
                             name="nombre"
                             value={formData.nombre}
                             onChange={handleChange}
-                            className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-400 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70"
+                            className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-400 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70 transform-gpu translate-z-0"
                             placeholder="Ej: Javier Milei"
                           />
                         </div>
                       </div>
 
-                      {/* DNI + WhatsApp */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div className="space-y-2">
                           <label className="ml-1 text-[10px] md:text-xs font-black uppercase tracking-[0.24em] text-gray-300">
@@ -241,7 +258,7 @@ export default function Sumate() {
                               name="dni"
                               value={formData.dni}
                               onChange={handleChange}
-                              className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-400 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70 appearance-none"
+                              className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-400 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70 appearance-none transform-gpu translate-z-0"
                               placeholder="12345678"
                             />
                           </div>
@@ -261,14 +278,13 @@ export default function Sumate() {
                               name="whatsapp"
                               value={formData.whatsapp}
                               onChange={handleChange}
-                              className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-400 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70"
+                              className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-400 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70 transform-gpu translate-z-0"
                               placeholder="+54 9 341..."
                             />
                           </div>
                         </div>
                       </div>
 
-                      {/* Localidad */}
                       <div className="space-y-2">
                         <label className="ml-1 text-[10px] md:text-xs font-black uppercase tracking-[0.24em] text-gray-300">
                           Localidad
@@ -283,15 +299,14 @@ export default function Sumate() {
                             name="localidad"
                             value={formData.localidad}
                             onChange={handleChange}
-                            className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-400 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70"
+                            className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-400 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70 transform-gpu translate-z-0"
                             placeholder="Ej: Rosario, Santa Fe"
                           />
                         </div>
                       </div>
 
-                      {/* Checkbox */}
                       <div className="pt-2">
-                        <label className="group flex cursor-pointer items-start gap-4 rounded-2xl border border-liberty-border/50 bg-black/20 p-4 md:p-5 transition hover:border-liberty-primary/40 hover:bg-black/25">
+                        <label className="group flex cursor-pointer items-start gap-4 rounded-2xl border border-liberty-border/50 bg-black/20 p-4 md:p-5 transition hover:border-liberty-primary/40 hover:bg-black/25 transform-gpu translate-z-0">
                           <div className="relative mt-1 flex-shrink-0">
                             <input
                               type="checkbox"
@@ -317,11 +332,10 @@ export default function Sumate() {
                         </label>
                       </div>
 
-                      {/* Submit */}
                       <button
                         type="submit"
                         disabled={cargando}
-                        className={`group mt-3 mx-auto flex w-full sm:w-fit items-center justify-center gap-3 rounded-2xl px-5 py-4 md:py-4 text-[14px] md:text-[15px] font-black uppercase tracking-[0.2em] text-white transition-all duration-300 cursor-pointer ${
+                        className={`group mt-3 mx-auto flex w-full sm:w-fit items-center justify-center gap-3 rounded-2xl px-5 py-4 md:py-4 text-[14px] md:text-[15px] font-black uppercase tracking-[0.2em] text-white transition-all duration-300 cursor-pointer will-change-transform transform-gpu translate-z-0 ${
                           cargando
                             ? "cursor-not-allowed bg-liberty-primary/65 opacity-80"
                             : "bg-gradient-to-r bg-liberty-primary hover:shadow-[0_0_40px_rgba(217,70,239,0.45)] hover:scale-[1.01]"

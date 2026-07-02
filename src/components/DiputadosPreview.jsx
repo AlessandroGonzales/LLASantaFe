@@ -22,17 +22,16 @@ export default function DiputadosPreview() {
   return (
     <section 
       id="diputados" 
-      className="relative w-full py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-hidden border-t border-liberty-border font-satoshi"
+      className="relative w-full py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-hidden border-t border-liberty-border font-satoshi transform-gpu translate-z-0"
     >
-      {/* Fondo */}
-      <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]" />
-      <div className="absolute top-0 right-0 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-liberty-primary/10 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3" />
-      <div className="absolute bottom-1/4 left-0 w-[300px] h-[300px] bg-liberty-accent/5 rounded-full blur-[100px] pointer-events-none -translate-x-1/2" />
+      {/* Luces GPU Aisladas */}
+      <div className="absolute top-0 right-0 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-liberty-primary/10 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3 transform-gpu translate-z-0" />
 
       <div className="w-full px-6 md:px-12 lg:px-20 max-w-[1600px] mx-auto relative z-10">
         
         {/* =========================================
             TÍTULO SOLO EN MOBILE (arriba de las imágenes)
+            Diseño intacto
         ========================================= */}
         <div className="lg:hidden mb-10 text-center">
           <motion.div
@@ -40,6 +39,7 @@ export default function DiputadosPreview() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="will-change-transform"
           >
             <span className="text-sm font-bold tracking-[0.3em] text-liberty-primary uppercase block mb-4">
               La voz en la legislatura
@@ -52,7 +52,7 @@ export default function DiputadosPreview() {
         </div>
 
         {/* =========================================
-            GRID PRINCIPAL (Desktop sin cambios)
+            GRID PRINCIPAL
         ========================================= */}
         <motion.div
           onViewportEnter={markAsAnimated}
@@ -64,9 +64,9 @@ export default function DiputadosPreview() {
           {/* COLUMNA IZQUIERDA - Textos + Botón */}
           <div className="lg:col-span-5 flex flex-col justify-center text-center lg:text-left z-10 order-2 lg:order-1">
             
-            {/* Título oculto en mobile (ya se muestra arriba) */}
+            {/* Título oculto en mobile (Diseño intacto) */}
             <motion.div 
-              className="hidden lg:block"
+              className="hidden lg:block will-change-transform"
               initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -84,12 +84,13 @@ export default function DiputadosPreview() {
               </h2>
             </motion.div>
 
-            {/* Descripción (se mantiene donde estaba) */}
+            {/* Descripción */}
             <motion.div 
               initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
+              className="will-change-transform"
             >
               <p className="text-base md:text-lg text-liberty-text-secondary max-w-lg mx-auto lg:mx-0 mb-10">
                 Llevamos la batalla por las ideas de la libertad a la cámara de diputados. Conoce a los legisladores que trabajan incansablemente para reducir el estado y defender tus derechos en Santa Fe.
@@ -102,10 +103,11 @@ export default function DiputadosPreview() {
               whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
+              className="will-change-transform"
             >
               <Link
                 to="/diputados"
-                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-card text-white font-bold uppercase text-xs tracking-[0.2em] transition-all duration-300 rounded-3xl border border-liberty-border hover:border-liberty-primary hover:shadow-[0_0_25px_rgba(217,70,239,0.35)] w-full sm:w-max overflow-hidden"
+                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-card text-white font-bold uppercase text-xs tracking-[0.2em] transition-all duration-300 rounded-3xl border border-liberty-border hover:border-liberty-primary hover:shadow-[0_0_25px_rgba(217,70,239,0.35)] w-full sm:w-max overflow-hidden transform-gpu translate-z-0"
               >
                 <div className="absolute inset-0 w-full h-full -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                 <span className="relative z-10 flex items-center gap-2">
@@ -129,13 +131,13 @@ export default function DiputadosPreview() {
               {/* Imagen Principal */}
               <motion.div 
                 variants={bentoItem}
-                className="col-span-7 row-span-12 relative rounded-2xl overflow-hidden group border border-liberty-border/50 bg-liberty-card"
+                className="col-span-7 row-span-12 relative rounded-2xl overflow-hidden group border border-liberty-border/50 bg-liberty-card transform-gpu will-change-transform"
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-liberty-bg via-transparent to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
                 <img 
                   src={dip1} 
                   alt="Diputado Principal" 
-                  className="w-full h-full object-cover contrast-100 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
+                  className="w-full h-full object-cover contrast-100 group-hover:grayscale-0 group-hover:scale-105 transition-transform duration-700 transform-gpu" 
                   loading="lazy" 
                   decoding="async"
                 />
@@ -144,13 +146,13 @@ export default function DiputadosPreview() {
               {/* Imagen Superior Derecha */}
               <motion.div 
                 variants={bentoItem}
-                className="col-span-5 row-span-7 relative rounded-2xl overflow-hidden group border border-liberty-border/50 bg-liberty-card"
+                className="col-span-5 row-span-7 relative rounded-2xl overflow-hidden group border border-liberty-border/50 bg-liberty-card transform-gpu will-change-transform"
               >
                 <div className="absolute inset-0 bg-liberty-primary/10 mix-blend-overlay z-10 group-hover:bg-transparent transition-colors duration-500" />
                 <img 
                   src={dip2} 
                   alt="Diputada 2" 
-                  className="w-full h-full object-cover group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" 
+                  className="w-full h-full object-cover group-hover:grayscale-0 group-hover:scale-110 transition-transform duration-700 transform-gpu" 
                   loading="lazy" 
                   decoding="async"
                 />
@@ -159,12 +161,12 @@ export default function DiputadosPreview() {
               {/* Imagen Inferior Derecha */}
               <motion.div 
                 variants={bentoItem}
-                className="col-span-5 row-span-5 relative rounded-2xl overflow-hidden group border border-liberty-border/50 bg-liberty-card"
+                className="col-span-5 row-span-5 relative rounded-2xl overflow-hidden group border border-liberty-border/50 bg-liberty-card transform-gpu will-change-transform"
               >
                 <img 
                   src={dip3} 
                   alt="Diputado 3" 
-                  className="w-full h-full object-cover group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" 
+                  className="w-full h-full object-cover group-hover:grayscale-0 group-hover:scale-110 transition-transform duration-700 transform-gpu" 
                   loading="lazy" 
                   decoding="async"
                 />
