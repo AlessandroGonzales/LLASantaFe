@@ -1,8 +1,6 @@
 import { motion } from "framer-motion";
 import CinematicLink from "./CinematicLink";
 
-
-
 import rep1 from "../assets/lautaro.webp";
 import rep2 from "../assets/giselle.webp";
 import rep3 from "../assets/maria.webp";
@@ -163,7 +161,7 @@ export default function RepresentantesPreview() {
             >
               <CinematicLink
                 to="/representantes"
-                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-card text-white font-bold uppercase text-xs tracking-[0.2em] rounded-3xl border border-liberty-border hover:border-liberty-cyan  w-full sm:w-max "
+                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-card text-white font-bold uppercase text-xs tracking-[0.2em] rounded-3xl border border-liberty-border hover:border-liberty-primary  w-full sm:w-max "
               >
                   Conocer al equipo
               </CinematicLink>

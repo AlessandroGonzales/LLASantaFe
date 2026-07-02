@@ -12,9 +12,7 @@ const Hero = lazy(() => import("./components/Hero"));
 const NewsCarousel = lazy(() => import("./components/NewCarousel"));
 const PropuestasPreview = lazy(() => import("./components/PropuestasPreview"));
 const NosotrosPreview = lazy(() => import("./components/NosotrosPreview"));
-const RepresentantesPreview = lazy(
-  () => import("./components/RepresentantesPreview"),
-);
+const RepresentantesPreview = lazy(() => import("./components/RepresentantesPreview"),);
 const DiputadosPreview = lazy(() => import("./components/DiputadosPreview"));
 
 const SeccionPropuestas = lazy(() => import("./components/SeccionPropuestas"));
@@ -22,10 +20,9 @@ const PropuestaDetalle = lazy(() => import("./components/PropuestaDetalle"));
 const NoticiaDetalle = lazy(() => import("./components/NoticiasDetalle"));
 const Sumate = lazy(() => import("./components/Sumate"));
 const NosotrosHistoria = lazy(() => import("./components/NosotrosHistoria"));
-const SeccionRepresentantes = lazy(
-  () => import("./components/SeccionRepresentantes"),
-);
+const SeccionRepresentantes = lazy(() => import("./components/SeccionRepresentantes"),);
 const SeccionDiputados = lazy(() => import("./components/SeccionDiputados"));
+const ProponePreview = lazy(() => import ("./components/ProponePreview"))
 
 // Fallback más profesional
 const PageLoader = () => (
@@ -62,6 +59,7 @@ function Home() {
       <NosotrosPreview />
       <DiputadosPreview />
       <RepresentantesPreview />
+      <ProponePreview />
     </>
   );
 }

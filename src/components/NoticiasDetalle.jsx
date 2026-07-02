@@ -1,4 +1,4 @@
-import { useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Share2 } from "lucide-react";
 import { newsData } from "../data/noticiasData";
@@ -6,6 +6,15 @@ import { newsData } from "../data/noticiasData";
 export default function NoticiaDetalle() {
   const { id } = useParams();
   const noticia = newsData.find((n) => n.id === parseInt(id || "")) || newsData[0];
+
+  // === Lógica para animar solo una vez ===
+  const hasAnimated = sessionStorage.getItem("noticia_animated") === "true";
+
+  const markAsAnimated = () => {
+    if (!hasAnimated) {
+      sessionStorage.setItem("noticia_animated", "true");
+    }
+  };
 
   const handleShare = () => {
     const text = `Entérate de la última noticia de La Libertad Avanza Santa Fe: *${noticia.title}*\n\nLee más acá: ${window.location.href}`;
@@ -16,7 +25,7 @@ export default function NoticiaDetalle() {
   return (
     <main className="bg-liberty-bg text-white min-h-screen font-satoshi relative pb-20">
       
-      {/* IMAGEN HERO INMERSIVA - Optimizada */}
+      {/* IMAGEN HERO INMERSIVA */}
       <div className="relative w-full h-[40vh] md:h-[50vh] overflow-hidden">
         <div className="absolute inset-0 bg-black/40 z-10" />
         <div className="absolute inset-0 bg-gradient-to-t from-liberty-bg via-liberty-bg/70 to-transparent z-10" />
@@ -37,8 +46,9 @@ export default function NoticiaDetalle() {
           {/* COLUMNA IZQUIERDA */}
           <div className="lg:col-span-8">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              onViewportEnter={markAsAnimated}
+              initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              animate={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
               {/* Meta info */}
@@ -63,8 +73,8 @@ export default function NoticiaDetalle() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              initial={hasAnimated ? { opacity: 1 } : { opacity: 0 }}
+              animate={hasAnimated ? { opacity: 1 } : { opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.15 }}
             >
               {/* Cuerpo de la noticia */}
@@ -75,8 +85,8 @@ export default function NoticiaDetalle() {
 
                 {noticia.imagenSecundaria && (
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.98 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
+                    initial={hasAnimated ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.98 }}
+                    whileInView={hasAnimated ? false : { opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
                     className="relative w-full aspect-video rounded-xl overflow-hidden my-8 border border-white/10"
@@ -98,11 +108,11 @@ export default function NoticiaDetalle() {
             </motion.div>
           </div>
 
-          {/* COLUMNA DERECHA - Sticky optimizada */}
+          {/* COLUMNA DERECHA - Sticky */}
           <div className="lg:col-span-3 relative">
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={hasAnimated ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+              animate={hasAnimated ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               className="sticky top-20 lg:top-24 bg-gradient-to-b from-liberty-card to-liberty-bg border border-liberty-border/50 rounded-2xl p-6 shadow-xl"
             >
@@ -121,7 +131,7 @@ export default function NoticiaDetalle() {
                   href={noticia.linkX}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-3 bg-black text-white border border-white/20 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-white hover:text-black  will-change-transform"
+                  className="w-full flex items-center justify-center gap-3 bg-black text-white border border-white/20 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-white hover:text-black will-change-transform"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.005 4.25H5.078z" />

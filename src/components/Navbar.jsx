@@ -113,6 +113,12 @@ export default function Navbar() {
               </div>
             </div>
           </div>
+          <Link
+            to="/#propone"
+            className="text-liberty-text-secondary hover:text-liberty-cyan transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-cyan after:transition-all hover:after:w-full"
+          >
+              Propone
+          </Link>
         </div>
 
         {/* BOTÓN HAMBURGUESA */}
@@ -193,6 +199,13 @@ export default function Navbar() {
                 </Link>
               </div>
             </div>
+            <Link
+              to="#propone"
+              onClick={() => setIsOpen(false)}
+              className="w-full max-w-md text-white border-b border-liberty-border/60 pb-2 flex justify-center items-center mx-auto"
+            >
+            Propone
+            </Link>
           </div>
 
           {/* Frase final */}

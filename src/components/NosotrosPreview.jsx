@@ -103,7 +103,7 @@ export default function NosotrosPreview() {
             <div className="hidden lg:block pt-4">
               <CinematicLink
                 to="/nosotros"
-                className="group relative inline-flex items-center justify-center w-auto px-8 py-4 font-bold text-white bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-cyan"
+                className="group relative inline-flex items-center justify-center w-auto px-8 py-4 font-bold text-white bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-primary"
               >
                 Conocer nuestra historia
               </CinematicLink>

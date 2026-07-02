@@ -120,7 +120,7 @@ export default function PropuestasPreview() {
             >
               <CinematicLink
                 to="/propuestas"
-                className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 font-bold text-white  bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-cyan"
+                className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 font-bold text-white  bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-primary"
               >
                   Ver Todas las Propuestas
               </CinematicLink>
