@@ -85,7 +85,7 @@ export default function SeccionRepresentantes() {
           <div className="relative w-full max-w-lg">
             <button
               onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)}
-              className="w-full flex items-center justify-between px-6 py-4 bg-liberty-surface border border-liberty-border rounded-xl shadow-lg hover:border-liberty-primary transition-all duration-300 text-white group"
+              className="w-full flex items-center justify-between px-6 py-4 bg-liberty-surface border border-liberty-border rounded-xl shadow-lg hover:border-liberty-primary text-white group cursor-pointer"
             >
               <div className="flex items-center gap-3">
                 <Filter className="w-5 h-5 text-liberty-cyan group-hover:text-liberty-primary transition-colors" />
@@ -107,7 +107,7 @@ export default function SeccionRepresentantes() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute top-full left-0 w-full mt-3 bg-liberty-card border border-liberty-border rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] overflow-hidden z-50 origin-top"
+                  className="absolute top-full left-0 w-full mt-3 bg-liberty-card border border-liberty-border rounded-xl  z-50 origin-top"
                 >
                   <div className="p-6 border-b border-white/5 bg-gradient-to-br from-liberty-bg to-transparent">
                     <h3 className="text-lg md:text-xl font-black text-white uppercase tracking-widest mb-1">
@@ -125,9 +125,9 @@ export default function SeccionRepresentantes() {
                           setCiudadFiltro(ciudad);
                           setIsFilterMenuOpen(false);
                         }}
-                        className={`px-4 py-2 md:px-5 md:py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 border ${
+                        className={`px-4 py-2 md:px-5 md:py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 border cursor-pointer ${
                           ciudadFiltro === ciudad
-                            ? "bg-liberty-primary border-liberty-primary text-white shadow-[0_0_15px_rgba(217,70,239,0.4)]"
+                            ? "bg-liberty-primary border-liberty-primary text-white "
                             : "bg-transparent border-liberty-border text-liberty-text-secondary hover:border-liberty-primary hover:text-white hover:bg-liberty-primary/10"
                         }`}
                       >
@@ -165,9 +165,8 @@ export default function SeccionRepresentantes() {
                   alt={concejal.nombre}
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-full object-cover contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
                 <div className="absolute bottom-6 left-0 right-0 text-center">
                   <span className="text-white text-xs md:text-sm font-black uppercase tracking-widest relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-[1px] after:bg-liberty-primary">
                     {concejal.nombre}
@@ -202,13 +201,13 @@ export default function SeccionRepresentantes() {
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: 20, opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full h-full max-w-[1400px] bg-liberty-bg md:rounded-2xl overflow-hidden flex flex-col lg:flex-row relative shadow-[0_0_80px_rgba(0,0,0,0.8)] border border-liberty-border/50"
+              className="w-full h-full max-w-[1400px] bg-liberty-bg md:rounded-2xl overflow-hidden flex flex-col lg:flex-row relative border border-liberty-border"
             >
               <button
                 onClick={() => setSelectedConcejal(null)}
-                className="absolute top-4 right-4 md:top-8 md:right-8 z-50 p-2 md:p-3 bg-black/20 hover:bg-liberty-primary text-white rounded-full  transition-colors duration-300 group cursor-pointer"
+                className="absolute top-4 right-4 md:top-8 md:right-8 z-50 p-2 md:p-3 bg-black/20 hover:bg-liberty-primary text-white rounded-full  cursor-pointer"
               >
-                <X className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                <X className="w-6 h-6 " />
               </button>
 
               <div className="w-full lg:w-1/2 h-[45vh] lg:h-full relative overflow-hidden bg-black flex-shrink-0">
@@ -219,8 +218,6 @@ export default function SeccionRepresentantes() {
                   decoding="async"
                   className="w-full h-full object-cover object-center"
                 />
-                <div className="hidden lg:block absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-liberty-bg to-transparent" />
-                <div className="lg:hidden absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-liberty-bg to-transparent" />
               </div>
 
               <div className="w-full lg:w-1/2 h-[55vh] lg:h-full overflow-y-auto p-6 md:p-12 lg:p-16 flex flex-col hide-scrollbar bg-gradient-to-br from-liberty-bg to-liberty-surface">
@@ -275,7 +272,7 @@ export default function SeccionRepresentantes() {
                         href={selectedConcejal.proyectos}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 px-6 py-3 bg-liberty-card border border-liberty-border text-white text-xs font-bold uppercase tracking-widest hover:border-liberty-primary hover:text-liberty-primary transition-colors duration-300 rounded-sm"
+                        className="flex items-center justify-center gap-2 px-6 py-3 bg-liberty-card border border-liberty-border text-white text-xs font-bold uppercase tracking-widest hover:border-liberty-primary hover:text-liberty-primary rounded-sm"
                       >
                         <LinkIcon className="w-4 h-4" />
                         Ver Proyectos
@@ -288,7 +285,7 @@ export default function SeccionRepresentantes() {
                           href={`https://instagram.com/${selectedConcejal.redes.instagram.replace("@", "")}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-primary hover:border-liberty-primary rounded-sm transition-colors text-white"
+                          className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-primary hover:border-liberty-primary rounded-sm  text-white"
                         >
                           <Instagram className="w-4 h-4" />
                         </a>
@@ -299,7 +296,7 @@ export default function SeccionRepresentantes() {
                           href={`https://twitter.com/${selectedConcejal.redes.twitter.replace("@", "")}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-primary hover:border-liberty-primary rounded-sm transition-colors text-white"
+                          className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-primary hover:border-liberty-primary rounded-sm text-white"
                         >
                           <X className="w-4 h-4" />
                         </a>
@@ -310,7 +307,7 @@ export default function SeccionRepresentantes() {
                           href={`mailto:${selectedConcejal.mail}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-cyan hover:border-liberty-cyan rounded-sm transition-colors text-white"
+                          className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-cyan hover:border-liberty-cyan rounded-sm  text-white"
                           title="Enviar Email"
                         >
                           <Mail className="w-4 h-4" />
@@ -322,7 +319,7 @@ export default function SeccionRepresentantes() {
                           href={`https://wa.me/${selectedConcejal.telefono.replace(/\D/g, "")}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-cyan hover:border-liberty-cyan rounded-sm transition-colors text-white"
+                          className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-cyan hover:border-liberty-cyan rounded-sm text-white"
                           title="Contactar por WhatsApp"
                         >
                           <Phone className="w-4 h-4" />

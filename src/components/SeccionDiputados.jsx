@@ -79,23 +79,19 @@ export default function SeccionDiputados() {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.4 }}
                 onClick={() => setSelectedDiputado(diputado)}
-                className="relative aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-sm group cursor-pointer bg-black/50 border border-white/5 shadow-lg hover:shadow-[0_0_30px_rgba(217,70,239,0.15)] transition-shadow duration-500"
+                className="relative aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-sm group cursor-pointer bg-black/50 border border-white/5 shadow-lg 0"
               >
                 <img
                   src={diputado.foto}
                   alt={diputado.nombre}
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-full object-cover contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500" />
                 <div className="absolute bottom-8 left-0 right-0 text-center px-4">
                   <span className="text-white text-sm md:text-base font-black uppercase tracking-widest relative inline-block after:content-[''] after:absolute after:-bottom-3 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-[1px] after:bg-liberty-primary">
                     {diputado.nombre}
                   </span>
-                  <p className="mt-4 text-[10px] uppercase tracking-[0.2em] text-liberty-cyan font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-2 group-hover:translate-y-0">
-                    Ver Perfil
-                  </p>
                 </div>
               </motion.div>
             ))}
@@ -126,11 +122,11 @@ export default function SeccionDiputados() {
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: 20, opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full h-full max-w-[1400px] bg-liberty-bg md:rounded-2xl overflow-hidden flex flex-col lg:flex-row relative shadow-[0_0_100px_rgba(0,0,0,0.9)] border border-liberty-border/50"
+              className="w-full h-full max-w-[1400px] bg-liberty-bg md:rounded-2xl overflow-hidden flex flex-col lg:flex-row relative border border-liberty-border/50"
             >
               <button
                 onClick={() => setSelectedDiputado(null)}
-                className="absolute top-4 right-4 md:top-8 md:right-8 z-50 p-2 md:p-3 bg-black/40 hover:bg-liberty-primary text-white rounded-full  transition-all duration-300 group cursor-pointer border border-white/10 hover:border-transparent"
+                className="absolute top-4 right-4 md:top-8 md:right-8 z-50 p-2 md:p-3 bg-black/40 hover:bg-liberty-primary text-white rounded-full   group cursor-pointer border border-white/10 "
               >
                 <X className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </button>
@@ -143,8 +139,6 @@ export default function SeccionDiputados() {
                   decoding="async"
                   className="w-full h-full object-cover object-top"
                 />
-                <div className="hidden lg:block absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-liberty-bg to-transparent" />
-                <div className="lg:hidden absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-liberty-bg to-transparent" />
               </div>
 
               <div className="w-full lg:w-1/2 h-[55vh] lg:h-full overflow-y-auto p-6 md:p-12 lg:p-16 flex flex-col hide-scrollbar bg-gradient-to-br from-liberty-bg to-liberty-surface">
@@ -201,7 +195,7 @@ export default function SeccionDiputados() {
                         href={selectedDiputado.proyectos}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 px-6 py-3 bg-liberty-card border border-liberty-border text-white text-xs font-bold uppercase tracking-widest hover:border-liberty-primary hover:text-liberty-primary transition-colors duration-300 rounded-sm"
+                        className="flex items-center justify-center gap-2 px-6 py-3 bg-liberty-card border border-liberty-border text-white text-xs font-bold uppercase tracking-widest hover:border-liberty-primary hover:text-liberty-primary rounded-sm"
                       >
                         <LinkIcon className="w-4 h-4" />
                         Ver Proyectos de Ley
@@ -214,7 +208,7 @@ export default function SeccionDiputados() {
                           href={`https://instagram.com/${selectedDiputado.redes.instagram.replace("@", "")}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-primary hover:border-liberty-primary rounded-sm transition-colors text-white"
+                          className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-primary hover:border-liberty-primary rounded-sm text-white"
                         >
                           <Instagram className="w-4 h-4" />
                         </a>
@@ -225,7 +219,7 @@ export default function SeccionDiputados() {
                           href={`https://twitter.com/${selectedDiputado.redes.twitter.replace("@", "")}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-primary hover:border-liberty-primary rounded-sm transition-colors text-white"
+                          className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-primary hover:border-liberty-primary rounded-sm  text-white"
                         >
                           <X className="w-4 h-4" />
                         </a>
@@ -236,7 +230,7 @@ export default function SeccionDiputados() {
                           href={`mailto:${selectedDiputado.mail}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-cyan hover:border-liberty-cyan rounded-sm transition-colors text-white"
+                          className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-cyan hover:border-liberty-cyan rounded-sm text-white"
                           title="Enviar Email Institucional"
                         >
                           <Mail className="w-4 h-4" />
@@ -248,7 +242,7 @@ export default function SeccionDiputados() {
                           href={`https://wa.me/${selectedDiputado.telefono.replace(/\D/g, "")}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-cyan hover:border-liberty-cyan rounded-sm transition-colors text-white"
+                          className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-cyan hover:border-liberty-cyan rounded-sm  text-white"
                           title="Contactar Asesoría"
                         >
                           <Phone className="w-4 h-4" />

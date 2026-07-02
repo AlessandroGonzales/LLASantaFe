@@ -5,12 +5,20 @@ import santafetres from "../assets/santafetres.jpeg";
 import rominasantafe from "../assets/romisantafe.webp";
 import karina from "../assets/karina.jpeg";
 import libertad from "../assets/libertad.jpeg";
-// Importes para las 3 fotos de UPL (Modifica las rutas según tu proyecto)
+// Importes para las 3 fotos de UPL
 import uplUno from "../assets/utn.webp";
 import uplDos from "../assets/cierreupl.webp";
 import uplTres from "../assets/uplunidos.webp";
 
 export default function NosotrosHistoria() {
+  const hasAnimated = sessionStorage.getItem("historia_animated") === "true";
+
+  const markAsAnimated = () => {
+    if (!hasAnimated) {
+      sessionStorage.setItem("historia_animated", "true");
+    }
+  };
+
   return (
     <section className="relative w-full py-24 bg-liberty-bg text-white overflow-hidden">
       
@@ -18,15 +26,15 @@ export default function NosotrosHistoria() {
         
         {/* =========================================
             BLOQUE 1: AÑO 2023 - EL DESPERTAR
-            Layout: Textos/Fotos chicas (Izquierda) | Foto Gigante (Derecha)
         ========================================= */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
           
           {/* Columna Izquierda */}
           <div className="lg:col-span-6 flex flex-col justify-between">
             <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              onViewportEnter={markAsAnimated}
+              initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8 }}
               className="mb-12 lg:mb-0 flex flex-col items-center text-center"
@@ -48,8 +56,8 @@ export default function NosotrosHistoria() {
             {/* Dos imágenes pequeñas inferiores */}
             <div className="grid grid-cols-2 gap-4 md:gap-6 mt-8">
               <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="relative aspect-[4/5] overflow-hidden rounded-md group"
@@ -59,12 +67,11 @@ export default function NosotrosHistoria() {
                   alt="Militancia 2023" 
                   className="w-full h-full object-cover group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                 />
-                <div className="absolute inset-0 group-hover:bg-transparent transition-colors duration-500" />
               </motion.div>
               
               <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="relative aspect-[4/5] overflow-hidden rounded-md group mt-8"
@@ -74,15 +81,14 @@ export default function NosotrosHistoria() {
                   alt="Fiscalización 2023" 
                   className="w-full h-full object-cover group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                 />
-                <div className="absolute inset-0 group-hover:bg-transparent transition-colors duration-500" />
               </motion.div>
             </div>
           </div>
 
           {/* Columna Derecha: Imagen Masiva Vertical */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={hasAnimated ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+            whileInView={hasAnimated ? false : { opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1 }}
             className="lg:col-span-6 h-[60vh] lg:h-[90vh] relative rounded-md overflow-hidden group border border-white/5"
@@ -102,14 +108,13 @@ export default function NosotrosHistoria() {
 
         {/* =========================================
             BLOQUE 2: AÑO 2024 - LA CONSOLIDACIÓN
-            Layout Invertido: Foto Gigante (Izquierda) | Textos/Fotos chicas (Derecha)
         ========================================= */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
           
           {/* Columna Izquierda: Imagen Masiva Vertical */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={hasAnimated ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+            whileInView={hasAnimated ? false : { opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1 }}
             className="lg:col-span-6 h-[60vh] lg:h-[90vh] relative rounded-md overflow-hidden group border border-white/5 order-last lg:order-first"
@@ -125,8 +130,8 @@ export default function NosotrosHistoria() {
           {/* Columna Derecha */}
           <div className="lg:col-span-6 flex flex-col justify-between">
             <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8 }}
               className="mb-12 lg:mb-0 lg:pl-8 flex flex-col items-center text-center"
@@ -148,8 +153,8 @@ export default function NosotrosHistoria() {
             {/* Dos imágenes pequeñas inferiores */}
             <div className="grid grid-cols-2 gap-4 md:gap-6 mt-8 lg:pl-8">
               <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="relative aspect-[4/5] overflow-hidden rounded-md group"
@@ -159,12 +164,11 @@ export default function NosotrosHistoria() {
                   alt="Afiliaciones 2024" 
                   className="w-full h-full object-cover group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                 />
-                <div className="absolute inset-0 group-hover:bg-transparent transition-colors duration-500" />
               </motion.div>
               
               <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="relative aspect-[4/5] overflow-hidden rounded-md group mt-8"
@@ -174,7 +178,6 @@ export default function NosotrosHistoria() {
                   alt="Evento Oficial LLA 2024" 
                   className="w-full h-full object-cover group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                 />
-                <div className="absolute inset-0 group-hover:bg-transparent transition-colors duration-500" />
               </motion.div>
             </div>
           </div>
@@ -185,15 +188,14 @@ export default function NosotrosHistoria() {
 
         {/* =========================================
             BLOQUE 3: AÑO 2024 - EL NACIMIENTO DE UPL
-            Layout: Textos/Fotos chicas (Izquierda) | Foto Gigante (Derecha)
         ========================================= */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
           
           {/* Columna Izquierda */}
           <div className="lg:col-span-6 flex flex-col justify-between">
             <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8 }}
               className="mb-12 lg:mb-0 flex flex-col items-center text-center"
@@ -215,8 +217,8 @@ export default function NosotrosHistoria() {
             {/* Dos imágenes pequeñas inferiores */}
             <div className="grid grid-cols-2 gap-4 md:gap-6 mt-8">
               <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="relative aspect-[4/5] overflow-hidden rounded-md group"
@@ -226,12 +228,11 @@ export default function NosotrosHistoria() {
                   alt="Nacimiento UPL 2024" 
                   className="w-full h-full object-cover group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                 />
-                <div className="absolute inset-0 group-hover:bg-transparent transition-colors duration-500" />
               </motion.div>
               
               <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="relative aspect-[4/5] overflow-hidden rounded-md group mt-8"
@@ -241,15 +242,14 @@ export default function NosotrosHistoria() {
                   alt="Militancia Universitaria UPL" 
                   className="w-full h-full object-cover group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                 />
-                <div className="absolute inset-0 group-hover:bg-transparent transition-colors duration-500" />
               </motion.div>
             </div>
           </div>
 
           {/* Columna Derecha: Imagen Masiva Vertical */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={hasAnimated ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+            whileInView={hasAnimated ? false : { opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1 }}
             className="lg:col-span-6 h-[60vh] lg:h-[90vh] relative rounded-md overflow-hidden group border border-white/5"
