@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import { History, ShieldAlert, TrendingUp } from "lucide-react";
+import CinematicLink from "./CinematicLink";
+
 
 import nosotrosimg1 from "../assets/uplunidos.webp";
 import nosotrosimg2 from "../assets/nosotros.jpg";
@@ -25,7 +26,6 @@ const gallery = [
 ];
 
 export default function NosotrosPreview() {
-  const navigate = useNavigate();
 
   // 1. Verificamos si las animaciones ya se ejecutaron en esta sesión
   const hasAnimated = sessionStorage.getItem("nosotros_animated") === "true";
@@ -55,12 +55,12 @@ export default function NosotrosPreview() {
           >
             <div className="space-y-3 md:space-y-4">
               <div className="flex items-center gap-4 justify-center lg:justify-start">
-                <span className="text-liberty-primary text-[13px] md:text-sm font-black uppercase tracking-[0.4em] shadow-liberty-cyan-glow">
+                <span className="text-sm font-bold tracking-[0.3em] text-liberty-primary uppercase block mb-2">
                   Nuestra Historia
                 </span>
               </div>
 
-              <h2 className="text-5xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.85] text-center lg:text-left [text-shadow:_0_2px_8px_rgba(0,0,0,0.8)]">
+              <h2 className="text-5xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.85] text-center lg:text-left">
                 El rugido que <br />
                 despertó
                 <br />
@@ -73,7 +73,7 @@ export default function NosotrosPreview() {
             <p className="text-base md:text-lg text-liberty-text-secondary leading-relaxed max-w-2xl text-center lg:text-left">
               No somos políticos tradicionales. Somos ciudadanos de a pie, trabajadores y estudiantes
               cansados de que nos roben el futuro. Somos la{" "}
-              <strong className="text-white font-medium [text-shadow:_0_2px_4px_rgba(0,0,0,0.8)]">única opción real</strong> para
+              única opción real para
               cambiar el rumbo.
             </p>
 
@@ -102,12 +102,12 @@ export default function NosotrosPreview() {
 
             {/* BOTÓN — solo en desktop, debajo del texto */}
             <div className="hidden lg:block pt-4">
-              <button
-                onClick={() => navigate("/nosotros")}
-                className="group relative inline-flex items-center justify-center w-auto px-8 py-4 font-bold text-white transition-all duration-300 bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-cyan hover:shadow-[0_0_20px_rgba(0,255,255,0.1)] overflow-hidden cursor-pointer transform-gpu translate-z-0"
+              <CinematicLink
+                to="/nosotros"
+                className="group relative inline-flex items-center justify-center w-auto px-8 py-4 font-bold text-white bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-cyan"
               >
                 Conocer nuestra historia
-              </button>
+              </CinematicLink>
             </div>
           </motion.div>
 
@@ -121,7 +121,6 @@ export default function NosotrosPreview() {
           >
             <div
               className="relative w-full cursor-pointer group"
-              onClick={() => navigate("/nosotros")}
             >
               <div className="rounded-[2.25rem] border border-white/10 bg-white/[0.02] transition-colors duration-500 group-hover:border-white/20">
                 <div className="grid grid-cols-2 gap-3 auto-rows-[200px] sm:auto-rows-[250px] lg:auto-rows-[360px] p-2 md:p-0">
@@ -150,12 +149,12 @@ export default function NosotrosPreview() {
 
             {/* BOTÓN — solo en mobile, debajo de las imágenes */}
             <div className="pt-8 lg:hidden flex justify-center">
-              <button
-                onClick={() => navigate("/nosotros")}
-                className="group relative flex items-center justify-center w-full sm:w-auto px-8 py-4 font-bold text-white transition-all duration-300 bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-cyan hover:shadow-[0_0_20px_rgba(0,255,255,0.1)] overflow-hidden cursor-pointer transform-gpu translate-z-0"
+              <CinematicLink
+                to="/nosotros"
+                className="group relative flex items-center justify-center w-full sm:w-auto px-8 py-4 font-bold text-white bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 "
               >
                 Conocer nuestra historia
-              </button>
+              </CinematicLink>
             </div>
           </motion.div>
 

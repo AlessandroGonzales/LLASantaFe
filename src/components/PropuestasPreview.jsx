@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import mapaSantaFe from "../assets/mapaSantaFe.webp"; 
+import CinematicLink from "./CinematicLink";
+
+
 
 export default function PropuestasPreview() {
   // 1. Verificamos si las animaciones ya se ejecutaron
@@ -43,7 +45,7 @@ export default function PropuestasPreview() {
             className="w-full text-center lg:hidden will-change-transform"
           >
             <div className="space-y-2">
-              <span className="text-xs font-bold tracking-[0.3em] text-liberty-primary uppercase">
+              <span className="text-sm font-bold tracking-[0.3em] text-liberty-primary uppercase block mb-4">
                 El plan para la provincia
               </span>
               <h2 className="text-5xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.99] text-center lg:text-left">
@@ -86,12 +88,12 @@ export default function PropuestasPreview() {
               transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
               className="space-y-2 hidden lg:block will-change-transform"
             >
-              <span className="text-xs md:text-sm font-bold tracking-[0.3em] text-liberty-primary uppercase">
+               <span className="text-sm font-bold tracking-[0.3em] text-liberty-primary uppercase block mb-4">
                 El plan para la provincia
               </span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase mt-3 [text-shadow:_0_2px_8px_rgba(0,0,0,0.8)]">
-                Nuestras <br className="hidden lg:block" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-liberty-primary to-liberty-primary-hover">
+              <h2 className="text-5xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.99] text-center lg:text-left">
+                Nuestras{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-liberty-primary to-liberty-primary-hover">
                   Propuestas
                 </span>
               </h2>
@@ -116,15 +118,12 @@ export default function PropuestasPreview() {
               transition={{ duration: 0.4, delay: 0.4, ease: "easeOut" }}
               className="pt-2 w-full sm:w-auto will-change-transform"
             >
-              <Link
+              <CinematicLink
                 to="/propuestas"
-                className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 font-bold text-white transition-all duration-300 bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-cyan hover:shadow-[0_0_20px_rgba(0,255,255,0.1)] overflow-hidden transform-gpu translate-z-0"
+                className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 font-bold text-white  bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-cyan"
               >
-                <div className="absolute inset-0 w-full h-full -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-                <span className="relative z-10 flex items-center gap-3">
                   Ver Todas las Propuestas
-                </span>
-              </Link>
+              </CinematicLink>
             </motion.div>
 
           </div>

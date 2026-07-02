@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import CinematicLink from "./CinematicLink";
 
 import dip1 from "../assets/rominaDiezDiputada.png";
 import dip2 from "../assets/nicolaRaveraz.png";
@@ -105,15 +105,12 @@ export default function DiputadosPreview() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="will-change-transform"
             >
-              <Link
+              <CinematicLink
                 to="/diputados"
-                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-card text-white font-bold uppercase text-xs tracking-[0.2em] transition-all duration-300 rounded-3xl border border-liberty-border hover:border-liberty-primary hover:shadow-[0_0_25px_rgba(217,70,239,0.35)] w-full sm:w-max overflow-hidden transform-gpu translate-z-0"
+                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-card text-white font-bold uppercase text-xs tracking-[0.2em]  rounded-3xl border border-liberty-border hover:border-liberty-primary w-full sm:w-max"
               >
-                <div className="absolute inset-0 w-full h-full -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-                <span className="relative z-10 flex items-center gap-2">
                   Ver legisladores
-                </span>
-              </Link>
+              </CinematicLink>
             </motion.div>
           </div>
 

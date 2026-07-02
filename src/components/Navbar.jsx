@@ -45,12 +45,12 @@ export default function Navbar() {
           onClick={() => setIsOpen(false)}
           className="flex items-center group z-50"
         >
-          <div className="relative flex items-center h-9 w-auto transition-transform duration-300 group-hover:scale-105 will-change-transform">
+          <div className="relative flex items-center h-9 w-auto group-hover:scale-105">
             <img
               src={logo}
               alt="La Libertad Avanza Santa Fe"
               fetchPriority="high"
-              className="h-16 w-auto object-contain transition-all duration-300"
+              className="h-16 w-auto object-contain "
               onError={(e) => {
                 e.target.style.display = "none";
               }}
@@ -132,10 +132,6 @@ export default function Navbar() {
             isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none translate-x-full"
           }`}
         >
-          {/* Fondo optimizado - menos blur, menos capas */}
-          <div className="absolute inset-0 bg-gradient-to-b from-liberty-bg/30 via-transparent to-liberty-bg pointer-events-none" />
-          
-          {/* Solo un blur suave en lugar de tres */}
           <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] bg-liberty-primary/10 rounded-full blur-[80px] pointer-events-none" />
 
           {/* Contenido principal */}
@@ -143,7 +139,7 @@ export default function Navbar() {
             <Link
               to="/#noticias"
               onClick={() => setIsOpen(false)}
-              className="w-full max-w-md text-white hover:text-liberty-cyan transition-colors duration-200 border-b border-liberty-border/60 pb-2 flex justify-center items-center mx-auto"
+              className="w-full max-w-md text-white border-b border-liberty-border/60 pb-2 flex justify-center items-center mx-auto"
             >
               Noticias
             </Link>
@@ -151,7 +147,7 @@ export default function Navbar() {
             <Link
               to="/#preview"
               onClick={() => setIsOpen(false)}
-              className="w-full max-w-md text-white hover:text-liberty-cyan transition-colors duration-200 border-b border-liberty-border/60 pb-2 flex justify-center items-center mx-auto"
+              className="w-full max-w-md text-white border-b border-liberty-border/60 pb-2 flex justify-center items-center mx-auto"
             >
               Propuestas
             </Link>
@@ -159,7 +155,7 @@ export default function Navbar() {
             <Link
               to="/#nosotros"
               onClick={() => setIsOpen(false)}
-              className="w-full max-w-md text-white hover:text-liberty-cyan transition-colors duration-200 border-b border-liberty-border/60 pb-2 flex justify-center items-center mx-auto"
+              className="w-full max-w-md text-white border-b border-liberty-border/60 pb-2 flex justify-center items-center mx-auto"
             >
               Nosotros
             </Link>
@@ -168,7 +164,7 @@ export default function Navbar() {
             <div className="w-full max-w-md flex flex-col items-center border-b border-liberty-border/60 pb-2 mx-auto">
               <button
                 onClick={() => setIsMobileDropdownOpen(!isMobileDropdownOpen)}
-                className="w-full text-white transition-colors duration-200 flex justify-center items-center gap-2 cursor-pointer"
+                className="w-full text-white flex justify-center items-center gap-2 cursor-pointer"
               >
                 <span>REPRESENTANTES</span>
                 <ChevronDown 
@@ -177,21 +173,21 @@ export default function Navbar() {
               </button>
               
               <div 
-                className={`flex flex-col items-center overflow-hidden transition-all duration-300 ease-in-out w-full ${
+                className={`flex flex-col items-center overflow-hidden  ease-in-out w-full ${
                   isMobileDropdownOpen ? "max-h-40 mt-5 opacity-100" : "max-h-0 opacity-0"
                 }`}
               >
                 <Link
                   to="/#diputados"
                   onClick={() => setIsOpen(false)}
-                  className="text-lg font-bold text-liberty-text-secondary hover:text-liberty-primary py-3 w-full text-center transition-colors uppercase tracking-widest"
+                  className="text-lg font-bold text-liberty-text-secondary  py-3 w-full text-center uppercase tracking-widest"
                 >
                   Diputados
                 </Link>
                 <Link
                   to="/#representantes"
                   onClick={() => setIsOpen(false)}
-                  className="text-lg font-bold text-liberty-text-secondary hover:text-liberty-cyan py-2 w-full text-center transition-colors uppercase tracking-widest"
+                  className="text-lg font-bold text-liberty-text-secondary py-2 w-full text-center uppercase tracking-widest"
                 >
                   Concejales
                 </Link>

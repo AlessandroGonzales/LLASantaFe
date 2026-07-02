@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import CinematicLink from "./CinematicLink";
+
+
 
 import rep1 from "../assets/lautaro.webp";
 import rep2 from "../assets/giselle.webp";
@@ -159,15 +161,12 @@ export default function RepresentantesPreview() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="mt-4 lg:mt-0 will-change-transform"
             >
-              <Link
+              <CinematicLink
                 to="/representantes"
-                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-card text-white font-bold uppercase text-xs tracking-[0.2em] transition-all duration-300 rounded-3xl border border-liberty-border hover:border-liberty-cyan hover:shadow-[0_0_25px_rgba(6,182,212,0.35)] w-full sm:w-max overflow-hidden transform-gpu translate-z-0"
+                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-card text-white font-bold uppercase text-xs tracking-[0.2em] rounded-3xl border border-liberty-border hover:border-liberty-cyan  w-full sm:w-max "
               >
-                <div className="absolute inset-0 w-full h-full -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-                <span className="relative z-10 flex items-center gap-2">
                   Conocer al equipo
-                </span>
-              </Link>
+              </CinematicLink>
             </motion.div>
           </div>
         </motion.div>

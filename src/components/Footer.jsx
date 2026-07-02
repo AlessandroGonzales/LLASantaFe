@@ -21,10 +21,7 @@ export default function Footer() {
             alt="La Libertad Avanza Logo"
             loading="lazy"
             decoding="async"
-            className="h-20 md:h-24 w-auto mb-3 
-                       transition-transform duration-500 
-                       group-hover:scale-105 
-                       will-change-transform"   // ← GPU friendly
+            className="h-20 md:h-24 w-auto mb-3"   // ← GPU friendly
           />
           
           <h3 className="text-white font-black tracking-widest text-lg md:text-xl uppercase text-center">
@@ -42,8 +39,7 @@ export default function Footer() {
           <a
             href="https://www.instagram.com/lalibertadavanzasantafe/"
             className="text-liberty-text-secondary hover:text-liberty-cyan 
-                       transition-all duration-300 hover:scale-110 
-                       will-change-transform"
+                        hover:scale-110 "
             aria-label="Instagram"
             target="_blank"
             rel="noreferrer"
@@ -56,9 +52,7 @@ export default function Footer() {
           {/* Facebook y X (Twitter) - mismo patrón optimizado */}
           <a
             href="https://www.facebook.com/profile.php?id=61574583127255&locale=es_LA"
-            className="text-liberty-text-secondary hover:text-liberty-cyan 
-                       transition-all duration-300 hover:scale-110 
-                       will-change-transform"
+            className="text-liberty-text-secondary hover:text-liberty-cyan "
             aria-label="Facebook"
             target="_blank"
             rel="noreferrer"
@@ -70,9 +64,7 @@ export default function Footer() {
 
           <a
             href="https://x.com/LLASantaFe"
-            className="text-liberty-text-secondary hover:text-liberty-cyan 
-                       transition-all duration-300 hover:scale-110 
-                       will-change-transform"
+            className="text-liberty-text-secondary hover:text-liberty-cyan "
             aria-label="X"
             target="_blank"
             rel="noreferrer"

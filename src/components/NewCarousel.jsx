@@ -71,7 +71,7 @@ export default function NewsCarousel() {
         <div className="hidden lg:flex absolute left-0 top-0 h-full w-28 bg-gradient-to-r from-liberty-bg via-liberty-bg/20 to-transparent z-20 items-center pl-4 pointer-events-none transform-gpu translate-z-0">
           <button
             onClick={scrollLeft}
-            className="w-12 h-12 rounded-full bg-liberty-card/95 border border-liberty-border text-white hover:border-liberty-cyan hover:text-liberty-cyan transition-all duration-300 flex items-center justify-center cursor-pointer pointer-events-auto will-change-transform"
+            className="w-12 h-12 rounded-full bg-liberty-card/95 border border-liberty-border text-white hover:border-liberty-cyan hover:text-liberty-cyan flex items-center justify-center cursor-pointer pointer-events-auto will-change-transform"
             aria-label="Desplazar a la izquierda"
           >
             <svg
@@ -95,7 +95,7 @@ export default function NewsCarousel() {
         <div className="hidden lg:flex absolute right-0 top-0 h-full w-28 bg-gradient-to-l from-liberty-bg via-liberty-bg/20 to-transparent z-20 items-center justify-end pr-4 pointer-events-none transform-gpu translate-z-0">
           <button
             onClick={scrollRight}
-            className="w-12 h-12 rounded-full bg-liberty-card/90 border border-liberty-border text-white hover:border-liberty-cyan hover:text-liberty-cyan transition-all duration-300 flex items-center justify-center cursor-pointer pointer-events-auto will-change-transform"
+            className="w-12 h-12 rounded-full bg-liberty-card/90 border border-liberty-border text-white hover:border-liberty-cyan hover:text-liberty-cyan  flex items-center justify-center cursor-pointer pointer-events-auto will-change-transform"
             aria-label="Desplazar a la derecha"
           >
             <svg
@@ -144,7 +144,7 @@ export default function NewsCarousel() {
               {/* CATEGORÍA */}
               <div className="absolute top-6 left-6 z-10">
                 {/* Reemplazamos drop-shadow por text-shadow nativo */}
-                <span className="text-xs font-bold text-white/90 uppercase tracking-[0.2em] [text-shadow:_0_2px_4px_rgba(0,0,0,0.8)]">
+                <span className="text-xs font-bold text-white/90 uppercase tracking-[0.2em] ">
                   {news.category}
                 </span>
               </div>
@@ -152,16 +152,16 @@ export default function NewsCarousel() {
               {/* CONTENIDO */}
               <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 z-10 flex flex-col justify-end">
                 {/* Reemplazamos drop-shadow por text-shadow nativo */}
-                <h3 className="text-2xl md:text-3xl font-black text-white leading-tight mb-2 [text-shadow:_0_2px_8px_rgba(0,0,0,0.9)]">
+                <h3 className="text-2xl md:text-3xl font-black text-white leading-tight mb-2 ">
                   {news.title}
                 </h3>
 
-                <p className="text-sm md:text-base text-gray-200 mb-6 line-clamp-2 [text-shadow:_0_1px_3px_rgba(0,0,0,0.8)]">
+                <p className="text-sm md:text-base text-gray-200 mb-6 line-clamp-2 ">
                   {news.description}
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <span className="w-full sm:w-auto px-10 py-3 rounded-4xl font-bold text-sm bg-liberty-card border border-liberty-border text-white transition-all duration-300 group-hover:bg-liberty-border/40 group-hover:text-liberty-cyan text-center cursor-pointer inline-block will-change-transform">
+                  <span className="w-full sm:w-auto px-10 py-3 rounded-4xl font-bold text-sm bg-liberty-card border border-liberty-border text-white  group-hover:bg-liberty-border/40 group-hover:text-liberty-cyan text-center cursor-pointer inline-block will-change-transform">
                     Ver más
                   </span>
                 </div>
