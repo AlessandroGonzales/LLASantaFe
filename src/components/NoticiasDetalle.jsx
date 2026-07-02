@@ -4,7 +4,8 @@ import { newsData } from "../data/noticiasData";
 
 export default function NoticiaDetalle() {
   const { id } = useParams();
-  const noticia = newsData.find((n) => n.id === parseInt(id || "")) || newsData[0];
+  const noticia =
+    newsData.find((n) => n.id === parseInt(id || "")) || newsData[0];
 
   const handleShare = () => {
     const text = `Entérate de la última noticia de La Libertad Avanza Santa Fe: *${noticia.title}*\n\nLee más acá: ${window.location.href}`;
@@ -14,24 +15,24 @@ export default function NoticiaDetalle() {
 
   return (
     <main className="bg-liberty-bg text-white min-h-screen font-satoshi relative pb-20">
-      
       {/* IMAGEN HERO INMERSIVA */}
       <div className="relative w-full h-[40vh] md:h-[50vh] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-liberty-bg via-liberty-bg/70 to-transparent z-10" />
-        
+
         <img
           src={noticia.image}
           alt={noticia.title}
           loading="eager"
-          className="w-full h-full object-cover object-center"
           decoding="async"
+          className="w-full h-full object-cover object-center"
+          sizes="100vw"
+          // style={{ backgroundColor: "#1E082D" }}
         />
       </div>
 
       {/* CONTENIDO PRINCIPAL */}
       <div className="w-full md:max-w-4/5 mx-auto px-6 md:px-12 relative z-20 -mt-16 md:-mt-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          
           {/* COLUMNA IZQUIERDA */}
           <div className="lg:col-span-8">
             <div>
@@ -83,8 +84,9 @@ export default function NoticiaDetalle() {
           </div>
 
           {/* COLUMNA DERECHA - Sticky */}
-          <div className="lg:col-span-3 relative">
-            <div className="sticky top-20 lg:top-24 bg-gradient-to-b from-liberty-card to-liberty-bg border border-liberty-border/50 rounded-2xl p-6 shadow-xl">
+         <div className="lg:col-span-4 relative">
+            <div className="lg:sticky lg:top-24 bg-gradient-to-b from-liberty-card to-liberty-bg border border-liberty-border/50 rounded-2xl p-6 shadow-xl">
+              {/* ... resto del sidebar sin cambios ... */}
               <div className="absolute -top-px left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-liberty-primary/60 to-transparent" />
 
               <h4 className="text-sm uppercase tracking-[0.2em] text-white mb-2 font-black text-center">
@@ -102,7 +104,11 @@ export default function NoticiaDetalle() {
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-3 bg-black text-white border border-white/20 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-white hover:text-black will-change-transform"
                 >
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.005 4.25H5.078z" />
                   </svg>
                   Ver en X
@@ -115,8 +121,24 @@ export default function NoticiaDetalle() {
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:scale-[1.02] will-change-transform"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect
+                      x="2"
+                      y="2"
+                      width="20"
+                      height="20"
+                      rx="5"
+                      ry="5"
+                    ></rect>
                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                   </svg>

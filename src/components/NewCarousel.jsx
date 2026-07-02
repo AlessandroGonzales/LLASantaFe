@@ -22,7 +22,7 @@ export default function NewsCarousel() {
     if (carouselRef.current) {
       sessionStorage.setItem(
         "newsCarouselScroll",
-        carouselRef.current.scrollLeft
+        carouselRef.current.scrollLeft.toString(),
       );
     }
   };
@@ -30,7 +30,8 @@ export default function NewsCarousel() {
   // 3. Lectura de DOM optimizada (sin querySelectors costosos)
   const scrollLeft = () => {
     if (carouselRef.current) {
-      const cardWidth = carouselRef.current.firstElementChild?.offsetWidth || 500;
+      const cardWidth =
+        carouselRef.current.firstElementChild?.offsetWidth || 500;
       carouselRef.current.scrollBy({
         left: -(cardWidth + 24),
         behavior: "smooth",
@@ -40,7 +41,8 @@ export default function NewsCarousel() {
 
   const scrollRight = () => {
     if (carouselRef.current) {
-      const cardWidth = carouselRef.current.firstElementChild?.offsetWidth || 500;
+      const cardWidth =
+        carouselRef.current.firstElementChild?.offsetWidth || 500;
       carouselRef.current.scrollBy({
         left: cardWidth + 24,
         behavior: "smooth",
@@ -51,18 +53,16 @@ export default function NewsCarousel() {
   return (
     <section
       id="noticias"
-      className="w-full py-25 bg-liberty-bg border-t border-liberty-border/30 overflow-hidden font-satoshi transform-gpu translate-z-0"
+      className="w-full py-20 bg-liberty-bg border-t border-liberty-border/30 overflow-hidden font-satoshi"
     >
       {/* TÍTULO DE LA SECCIÓN */}
       <div className="max-w-7xl mx-auto px-6 mb-12 text-center">
-        <div>
-          <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight">
-            Últimas Noticias
-          </h2>
-          <p className="text-liberty-text-secondary mt-3 text-sm md:text-base tracking-wide">
-            Enterate de las novedades del espacio en Santa Fe.
-          </p>
-        </div>
+        <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight">
+          Últimas Noticias
+        </h2>
+        <p className="text-liberty-text-secondary mt-3 text-sm md:text-base tracking-wide">
+          Enterate de las novedades del espacio en Santa Fe.
+        </p>
       </div>
 
       {/* CONTENEDOR DEL CARRUSEL */}
@@ -114,74 +114,68 @@ export default function NewsCarousel() {
             </svg>
           </button>
         </div>
+        <div className="relative">
+          {/* CARRUSEL - Aceleración de hardware en el track de scroll */}
+          <div
+            ref={carouselRef}
+            className="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-6 pb-8 hide-scrollbar scroll-smooth"
+            style={{ scrollPaddingLeft: "1.5rem" }}
+          >
+            {newsData.map((news, index) => (
+              <CinematicLink
+                key={news.id}
+                to={`/noticia/${news.id}`}
+                onClick={handleNewsClick}
+                className="relative flex-none w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[31vw] h-[58dvh] md:h-[500px] bg-liberty-card rounded-2xl overflow-hidden snap-center group border border-liberty-border/50 block"
+              >
+                <img
+                  src={news.image}
+                  alt={news.title}
+                  loading={index < 2 ? "eager" : "lazy"}
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 640px) 85vw, (max-width: 768px) 60vw, (max-width: 1024px) 45vw, 31vw"
+                />
 
-        {/* CARRUSEL - Aceleración de hardware en el track de scroll */}
-        <div
-          ref={carouselRef}
-          className="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-6 pb-8 hide-scrollbar scroll-smooth transform-gpu translate-z-0 will-change-scroll"
-          style={{ scrollPaddingLeft: "1.5rem" }}
-        >
-          {newsData.map((news, index) => (
-            <CinematicLink
-              key={news.id}
-              to={`/noticia/${news.id}`}
-              onClick={handleNewsClick}
-              className="relative flex-none w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[31vw] h-[60dvh] md:h-[500px] bg-liberty-card rounded-2xl overflow-hidden snap-center md:snap-start group border border-liberty-border/50 block transform-gpu translate-z-0"
-            >
-              {/* IMAGEN: Lógica condicional para LCP */}
-              <img
-                src={news.image}
-                alt={news.title}
-                loading={index < 2 ? "eager" : "lazy"}
-                fetchPriority={index === 0 ? "high" : "auto"}
-                decoding="async"
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 transform-gpu will-change-transform group-hover:scale-105 bg-liberty-bg/50"
-              />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/90 pointer-events-none" />
 
-              {/* OVERLAY */}
-              <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/90 pointer-events-none transform-gpu translate-z-0" />
+                <div className="absolute top-6 left-6 z-10">
+                  <span className="text-xs font-bold text-white/90 uppercase tracking-[0.2em]">
+                    {news.category}
+                  </span>
+                </div>
 
-              {/* CATEGORÍA */}
-              <div className="absolute top-6 left-6 z-10">
-                {/* Reemplazamos drop-shadow por text-shadow nativo */}
-                <span className="text-xs font-bold text-white/90 uppercase tracking-[0.2em] ">
-                  {news.category}
-                </span>
-              </div>
+                <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 z-10 flex flex-col justify-end">
+                  <h3 className="text-2xl md:text-3xl font-black text-white leading-tight mb-2">
+                    {news.title}
+                  </h3>
 
-              {/* CONTENIDO */}
-              <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 z-10 flex flex-col justify-end">
-                {/* Reemplazamos drop-shadow por text-shadow nativo */}
-                <h3 className="text-2xl md:text-3xl font-black text-white leading-tight mb-2 ">
-                  {news.title}
-                </h3>
+                  <p className="text-sm md:text-base text-gray-200 mb-6 line-clamp-2">
+                    {news.description}
+                  </p>
 
-                <p className="text-sm md:text-base text-gray-200 mb-6 line-clamp-2 ">
-                  {news.description}
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <span className="w-full sm:w-auto px-10 py-3 rounded-4xl font-bold text-sm bg-liberty-card border border-liberty-border text-white  group-hover:bg-liberty-border/40 group-hover:text-liberty-cyan text-center cursor-pointer inline-block will-change-transform">
+                  <span className="inline-block w-full sm:w-auto px-10 py-3 rounded-4xl font-bold text-sm bg-liberty-card border border-liberty-border text-white group-hover:bg-liberty-border/40 group-hover:text-liberty-cyan text-center">
                     Ver más
                   </span>
                 </div>
-              </div>
-            </CinematicLink>
-          ))}
+              </CinematicLink>
+            ))}
+          </div>
         </div>
       </div>
 
       <style
         dangerouslySetInnerHTML={{
           __html: `
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .hide-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `,
+            .hide-scrollbar::-webkit-scrollbar {
+              display: none;
+            }
+            .hide-scrollbar {
+              -ms-overflow-style: none;
+              scrollbar-width: none;
+            }
+          `,
         }}
       />
     </section>

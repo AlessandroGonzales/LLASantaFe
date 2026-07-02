@@ -37,6 +37,15 @@ export default function Sumate() {
     localidad: "",
     quiereFiscalizar: false,
   });
+  // === Lógica para animar solo una vez ===
+  const hasAnimated = sessionStorage.getItem("sumate_animated") === "true";
+
+  const markAsAnimated = () => {
+    if (!hasAnimated) {
+      sessionStorage.setItem("sumate_animated", "true");
+    }
+  };
+
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -88,9 +97,10 @@ export default function Sumate() {
           {/* =========================================
               LADO IZQUIERDO: Textos
               ========================================= */}
-          <motion.section
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
+           <motion.section
+            onViewportEnter={markAsAnimated}
+            initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
+            animate={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
             className="pt-10 md:pt-14 will-change-transform transform-gpu translate-z-0"
           >
@@ -148,8 +158,8 @@ export default function Sumate() {
               LADO DERECHO: Imagen + Formulario
               ========================================= */}
           <motion.section
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+            animate={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.1 }}
             className="sticky lg:top-8 pt-6 md:pt-10 will-change-transform transform-gpu translate-z-0"
           >
@@ -175,16 +185,12 @@ export default function Sumate() {
                       
                       {/* Animación de Éxito Optimizada (Sin drop-shadow en animación) */}
                       <div className="relative flex justify-center items-center">
-                        <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{
-                            type: "spring",
-                            stiffness: 180,
-                            damping: 14,
-                          }}
-                          className="relative z-10 will-change-transform transform-gpu translate-z-0"
-                        >
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", stiffness: 180, damping: 14 }}
+                        className="relative z-10"
+                      >
                           <CheckCircle2 className="w-20 h-20 md:w-24 md:h-24 text-green-400" />
                         </motion.div>
                       </div>
