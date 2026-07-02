@@ -29,8 +29,6 @@ export default function SeccionPropuestas() {
   return (
     <section className="bg-liberty-bg text-white py-30 lg:py-34 px-6 md:px-12 min-h-screen font-satoshi relative overflow-hidden">
       {/* Luces ambientales centradas para acompañar la simetría */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-liberty-cyan/5 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-liberty-primary/5 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="w-full md:w-full">
         {/* ========================================================================= */}
@@ -38,7 +36,6 @@ export default function SeccionPropuestas() {
         {/* ========================================================================= */}
         <div className="flex flex-col items-center text-center mb-20 pb-12">
           <div className="relative inline-block">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[120px] bg-liberty-primary/30 rounded-full blur-[100px] pointer-events-none z-0" />
             <motion.h1 
               onViewportEnter={markAsAnimated}
               initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}

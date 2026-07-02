@@ -36,11 +36,7 @@ export default function PropuestaDetalle() {
   return (
     <main className="bg-liberty-bg text-white min-h-screen font-satoshi relative pt-24 pb-20">
       {/* Fondos ambientales épicos */}
-     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-0 right-0 w-[800px] h-[600px] bg-liberty-primary/5 rounded-full blur-[160px]" />
-        <div className="absolute bottom-20 left-0 w-[600px] h-[600px] bg-liberty-cyan/5 rounded-full blur-[150px]" />
-      </div>
-      
+
       <div className="w-full max-w-7xl mx-auto px-4 md:px-8 relative z-10">
    
 

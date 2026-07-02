@@ -40,9 +40,6 @@ export default function NosotrosPreview() {
       id="nosotros"
       className="relative w-full py-24 md:py-40 flex justify-center px-6 md:px-16 lg:px-24 xl:px-32 z-10 overflow-hidden bg-liberty-bg transform-gpu translate-z-0"
     >
-      {/* LUCES DE FONDO AISLADAS EN LA GPU */}
-      <div className="absolute top-0 left-1/4 -translate-x-1/2 w-[400px] md:w-[800px] h-[400px] md:h-[800px] bg-liberty-cyan/5 rounded-full blur-[150px] pointer-events-none mix-blend-screen transform-gpu translate-z-0" />
-      <div className="absolute bottom-0 right-1/4 translate-x-1/4 w-[400px] md:w-[800px] h-[400px] md:h-[800px] bg-liberty-primary/5 rounded-full blur-[150px] pointer-events-none mix-blend-screen transform-gpu translate-z-0" />
 
       <div className="w-full relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-12 items-start">

@@ -59,8 +59,6 @@ export default function SeccionRepresentantes() {
 
   return (
     <section className="relative w-full py-24 md:py-32 bg-liberty-bg text-white overflow-hidden font-satoshi">
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-liberty-primary/5 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-liberty-cyan/5 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="w-full px-6 md:px-12 lg:px-20 max-w-[1600px] mx-auto relative z-20 mb-16 md:mb-24">
         <div className="text-center">
