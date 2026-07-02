@@ -6,9 +6,9 @@ import rominasantafe from "../assets/romisantafe.webp";
 import karina from "../assets/karina.jpeg";
 import libertad from "../assets/libertad.jpeg";
 // Importes para las 3 fotos de UPL (Modifica las rutas según tu proyecto)
-import uplUno from "../assets/utn.png";
+import uplUno from "../assets/utn.webp";
 import uplDos from "../assets/cierreupl.webp";
-import uplTres from "../assets/uplunidos.jpg";
+import uplTres from "../assets/uplunidos.webp";
 
 export default function NosotrosHistoria() {
   return (

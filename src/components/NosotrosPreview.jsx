@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { History, ShieldAlert, TrendingUp } from "lucide-react";
 
-import nosotrosimg1 from "../assets/uplunidos.jpg";
+import nosotrosimg1 from "../assets/uplunidos.webp";
 import nosotrosimg2 from "../assets/nosotros.jpg";
 import nosotrosimg3 from "../assets/inicios.jpeg";
 

@@ -3,7 +3,7 @@ import rigi from "../assets/rigi.webp"
 import rm from "../assets/romiymilei.jpeg"
 import kari from "../assets/karinadiputados.jpeg"
 import cierre from "../assets/cierreupl.webp"
-import utn from "../assets/utn.png"
+import utn from "../assets/utn.webp"
 
 export const newsData = [
   {
