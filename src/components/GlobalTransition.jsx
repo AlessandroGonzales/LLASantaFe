@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useCinematicTransition } from "../context/TransitionContext";
-import logoLibertad from "../assets/logoLibertad.svg";
+import logoLibertad from "../assets/logoLibertad.webp";
 
 // =========================================
 // VARIANTS ULTRA-OPTIMIZADOS (Mobile & Desktop)

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 // 🚨 URGENTE: Asegúrate de tener el logo en formato SVG en tu carpeta assets
-import logoLibertad from "../assets/logoLibertad.svg"; 
+import logoLibertad from "../assets/logoLibertad.webp"; 
 import backgroundImage from "../assets/mileidiezz.webp"; // Para mobile
 import backgroundImageDos from "../assets/mileidiez.webp"; // Para Desktop
 import { Link } from "react-router-dom";

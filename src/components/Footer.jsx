@@ -1,14 +1,19 @@
-import logo from "../assets/aguila.png"; 
+import logo from "../assets/aguila.webp"; 
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="relative bg-liberty-bg border-t border-liberty-border/100 pt-10 pb-8 px-6 font-satoshi overflow-hidden">
-      {/* Brillo sutil de fondo para integrarlo a la estética general de la web */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[150px] bg-liberty-primary/30 rounded-full blur-[100px] pointer-events-none z-0" />
+      
+      {/* Brillo de fondo optimizado - mucho más ligero */}
+      <div 
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[300px] h-[120px] 
+                   bg-liberty-primary/20 rounded-full blur-[80px] pointer-events-none z-0"
+      />
 
       <div className="max-w-7xl mx-auto flex flex-col items-center relative z-10">
+        
         {/* LOGO Y NOMBRE */}
         <div className="flex flex-col items-center mb-8 group cursor-default">
           <img
@@ -16,11 +21,16 @@ export default function Footer() {
             alt="La Libertad Avanza Logo"
             loading="lazy"
             decoding="async"
-            className="h-22 w-auto mb-2 opacity-100 transition-all duration-500 group-hover:scale-105 group-hover:brightness-110 group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.2)]"
+            className="h-20 md:h-24 w-auto mb-3 
+                       transition-transform duration-500 
+                       group-hover:scale-105 
+                       will-change-transform"   // ← GPU friendly
           />
+          
           <h3 className="text-white font-black tracking-widest text-lg md:text-xl uppercase text-center">
             La Libertad Avanza
           </h3>
+          
           <p className="text-liberty-text-secondary font-bold tracking-[0.3em] text-xs md:text-sm mt-1 uppercase text-center">
             Santa Fe
           </p>
@@ -31,7 +41,9 @@ export default function Footer() {
           {/* Instagram */}
           <a
             href="https://www.instagram.com/lalibertadavanzasantafe/"
-            className="text-liberty-text-secondary hover:text-liberty-cyan hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(0,255,255,0.5)] transition-all duration-300"
+            className="text-liberty-text-secondary hover:text-liberty-cyan 
+                       transition-all duration-300 hover:scale-110 
+                       will-change-transform"
             aria-label="Instagram"
             target="_blank"
             rel="noreferrer"
@@ -41,10 +53,12 @@ export default function Footer() {
             </svg>
           </a>
 
-          {/* Facebook */}
+          {/* Facebook y X (Twitter) - mismo patrón optimizado */}
           <a
             href="https://www.facebook.com/profile.php?id=61574583127255&locale=es_LA"
-            className="text-liberty-text-secondary hover:text-liberty-cyan hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(0,255,255,0.5)] transition-all duration-300"
+            className="text-liberty-text-secondary hover:text-liberty-cyan 
+                       transition-all duration-300 hover:scale-110 
+                       will-change-transform"
             aria-label="Facebook"
             target="_blank"
             rel="noreferrer"
@@ -54,10 +68,11 @@ export default function Footer() {
             </svg>
           </a>
 
-          {/* X (Twitter) */}
           <a
             href="https://x.com/LLASantaFe"
-            className="text-liberty-text-secondary hover:text-liberty-cyan hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(0,255,255,0.5)] transition-all duration-300"
+            className="text-liberty-text-secondary hover:text-liberty-cyan 
+                       transition-all duration-300 hover:scale-110 
+                       will-change-transform"
             aria-label="X"
             target="_blank"
             rel="noreferrer"
@@ -67,11 +82,12 @@ export default function Footer() {
             </svg>
           </a>
         </div>
-        {/* LÍNEA SEPARADORA SUTIL */}
+
+        {/* LÍNEA SEPARADORA */}
         <div className="w-full max-w-2xl h-px bg-gradient-to-r from-transparent via-liberty-border/40 to-transparent mb-6" />
 
-        {/* COPYRIGHT Y TEXTO LEGAL */}
-        <div className="flex flex-col justify-between w-full items-center gap-4 text-liberty-text-secondary/80 text-[11px] md:text-xs uppercase tracking-[2px] ">
+        {/* COPYRIGHT */}
+        <div className="flex flex-col justify-between w-full items-center gap-4 text-liberty-text-secondary/80 text-[11px] md:text-xs uppercase tracking-[2px]">
           <p className="text-center">
             © {currentYear} LLA SANTA FE - TODOS LOS DERECHOS RESERVADOS.
           </p>
