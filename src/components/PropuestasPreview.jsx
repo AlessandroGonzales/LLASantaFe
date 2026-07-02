@@ -14,7 +14,7 @@ export default function PropuestasPreview() {
   };
 
   return (
-    <section id="preview" className="relative w-full py-1 lg:py-14 bg-liberty-bg overflow-hidden font-satoshi mb-10 transform-gpu translate-z-0">
+    <section id="preview" className="relative w-full py-1 lg:py-14 bg-liberty-bg overflow-hidden font-satoshi mb-10 transform-gpu translate-z-0 ">
       
       {/* LUZ DE FONDO (Forzadas a la GPU para evitar recalcular el Blur en el scroll) */}
       <motion.div 

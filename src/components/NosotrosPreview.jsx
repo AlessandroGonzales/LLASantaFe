@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { History, ShieldAlert, TrendingUp } from "lucide-react";
+import {  ShieldAlert, TrendingUp } from "lucide-react";
 import CinematicLink from "./CinematicLink";
 
 
@@ -79,22 +79,21 @@ export default function NosotrosPreview() {
 
             <div className="relative pl-3 md:pl-4 space-y-7 py-1">
               <motion.div whileHover={{ x: 5 }} className="flex items-start gap-5 group transition-transform transform-gpu">
-                <History className="w-6 h-6 text-liberty-primary shrink-0 group-hover:scale-110 transition-transform duration-500" />
-                <p className="text-sm md:text-lg text-gray-100 group-hover:text-white transition-colors duration-300">
+                <p className="text-sm md:text-lg text-gray-100 ">
                   De dónde venimos y cómo se forjó este movimiento.
                 </p>
               </motion.div>
 
               <motion.div whileHover={{ x: 5 }} className="flex items-start gap-5 group transition-transform transform-gpu">
-                <ShieldAlert className="w-6 h-6 text-liberty-cyan shrink-0 group-hover:scale-110 transition-transform duration-500" />
-                <p className="text-sm md:text-lg text-gray-100 group-hover:text-white transition-colors duration-300">
+                <ShieldAlert className="w-6 h-6 text-liberty-cyan shrink-0 " />
+                <p className="text-sm md:text-lg text-gray-100">
                   Las batallas de frente que estamos dando hoy en la provincia.
                 </p>
               </motion.div>
 
               <motion.div whileHover={{ x: 5 }} className="flex items-start gap-5 group transition-transform transform-gpu">
-                <TrendingUp className="w-6 h-6 text-liberty-accent shrink-0 group-hover:scale-110 transition-transform duration-500" />
-                <p className="text-sm md:text-lg text-gray-100 group-hover:text-white transition-colors duration-300">
+                <TrendingUp className="w-6 h-6 text-liberty-accent shrink-0 " />
+                <p className="text-sm md:text-lg text-gray-100 0">
                   Nuestro plan definitivo para volver a ser potencia.
                 </p>
               </motion.div>

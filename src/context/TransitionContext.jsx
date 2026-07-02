@@ -31,7 +31,7 @@ export function TransitionProvider({ children }) {
         top: 0,
         behavior: "instant",
       });
-    }, 450);
+    }, 550);
 
     // Finalizar transición
     setTimeout(() => {
@@ -41,7 +41,7 @@ export function TransitionProvider({ children }) {
       });
 
       transitioning.current = false;
-    }, 600);
+    }, 670);
   };
 
   return (

@@ -14,7 +14,7 @@ const eagleVariants = {
     opacity: 1, 
     scale: 1, 
     y: 0,
-    transition: { duration: 1.4, ease: [0.34, 1.56, 0.64, 1] }
+    transition: { duration: 1.6, ease: [0.34, 1.56, 0.64, 1] }
   }
 };
 
@@ -32,7 +32,7 @@ const titleVariants = {
     opacity: 1, 
     y: 0, 
     scale: 1, 
-    transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] }
+    transition: { duration: 1.6, ease: [0.16, 1, 0.3, 1] }
   }
 };
 
@@ -41,7 +41,7 @@ const subtitleVariants = {
   visible: { 
     opacity: 1, 
     y: 0, 
-    transition: { duration: 1.5, ease: "easeOut" }
+    transition: { duration: 1.7, ease: "easeOut" }
   }
 };
 
@@ -70,7 +70,7 @@ export default function Hero() {
       <motion.picture
         initial={hasAnimated ? { opacity: 0.85, scale: 1 } : { opacity: 0, scale: 1.1 }}
         animate={{ opacity: 0.85, scale: 1 }}
-        transition={{ duration: 2.5, ease: "easeOut" }}
+        transition={{ duration: 2.8, ease: "easeOut" }}
         className="absolute inset-0 w-full h-full z-0 will-change-transform transform-gpu translate-z-0"
       >
         <source media="(min-width: 768px)" srcSet={backgroundImageDos} />
@@ -84,12 +84,11 @@ export default function Hero() {
 
       <div className="absolute inset-0 bg-gradient-to-b from-liberty-bg/10 via-transparent to-liberty-bg z-0 pointer-events-none" />
 
-      {/* Luces de fondo */}
       <motion.div
         initial={hasAnimated ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 2.5, delay: 0.2, ease: "easeOut" }}
-        onViewportEnter={markAsAnimated}   // ← Marcamos aquí (elemento temprano)
+        onViewportEnter={markAsAnimated}   
       />
 
       <motion.div
