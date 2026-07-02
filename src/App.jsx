@@ -68,8 +68,8 @@ function Home() {
 
 function App() {
   return (
-    <TransitionProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <TransitionProvider>
         <GlobalTransition />
         <ScrollToTop />
 
@@ -95,8 +95,8 @@ function App() {
 
           <Footer />
         </div>
-      </BrowserRouter>
-    </TransitionProvider>
+      </TransitionProvider>
+    </BrowserRouter>
   );
 }
 
