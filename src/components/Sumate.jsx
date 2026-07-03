@@ -84,7 +84,7 @@ export default function Sumate() {
   };
 
   return (
-    <main className="min-h-screen bg-liberty-bg text-white font-satoshi relative overflow-hidden">
+    <main className="min-h-screen bg-liberty-bg text-white  relative overflow-hidden">
       {/* =========================================
           FONDOS AMBIENTALES (Optimizados con radial-gradient en vez de blur)
           ========================================= */}
@@ -118,10 +118,7 @@ export default function Sumate() {
             </h1>
 
             <p className="mt-6 max-w-2xl text-base sm:text-lg md:text-xl leading-relaxed text-liberty-text-secondary">
-              A vos, que te levantás todos los días para sostener a tu familia.
-              A vos, que construiste tu camino con mérito propio y no te
-              
-              frente, con convicción, con fuerza y con coraje.
+              Los grandes cambios se realizan cuando todos están sumamente comprometidos. Nosotros queremos lo mejor para la provincia y para el país, ya que en ellos están esos jóvenes, empresarios, comerciantes, profesionales y niños que sueñan con una Argentina grande nuevamente. Por eso, necesitamos de tu apoyo; precisamos de tu valentía y coraje para dar esta batalla ante la casta.
             </p>
 
             <p className="mt-4 max-w-2xl text-base sm:text-lg font-medium text-liberty-primary">
@@ -130,9 +127,6 @@ export default function Sumate() {
 
             {/* Steps */}
             <div className="mt-10 rounded-[2rem] border border-liberty-border bg-liberty-surface/2 p-6 md:p-8 shadow-2xl transform-gpu translate-z-0">
-              <h2 className="text-sm uppercase tracking-[0.25em] text-center md:text-left font-black">
-                Qué sucede después
-              </h2>
               <div className="mt-5 grid gap-4">
                 {steps.map((step, index) => (
                   <div

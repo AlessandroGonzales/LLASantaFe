@@ -43,7 +43,7 @@ export default function SeccionDiputados() {
   }, [selectedDiputado]);
 
   return (
-    <section className="relative w-full py-24 md:py-32 bg-liberty-bg text-white overflow-hidden font-satoshi">
+    <section className="relative w-full py-24 md:py-32 bg-liberty-bg text-white overflow-hidden ">
 
       <div className="w-full px-6 md:px-12 lg:px-20 max-w-[1600px] mx-auto relative z-20 mb-16 md:mb-24">
         <div className="text-center">

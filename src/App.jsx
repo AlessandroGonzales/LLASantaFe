@@ -23,6 +23,7 @@ const NosotrosHistoria = lazy(() => import("./components/NosotrosHistoria"));
 const SeccionRepresentantes = lazy(() => import("./components/SeccionRepresentantes"),);
 const SeccionDiputados = lazy(() => import("./components/SeccionDiputados"));
 const ProponePreview = lazy(() => import ("./components/ProponePreview"))
+const SeccionPropone = lazy(() => import ("./components/SeccionPropone"))
 
 // Fallback más profesional
 const PageLoader = () => (
@@ -71,7 +72,7 @@ function App() {
         <GlobalTransition />
         <ScrollToTop />
 
-        <div className="min-h-screen bg-liberty-bg text-liberty-text font-satoshi">
+        <div className=" bg-liberty-bg text-liberty-text font-satoshi">
           <Navbar />
 
           <Suspense fallback={<PageLoader />}>
@@ -83,11 +84,9 @@ function App() {
               <Route path="/noticia/:id" element={<NoticiaDetalle />} />
               <Route path="/sumate" element={<Sumate />} />
               <Route path="/nosotros" element={<NosotrosHistoria />} />
-              <Route
-                path="/representantes"
-                element={<SeccionRepresentantes />}
-              />
+              <Route path="/representantes" element={<SeccionRepresentantes />}/>
               <Route path="/diputados" element={<SeccionDiputados />} />
+              <Route path="/propone" element={<SeccionPropone/>} />
             </Routes>
           </Suspense>
 

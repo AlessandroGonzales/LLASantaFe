@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import CinematicLink from "./CinematicLink";
 
 // Asegurate de cambiar esto por la ruta de tu foto cinematográfica
 import proponeBg from "../assets/mileirosario.webp";
@@ -16,7 +16,7 @@ export default function ProponePreview() {
   return (
     <section
       id="propone"
-      className="relative w-full min-h-[75vh] md:min-h-[95vh] flex items-center justify-center overflow-hidden border-t border-liberty-border font-satoshi transform-gpu translate-z-0 bg-liberty-bg"
+      className="relative w-full min-h-[75vh] md:min-h-[95vh] flex items-center justify-center overflow-hidden border-t border-liberty-border transform-gpu translate-z-0 bg-liberty-bg"
     >
       {/* =========================================
           FONDO CINEMATOGRÁFICO
@@ -25,7 +25,7 @@ export default function ProponePreview() {
         <img
           src={proponeBg}
           alt="Ciudadanos construyendo el futuro"
-          className="w-full h-full object-cover object-center "
+          className="w-full h-full object-cover "
           loading="lazy"
           decoding="async"
         />
@@ -61,15 +61,15 @@ export default function ProponePreview() {
 
           {/* Descripción */}
           <p className="text-base md:text-xl text-liberty-text max-w-2xl mx-auto mb-12 leading-relaxed drop-shadow-md font-medium px-4">
-            No importa si sos comerciante, estudiante, empresario, profesional de la salud o trabajador independiente. Queremos escucharte, porque tu realidad es la que verdaderamente importa para construir el futuro de nuestra provincia.
+            Tanto si sos comerciante, estudiante, empresario, profesional de la salud o trabajador independiente. Queremos escucharte, porque tu realidad es la que verdaderamente importa para construir el futuro de nuestra provincia.
           </p>
 
-          <Link
+          <CinematicLink
             to="/propone"
             className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-card text-white font-bold uppercase text-xs tracking-[0.2em] rounded-3xl border border-liberty-border hover:border-liberty-primary  w-full sm:w-max "
           >
               Enviar mi propuesta
-          </Link>
+          </CinematicLink>
         </motion.div>
       </div>
 

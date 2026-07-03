@@ -27,7 +27,7 @@ export default function SeccionPropuestas() {
   });
 
   return (
-    <section className="bg-liberty-bg text-white py-30 lg:py-34 px-6 md:px-12 min-h-screen font-satoshi relative overflow-hidden">
+    <section className="bg-liberty-bg text-white py-30 lg:py-34 px-6 md:px-12 min-h-screen  relative overflow-hidden">
       {/* Luces ambientales centradas para acompañar la simetría */}
 
       <div className="w-full md:w-full">
@@ -58,7 +58,7 @@ export default function SeccionPropuestas() {
             transition={{ delay: 0.3, duration: 0.7 }}
             className="text-liberty-text-secondary leading-relaxed max-w-3xl mt-10 text-lg md:text-xl"
           >
-            No venimos a solucionar un sistema que está roto. Presentamos un
+            Presentamos un
             esquema de reformas estructurales basado en las ideas de la
             libertad, la desregulación económica y el orden institucional para
             terminar con las mafias y la burocracia que asfixian a nuestra
@@ -83,7 +83,7 @@ export default function SeccionPropuestas() {
               className="space-y-2"
             >
               <div className="text-liberty-primary font-black text-lg">
-                01. Gasto Político
+                Gasto Político
               </div>
               <p className="text-base md:text-base text-liberty-text-secondary leading-relaxed ">
                 Reducción Drástica: Todo el ahorro fiscal generado por el
@@ -100,7 +100,7 @@ export default function SeccionPropuestas() {
               className="space-y-2 md:border-x md:border-liberty-border/30 md:px-6"
             >
               <div className="text-liberty-primary font-black text-lg">
-                02. Sector Privado
+                Sector Privado
               </div>
               <p className="text-base md:text-base text-liberty-text-secondary leading-relaxed ">
                 Fin del Ajuste: Eliminación de trabas regulatorias,
@@ -118,7 +118,7 @@ export default function SeccionPropuestas() {
               className="space-y-2 md:pl-4"
             >
               <div className="text-liberty-primary font-black text-lg">
-                03. Orden Absoluto
+                Orden Absoluto
               </div>
               <p className="text-base md:text-base text-liberty-text-secondary leading-relaxed ">
                 Seguridad y Justicia: Respaldo político e institucional total a

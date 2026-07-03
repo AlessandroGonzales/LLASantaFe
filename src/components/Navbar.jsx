@@ -31,7 +31,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`w-full fixed top-0 left-0 z-50 h-16 transition-transform duration-300 font-satoshi ${
+      className={`w-full fixed top-0 left-0 z-50 h-16 transition-transform duration-300  ${
         isScrolled || isOpen
           ? "bg-liberty-bg/95 shadow-lg border-b border-liberty-border"
           : "bg-transparent border-b border-transparent"

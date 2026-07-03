@@ -18,13 +18,8 @@
   --color-liberty-cyan: #06B6D4;        /* El celeste/cyan vivo del ala */
   --color-liberty-cyan-hover: #22D3EE;
 
-  /* Toques de Energía (El Amarillo/León del ala inferior) */
-  --color-liberty-accent: #EAB308;      /* Amarillo dorado oficial */
-  --color-liberty-accent-hover: #FACC15;
-
   /* Tipografía y Textos */
   --color-liberty-text: #FFFFFF;        /* Blanco puro para títulos (como el logo) */
   --color-liberty-text-secondary: #E9D5FF; /* Violeta muy claro para textos de lectura */
-  --color-liberty-muted: #94A3B8;       /* Gris azulado para datos secundarios */
 
 }

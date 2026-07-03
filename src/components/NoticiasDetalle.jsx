@@ -14,10 +14,10 @@ export default function NoticiaDetalle() {
   };
 
   return (
-    <main className="bg-liberty-bg text-white min-h-screen font-satoshi relative pb-20">
+    <main className="bg-liberty-bg text-white min-h-screen relative pb-20">
       {/* IMAGEN HERO INMERSIVA */}
-      <div className="relative w-full h-[40vh] md:h-[50vh] overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-liberty-bg via-liberty-bg/70 to-transparent z-10" />
+      <div className="relative w-full h-[40vh] md:h-[50vh] ">
+        <div className="absolute inset-0 bg-gradient-to-t from-liberty-bg via-liberty-bg/30 to-transparent z-10" />
 
         <img
           src={noticia.image}
@@ -85,9 +85,9 @@ export default function NoticiaDetalle() {
 
           {/* COLUMNA DERECHA - Sticky */}
          <div className="lg:col-span-4 relative">
-            <div className="lg:sticky lg:top-24 bg-gradient-to-b from-liberty-card to-liberty-bg border border-liberty-border/50 rounded-2xl p-6 shadow-xl">
+            <div className="lg:sticky lg:top-24  bg-liberty-card  border border-liberty-border/50 rounded-2xl p-6 ">
               {/* ... resto del sidebar sin cambios ... */}
-              <div className="absolute -top-px left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-liberty-primary/60 to-transparent" />
+              <div className="absolute -top-px left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-liberty-primary to-transparent" />
 
               <h4 className="text-sm uppercase tracking-[0.2em] text-white mb-2 font-black text-center">
                 Rompé el cerco
@@ -102,7 +102,7 @@ export default function NoticiaDetalle() {
                   href={noticia.linkX}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-3 bg-black text-white border border-white/20 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-white hover:text-black will-change-transform"
+                  className="w-full flex items-center justify-center gap-3 bg-black text-white border border-white/20 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-white hover:text-black "
                 >
                   <svg
                     className="w-5 h-5"
@@ -119,7 +119,7 @@ export default function NoticiaDetalle() {
                   href={noticia.linkInstagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:scale-[1.02] will-change-transform"
+                  className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:scale-[1.02] "
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -156,7 +156,7 @@ export default function NoticiaDetalle() {
                 {/* Botón WhatsApp */}
                 <button
                   onClick={handleShare}
-                  className="w-full flex items-center justify-center gap-3 bg-liberty-primary/10 text-liberty-primary border border-liberty-primary/30 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-liberty-primary hover:text-black will-change-transform cursor-pointer"
+                  className="w-full flex items-center justify-center gap-3 bg-liberty-primary/10 text-liberty-primary border border-liberty-primary/30 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-liberty-primary hover:text-black  cursor-pointer"
                 >
                   <Share2 className="w-5 h-5" />
                   Compartir en WhatsApp

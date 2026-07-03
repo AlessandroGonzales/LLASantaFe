@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import {  ShieldAlert, TrendingUp } from "lucide-react";
 import CinematicLink from "./CinematicLink";
 
 
@@ -61,43 +60,24 @@ export default function NosotrosPreview() {
               </div>
 
               <h2 className="text-5xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.85] text-center lg:text-left">
-                El rugido que <br />
-                despertó
-                <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-liberty-primary to-liberty-primary-hover">
-                  a Santa Fe
-                </span>
+                La trayectoria<br/>
+                hacia la <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-liberty-primary to-liberty-primary-hover">Grandeza</span>
               </h2>
             </div>
 
-            <p className="text-base md:text-lg text-liberty-text-secondary leading-relaxed max-w-2xl text-center lg:text-left">
-              No somos políticos tradicionales. Somos ciudadanos de a pie, trabajadores y estudiantes
-              cansados de que nos roben el futuro. Somos la{" "}
-              única opción real para
-              cambiar el rumbo.
-            </p>
+            <div className="flex flex-col space-y-6">
+              <p className="text-base md:text-lg text-liberty-text-secondary leading-relaxed max-w-2xl text-center lg:text-left">
+                No somos políticos tradicionales. Somos ciudadanos de a pie, trabajadores y estudiantes
+                cansados de que nos roben el futuro. Somos la única opción real para
+                cambiar el rumbo.
+              </p>
 
-            <div className="relative pl-3 md:pl-4 space-y-7 py-1">
-              <motion.div whileHover={{ x: 5 }} className="flex items-start gap-5 group transition-transform transform-gpu">
-                <p className="text-sm md:text-lg text-gray-100 ">
-                  De dónde venimos y cómo se forjó este movimiento.
-                </p>
-              </motion.div>
-
-              <motion.div whileHover={{ x: 5 }} className="flex items-start gap-5 group transition-transform transform-gpu">
-                <ShieldAlert className="w-6 h-6 text-liberty-cyan shrink-0 " />
-                <p className="text-sm md:text-lg text-gray-100">
-                  Las batallas de frente que estamos dando hoy en la provincia.
-                </p>
-              </motion.div>
-
-              <motion.div whileHover={{ x: 5 }} className="flex items-start gap-5 group transition-transform transform-gpu">
-                <TrendingUp className="w-6 h-6 text-liberty-accent shrink-0 " />
-                <p className="text-sm md:text-lg text-gray-100 0">
-                  Nuestro plan definitivo para volver a ser potencia.
-                </p>
-              </motion.div>
+              {/* Nueva Frase */}
+              <p className="text-sm md:text-base text-liberty-primary font-bold uppercase tracking-wider   text-center lg:text-left max-w-2xl border-l-2 border-liberty-primary/40 pl-0 lg:pl-4 border-none lg:border-solid">
+                "Escribiendo la mejor página de la historia de la Argentina y la provincia de Santa Fe"
+              </p>
             </div>
+
 
             {/* BOTÓN — solo en desktop, debajo del texto */}
             <div className="hidden lg:block pt-4">

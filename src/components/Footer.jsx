@@ -4,14 +4,8 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-liberty-bg border-t border-liberty-border/100 pt-10 pb-8 px-6 font-satoshi overflow-hidden">
+    <footer className="relative bg-liberty-bg border-t border-liberty-border/100 pt-10 pb-8 px-6 overflow-hidden">
       
-      {/* Brillo de fondo optimizado - mucho más ligero */}
-      <div 
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[300px] h-[120px] 
-                   bg-liberty-primary/20 rounded-full blur-[80px] pointer-events-none z-0"
-      />
-
       <div className="max-w-7xl mx-auto flex flex-col items-center relative z-10">
         
         {/* LOGO Y NOMBRE */}
@@ -75,7 +69,6 @@ export default function Footer() {
           </a>
         </div>
 
-        {/* LÍNEA SEPARADORA */}
         <div className="w-full max-w-2xl h-px bg-gradient-to-r from-transparent via-liberty-border/40 to-transparent mb-6" />
 
         {/* COPYRIGHT */}

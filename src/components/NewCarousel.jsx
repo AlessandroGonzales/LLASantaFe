@@ -53,7 +53,7 @@ export default function NewsCarousel() {
   return (
     <section
       id="noticias"
-      className="w-full py-20 bg-liberty-bg border-t border-liberty-border/30 overflow-hidden font-satoshi"
+      className="w-full py-20 bg-liberty-bg border-t border-liberty-border/30 overflow-hidden "
     >
       {/* TÍTULO DE LA SECCIÓN */}
       <div className="max-w-7xl mx-auto px-6 mb-12 text-center">
@@ -68,10 +68,10 @@ export default function NewsCarousel() {
       {/* CONTENEDOR DEL CARRUSEL */}
       <div className="relative">
         {/* GRADIENTE IZQUIERDO */}
-        <div className="hidden lg:flex absolute left-0 top-0 h-full w-28 bg-gradient-to-r from-liberty-bg via-liberty-bg/20 to-transparent z-20 items-center pl-4 pointer-events-none transform-gpu translate-z-0">
+        <div className="hidden lg:flex absolute left-0 top-0 h-full w-28 bg-gradient-to-r from-liberty-bg via-liberty-bg/20 to-transparent z-20 items-center pl-4 pointer-events-none">
           <button
             onClick={scrollLeft}
-            className="w-12 h-12 rounded-full bg-liberty-card/95 border border-liberty-border text-white hover:border-liberty-cyan hover:text-liberty-cyan flex items-center justify-center cursor-pointer pointer-events-auto will-change-transform"
+            className="w-12 h-12 rounded-full bg-liberty-card/95 border border-liberty-border text-white hover:border-liberty-cyan hover:text-liberty-cyan flex items-center justify-center cursor-pointer pointer-events-auto "
             aria-label="Desplazar a la izquierda"
           >
             <svg
@@ -92,10 +92,10 @@ export default function NewsCarousel() {
         </div>
 
         {/* GRADIENTE DERECHO */}
-        <div className="hidden lg:flex absolute right-0 top-0 h-full w-28 bg-gradient-to-l from-liberty-bg via-liberty-bg/20 to-transparent z-20 items-center justify-end pr-4 pointer-events-none transform-gpu translate-z-0">
+        <div className="hidden lg:flex absolute right-0 top-0 h-full w-28 bg-gradient-to-l from-liberty-bg via-liberty-bg/20 to-transparent z-20 items-center justify-end pr-4 pointer-events-none ">
           <button
             onClick={scrollRight}
-            className="w-12 h-12 rounded-full bg-liberty-card/90 border border-liberty-border text-white hover:border-liberty-cyan hover:text-liberty-cyan  flex items-center justify-center cursor-pointer pointer-events-auto will-change-transform"
+            className="w-12 h-12 rounded-full bg-liberty-card/90 border border-liberty-border text-white hover:border-liberty-cyan hover:text-liberty-cyan  flex items-center justify-center cursor-pointer pointer-events-auto "
             aria-label="Desplazar a la derecha"
           >
             <svg
@@ -118,7 +118,7 @@ export default function NewsCarousel() {
           {/* CARRUSEL - Aceleración de hardware en el track de scroll */}
           <div
             ref={carouselRef}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-6 pb-8 hide-scrollbar scroll-smooth"
+            className="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-6 pb-8"
             style={{ scrollPaddingLeft: "1.5rem" }}
           >
             {newsData.map((news, index) => (
@@ -126,7 +126,7 @@ export default function NewsCarousel() {
                 key={news.id}
                 to={`/noticia/${news.id}`}
                 onClick={handleNewsClick}
-                className="relative flex-none w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[31vw] h-[58dvh] md:h-[500px] bg-liberty-card rounded-2xl overflow-hidden snap-center group border border-liberty-border/50 block"
+                className="relative flex-none w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[31vw] h-[58dvh] md:h-[500px] bg-liberty-card rounded-2xl overflow-hidden  group border border-liberty-border/50 "
               >
                 <img
                   src={news.image}
@@ -134,7 +134,7 @@ export default function NewsCarousel() {
                   loading={index < 2 ? "eager" : "lazy"}
                   fetchPriority={index === 0 ? "high" : "auto"}
                   decoding="async"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-400 group-hover:scale-105"
                   sizes="(max-width: 640px) 85vw, (max-width: 768px) 60vw, (max-width: 1024px) 45vw, 31vw"
                 />
 

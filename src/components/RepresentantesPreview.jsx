@@ -31,7 +31,7 @@ export default function RepresentantesPreview() {
   return (
     <section
       id="representantes"
-      className="relative w-full py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-hidden border-t border-liberty-border font-satoshi transform-gpu translate-z-0"
+      className="relative w-full py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-hidden border-t border-liberty-border transform-gpu translate-z-0"
     >
       <div className="w-full px-6 md:px-12 lg:px-20 max-w-[1600px] mx-auto relative z-10">
         <motion.div

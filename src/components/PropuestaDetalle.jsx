@@ -34,7 +34,7 @@ export default function PropuestaDetalle() {
   };
 
   return (
-    <main className="bg-liberty-bg text-white min-h-screen font-satoshi relative pt-24 pb-20">
+    <main className="bg-liberty-bg text-white min-h-screen relative pt-24 pb-20">
       {/* Fondos ambientales épicos */}
 
       <div className="w-full max-w-7xl mx-auto px-4 md:px-8 relative z-10">

@@ -22,7 +22,7 @@ export default function DiputadosPreview() {
   return (
     <section 
       id="diputados" 
-      className="relative w-full py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-hidden border-t border-liberty-border font-satoshi transform-gpu translate-z-0"
+      className="relative w-full py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-hidden border-t border-liberty-border transform-gpu translate-z-0"
     >
       {/* Luces GPU Aisladas */}
       <div className="absolute top-0 right-0 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-liberty-primary/10 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3 transform-gpu translate-z-0" />

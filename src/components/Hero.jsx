@@ -58,20 +58,16 @@ export default function Hero() {
   // 1. Verificamos si ya se animó en esta sesión
   const hasAnimated = sessionStorage.getItem("hero_animated") === "true";
 
-  // 2. Función para marcar como animado
-  const markAsAnimated = () => {
-    sessionStorage.setItem("hero_animated", "true");
-  };
 
   return (
-    <header className="relative min-h-[100vh] bg-hero-gradient flex flex-col justify-center items-center px-4 overflow-hidden border-b border-liberty-border">
+    <header className="relative min-h-[100vh] bg-hero-gradient flex flex-col justify-center items-center px-4 border-b border-liberty-border">
       
       {/* FONDOS */}
       <motion.picture
         initial={hasAnimated ? { opacity: 0.85, scale: 1 } : { opacity: 0, scale: 1.1 }}
         animate={{ opacity: 0.85, scale: 1 }}
         transition={{ duration: 2.8, ease: "easeOut" }}
-        className="absolute inset-0 w-full h-full z-0 will-change-transform transform-gpu translate-z-0"
+        className="absolute inset-0 w-full h-full z-0"
       >
         <source media="(min-width: 768px)" srcSet={backgroundImageDos} />
         <img
@@ -83,19 +79,6 @@ export default function Hero() {
       </motion.picture>
 
       <div className="absolute inset-0 bg-gradient-to-b from-liberty-bg/10 via-transparent to-liberty-bg z-0 pointer-events-none" />
-
-      <motion.div
-        initial={hasAnimated ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 2.5, delay: 0.2, ease: "easeOut" }}
-        onViewportEnter={markAsAnimated}   
-      />
-
-      <motion.div
-        initial={hasAnimated ? { opacity: 1 } : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 2, delay: 0.8 }}
-      />
 
       {/* =========================================
           CONTENIDO PRINCIPAL
@@ -111,7 +94,7 @@ export default function Hero() {
             src={logoLibertad}
             alt="Águila La Libertad Avanza"
             fetchPriority="high"
-            className="relative z-10 h-36 md:h-48 w-auto object-contain will-change-transform transform-gpu translate-z-0"
+            className="relative z-10 h-36 md:h-48 w-auto object-contain "
             onError={(e) => { e.target.style.display = "none"; }}
           />
         </div>
@@ -125,14 +108,14 @@ export default function Hero() {
         >
           <motion.h1
             variants={titleVariants}
-            className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight leading-none uppercase text-white  will-change-transform transform-gpu translate-z-0"
+            className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight leading-none uppercase text-white  "
           >
             La Libertad Avanza
           </motion.h1>
 
           <motion.p
             variants={subtitleVariants}
-            className="text-lg md:text-2xl font-bold text-liberty-primary uppercase tracking-[0.2em] will-change-transform transform-gpu translate-z-0"
+            className="text-lg md:text-2xl font-bold text-liberty-primary uppercase tracking-[0.2em] "
           >
             Santa Fe
           </motion.p>
@@ -144,7 +127,7 @@ export default function Hero() {
         variants={buttonsVariants}
         initial={hasAnimated ? "visible" : "hidden"}
         animate="visible"
-        className="absolute bottom-40 md:bottom-42 z-20 w-full px-4 transform-gpu translate-z-0"
+        className="absolute bottom-40 md:bottom-42 z-20 w-full px-4 "
       >
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-2xl mx-auto">
           <Link

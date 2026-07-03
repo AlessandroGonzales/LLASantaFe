@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import uno from "../assets/santafe.webp";
 import santafedos from "../assets/santafedos.webp";
-import santafetres from "../assets/santafetres.webp";
+import santafetres from "../assets/inicios.webp";
 import rominasantafe from "../assets/romisantafe.webp";
 import karina from "../assets/karina.jpeg";
 import libertad from "../assets/libertad.webp";
@@ -43,13 +43,13 @@ export default function NosotrosHistoria() {
                 Año 2023
               </span>
               <h2 className="text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
-                El rugido <br/>
+                El inicio del <br/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-yellow-300">
-                  en las calles.
+                  cambio en santa fe
                 </span>
               </h2>
-              <p className="text-lg text-liberty-text-secondary font-light leading-relaxed max-w-lg mx-auto">
-                Comenzamos siendo un grupo de ciudadanos cansados, caminando las calles de Santa Fe con boletas en la mano y convicción en el pecho. Fue el año de la épica, de la militancia orgánica y de cuidar cada voto frente al aparato de la casta. El año en que demostramos que las ideas de la libertad eran imparables.
+              <p className="text-lg text-liberty-text-secondary leading-relaxed w-full md:w-full mx-auto">
+                Comenzamos siendo un grupo de ciudadanos cansados de los mismos de siempre, caminando las calles de Santa Fe con boletas en la mano y convicción en el pecho. Fue el año donde empezó la batalla cultural, con una militancia inquebrantable liderada por la fuerza de <strong>Romina Diez</strong> en la provincia y bajo la conducción de <strong>Javier Milei</strong> a nivel nacional, teniendo la precaución de cuidar cada voto frente al aparato de la casta. El año en que demostramos que las ideas de la libertad eran imparables.
               </p>
             </motion.div>
 
@@ -141,11 +141,11 @@ export default function NosotrosHistoria() {
               <h2 className="text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
                 Nuestra <br/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-liberty-primary drop-shadow-lg">
-                  Consolidación.
+                  Consolidación
                 </span>
               </h2>
-              <p className="text-lg text-liberty-text-secondary font-light leading-relaxed max-w-lg mx-auto">
-                Ya siendo gobierno a nivel nacional, dimos el paso definitivo en la provincia: la conformación oficial del partido La Libertad Avanza en Santa Fe. Bajo el liderazgo de Karina Milei y Romina Diez, estructuramos una fuerza política real, superando récords de afiliaciones y preparándonos para ser la alternativa definitiva en nuestra provincia.
+              <p className="text-lg text-liberty-text-secondary leading-relaxed w-full mx-auto">
+                Los argentinos decidieron el rumbo para cambiar drásticamente a la Argentina: con el 56% de los votos obtenidos en las elecciones y siendo ya gobierno a nivel nacional, dimos el paso definitivo en nuestra región con la conformación oficial del partido La Libertad Avanza en Santa Fe. Bajo el liderazgo de<strong> Javier Milei, Karina Milei y Romina Diez</strong>, estructuramos una fuerza política real, superando récords de afiliaciones y consolidándonos como la alternativa definitiva para la provincia.
               </p>
             </motion.div>
 
@@ -203,12 +203,12 @@ export default function NosotrosHistoria() {
                 Año 2024
               </span>
               <h2 className="text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
-                La batalla <br/>
+                Frente al <br/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-900">
-                  en las aulas.
+                  adoctrinamiento 
                 </span>
               </h2>
-              <p className="text-lg text-liberty-text-secondary font-light leading-relaxed max-w-lg mx-auto">
+              <p className="text-lg text-liberty-text-secondary leading-relaxed max-w-lg mx-auto">
                 Ese mismo año marcamos un hito con el nacimiento de <strong>Universitarios por la Libertad (UPL)</strong>. Frente al adoctrinamiento y a las estructuras tradicionales en las universidades, decidimos conformar el primer frente estudiantil puramente liberal. El objetivo era claro: devolverle las facultades a los estudiantes y llevar la batalla cultural a cada universidad, defendiendo siempre la libertad de pensamiento.
               </p>
             </motion.div>
