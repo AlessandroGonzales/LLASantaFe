@@ -13,6 +13,15 @@ export default function NoticiaDetalle() {
     window.open(whatsappUrl, "_blank");
   };
 
+  // Clases centralizadas para dar formato profesional al HTML inyectado
+  const htmlContentClasses = `
+    text-base md:text-lg leading-relaxed text-liberty-text-secondary text-balance
+    [&>p]:mb-6 [&>p:last-child]:mb-0
+    [&>h3]:text-2xl [&>h3]:md:text-3xl [&>h3]:font-black [&>h3]:text-white [&>h3]:uppercase [&>h3]:tracking-tight [&>h3]:mt-12 [&>h3]:mb-6 [&>h3]:border-b [&>h3]:border-liberty-border/50 [&>h3]:pb-4
+    [&>strong]:text-white [&>strong]:font-bold [&>strong]:tracking-wide
+    [&>.final-salute]:text-liberty-cyan [&>.final-salute]:font-black [&>.final-salute]:uppercase [&>.final-salute]:tracking-[0.2em] [&>.final-salute]:mt-10
+  `;
+
   return (
     <main className="bg-liberty-bg text-white min-h-screen relative pb-20">
       {/* IMAGEN HERO INMERSIVA */}
@@ -26,14 +35,14 @@ export default function NoticiaDetalle() {
           decoding="async"
           className="w-full h-full object-cover object-center"
           sizes="100vw"
-          // style={{ backgroundColor: "#1E082D" }}
         />
       </div>
 
       {/* CONTENIDO PRINCIPAL */}
       <div className="w-full md:max-w-4/5 mx-auto px-6 md:px-12 relative z-20 -mt-16 md:-mt-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          {/* COLUMNA IZQUIERDA */}
+          
+          {/* COLUMNA IZQUIERDA - CUERPO DE LA NOTICIA */}
           <div className="lg:col-span-8">
             <div>
               {/* Meta info */}
@@ -57,36 +66,37 @@ export default function NoticiaDetalle() {
               </p>
             </div>
 
-            <div>
-              {/* Cuerpo de la noticia */}
-              <div className="text-base md:text-lg leading-loose space-y-8 text-balance">
-                <div className="whitespace-pre-line">
-                  {noticia.contenidoParte1}
-                </div>
+            <div className="space-y-8">
+              {/* Cuerpo de la noticia: PARTE 1 */}
+              <div 
+                className={htmlContentClasses}
+                dangerouslySetInnerHTML={{ __html: noticia.contenidoParte1 }}
+              />
 
-                {noticia.imagenSecundaria && (
-                  <div className="relative w-full aspect-video rounded-xl overflow-hidden my-8 border border-white/10">
-                    <img
-                      src={noticia.imagenSecundaria}
-                      alt="Imagen complementaria"
-                      loading="lazy"
-                      className="w-full h-full object-cover"
-                      decoding="async"
-                    />
-                  </div>
-                )}
-
-                <div className="whitespace-pre-line">
-                  {noticia.contenidoParte2}
+              {/* Imagen Secundaria */}
+              {noticia.imagenSecundaria && (
+                <div className="relative w-full aspect-video rounded-xl overflow-hidden my-12 border border-white/10 shadow-2xl">
+                  <img
+                    src={noticia.imagenSecundaria}
+                    alt="Imagen complementaria"
+                    loading="lazy"
+                    className="w-full h-full object-cover"
+                    decoding="async"
+                  />
                 </div>
-              </div>
+              )}
+
+              {/* Cuerpo de la noticia: PARTE 2 */}
+              <div 
+                className={htmlContentClasses}
+                dangerouslySetInnerHTML={{ __html: noticia.contenidoParte2 }}
+              />
             </div>
           </div>
 
-          {/* COLUMNA DERECHA - Sticky */}
-         <div className="lg:col-span-4 relative">
-            <div className="lg:sticky lg:top-24  bg-liberty-card  border border-liberty-border/50 rounded-2xl p-6 ">
-              {/* ... resto del sidebar sin cambios ... */}
+          {/* COLUMNA DERECHA - STICKY SIDEBAR */}
+          <div className="lg:col-span-4 relative">
+            <div className="lg:sticky lg:top-24 bg-liberty-card border border-liberty-border/50 rounded-2xl p-6 shadow-xl">
               <div className="absolute -top-px left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-liberty-primary to-transparent" />
 
               <h4 className="text-sm uppercase tracking-[0.2em] text-white mb-2 font-black text-center">
@@ -102,7 +112,7 @@ export default function NoticiaDetalle() {
                   href={noticia.linkX}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-3 bg-black text-white border border-white/20 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-white hover:text-black "
+                  className="w-full flex items-center justify-center gap-3 bg-black text-white border border-white/20 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-white hover:text-black transition-colors duration-300"
                 >
                   <svg
                     className="w-5 h-5"
@@ -119,7 +129,7 @@ export default function NoticiaDetalle() {
                   href={noticia.linkInstagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:scale-[1.02] "
+                  className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:scale-[1.02] transition-transform duration-300"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -156,7 +166,7 @@ export default function NoticiaDetalle() {
                 {/* Botón WhatsApp */}
                 <button
                   onClick={handleShare}
-                  className="w-full flex items-center justify-center gap-3 bg-liberty-primary/10 text-liberty-primary border border-liberty-primary/30 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-liberty-primary hover:text-black  cursor-pointer"
+                  className="w-full flex items-center justify-center gap-3 bg-liberty-primary/10 text-liberty-primary border border-liberty-primary/30 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-liberty-primary hover:text-black cursor-pointer transition-colors duration-300"
                 >
                   <Share2 className="w-5 h-5" />
                   Compartir en WhatsApp
@@ -170,6 +180,7 @@ export default function NoticiaDetalle() {
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </main>

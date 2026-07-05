@@ -10,31 +10,31 @@ export const newsData = [
     id: 1,
     category: "Santa Fe",
     title: "PAUTA CERO",
-    imagenSecundaria: rm,
-    description:
-      "LA VERDAD NO SE COMPRA.",
+    description: "LA VERDAD NO SE COMPRA.",
     image: pautacero,
     fecha: "14 de Junio, 2026",
-    contenidoParte1: `En la Provincia de Santa Fe, en 40 ciudades, se presenta el proyecto de Pauta Cero.
-    Porque el periodismo libre se defiende con credibilidad, no con sobres ni dependencia del poder político.
-    Con @JMilei empezó una nueva etapa: menos privilegios para los medios amigos y más respeto por los argentinos que no quieren financiar propaganda con sus impuestos.
-
-    La diputada nacional Romina Diez volvió a marcar el rumbo político de La Libertad Avanza en Santa Fe con una ofensiva directa contra la pauta oficial y el llamado “periodismo ensobrado”.
-    Desde el espacio de concejales libertarios alineados con Javier Milei y Karina Milei, y bajo la conducción política de Diez, se presentó en simultáneo el proyecto “Pauta Cero” en más de 20 ciudades santafesinas.
-    La iniciativa busca eliminar el uso de recursos públicos para financiar medios, publicidad política y estructuras de comunicación vinculadas al poder de turno.
-
-    “El dinero de los santafesinos tiene que volver a la gente y no terminar financiando propaganda política”, sostienen desde el armado libertario provincial.
+    contenidoParte1: `
+      <p>En la Provincia de Santa Fe, en 40 ciudades, se presenta el proyecto de Pauta Cero. Porque el periodismo libre se defiende con credibilidad, no con sobres ni dependencia del poder político.</p>
+      
+      <p>Con <strong>@JMilei</strong> empezó una nueva etapa: menos privilegios para los medios amigos y más respeto por los argentinos que no quieren financiar propaganda con sus impuestos.</p>
+      
+      <h3>La ofensiva contra el periodismo ensobrado</h3>
+      <p>La diputada nacional <strong>Romina Diez</strong> volvió a marcar el rumbo político de La Libertad Avanza en Santa Fe con una ofensiva directa contra la pauta oficial y el llamado “periodismo ensobrado”.</p>
+      
+      <p>Desde el espacio de concejales libertarios alineados con <strong>Javier Milei</strong> y <strong>Karina Milei</strong>, y bajo la conducción política de Diez, se presentó en simultáneo el proyecto <strong>“Pauta Cero”</strong> en más de 20 ciudades santafesinas. La iniciativa busca eliminar el uso de recursos públicos para financiar medios, publicidad política y estructuras de comunicación vinculadas al poder de turno.</p>
+      
+      <p>“El dinero de los santafesinos tiene que volver a la gente y no terminar financiando propaganda política”, sostienen desde el armado libertario provincial.</p>
     `,
+    imagenSecundaria: rm,
     contenidoParte2: `
-    
-    El lanzamiento del proyecto estuvo acompañado por un fuerte mensaje político contra el sistema tradicional de financiamiento estatal a medios de comunicación.
-    Desde el entorno de Romina Diez remarcaron que el objetivo es terminar con décadas de utilización de fondos públicos para construir relatos políticos, disciplinar periodistas y sostener estructuras mediáticas cercanas al poder.
-    La diputada nacional viene consolidándose como una de las principales figuras del mileísmo en Santa Fe y una de las arquitectas centrales del crecimiento territorial libertario en la provincia.
-
-    Con @JMilei empezó una nueva etapa: menos privilegios para los medios amigos y más respeto por los argentinos que no quieren financiar propaganda con sus impuestos.
-
-    La libertad avanza!!! 
-    VLLC!!!
+      <h3>Consolidando la fuerza en la provincia</h3>
+      <p>El lanzamiento del proyecto estuvo acompañado por un fuerte mensaje político contra el sistema tradicional de financiamiento estatal a medios de comunicación.</p>
+      
+      <p>Desde el entorno de <strong>Romina Diez</strong> remarcaron que el objetivo es terminar con décadas de utilización de fondos públicos para construir relatos políticos, disciplinar periodistas y sostener estructuras mediáticas cercanas al poder. La diputada nacional viene consolidándose como una de las principales figuras del mileísmo en Santa Fe y una de las arquitectas centrales del crecimiento territorial libertario en la provincia.</p>
+      
+      <p>Con <strong>@JMilei</strong> empezó una nueva etapa: menos privilegios para los medios amigos y más respeto por los argentinos que no quieren financiar propaganda con sus impuestos.</p>
+      
+      <p class="final-salute">La libertad avanza!!! <br/> VLLC!!!</p>
     `,
     linkX: "https://x.com/JMilei/status/2070131225646256211",
     linkInstagram: "https://instagram.com/lalibertadavanza",
