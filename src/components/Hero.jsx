@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import CinematicLink from "./CinematicLink";
 
 // =========================================
-// VARIANTS (sin cambios)
+// VARIANTS
 // =========================================
 const eagleVariants = {
   hidden: { opacity: 0, scale: 0.2, y: 120 },
@@ -55,12 +55,17 @@ const buttonsVariants = {
 };
 
 export default function Hero() {
-  // 1. Verificamos si ya se animó en esta sesión
+  // === Lógica para animar solo una vez ===
   const hasAnimated = sessionStorage.getItem("hero_animated") === "true";
 
+  const markAsAnimated = () => {
+    if (!hasAnimated) {
+      sessionStorage.setItem("hero_animated", "true");
+    }
+  };
 
   return (
-    <header className="relative min-h-[100vh] bg-hero-gradient flex flex-col justify-center items-center px-4 border-b border-liberty-border">
+    <header className="relative min-h-[100vh] bg-hero-gradient flex flex-col justify-center items-center px-4 border-b border-liberty-border overflow-hidden">
       
       {/* FONDOS */}
       <motion.picture
@@ -68,6 +73,7 @@ export default function Hero() {
         animate={{ opacity: 0.85, scale: 1 }}
         transition={{ duration: 2.8, ease: "easeOut" }}
         className="absolute inset-0 w-full h-full z-0"
+        onViewportEnter={markAsAnimated}
       >
         <source media="(min-width: 768px)" srcSet={backgroundImageDos} />
         <img
@@ -80,13 +86,11 @@ export default function Hero() {
 
       <div className="absolute inset-0 bg-gradient-to-b from-liberty-bg/10 via-transparent to-liberty-bg z-0 pointer-events-none" />
 
-      {/* =========================================
-          CONTENIDO PRINCIPAL
-          ========================================= */}
-      <div className="max-w-4xl mx-auto text-center relative z-20 space-y-4 md:space-y-8 -translate-y-48 md:-translate-y-48">
+      {/* CONTENIDO PRINCIPAL - Sin translate negativo grande */}
+      <div className="max-w-4xl mx-auto text-center relative z-20 pt-20 md:pt-12 pb-32">
         
         {/* ÁGUILA */}
-        <div className="relative flex justify-center items-center">
+        <div className="relative flex justify-center items-center mb-6">
           <motion.img
             variants={eagleVariants}
             initial={hasAnimated ? "visible" : "hidden"}
@@ -94,8 +98,7 @@ export default function Hero() {
             src={logoLibertad}
             alt="Águila La Libertad Avanza"
             fetchPriority="high"
-            className="relative z-10 h-36 md:h-48 w-auto object-contain "
-            onError={(e) => { e.target.style.display = "none"; }}
+            className="relative z-10 h-36 md:h-48 w-auto object-contain"
           />
         </div>
 
@@ -104,35 +107,35 @@ export default function Hero() {
           variants={textContainerVariants}
           initial={hasAnimated ? "visible" : "hidden"}
           animate="visible"
-          className="space-y-2 md:space-y-4 relative z-20"
+          className="space-y-2 md:space-y-4"
         >
           <motion.h1
             variants={titleVariants}
-            className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight leading-none uppercase text-white  "
+            className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight leading-none uppercase text-white"
           >
             La Libertad Avanza
           </motion.h1>
 
           <motion.p
             variants={subtitleVariants}
-            className="text-lg md:text-2xl font-bold text-liberty-primary uppercase tracking-[0.2em] "
+            className="text-lg md:text-2xl font-bold text-liberty-primary uppercase tracking-[0.2em]"
           >
             Santa Fe
           </motion.p>
         </motion.div>
       </div>
 
-      {/* BOTONES */}
+      {/* BOTONES - Ahora relativos, no absolutos */}
       <motion.div 
         variants={buttonsVariants}
         initial={hasAnimated ? "visible" : "hidden"}
         animate="visible"
-        className="absolute bottom-40 md:bottom-42 z-20 w-full px-4 "
+        className="relative z-20 w-full px-4 pb-12 mt-auto"
       >
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-2xl mx-auto">
           <Link
             to="/#preview"
-            className="w-full sm:w-auto px-10 py-4 rounded-4xl font-bold bg-liberty-card border border-liberty-border text-liberty-text  hover:bg-liberty-border/40 hover:text-liberty-cyan cursor-pointer text-center"
+            className="w-full sm:w-auto px-10 py-4 rounded-4xl font-bold bg-liberty-card border border-liberty-border text-liberty-text hover:bg-liberty-border/40 hover:text-liberty-cyan cursor-pointer text-center"
           >
             Conocer Propuestas
           </Link>
