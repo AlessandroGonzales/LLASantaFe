@@ -76,7 +76,7 @@ export default function DiputadosPreview() {
                 La voz en la legislatura
               </span>
               
-              <h2 className="text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
+              <h2 className="text-5xl md:text-6xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
                 Nuestros <br className="hidden md:block"/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-liberty-primary to-liberty-primary-hover">
                   Diputados
@@ -117,7 +117,7 @@ export default function DiputadosPreview() {
           {/* COLUMNA DERECHA - Bento Grid */}
           <div className="lg:col-span-7 relative w-full h-[500px] sm:h-[600px] lg:h-[700px] order-1 lg:order-2">
             <motion.div 
-              className="grid grid-cols-12 grid-rows-12 gap-3 md:gap-5 w-full h-full"
+              className="grid grid-cols-12 grid-rows-12 gap-1 md:gap-1 w-full h-full"
               initial={hasAnimated ? "visible" : "hidden"}
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}

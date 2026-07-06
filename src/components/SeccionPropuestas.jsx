@@ -114,7 +114,7 @@ export default function SeccionPropuestas() {
               initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.8 }}
+              transition={{ delay: 0.5 }}
               className="space-y-2 md:pl-4"
             >
               <div className="text-liberty-primary font-black text-lg">
@@ -149,7 +149,6 @@ export default function SeccionPropuestas() {
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 transform-gpu"
               />
-              <div className="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors duration-500 pointer-events-none" />
               <div className="absolute bottom-8 left-0 right-0 flex justify-center pointer-events-none">
                 <span className="text-white text-xs md:text-sm font-semibold tracking-[0.2em] uppercase relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[1px] after:bg-white group-hover:after:w-full transition-all duration-500">
                   Convicción
@@ -171,7 +170,6 @@ export default function SeccionPropuestas() {
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 transform-gpu"
               />
-              <div className="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors duration-500 pointer-events-none" />
               <div className="absolute bottom-8 left-0 right-0 flex justify-center pointer-events-none">
                 <span className="text-white text-xs md:text-sm font-semibold tracking-[0.2em] uppercase relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[1px] after:bg-white group-hover:after:w-full transition-all duration-500">
                   Fuerza
@@ -193,7 +191,6 @@ export default function SeccionPropuestas() {
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 transform-gpu"
               />
-              <div className="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors duration-500 pointer-events-none" />
               <div className="absolute bottom-8 left-0 right-0 flex justify-center pointer-events-none">
                 <span className="text-white text-xs md:text-sm font-semibold tracking-[0.2em] uppercase relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[1px] after:bg-white group-hover:after:w-full transition-all duration-500">
                   Futuro

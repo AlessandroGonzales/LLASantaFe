@@ -42,7 +42,7 @@ export default function NosotrosHistoria() {
               <span className="text-yellow-300 text-sm md:text-base font-black uppercase tracking-[0.3em] block mb-4">
                 Año 2023
               </span>
-              <h2 className="text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
+              <h2 className="text-4xl md:text-6xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
                 El inicio del <br/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-yellow-300">
                   cambio en santa fe
@@ -138,7 +138,7 @@ export default function NosotrosHistoria() {
               <span className="text-liberty-primary text-sm md:text-base font-black uppercase tracking-[0.3em] block mb-4">
                 Año 2024
               </span>
-              <h2 className="text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
+              <h2 className="text-4xl md:text-6xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
                 Nuestra <br/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-liberty-primary drop-shadow-lg">
                   Consolidación
@@ -202,7 +202,7 @@ export default function NosotrosHistoria() {
               <span className="text-blue-600 text-sm md:text-base font-black uppercase tracking-[0.3em] block mb-4">
                 Año 2024
               </span>
-              <h2 className="text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
+              <h2 className="text-4xl md:text-6xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
                 Frente al <br/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-900">
                   adoctrinamiento 

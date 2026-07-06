@@ -32,7 +32,7 @@ export default function ProponePreview() {
       </div>
 
       {/* Overlays / Viñeta (Para legibilidad y dramatismo) */}
-      <div className="absolute inset-0 z-0 bg-liberty-bg/30 mix-blend-multiply pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-liberty-bg/20 mix-blend-multiply pointer-events-none" />
 
       {/* =========================================
           CONTENIDO CENTRAL
@@ -52,7 +52,7 @@ export default function ProponePreview() {
           </span>
 
           {/* Título Principal */}
-          <h2 className="text-5xl md:text-6xl lg:text-[5rem] font-black uppercase tracking-tighter leading-[0.85] mb-8 text-white drop-shadow-2xl">
+          <h2 className="text-5xl md:text-6xl lg:text-6x1 font-black uppercase tracking-tighter leading-[0.85] mb-8 text-white drop-shadow-2xl">
             Sumá tu <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-liberty-primary to-liberty-primary-hover drop-shadow-none">
               Propuesta
@@ -60,7 +60,7 @@ export default function ProponePreview() {
           </h2>
 
           {/* Descripción */}
-          <p className="text-base md:text-xl text-liberty-text max-w-2xl mx-auto mb-12 leading-relaxed drop-shadow-md font-medium px-4">
+          <p className="text-base md:text-lg text-liberty-text max-w-2xl mx-auto mb-12 leading-relaxed drop-shadow-md font-medium px-4">
             Tanto si sos comerciante, estudiante, empresario, profesional de la salud o trabajador independiente. Queremos escucharte, porque tu realidad es la que verdaderamente importa para construir el futuro de nuestra provincia.
           </p>
 

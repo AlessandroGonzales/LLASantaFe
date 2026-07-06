@@ -62,10 +62,10 @@ export default function SeccionRepresentantes() {
 
       <div className="w-full px-6 md:px-12 lg:px-20 max-w-[1600px] mx-auto relative z-20 mb-16 md:mb-24">
         <div className="text-center">
-          <span className="text-[10px] md:text-xs font-bold tracking-[0.4em] text-liberty-primary uppercase block mb-4">
+          <span className="text-[11px] md:text-xs font-bold tracking-[0.4em] text-liberty-primary uppercase block mb-4">
             Nuestros Representantes
           </span>
-          <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
+          <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
             La fuerza de <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-liberty-primary to-liberty-primary-hover">
               Santa Fe

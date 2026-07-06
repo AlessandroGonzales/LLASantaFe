@@ -1,7 +1,5 @@
 import { motion } from "framer-motion";
 import CinematicLink from "./CinematicLink";
-
-
 import nosotrosimg1 from "../assets/uplunidos.webp";
 import nosotrosimg2 from "../assets/nosotros.webp";
 import nosotrosimg3 from "../assets/inicios.webp";
@@ -37,7 +35,7 @@ export default function NosotrosPreview() {
   return (
     <section
       id="nosotros"
-      className="relative w-full py-24 md:py-40 flex justify-center px-6 md:px-16 lg:px-24 xl:px-32 z-10 overflow-hidden bg-liberty-bg transform-gpu translate-z-0"
+      className="relative w-full py-24  flex justify-center px-6 md:px-16 xl:px-36 bg-liberty-bg transform-gpu translate-z-0"
     >
 
       <div className="w-full relative z-10">
@@ -101,8 +99,8 @@ export default function NosotrosPreview() {
             <div
               className="relative w-full cursor-pointer group"
             >
-              <div className="rounded-[2.25rem] border border-white/10 bg-white/[0.02] transition-colors duration-500 group-hover:border-white/20">
-                <div className="grid grid-cols-2 gap-3 auto-rows-[200px] sm:auto-rows-[250px] lg:auto-rows-[360px] p-2 md:p-0">
+              <div className="rounded-[2rem] border border-white/10 bg-white/[0.02] transition-colors duration-500 group-hover:border-white/20">
+                <div className="grid grid-cols-2  auto-rows-[200px] sm:auto-rows-[250px] lg:auto-rows-[360px] md:p-0">
                   {gallery.map((item, index) => (
                     <motion.div
                       key={item.alt}
@@ -110,7 +108,7 @@ export default function NosotrosPreview() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: "-50px" }}
                       transition={{ duration: 0.6, delay: 0.1 * index, ease: "easeOut" }}
-                      className={`${item.className} relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/40 shadow-xl transform-gpu will-change-transform`}
+                      className={`${item.className} relative overflow-hidden rounded-[1rem]`}
                     >
                       <img
                         src={item.src}
@@ -119,7 +117,6 @@ export default function NosotrosPreview() {
                         decoding="async"
                         className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
                     </motion.div>
                   ))}
                 </div>
@@ -127,10 +124,10 @@ export default function NosotrosPreview() {
             </div>
 
             {/* BOTÓN — solo en mobile, debajo de las imágenes */}
-            <div className="pt-8 lg:hidden flex justify-center">
+            <div className="pt-12 lg:hidden flex justify-center">
               <CinematicLink
                 to="/nosotros"
-                className="group relative flex items-center justify-center w-full sm:w-auto px-8 py-4 font-bold text-white bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 "
+                className="group relative flex items-center justify-center w-full sm:w-auto px-8 py-4 font-bold text-white bg-liberty-card border border-liberty-border rounded-4xl  "
               >
                 Conocer nuestra historia
               </CinematicLink>

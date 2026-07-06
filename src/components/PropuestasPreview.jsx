@@ -30,7 +30,6 @@ export default function PropuestasPreview() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1.5, delay: 0.3 }}
-        className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-liberty-cyan/5 rounded-full blur-[100px] pointer-events-none z-0 transform-gpu translate-z-0 will-change-opacity" 
       />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">

@@ -130,7 +130,7 @@ export default function Hero() {
         variants={buttonsVariants}
         initial={hasAnimated ? "visible" : "hidden"}
         animate="visible"
-        className="relative z-20 w-full px-4 pb-12 mt-auto"
+        className="relative z-20 w-full px-4 pb-42 mt-auto"
       >
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-2xl mx-auto">
           <Link

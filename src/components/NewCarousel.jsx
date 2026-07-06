@@ -71,7 +71,7 @@ export default function NewsCarousel() {
         <div className="hidden lg:flex absolute left-0 top-0 h-full w-28 bg-gradient-to-r from-liberty-bg via-liberty-bg/20 to-transparent z-20 items-center pl-4 pointer-events-none">
           <button
             onClick={scrollLeft}
-            className="w-12 h-12 rounded-full bg-liberty-card/95 border border-liberty-border text-white hover:border-liberty-cyan hover:text-liberty-cyan flex items-center justify-center cursor-pointer pointer-events-auto "
+            className="w-12 h-12 rounded-full bg-liberty-card/95 border border-liberty-border text-white flex items-center justify-center cursor-pointer pointer-events-auto "
             aria-label="Desplazar a la izquierda"
           >
             <svg
@@ -95,7 +95,7 @@ export default function NewsCarousel() {
         <div className="hidden lg:flex absolute right-0 top-0 h-full w-28 bg-gradient-to-l from-liberty-bg via-liberty-bg/20 to-transparent z-20 items-center justify-end pr-4 pointer-events-none ">
           <button
             onClick={scrollRight}
-            className="w-12 h-12 rounded-full bg-liberty-card/90 border border-liberty-border text-white hover:border-liberty-cyan hover:text-liberty-cyan  flex items-center justify-center cursor-pointer pointer-events-auto "
+            className="w-12 h-12 rounded-full bg-liberty-card/90 border border-liberty-border text-white  flex items-center justify-center cursor-pointer pointer-events-auto "
             aria-label="Desplazar a la derecha"
           >
             <svg
