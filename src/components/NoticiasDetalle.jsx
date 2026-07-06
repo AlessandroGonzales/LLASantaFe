@@ -27,7 +27,6 @@ export default function NoticiaDetalle() {
       {/* IMAGEN HERO INMERSIVA */}
       <div className="relative w-full h-[40vh] md:h-[50vh] ">
         <div className="absolute inset-0 bg-gradient-to-t from-liberty-bg via-liberty-bg/30 to-transparent z-10" />
-
         <img
           src={noticia.image}
           alt={noticia.title}
@@ -61,7 +60,7 @@ export default function NoticiaDetalle() {
               </h1>
 
               {/* Bajada */}
-              <p className="text-xl md:text-2xl text-liberty-primary mb-10 border-l-2 border-liberty-primary pl-6">
+              <p className="text-xl md:text-2xl text-liberty-primary mb-10 border-l-2 border-liberty-primary">
                 {noticia.description}
               </p>
             </div>
@@ -75,7 +74,7 @@ export default function NoticiaDetalle() {
 
               {/* Imagen Secundaria */}
               {noticia.imagenSecundaria && (
-                <div className="relative w-full aspect-video rounded-xl overflow-hidden my-12 border border-white/10 shadow-2xl">
+                <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-white/10 ">
                   <img
                     src={noticia.imagenSecundaria}
                     alt="Imagen complementaria"
@@ -112,7 +111,7 @@ export default function NoticiaDetalle() {
                   href={noticia.linkX}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-3 bg-black text-white border border-white/20 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-white hover:text-black transition-colors duration-300"
+                   className="w-full flex items-center justify-center gap-3 bg-liberty-primary/10 text-liberty-primary border border-liberty-primary/30 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-liberty-primary hover:text-black cursor-pointer"
                 >
                   <svg
                     className="w-5 h-5"
@@ -129,7 +128,7 @@ export default function NoticiaDetalle() {
                   href={noticia.linkInstagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:scale-[1.02] transition-transform duration-300"
+                  className="w-full flex items-center justify-center gap-3 bg-liberty-primary/10 text-liberty-primary border border-liberty-primary/30 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-liberty-primary hover:text-black cursor-pointer"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -166,7 +165,7 @@ export default function NoticiaDetalle() {
                 {/* Botón WhatsApp */}
                 <button
                   onClick={handleShare}
-                  className="w-full flex items-center justify-center gap-3 bg-liberty-primary/10 text-liberty-primary border border-liberty-primary/30 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-liberty-primary hover:text-black cursor-pointer transition-colors duration-300"
+                  className="w-full flex items-center justify-center gap-3 bg-liberty-primary/10 text-liberty-primary border border-liberty-primary/30 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-liberty-primary hover:text-black cursor-pointer"
                 >
                   <Share2 className="w-5 h-5" />
                   Compartir en WhatsApp

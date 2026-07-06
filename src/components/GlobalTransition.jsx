@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useCinematicTransition } from "../context/TransitionContext";
 import logoLibertad from "../assets/logoLibertad.webp";
+import { memo } from "react";
 
 const backgroundVariants = {
   hidden: { opacity: 0 },
@@ -25,30 +26,34 @@ const eagleFlyVariants = {
     opacity: 0,
   },
   flying: {
-    scale: [0.1, 1.5, 12],
+    // 1. Arrays de la misma longitud (4 valores cada uno)
+    scale: [0.1, 1.5, 8, 12], 
     opacity: [0, 1, 1, 0],
     transition: {
       duration: 1.3,
       ease: "easeIn",
-      times: [0, 0.5, 1],
+      times: [0, 0.4, 0.8, 1], 
     },
   },
 };
 
-export default function GlobalTransition() {
+// 2. React.memo para evitar re-renderizados innecesarios
+const GlobalTransition = memo(function GlobalTransition() {
   const { transitionData } = useCinematicTransition();
 
   return (
     <AnimatePresence>
       {transitionData.active && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center">
-
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center pointer-events-none">
+          
           <motion.div
-            className="absolute inset-0 bg-black"
+            className="absolute inset-0 bg-black pointer-events-auto"
             variants={backgroundVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
+            // 3. Hint para la GPU
+            style={{ willChange: "opacity" }} 
           />
 
           <motion.img
@@ -58,10 +63,17 @@ export default function GlobalTransition() {
             variants={eagleFlyVariants}
             initial="hidden"
             animate="flying"
+            // 4. Forzar aceleración por hardware en la imagen
+            style={{ 
+                willChange: "transform, opacity",
+                WebkitUserSelect: "none" 
+            }}
           />
 
         </div>
       )}
     </AnimatePresence>
   );
-}
+});
+
+export default GlobalTransition;

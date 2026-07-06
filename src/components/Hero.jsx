@@ -45,14 +45,6 @@ const subtitleVariants = {
   }
 };
 
-const buttonsVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { duration: 1, delay: 1.4, ease: [0.16, 1, 0.3, 1] }
-  }
-};
 
 export default function Hero() {
   // === Lógica para animar solo una vez ===
@@ -126,22 +118,22 @@ export default function Hero() {
       </div>
 
       {/* BOTONES - Ahora relativos, no absolutos */}
-      <motion.div 
-        variants={buttonsVariants}
-        initial={hasAnimated ? "visible" : "hidden"}
-        animate="visible"
-        className="relative z-20 w-full px-4 pb-42 mt-auto"
+      <motion.div
+        initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.8 }}
+        className="relative z-20 w-full px-4 pb-32 mt-auto"
       >
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-2xl mx-auto">
           <Link
             to="/#preview"
-            className="w-full sm:w-auto px-10 py-4 rounded-4xl font-bold bg-liberty-card border border-liberty-border text-liberty-text hover:bg-liberty-border/40 hover:text-liberty-cyan cursor-pointer text-center"
+            className="w-full sm:w-auto px-10 py-4 rounded-4xl font-bold bg-liberty-card border border-liberty-border text-liberty-text hover:bg-liberty-border/40 hover:text-liberty-cyan cursor-pointer text-center transition-all active:scale-95"
           >
             Conocer Propuestas
           </Link>
           <CinematicLink
             to="/sumate"
-            className="w-full sm:w-auto px-10 py-4 rounded-4xl font-bold bg-[#C026D3] border border-[#C026D3] text-white hover:bg-[#A21CAF] cursor-pointer text-center"
+            className="w-full sm:w-auto px-10 py-4 rounded-4xl font-bold bg-[#C026D3] border border-[#C026D3] text-white hover:bg-[#A21CAF] cursor-pointer text-center transition-all active:scale-95"
           >
             Súmate Al Partido
           </CinematicLink>
