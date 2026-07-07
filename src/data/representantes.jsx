@@ -17,7 +17,7 @@ export const concejalesData = [
     nombre: "Lautaro Enriquez",
     edad: 21,
     cargo: "Concejal de Rosario",
-    profesion: "Lic. Ciencia Política",
+    profesion: "Estudiante: Lic. Ciencia Política",
     ciudad: "Rosario",
     redes: { 
       instagram: "@lautaroenriquezz", 
@@ -33,7 +33,7 @@ export const concejalesData = [
     id: 2,
     nombre: "Carlos Bonetto",
     edad: null,
-    cargo: "Concejal",
+    cargo: "Concejal de Totoras",
     profesion: "Médico Veterinario",
     ciudad: "Totoras",
     redes: { 
@@ -48,9 +48,9 @@ export const concejalesData = [
   },
   {
     id: 3,
-    nombre: "Santiago Fontana",
+    nombre: "Santiago Fontana ",
     edad: 24,
-    cargo: "Concejal",
+    cargo: "Concejal de Granadero Baigorria",
     profesion: "Abogado - Corredor inmobiliario",
     ciudad: "Granadero Baigorria",
     redes: { 
@@ -67,7 +67,7 @@ export const concejalesData = [
     id: 4,
     nombre: "Mariano Javier Trossero",
     edad: 43,
-    cargo: "Concejal",
+    cargo: "Concejal de Sastre",
     profesion: "Productor Agropecuario - Comerciante",
     ciudad: "Sastre",
     redes: { 
@@ -84,7 +84,7 @@ export const concejalesData = [
     id: 5,
     nombre: "Silvia Nardin",
     edad: 58,
-    cargo: "Concejal",
+    cargo: "Concejal de Malabrigo",
     profesion: "Docente",
     ciudad: "Malabrigo",
     redes: { 
@@ -101,7 +101,7 @@ export const concejalesData = [
     id: 6,
     nombre: "Maria Giselle Miravete",
     edad: 52,
-    cargo: "Concejal",
+    cargo: "Concejal de Santo Tomé",
     profesion: "Técnica en Saneamiento Ambiental y Tecnología de Alimentos",
     ciudad: "Santo Tomé",
     redes: { 
@@ -118,7 +118,7 @@ export const concejalesData = [
     id: 7,
     nombre: "Matías Nicolás Tomasi",
     edad: 39,
-    cargo: "Concejal",
+    cargo: "Concejal de Villa Constitución",
     profesion: "Empleado de Comercio",
     ciudad: "Villa Constitución",
     redes: { 
@@ -135,7 +135,7 @@ export const concejalesData = [
     id: 8,
     nombre: "Miguel Angel Chiarena",
     edad: 57,
-    cargo: "Concejal",
+    cargo: "Concejal de Recreo",
     profesion: "Docente / Técnico Mecánico-Electricista",
     ciudad: "Recreo",
     redes: { 
@@ -152,7 +152,7 @@ export const concejalesData = [
     id: 9,
     nombre: "Marianela De los Santos",
     edad: 43,
-    cargo: "Concejal",
+    cargo: "Concejal de Villa Constitución",
     profesion: "Empresaria",
     ciudad: "Villa Constitución",
     redes: { 
@@ -169,7 +169,7 @@ export const concejalesData = [
     id: 10,
     nombre: "Marisel Analia Fabiani",
     edad: 50,
-    cargo: "Concejal",
+    cargo: "Concejal de Venado Tuerto",
     profesion: "Profesora de Educación Física",
     ciudad: "Venado Tuerto",
     redes: { 
@@ -186,7 +186,7 @@ export const concejalesData = [
     id: 11,
     nombre: "Pamela Moro",
     edad: 53,
-    cargo: "Concejal",
+    cargo: "Concejal de Villa Gobernador Gálvez",
     profesion: "Empresaria",
     ciudad: "Villa Gobernador Gálvez",
     redes: { 
@@ -203,7 +203,7 @@ export const concejalesData = [
     id: 12,
     nombre: "David Ruben Sanfilippo",
     edad: 55,
-    cargo: "Concejal",
+    cargo: "Concejal de Teodelina",
     profesion: "Docente",
     ciudad: "Teodelina",
     redes: { 

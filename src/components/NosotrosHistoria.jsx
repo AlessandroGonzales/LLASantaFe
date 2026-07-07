@@ -1,16 +1,57 @@
 import { motion } from "framer-motion";
+import { memo } from "react";
 import uno from "../assets/santafe.webp";
 import santafedos from "../assets/santafedos.webp";
 import santafetres from "../assets/inicios.webp";
 import rominasantafe from "../assets/romisantafe.webp";
 import karina from "../assets/karina.jpeg";
 import libertad from "../assets/libertad.webp";
-// Importes para las 3 fotos de UPL
 import uplUno from "../assets/utn.webp";
 import uplDos from "../assets/cierreupl.webp";
 import uplTres from "../assets/uplunidos.webp";
 
-export default function NosotrosHistoria() {
+// 1. Definimos las variantes FUERA del componente para no recrearlas en cada render.
+// Esto orquesta las animaciones para que fluyan en cadena sin saturar el procesador.
+const sectionVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2, // Retraso de 0.2s entre cada elemento hijo
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const textVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.8, ease: "easeOut" } 
+  },
+};
+
+const smallImageVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.8, ease: "easeOut" } 
+  },
+};
+
+const largeImageVariants = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: { 
+    opacity: 1, 
+    scale: 1, 
+    transition: { duration: 1, ease: "easeOut" } 
+  },
+};
+
+// 2. Usamos memo para evitar re-renderizados innecesarios si cambian estados globales
+const NosotrosHistoria = memo(function NosotrosHistoria() {
   const hasAnimated = sessionStorage.getItem("historia_animated") === "true";
 
   const markAsAnimated = () => {
@@ -19,26 +60,29 @@ export default function NosotrosHistoria() {
     }
   };
 
+  // Configuración base para no repetir código en cada bloque
+  const motionProps = {
+    variants: sectionVariants,
+    initial: hasAnimated ? "visible" : "hidden",
+    whileInView: hasAnimated ? undefined : "visible",
+    viewport: { once: true, margin: "-100px" },
+    onViewportEnter: markAsAnimated,
+  };
+
+  // Clase optimizada para las imágenes (Hardware Acceleration + Lazy Loading)
+  const imageClass = "w-full h-full object-cover transform-gpu will-change-[transform,filter] group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out";
+
   return (
     <section className="relative w-full py-24 bg-liberty-bg text-white overflow-hidden">
-      
       <div className="w-full px-4 md:px-8 xl:px-12 space-y-22 md:space-y-38 relative z-10">
         
         {/* =========================================
             BLOQUE 1: AÑO 2023 - EL DESPERTAR
         ========================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
-          
-          {/* Columna Izquierda */}
+        <motion.div {...motionProps} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
           <div className="lg:col-span-6 flex flex-col justify-between">
-            <motion.div 
-              onViewportEnter={markAsAnimated}
-              initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8 }}
-              className="mb-12 lg:mb-0 flex flex-col items-center text-center"
-            >
+            
+            <motion.div variants={textVariants} className="mb-12 lg:mb-0 flex flex-col items-center text-center">
               <span className="text-yellow-300 text-sm md:text-base font-black uppercase tracking-[0.3em] block mb-4">
                 Año 2023
               </span>
@@ -48,93 +92,40 @@ export default function NosotrosHistoria() {
                   cambio en santa fe
                 </span>
               </h2>
-              <p className="text-lg text-liberty-text-secondary leading-relaxed w-full md:w-full mx-auto">
+             <p className="text-lg text-liberty-text-secondary leading-relaxed w-full md:w-full mx-auto">
                 Comenzamos siendo un grupo de ciudadanos cansados de los mismos de siempre, caminando las calles de Santa Fe con boletas en la mano y convicción en el pecho. Fue el año donde empezó la batalla cultural, con una militancia inquebrantable liderada por la fuerza de <strong>Romina Diez</strong> en la provincia y bajo la conducción de <strong>Javier Milei</strong> a nivel nacional, teniendo la precaución de cuidar cada voto frente al aparato de la casta. El año en que demostramos que las ideas de la libertad eran imparables.
               </p>
+
             </motion.div>
 
-            {/* Dos imágenes pequeñas inferiores */}
             <div className="grid grid-cols-2 gap-4 md:gap-6 mt-8">
-              <motion.div 
-                initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="relative aspect-[4/5] overflow-hidden rounded-md group"
-              >
-                <img 
-                  src={uno}
-                  alt="Militancia 2023" 
-                  className="w-full h-full object-cover group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                />
+              <motion.div variants={smallImageVariants} className="relative aspect-[4/5] overflow-hidden rounded-md group">
+                <img src={uno} alt="Militancia 2023" loading="lazy" decoding="async" className={imageClass} />
               </motion.div>
-              
-              <motion.div 
-                initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="relative aspect-[4/5] overflow-hidden rounded-md group mt-8"
-              >
-                <img 
-                  src={santafetres}
-                  alt="Fiscalización 2023" 
-                  className="w-full h-full object-cover group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                />
+              <motion.div variants={smallImageVariants} className="relative aspect-[4/5] overflow-hidden rounded-md group mt-8">
+                <img src={santafetres} alt="Fiscalización 2023" loading="lazy" decoding="async" className={imageClass} />
               </motion.div>
             </div>
           </div>
 
-          {/* Columna Derecha: Imagen Masiva Vertical */}
-          <motion.div 
-            initial={hasAnimated ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-            whileInView={hasAnimated ? false : { opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1 }}
-            className="lg:col-span-6 h-[60vh] lg:h-[90vh] relative rounded-md overflow-hidden group border border-white/5"
-          >
-            <img 
-              src={santafedos}
-              alt="Campaña Presidencial 2023 Santa Fe" 
-              className="w-full h-full object-cover group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1.5s] ease-out"
-            />
+          <motion.div variants={largeImageVariants} className="lg:col-span-6 h-[60vh] lg:h-[90vh] relative rounded-md overflow-hidden group border border-white/5">
+            <img src={santafedos} alt="Campaña Presidencial" loading="lazy" decoding="async" className={imageClass} />
           </motion.div>
+        </motion.div>
 
-        </div>
-
-        {/* Separador Visual Elegante */}
         <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-liberty-text-secondary/70 to-transparent" />
 
         {/* =========================================
             BLOQUE 2: AÑO 2024 - LA CONSOLIDACIÓN
         ========================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
-          
-          {/* Columna Izquierda: Imagen Masiva Vertical */}
-          <motion.div 
-            initial={hasAnimated ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-            whileInView={hasAnimated ? false : { opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1 }}
-            className="lg:col-span-6 h-[60vh] lg:h-[90vh] relative rounded-md overflow-hidden group border border-white/5 order-last lg:order-first"
-          >
-            <img 
-              src={rominasantafe}
-              alt="Constitución del Partido LLA Santa Fe 2024" 
-              className="w-full h-full object-cover group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1.5s] ease-out"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t via-transparent to-transparent opacity-60" />
+        <motion.div {...motionProps} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
+          <motion.div variants={largeImageVariants} className="lg:col-span-6 h-[60vh] lg:h-[90vh] relative rounded-md overflow-hidden group border border-white/5 order-last lg:order-first">
+            <img src={rominasantafe} alt="Constitución Partido" loading="lazy" decoding="async" className={imageClass} />
+            <div className="absolute inset-0 bg-gradient-to-t via-transparent to-transparent opacity-60 pointer-events-none" />
           </motion.div>
 
-          {/* Columna Derecha */}
           <div className="lg:col-span-6 flex flex-col justify-between">
-            <motion.div 
-              initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8 }}
-              className="mb-12 lg:mb-0 lg:pl-8 flex flex-col items-center text-center"
-            >
+            <motion.div variants={textVariants} className="mb-12 lg:mb-0 lg:pl-8 flex flex-col items-center text-center">
               <span className="text-liberty-primary text-sm md:text-base font-black uppercase tracking-[0.3em] block mb-4">
                 Año 2024
               </span>
@@ -144,61 +135,30 @@ export default function NosotrosHistoria() {
                   Consolidación
                 </span>
               </h2>
-              <p className="text-lg text-liberty-text-secondary leading-relaxed w-full mx-auto">
+               <p className="text-lg text-liberty-text-secondary leading-relaxed w-full mx-auto">
                 Los argentinos decidieron el rumbo para cambiar drásticamente a la Argentina: con el 56% de los votos obtenidos en las elecciones y siendo ya gobierno a nivel nacional, dimos el paso definitivo en nuestra región con la conformación oficial del partido La Libertad Avanza en Santa Fe. Bajo el liderazgo de<strong> Javier Milei, Karina Milei y Romina Diez</strong>, estructuramos una fuerza política real, superando récords de afiliaciones y consolidándonos como la alternativa definitiva para la provincia.
               </p>
             </motion.div>
 
-            {/* Dos imágenes pequeñas inferiores */}
             <div className="grid grid-cols-2 gap-4 md:gap-6 mt-8 lg:pl-8">
-              <motion.div 
-                initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="relative aspect-[4/5] overflow-hidden rounded-md group"
-              >
-                <img 
-                  src={karina}
-                  alt="Afiliaciones 2024" 
-                  className="w-full h-full object-cover group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                />
+              <motion.div variants={smallImageVariants} className="relative aspect-[4/5] overflow-hidden rounded-md group">
+                <img src={karina} alt="Afiliaciones 2024" loading="lazy" decoding="async" className={imageClass} />
               </motion.div>
-              
-              <motion.div 
-                initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="relative aspect-[4/5] overflow-hidden rounded-md group mt-8"
-              >
-                <img 
-                  src={libertad}
-                  alt="Evento Oficial LLA 2024" 
-                  className="w-full h-full object-cover group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                />
+              <motion.div variants={smallImageVariants} className="relative aspect-[4/5] overflow-hidden rounded-md group mt-8">
+                <img src={libertad} alt="Evento Oficial" loading="lazy" decoding="async" className={imageClass} />
               </motion.div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Separador Visual Elegante */}
         <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-liberty-text-secondary/70 to-transparent" />
 
         {/* =========================================
             BLOQUE 3: AÑO 2024 - EL NACIMIENTO DE UPL
         ========================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
-          
-          {/* Columna Izquierda */}
+        <motion.div {...motionProps} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
           <div className="lg:col-span-6 flex flex-col justify-between">
-            <motion.div 
-              initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8 }}
-              className="mb-12 lg:mb-0 flex flex-col items-center text-center"
-            >
+            <motion.div variants={textVariants} className="mb-12 lg:mb-0 flex flex-col items-center text-center">
               <span className="text-blue-600 text-sm md:text-base font-black uppercase tracking-[0.3em] block mb-4">
                 Año 2024
               </span>
@@ -208,61 +168,29 @@ export default function NosotrosHistoria() {
                   adoctrinamiento 
                 </span>
               </h2>
-              <p className="text-lg text-liberty-text-secondary leading-relaxed max-w-lg mx-auto">
+                <p className="text-lg text-liberty-text-secondary leading-relaxed max-w-lg mx-auto">
                 Ese mismo año marcamos un hito con el nacimiento de <strong>Universitarios por la Libertad (UPL)</strong>. Frente al adoctrinamiento y a las estructuras tradicionales en las universidades, decidimos conformar el primer frente estudiantil puramente liberal. El objetivo era claro: devolverle las facultades a los estudiantes y llevar la batalla cultural a cada universidad, defendiendo siempre la libertad de pensamiento.
               </p>
             </motion.div>
 
-            {/* Dos imágenes pequeñas inferiores */}
             <div className="grid grid-cols-2 gap-4 md:gap-6 mt-8">
-              <motion.div 
-                initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="relative aspect-[4/5] overflow-hidden rounded-md group"
-              >
-                <img 
-                  src={uplUno}
-                  alt="Nacimiento UPL 2024" 
-                  className="w-full h-full object-cover group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                />
+              <motion.div variants={smallImageVariants} className="relative aspect-[4/5] overflow-hidden rounded-md group">
+                <img src={uplUno} alt="Nacimiento UPL 2024" loading="lazy" decoding="async" className={imageClass} />
               </motion.div>
-              
-              <motion.div 
-                initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="relative aspect-[4/5] overflow-hidden rounded-md group mt-8"
-              >
-                <img 
-                  src={uplDos}
-                  alt="Militancia Universitaria UPL" 
-                  className="w-full h-full object-cover group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                />
+              <motion.div variants={smallImageVariants} className="relative aspect-[4/5] overflow-hidden rounded-md group mt-8">
+                <img src={uplDos} alt="Militancia Universitaria" loading="lazy" decoding="async" className={imageClass} />
               </motion.div>
             </div>
           </div>
 
-          {/* Columna Derecha: Imagen Masiva Vertical */}
-          <motion.div 
-            initial={hasAnimated ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-            whileInView={hasAnimated ? false : { opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1 }}
-            className="lg:col-span-6 h-[60vh] lg:h-[90vh] relative rounded-md overflow-hidden group border border-white/5"
-          >
-            <img 
-              src={uplTres}
-              alt="Universitarios por la Libertad" 
-              className="w-full h-full object-cover group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1.5s] ease-out"
-            />
+          <motion.div variants={largeImageVariants} className="lg:col-span-6 h-[60vh] lg:h-[90vh] relative rounded-md overflow-hidden group border border-white/5">
+            <img src={uplTres} alt="Universitarios por la Libertad" loading="lazy" decoding="async" className={imageClass} />
           </motion.div>
-
-        </div>
+        </motion.div>
 
       </div>
     </section>
   );
-}
+});
+
+export default NosotrosHistoria;
