@@ -71,29 +71,29 @@ export default function Navbar() {
         <div className="hidden md:flex items-center h-full gap-8 text-[15px] font-medium">
           <Link
             to="/#noticias"
-            className="text-liberty-text-secondary hover:text-liberty-cyan transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-cyan after:transition-all hover:after:w-full"
+            className="text-liberty-text-secondary hover:text-liberty-primary transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-primary after:transition-all hover:after:w-full"
           >
             Noticias
           </Link>
           <Link
             to="/#preview"
-            className="text-liberty-text-secondary hover:text-liberty-cyan transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-cyan after:transition-all hover:after:w-full"
+            className="text-liberty-text-secondary hover:text-liberty-primary transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-primary after:transition-all hover:after:w-full"
           >
             Propuestas
           </Link>
           <Link
             to="/#nosotros"
-            className="text-liberty-text-secondary hover:text-liberty-cyan transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-cyan after:transition-all hover:after:w-full"
+            className="text-liberty-text-secondary hover:text-liberty-primary transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-primary after:transition-all hover:after:w-full"
           >
             Nosotros
           </Link>
 
           {/* Dropdown Representantes */}
           <div className="relative group h-full flex items-center">
-            <button className="text-liberty-text-secondary hover:text-white transition-colors duration-200 relative py-1 flex items-center gap-1 cursor-pointer">
+            <button className="text-liberty-text-secondary hover:text-liberty-primary transition-colors duration-200 relative py-1 flex items-center gap-1 cursor-pointer">
               Representantes
               <ChevronDown className="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" />
-              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-liberty-cyan transition-all duration-300 group-hover:w-full" />
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-liberty-primary transition-all duration-300 group-hover:w-full" />
             </button>
 
             <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
@@ -106,7 +106,7 @@ export default function Navbar() {
                 </Link>
                 <Link
                   to="/#representantes"
-                  className="px-5 py-3 text-[13px] font-bold tracking-widest uppercase text-white hover:bg-liberty-cyan/10 hover:text-liberty-cyan transition-colors"
+                  className="px-5 py-3 text-[13px] font-bold tracking-widest uppercase text-white hover:bg-liberty-primary/10 hover:text-liberty-primary transition-colors"
                 >
                   Concejales
                 </Link>
@@ -115,7 +115,7 @@ export default function Navbar() {
           </div>
           <Link
             to="/#propone"
-            className="text-liberty-text-secondary hover:text-liberty-cyan transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-cyan after:transition-all hover:after:w-full"
+            className="text-liberty-text-secondary hover:text-liberty-primary transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-primary after:transition-all hover:after:w-full"
           >
               Propone
           </Link>

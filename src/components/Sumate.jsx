@@ -8,7 +8,6 @@ import {
   ShieldCheck,
   ArrowRight,
   CheckCircle2,
-  BadgeInfo,
 } from "lucide-react";
 import afiliacion from "../assets/militantes.webp";
 
@@ -104,15 +103,9 @@ export default function Sumate() {
             transition={{ duration: 0.7 }}
             className="pt-10 md:pt-14 will-change-transform transform-gpu translate-z-0"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-liberty-border/70 bg-white/5 px-4 py-2 text-[10px] sm:text-xs font-black uppercase tracking-[0.24em] text-liberty-primary shadow-[0_0_24px_rgba(217,70,239,0.12)] transform-gpu translate-z-0">
-              <BadgeInfo className="h-3.5 w-3.5" />
-              No es un formulario. Es un compromiso.
-            </div>
-
-            <h1 className="mt-7 max-w-3xl text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-black uppercase leading-[0.95] tracking-tight text-white">
+            <h1 className="mt-7 max-w-3xl text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-black uppercase leading-[0.95] tracking-tight text-white ">
               La reconstrucción <br />
-              {/* bg-clip-text está bien si el texto es estático */}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-liberty-primary to-liberty-primary-hover">
+              <span className=" text-white text-center">
                 te necesita
               </span>
             </h1>
@@ -126,7 +119,7 @@ export default function Sumate() {
             </p>
 
             {/* Steps */}
-            <div className="mt-10 rounded-[2rem] border border-liberty-border bg-liberty-surface/2 p-6 md:p-8 shadow-2xl transform-gpu translate-z-0">
+            <div className="mt-10 rounded-[2rem] border border-liberty-border bg-liberty-card p-6 md:p-8 shadow-2xl transform-gpu translate-z-0">
               <div className="mt-5 grid gap-4">
                 {steps.map((step, index) => (
                   <div

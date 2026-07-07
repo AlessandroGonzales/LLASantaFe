@@ -110,7 +110,7 @@ export default function Hero() {
 
           <motion.p
             variants={subtitleVariants}
-            className="text-lg md:text-2xl font-bold text-liberty-primary uppercase tracking-[0.2em]"
+            className="text-lg md:text-2xl font-bold text-white uppercase tracking-[0.2em]"
           >
             Santa Fe
           </motion.p>

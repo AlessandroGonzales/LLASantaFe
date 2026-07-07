@@ -42,7 +42,7 @@ export default function SeccionPropuestas() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="relative z-10 text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight leading-[0.95] max-w-4xl"
+              className="relative z-10 text-4xl md:text-6xl lg:text-6xl font-black uppercase tracking-tight leading-[0.95] max-w-4xl"
             >
               El Plan para Transformar <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-liberty-primary">

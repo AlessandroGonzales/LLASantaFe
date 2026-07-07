@@ -25,15 +25,9 @@ export default function PropuestasPreview() {
         transition={{ duration: 1.5 }}
         className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-liberty-primary/10 rounded-full blur-[120px] pointer-events-none z-0 transform-gpu translate-z-0 will-change-opacity" 
       />
-      <motion.div 
-        initial={hasAnimated ? { opacity: 1 } : { opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.5, delay: 0.3 }}
-      />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+        <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-20">
 
           {/* TÍTULO MOBILE */}
           <motion.div 
@@ -49,7 +43,7 @@ export default function PropuestasPreview() {
               </span>
               <h2 className="text-5xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.99] text-center lg:text-left">
                 Nuestras{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-liberty-primary to-liberty-primary-hover">
+                <span className="text-transparent bg-clip-text bg-gradient-to-br text-white">
                   Propuestas
                 </span>
               </h2>
@@ -62,7 +56,7 @@ export default function PropuestasPreview() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full lg:w-1/2 flex justify-center relative group will-change-transform"
+            className="w-full lg:w-1/2 flex justify-center relative group will-change-transform mb-8 "
           >
             {/* Círculo de luz dinámico (hace de sombra y resplandor, mucho más óptimo) */}
             <div className="absolute inset-0 bg-gradient-to-tr from-liberty-primary/30 to-transparent rounded-full blur-[60px] lg:blur-[80px] opacity-40 group-hover:opacity-80 transition-opacity duration-700 transform-gpu translate-z-0" />
@@ -92,7 +86,7 @@ export default function PropuestasPreview() {
               </span>
               <h2 className="text-5xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.99] text-center lg:text-left">
                 Nuestras{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-liberty-primary to-liberty-primary-hover">
+                <span className="text-transparent bg-clip-text bg-gradient-to-br text-white">
                   Propuestas
                 </span>
               </h2>

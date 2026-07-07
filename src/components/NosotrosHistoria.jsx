@@ -212,8 +212,7 @@ const NosotrosHistoria = memo(function NosotrosHistoria() {
                 </span>
               </h2>
                <p className="text-lg text-liberty-text-secondary leading-relaxed w-full md:w-5/6 mx-auto">
-                Texto corregido
-Las ideas de la libertad fueron llegando a cada argentino de bien; fueron creciendo a pesar de que se dijera que ser liberal era un insulto. Perseveramos a pesar del odio y, así, en el 2025 dimos un batacazo en las elecciones legislativas, logrando el 40,67% de los votos. Con el apoyo de todos los santafesinos, podremos promulgar las más grandes reformas que necesita el país y la provincia de Santa Fe.
+                Las ideas de la libertad fueron llegando a cada argentino de bien; fueron creciendo a pesar de que se dijera que ser liberal era un insulto. Perseveramos a pesar del odio y, así, en el 2025 dimos un batacazo en las elecciones legislativas, logrando el 40,67% de los votos. Con el apoyo de todos los santafesinos, podremos promulgar las más grandes reformas que necesita el país y la provincia de Santa Fe.
                 </p>
             </motion.div>
 

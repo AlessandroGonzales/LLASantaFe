@@ -33,12 +33,13 @@ export default function RepresentantesPreview() {
       id="representantes"
       className="relative w-full py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-hidden border-t border-liberty-border transform-gpu translate-z-0"
     >
+      <div className="absolute top-0 left-0 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-liberty-primary/17 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3 transform-gpu translate-z-0" />
       <div className="w-full px-6 md:px-12 lg:px-20 max-w-[1600px] mx-auto relative z-10">
         <motion.div
           onViewportEnter={markAsAnimated}
           initial={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-24 items-center"
         >
           {/* Título solo visible en Mobile - arriba de las imágenes */}
           <motion.div
@@ -56,7 +57,7 @@ export default function RepresentantesPreview() {
 
             <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
               Nuestros{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-liberty-primary to-liberty-primary-hover">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r text-white">
                 Concejales
               </span>
             </h2>
@@ -121,7 +122,7 @@ export default function RepresentantesPreview() {
 
               <h2 className="text-5xl md:text-6xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
                 Nuestros <br className="hidden md:block" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-liberty-primary to-liberty-primary-hover">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r text-white">
                   Concejales
                 </span>
               </h2>

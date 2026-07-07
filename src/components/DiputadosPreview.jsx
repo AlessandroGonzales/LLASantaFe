@@ -25,7 +25,7 @@ export default function DiputadosPreview() {
       className="relative w-full py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-hidden border-t border-liberty-border transform-gpu translate-z-0"
     >
       {/* Luces GPU Aisladas */}
-      <div className="absolute top-0 right-0 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-liberty-primary/10 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3 transform-gpu translate-z-0" />
+      <div className="absolute top-0 right-0 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-liberty-primary/17 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3 transform-gpu translate-z-0" />
 
       <div className="w-full px-6 md:px-12 lg:px-20 max-w-[1600px] mx-auto relative z-10">
         
@@ -46,7 +46,7 @@ export default function DiputadosPreview() {
             </span>
             
             <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tighter leading-[0.9]">
-              Nuestros <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-liberty-primary to-liberty-primary-hover">Diputados</span>
+              Nuestros <span className=" text-white">Diputados</span>
             </h2>
           </motion.div>
         </div>
@@ -78,7 +78,7 @@ export default function DiputadosPreview() {
               
               <h2 className="text-5xl md:text-6xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
                 Nuestros <br className="hidden md:block"/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-liberty-primary to-liberty-primary-hover">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r text-white">
                   Diputados
                 </span>
               </h2>

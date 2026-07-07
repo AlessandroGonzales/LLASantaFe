@@ -35,11 +35,11 @@ export default function NosotrosPreview() {
   return (
     <section
       id="nosotros"
-      className="relative w-full py-24  flex justify-center px-6 md:px-16 xl:px-36 bg-liberty-bg transform-gpu translate-z-0"
+      className="relative w-full py-24 flex justify-center px-6 md:px-16 xl:px-36 bg-liberty-bg transform-gpu translate-z-0"
     >
 
       <div className="w-full relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-12 items-center">
 
           {/* TEXTO */}
           <motion.div
@@ -59,7 +59,7 @@ export default function NosotrosPreview() {
 
               <h2 className="text-5xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.85] text-center lg:text-left">
                 La trayectoria<br/>
-                hacia la <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-liberty-primary to-liberty-primary-hover">Grandeza</span>
+                hacia la <span className="text-transparent bg-clip-text bg-gradient-to-br text-white">Grandeza</span>
               </h2>
             </div>
 
