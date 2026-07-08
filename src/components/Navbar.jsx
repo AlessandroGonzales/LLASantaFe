@@ -10,10 +10,15 @@ export default function Navbar() {
 
   // Scroll handler optimizado
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
+   const handleScroll = () => {
+    const scrolled = window.scrollY > 10;
 
+    setIsScrolled(prev => (
+        prev === scrolled
+            ? prev
+            : scrolled
+    ));
+};
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);

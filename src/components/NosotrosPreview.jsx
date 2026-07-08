@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 import CinematicLink from "./CinematicLink";
 import nosotrosimg1 from "../assets/uplunidos.webp";
 import nosotrosimg2 from "../assets/nosotros.webp";
@@ -23,11 +24,11 @@ const gallery = [
 ];
 
 export default function NosotrosPreview() {
+  const hasAnimated = useMemo(
+    () => sessionStorage.getItem("nosotros_animated") === "true",
+    []
+);
 
-  // 1. Verificamos si las animaciones ya se ejecutaron en esta sesión
-  const hasAnimated = sessionStorage.getItem("nosotros_animated") === "true";
-
-  // 2. Función que se dispara cuando el componente entra en pantalla
   const markAsAnimated = () => {
     sessionStorage.setItem("nosotros_animated", "true");
   };
@@ -94,30 +95,22 @@ export default function NosotrosPreview() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="lg:col-span-5 w-full will-change-transform"
+            className="lg:col-span-5 w-full will-change-transform "
           >
             <div
               className="relative w-full cursor-pointer group"
             >
               <div className="rounded-[2rem] border border-white/10 bg-white/[0.02] transition-colors duration-500 group-hover:border-white/20">
-                <div className="grid grid-cols-2  auto-rows-[200px] sm:auto-rows-[250px] lg:auto-rows-[360px] md:p-0">
-                  {gallery.map((item, index) => (
-                    <motion.div
-                      key={item.alt}
-                      initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-50px" }}
-                      transition={{ duration: 0.6, delay: 0.1 * index, ease: "easeOut" }}
-                      className={`${item.className} relative overflow-hidden rounded-[1rem]`}
-                    >
+                <div className="grid grid-cols-2  auto-rows-[200px] sm:auto-rows-[250px] lg:auto-rows-[360px] md:p-0 ">
+                  {gallery.map((item,) => (
+
                       <img
                         src={item.src}
                         alt={item.alt}
                         loading="lazy"
                         decoding="async"
-                        className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                        className={`w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 ${item.className} relative overflow-hidden rounded-[1rem] `}
                       />
-                    </motion.div>
                   ))}
                 </div>
               </div>

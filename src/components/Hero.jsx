@@ -127,13 +127,13 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-2xl mx-auto">
           <Link
             to="/#preview"
-            className="w-full sm:w-auto px-10 py-4 rounded-4xl font-bold bg-liberty-card border border-liberty-border text-liberty-text hover:bg-liberty-border/40 hover:text-liberty-cyan cursor-pointer text-center transition-all active:scale-95"
+            className="w-3/4 md:w-full  px-10 py-4 rounded-4xl font-bold bg-liberty-card border border-liberty-border text-liberty-text hover:bg-liberty-border/40 hover:text-liberty-cyan cursor-pointer text-center"
           >
             Conocer Propuestas
           </Link>
           <CinematicLink
             to="/sumate"
-            className="w-full sm:w-auto px-10 py-4 rounded-4xl font-bold bg-[#C026D3] border border-[#C026D3] text-white hover:bg-[#A21CAF] cursor-pointer text-center transition-all active:scale-95"
+            className="w-3/4 md:w-full px-10 py-4 rounded-4xl font-bold bg-[#C026D3] border border-[#C026D3] text-white hover:bg-[#A21CAF] cursor-pointer text-center "
           >
             Súmate Al Partido
           </CinematicLink>

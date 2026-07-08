@@ -37,13 +37,12 @@ const DiputadoCard = memo(({ diputado, onSelect }) => {
   return (
     <motion.div
       // Se mantiene layout por si en el futuro agregas un filtro
-      layout 
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
       onClick={() => onSelect(diputado)}
-      className="relative aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-sm group cursor-pointer border border-white/5 shadow-lg"
+      className="relative aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-sm group cursor-pointer  "
     >
       <img
         src={diputado.foto}
@@ -148,7 +147,7 @@ const ModalDiputado = memo(({ diputado, onClose }) => {
                   href={diputado.proyectos}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-6 py-3 bg-liberty-card border border-liberty-border text-white text-xs font-bold uppercase tracking-widest hover:border-liberty-primary hover:text-liberty-primary rounded-sm transition-colors"
+                  className="flex items-center justify-center gap-2 px-6 py-3 bg-liberty-card border border-liberty-border text-white text-xs font-bold uppercase tracking-widest hover:border-liberty-primary hover:text-liberty-primary rounded-sm "
                 >
                   <LinkIcon className="w-4 h-4" />
                   Ver Proyectos de Ley
@@ -161,7 +160,7 @@ const ModalDiputado = memo(({ diputado, onClose }) => {
                     href={`https://instagram.com/${diputado.redes.instagram.replace("@", "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-primary hover:border-liberty-primary rounded-sm text-white transition-colors"
+                    className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-primary hover:border-liberty-primary rounded-sm text-white "
                   >
                     <Instagram className="w-4 h-4" />
                   </a>
@@ -171,7 +170,7 @@ const ModalDiputado = memo(({ diputado, onClose }) => {
                     href={`https://twitter.com/${diputado.redes.twitter.replace("@", "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-primary hover:border-liberty-primary rounded-sm text-white transition-colors"
+                    className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-primary hover:border-liberty-primary rounded-sm text-white "
                   >
                     <X className="w-4 h-4" />
                   </a>
@@ -181,7 +180,7 @@ const ModalDiputado = memo(({ diputado, onClose }) => {
                     href={`mailto:${diputado.mail}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-cyan hover:border-liberty-cyan rounded-sm text-white transition-colors"
+                    className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-cyan hover:border-liberty-cyan rounded-sm text-white "
                     title="Enviar Email Institucional"
                   >
                     <Mail className="w-4 h-4" />
@@ -192,7 +191,7 @@ const ModalDiputado = memo(({ diputado, onClose }) => {
                     href={`https://wa.me/${diputado.telefono.replace(/\D/g, "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-cyan hover:border-liberty-cyan rounded-sm text-white transition-colors"
+                    className="p-3 bg-white/5 border border-white/10 hover:bg-liberty-cyan hover:border-liberty-cyan rounded-sm text-white "
                     title="Contactar Asesoría"
                   >
                     <Phone className="w-4 h-4" />
@@ -252,7 +251,6 @@ export default function SeccionDiputados() {
 
       <div className="w-full px-10 md:px-12 lg:px-20 max-w-[1400px] mx-auto relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-4">
-          <AnimatePresence mode="popLayout">
             {diputadosData.map((diputado) => (
               <DiputadoCard
                 key={diputado.id}
@@ -260,7 +258,6 @@ export default function SeccionDiputados() {
                 onSelect={handleSelectDiputado}
               />
             ))}
-          </AnimatePresence>
         </div>
 
         {diputadosData.length === 0 && (
