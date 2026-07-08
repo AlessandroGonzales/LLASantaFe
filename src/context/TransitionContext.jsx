@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useRef } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useRef,
+  startTransition as reactStartTransition, // 1. Importamos la API concurrente de React
+} from "react";
 import { useNavigate } from "react-router-dom";
 
 const TransitionContext = createContext();
@@ -11,29 +17,28 @@ export function TransitionProvider({ children }) {
     to: null,
   });
 
-  // Bloquea dobles clics y dobles ejecuciones
   const transitioning = useRef(false);
 
-  const startTransition = (to) => {
+  // Le cambiamos el nombre internamente para no chocar con el de React
+  const triggerCinematicTransition = (to) => {
     if (transitioning.current) return;
-
     transitioning.current = true;
 
-    setTransitionData({
-      active: true,
-      to,
-    });
+    setTransitionData({ active: true, to });
 
-    // Navegación
+    // 2. Esperamos a que el águila escale y la pantalla esté en negro (800ms)
     setTimeout(() => {
-      navigate(to);
-      window.scrollTo({
-        top: 0,
-        behavior: "instant",
+      // 3. reactStartTransition renderiza la nueva página "en segundo plano" sin tirar los FPS
+      reactStartTransition(() => {
+        navigate(to);
+        window.scrollTo({
+          top: 0,
+          behavior: "instant",
+        });
       });
-    }, 450);
+    }, 800);
 
-    // Finalizar transición
+    // 4. Finalizamos la transición a los 1500ms (dándole tiempo a los 1300ms del águila a terminar)
     setTimeout(() => {
       setTransitionData({
         active: false,
@@ -41,14 +46,14 @@ export function TransitionProvider({ children }) {
       });
 
       transitioning.current = false;
-    }, 600);
+    }, 1500); 
   };
 
   return (
     <TransitionContext.Provider
       value={{
         transitionData,
-        startTransition,
+        startTransition: triggerCinematicTransition, // Mantenemos el nombre expuesto igual
       }}
     >
       {children}

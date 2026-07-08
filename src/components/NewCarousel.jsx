@@ -20,10 +20,12 @@ export default function NewsCarousel() {
   // 2. Función para guardar la posición exacta
   const handleNewsClick = () => {
     if (carouselRef.current) {
-      sessionStorage.setItem(
-        "newsCarouselScroll",
-        carouselRef.current.scrollLeft.toString(),
-      );
+      requestAnimationFrame(() => {
+        sessionStorage.setItem(
+          "newsCarouselScroll",
+          carouselRef.current.scrollLeft.toString()
+        )
+      });
     }
   };
 

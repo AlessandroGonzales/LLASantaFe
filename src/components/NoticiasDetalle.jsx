@@ -30,7 +30,7 @@ export default function NoticiaDetalle() {
         <img
           src={noticia.image}
           alt={noticia.title}
-          loading="eager"
+          loading="lazy"
           decoding="async"
           className="w-full h-full object-cover object-center"
           sizes="100vw"

@@ -250,7 +250,7 @@ export default function SeccionDiputados() {
         </div>
       </div>
 
-      <div className="w-full px-6 md:px-12 lg:px-4 max-w-[1400px] mx-auto relative z-10">
+      <div className="w-full px-10 md:px-12 lg:px-20 max-w-[1400px] mx-auto relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-4">
           <AnimatePresence mode="popLayout">
             {diputadosData.map((diputado) => (
