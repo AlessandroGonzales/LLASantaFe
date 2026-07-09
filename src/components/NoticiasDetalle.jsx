@@ -46,7 +46,7 @@ export default function NoticiaDetalle() {
             <div>
               {/* Meta info */}
               <div className="flex flex-wrap items-center gap-3 mb-6">
-                <span className="text-[10px] md:text-xs uppercase tracking-[0.2em] font-black px-4 py-2 bg-liberty-primary text-black rounded-sm">
+                <span className="text-[10px] md:text-xs uppercase tracking-[0.2em] font-black  ">
                   {noticia.category}
                 </span>
                 <span className="text-xs font-medium text-liberty-text-secondary tracking-widest">
@@ -60,7 +60,7 @@ export default function NoticiaDetalle() {
               </h1>
 
               {/* Bajada */}
-              <p className="text-xl md:text-2xl text-liberty-primary mb-10 border-l-2 border-liberty-primary">
+              <p className="text-xl md:text-2xl text-liberty-primary mb-10 border-l-2 p-2 border-liberty-primary">
                 {noticia.description}
               </p>
             </div>
@@ -95,7 +95,7 @@ export default function NoticiaDetalle() {
 
           {/* COLUMNA DERECHA - STICKY SIDEBAR */}
           <div className="lg:col-span-4 relative">
-            <div className="lg:sticky lg:top-24 bg-liberty-card border border-liberty-border/50 rounded-2xl p-6 shadow-xl">
+            <div className="lg:sticky lg:top-24 bg-liberty-card rounded-2xl p-6 ">
               <div className="absolute -top-px left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-liberty-primary to-transparent" />
 
               <h4 className="text-sm uppercase tracking-[0.2em] text-white mb-2 font-black text-center">

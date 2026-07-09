@@ -101,7 +101,7 @@ export default function NosotrosPreview() {
               className="relative w-full cursor-pointer group"
             >
               <div className="rounded-[2rem] border border-white/10 bg-white/[0.02] transition-colors duration-500 group-hover:border-white/20">
-                <div className="grid grid-cols-2  auto-rows-[200px] sm:auto-rows-[250px] lg:auto-rows-[360px] md:p-0 ">
+                <div className="grid grid-cols-2 gap-2 auto-rows-[200px] sm:auto-rows-[250px] lg:auto-rows-[360px] md:p-0 ">
                   {gallery.map((item,) => (
 
                       <img

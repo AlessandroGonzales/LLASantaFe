@@ -1,7 +1,7 @@
 import pautacero from "../assets/pautacero.webp"
 import rigi from "../assets/rigi.webp"
-import rm from "../assets/romiymilei.jpeg"
-import kari from "../assets/karinadiputados.jpeg"
+import rm from "../assets/romiymilei.webp"
+import kari from "../assets/karinadiputados.webp"
 import cierre from "../assets/cierreupl.webp"
 import utn from "../assets/utn.webp"
 
@@ -34,7 +34,6 @@ export const newsData = [
       
       <p>Con <strong>@JMilei</strong> empezó una nueva etapa: menos privilegios para los medios amigos y más respeto por los argentinos que no quieren financiar propaganda con sus impuestos.</p>
       
-      <p class="final-salute">La libertad avanza!!! <br/> VLLC!!!</p>
     `,
     linkX: "https://x.com/JMilei/status/2070131225646256211",
     linkInstagram: "https://instagram.com/lalibertadavanza",
