@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import CinematicLink from "./CinematicLink";
 
-import dip1 from "../assets/rominaDiezDiputada.png";
-import dip2 from "../assets/nicolaRaveraz.png";
-import dip3 from "../assets/agustinPellegrini.png";
+import dip1 from "../assets/rominaDiezDiputada.webp";
+import dip2 from "../assets/nicolaRaveraz.webp";
+import dip3 from "../assets/agustinPellegrini.webp";
 
 export default function DiputadosPreview() {
   const hasAnimated = sessionStorage.getItem("diputados_animated") === "true";
@@ -35,7 +35,7 @@ export default function DiputadosPreview() {
         ========================================= */}
         <div className="lg:hidden mb-10 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}

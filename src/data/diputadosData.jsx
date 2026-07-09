@@ -1,10 +1,10 @@
-import romina from "../assets/rominaDiezDiputada.png"
-import mayoraz from "../assets/nicolaRaveraz.png"
-import rocio from "../assets/rocio.png"
-import pellegrini from "../assets/agustinPellegrini.png"
-import valentina from "../assets/valentina.jpg"
-import yamile from "../assets/yamile.jpg"
-import juan from "../assets/juan.png"
+import romina from "../assets/rominaDiezDiputada.webp"
+import mayoraz from "../assets/nicolaRaveraz.webp"
+import rocio from "../assets/rocio.webp"
+import pellegrini from "../assets/agustinPellegrini.webp"
+import valentina from "../assets/valentina.webp"
+import yamile from "../assets/yamile.webp"
+import juan from "../assets/juan.webp"
 
 
 export const diputadosData =[ {
