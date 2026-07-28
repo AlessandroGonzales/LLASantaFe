@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
-import logo from "../assets/aguila.webp"; // ← Cambiado a SVG (Obligatorio)
+import logo from "../assets/aguila.webp"; 
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
