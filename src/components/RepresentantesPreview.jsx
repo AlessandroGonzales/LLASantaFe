@@ -86,7 +86,7 @@ export default function RepresentantesPreview() {
               </motion.div>
 
               {/* Imagen 3: Rectángulo horizontal central (Mobile) / Rectángulo vertical izquierdo inferior (Desktop) */}
-              <motion.div variants={bentoItem} className="col-span-2 md:col-span-6 md:row-span-6 relative rounded-2xl overflow-hidden border border-liberty-border/50 bg-liberty-card transform-gpu will-change-transform">
+              <motion.div variants={bentoItem} className="col-span-1 md:col-span-6 md:row-span-6 relative rounded-2xl overflow-hidden border border-liberty-border/50 bg-liberty-card transform-gpu will-change-transform">
                 <img src={rep2} alt="Representante 3" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </motion.div>
 
