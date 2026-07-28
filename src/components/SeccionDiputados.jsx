@@ -52,10 +52,15 @@ const DiputadoCard = memo(({ diputado, onSelect }) => {
         // transform-gpu y will-change trasladan el cálculo visual a la placa de video
         className="w-full h-full object-cover transform-gpu will-change-[transform,filter] transition-[transform,filter] duration-700 ease-out  group-hover:grayscale-0 group-hover:scale-105"
       />
-      <div className="absolute bottom-8 left-0 right-0 text-center px-4">
+      <div className="absolute bottom-6 left-0 right-0 flex flex-col items-center px-4 transition-transform duration-500 group-hover:-translate-y-2">
         <span className="text-white text-sm md:text-base font-black uppercase tracking-widest relative inline-block after:content-[''] after:absolute after:-bottom-3 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-[1px] after:bg-liberty-primary">
           {diputado.nombre}
         </span>
+        
+        {/* Indicador agregado con un mt-6 para evitar que se superponga con el after del nombre */}
+        <div className="mt-6 flex items-center text-liberty-primary font-bold text-[12px] md:text-xs uppercase tracking-wider group-hover:text-white transition-colors duration-300">
+          Ver perfil completo
+        </div>
       </div>
     </motion.div>
   );
@@ -110,23 +115,33 @@ const ModalDiputado = memo(({ diputado, onClose }) => {
               <div className="flex items-center gap-3 text-liberty-text-secondary">
                 <MapPin className="w-5 h-5 text-liberty-cyan" />
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest">Representación</p>
+                  <p className="text-[10px] uppercase tracking-widest">
+                    Representación
+                  </p>
                   <p className="text-sm font-bold text-white">Santa Fe</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 text-liberty-text-secondary">
                 <Briefcase className="w-5 h-5 text-liberty-cyan" />
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest">Profesión</p>
-                  <p className="text-sm font-bold text-white">{diputado.profesion}</p>
+                  <p className="text-[10px] uppercase tracking-widest">
+                    Profesión
+                  </p>
+                  <p className="text-sm font-bold text-white">
+                    {diputado.profesion}
+                  </p>
                 </div>
               </div>
               {diputado.edad && (
                 <div className="flex items-center gap-3 text-liberty-text-secondary">
                   <Calendar className="w-5 h-5 text-liberty-cyan" />
                   <div>
-                    <p className="text-[10px] uppercase tracking-widest">Edad</p>
-                    <p className="text-sm font-bold text-white">{diputado.edad} años</p>
+                    <p className="text-[10px] uppercase tracking-widest">
+                      Edad
+                    </p>
+                    <p className="text-sm font-bold text-white">
+                      {diputado.edad} años
+                    </p>
                   </div>
                 </div>
               )}
@@ -244,20 +259,21 @@ export default function SeccionDiputados() {
             </span>
           </h2>
           <p className="text-base md:text-lg text-liberty-text-secondary leading-relaxed max-w-2xl mx-auto">
-            Conoce a los diputados nacionales que defienden los intereses de Santa Fe y dan la batalla cultural en la Cámara Baja del Congreso.
+            Conoce a los diputados nacionales que defienden los intereses de
+            Santa Fe y dan la batalla cultural en la Cámara Baja del Congreso.
           </p>
         </div>
       </div>
 
       <div className="w-full px-10 md:px-12 lg:px-20 max-w-[1400px] mx-auto relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-4">
-            {diputadosData.map((diputado) => (
-              <DiputadoCard
-                key={diputado.id}
-                diputado={diputado}
-                onSelect={handleSelectDiputado}
-              />
-            ))}
+          {diputadosData.map((diputado) => (
+            <DiputadoCard
+              key={diputado.id}
+              diputado={diputado}
+              onSelect={handleSelectDiputado}
+            />
+          ))}
         </div>
 
         {diputadosData.length === 0 && (

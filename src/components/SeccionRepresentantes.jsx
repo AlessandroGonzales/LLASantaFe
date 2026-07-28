@@ -55,10 +55,15 @@ const ConcejalCard = memo(({ concejal, onSelect }) => {
         // Optimizamos el CSS: pasamos de transition-all a will-change y transform-gpu
         className="w-full h-full object-cover transform-gpu will-change-[transform,filter] transition-[transform,filter] duration-700   group-hover:grayscale-0 group-hover:scale-105"
       />
-      <div className="absolute bottom-6 left-0 right-0 text-center">
-        <span className="text-white text-xs md:text-sm font-black uppercase tracking-widest relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-[1px] after:bg-liberty-primary">
+        <div className="absolute bottom-6 left-0 right-0 flex flex-col items-center px-4 transition-transform duration-500 group-hover:-translate-y-2">
+        <span className="text-white text-sm md:text-base font-black uppercase tracking-widest relative inline-block after:content-[''] after:absolute after:-bottom-3 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-[1px] after:bg-liberty-primary">
           {concejal.nombre}
         </span>
+        
+        {/* Indicador agregado con un mt-6 para evitar que se superponga con el after del nombre */}
+        <div className="mt-6 flex items-center text-liberty-primary font-bold text-[12px] md:text-xs uppercase tracking-wider group-hover:text-white transition-colors duration-300">
+          Ver perfil completo
+        </div>
       </div>
     </motion.div>
   );

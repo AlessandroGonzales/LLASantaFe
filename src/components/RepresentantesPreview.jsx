@@ -3,9 +3,8 @@ import CinematicLink from "./CinematicLink";
 
 import rep1 from "../assets/lautaro.webp";
 import rep2 from "../assets/giselle.webp";
-import rep3 from "../assets/maria.webp";
+import rep3  from "../assets/santiago.webp"
 import rep4 from "../assets/david.webp";
-import rep5 from "../assets/marisel.webp"
 
 export default function RepresentantesPreview() {
   const hasAnimated =
@@ -78,28 +77,25 @@ export default function RepresentantesPreview() {
             >
               {/* Imagen 1: Cuadrado superior izquierda (Desktop) / Izquierda (Mobile) */}
               <motion.div variants={bentoItem} className="col-span-1 md:col-span-6 md:row-span-6 relative rounded-2xl overflow-hidden border border-liberty-border/50 bg-liberty-card transform-gpu will-change-transform">
-                <img src={rep3} alt="Representante 1" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                <img src={rep1} alt="Representante 1" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </motion.div>
 
               {/* Imagen 2: Rectángulo superior derecha (Desktop) / Derecha (Mobile) */}
               <motion.div variants={bentoItem} className="col-span-1 md:col-span-6 md:row-span-6 relative rounded-2xl overflow-hidden border border-liberty-border/50 bg-liberty-card transform-gpu will-change-transform">
-                <img src={rep2} alt="Representante 2" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                <img src={rep3} alt="Representante 2" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </motion.div>
 
               {/* Imagen 3: Rectángulo horizontal central (Mobile) / Rectángulo vertical izquierdo inferior (Desktop) */}
               <motion.div variants={bentoItem} className="col-span-2 md:col-span-6 md:row-span-6 relative rounded-2xl overflow-hidden border border-liberty-border/50 bg-liberty-card transform-gpu will-change-transform">
-                <img src={rep1} alt="Representante 3" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                <img src={rep2} alt="Representante 3" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </motion.div>
 
               {/* Imagen 4: Inferior izquierda (Mobile) / Inferior derecha 1 (Desktop) */}
-              <motion.div variants={bentoItem} className="col-span-1 md:col-span-3 md:row-span-6 relative rounded-2xl overflow-hidden border border-liberty-border/50 bg-liberty-card transform-gpu will-change-transform">
+              <motion.div variants={bentoItem} className="col-span-1 md:col-span-6 md:row-span-6 relative rounded-2xl overflow-hidden border border-liberty-border/50 bg-liberty-card transform-gpu will-change-transform">
                 <img src={rep4} alt="Representante 4" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </motion.div>
 
-              {/* Imagen 5: Inferior derecha (Mobile) / Inferior derecha 2 (Desktop) */}
-              <motion.div variants={bentoItem} className="col-span-1 md:col-span-3 md:row-span-6 relative rounded-2xl overflow-hidden border border-liberty-border/50 bg-liberty-card transform-gpu will-change-transform">
-                <img src={rep5} alt="Representante 5" className="w-full h-full object-cover" loading="lazy" decoding="async" />
-              </motion.div>
+
             </motion.div>
           </div>
 

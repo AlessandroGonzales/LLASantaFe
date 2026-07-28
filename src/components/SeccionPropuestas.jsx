@@ -375,6 +375,10 @@ export default function SeccionPropuestas() {
                     <div className="mt-auto pt-4 border-t border-liberty-border/30 text-xs text-liberty-text-secondary/80 leading-relaxed font-medium">
                       {item.detalle}
                     </div>
+
+                    <div className="flex items-center text-liberty-primary font-bold text-xs uppercase tracking-wider group-hover:text-white transition-colors mt-6">
+                        Ver propuesta completa
+                      </div>
                   </Link>
                 </motion.div>
               ))}

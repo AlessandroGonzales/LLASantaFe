@@ -47,7 +47,7 @@ const GlobalTransition = memo(function GlobalTransition() {
         <div className="fixed inset-0 z-[9999] flex items-center justify-center pointer-events-none">
           
           <motion.div
-            className="absolute inset-0 bg-black pointer-events-auto"
+            className="absolute inset-0 bg-liberty-bg pointer-events-auto"
             variants={backgroundVariants}
             initial="hidden"
             animate="visible"

@@ -150,7 +150,7 @@ export default function Navbar() {
             <Link
               to="/#noticias"
               onClick={() => setIsOpen(false)}
-              className="w-full max-w-md text-white border-b border-liberty-border/60 pb-2 flex justify-center items-center mx-auto"
+              className="w-full max-w-md text-white  pb-2 flex justify-center items-center mx-auto"
             >
               Noticias
             </Link>
@@ -158,7 +158,7 @@ export default function Navbar() {
             <Link
               to="/#preview"
               onClick={() => setIsOpen(false)}
-              className="w-full max-w-md text-white border-b border-liberty-border/60 pb-2 flex justify-center items-center mx-auto"
+              className="w-full max-w-md text-white  pb-2 flex justify-center items-center mx-auto"
             >
               Propuestas
             </Link>
@@ -166,13 +166,13 @@ export default function Navbar() {
             <Link
               to="/#nosotros"
               onClick={() => setIsOpen(false)}
-              className="w-full max-w-md text-white border-b border-liberty-border/60 pb-2 flex justify-center items-center mx-auto"
+              className="w-full max-w-md text-white  pb-2 flex justify-center items-center mx-auto"
             >
               Nosotros
             </Link>
 
             {/* Dropdown Mobile */}
-            <div className="w-full max-w-md flex flex-col items-center border-b border-liberty-border/60 pb-2 mx-auto">
+            <div className="w-full max-w-md flex flex-col items-center  pb-2 mx-auto">
               <button
                 onClick={() => setIsMobileDropdownOpen(!isMobileDropdownOpen)}
                 className="w-full text-white flex justify-center items-center gap-2 cursor-pointer"
@@ -205,9 +205,9 @@ export default function Navbar() {
               </div>
             </div>
             <Link
-              to="#propone"
+              to="/#propone"
               onClick={() => setIsOpen(false)}
-              className="w-full max-w-md text-white border-b border-liberty-border/60 pb-2 flex justify-center items-center mx-auto"
+              className="w-full max-w-md text-white pb-2 flex justify-center items-center mx-auto"
             >
             Propone
             </Link>
