@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import {
   User,
   CreditCard,
@@ -96,7 +96,7 @@ export default function Sumate() {
           {/* =========================================
               LADO IZQUIERDO: Textos
               ========================================= */}
-           <motion.section
+           <m.section
             onViewportEnter={markAsAnimated}
             initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
             animate={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
@@ -139,12 +139,12 @@ export default function Sumate() {
                 ))}
               </div>
             </div>
-          </motion.section>
+          </m.section>
 
           {/* =========================================
               LADO DERECHO: Imagen + Formulario
               ========================================= */}
-          <motion.section
+          <m.section
             initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
             animate={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.1 }}
@@ -172,14 +172,14 @@ export default function Sumate() {
                       
                       {/* Animación de Éxito Optimizada (Sin drop-shadow en animación) */}
                       <div className="relative flex justify-center items-center">
-                      <motion.div
+                      <m.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ type: "spring", stiffness: 180, damping: 14 }}
                         className="relative z-10"
                       >
                           <CheckCircle2 className="w-20 h-20 md:w-24 md:h-24 text-green-400" />
-                        </motion.div>
+                        </m.div>
                       </div>
 
                       <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white">
@@ -342,7 +342,7 @@ export default function Sumate() {
                 </div>
               </div>
             </div>
-          </motion.section>
+          </m.section>
         </div>
       </div>
     </main>

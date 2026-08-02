@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useMemo } from "react";
 import CinematicLink from "./CinematicLink";
 import nosotrosimg1 from "../assets/uplunidos.webp";
@@ -43,7 +43,7 @@ export default function NosotrosPreview() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-12 items-center">
 
           {/* TEXTO */}
-          <motion.div
+          <m.div
             onViewportEnter={markAsAnimated} // Guardamos en memoria que ya se vio
             initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -87,10 +87,10 @@ export default function NosotrosPreview() {
                 Conocer nuestra historia
               </CinematicLink>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* GALERÍA (Sin animaciones de Blur, puramente transformaciones GPU) */}
-          <motion.div
+          <m.div
             initial={hasAnimated ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -125,7 +125,7 @@ export default function NosotrosPreview() {
                 Conocer nuestra historia
               </CinematicLink>
             </div>
-          </motion.div>
+          </m.div>
 
         </div>
       </div>

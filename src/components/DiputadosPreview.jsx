@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import CinematicLink from "./CinematicLink";
 
 import dip1 from "../assets/rominaDiezDiputada.webp";
@@ -34,7 +34,7 @@ export default function DiputadosPreview() {
             Diseño intacto
         ========================================= */}
         <div className="lg:hidden mb-10 text-center">
-          <motion.div
+          <m.div
             initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -48,13 +48,13 @@ export default function DiputadosPreview() {
             <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tighter leading-[0.9]">
               Nuestros <span className=" text-white">Diputados</span>
             </h2>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* =========================================
             GRID PRINCIPAL
         ========================================= */}
-        <motion.div
+        <m.div
           onViewportEnter={markAsAnimated}
           initial={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -65,7 +65,7 @@ export default function DiputadosPreview() {
           <div className="lg:col-span-5 flex flex-col justify-center text-center lg:text-left z-10 order-2 lg:order-1">
             
             {/* Título oculto en mobile (Diseño intacto) */}
-            <motion.div 
+            <m.div 
               className="hidden lg:block will-change-transform"
               initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
@@ -82,10 +82,10 @@ export default function DiputadosPreview() {
                   Diputados
                 </span>
               </h2>
-            </motion.div>
+            </m.div>
 
             {/* Descripción */}
-            <motion.div 
+            <m.div 
               initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -95,10 +95,10 @@ export default function DiputadosPreview() {
               <p className="text-base md:text-lg text-liberty-text-secondary max-w-lg mx-auto lg:mx-0 mb-10">
                 Llevamos la batalla por las ideas de la libertad a la cámara de diputados. Conoce a los legisladores que trabajan incansablemente para reducir el estado y defender tus derechos en Santa Fe.
               </p>
-            </motion.div>
+            </m.div>
 
             {/* Botón */}
-            <motion.div 
+            <m.div 
               initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               whileInView={hasAnimated ? false : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -111,12 +111,12 @@ export default function DiputadosPreview() {
               >
                   Ver legisladores
               </CinematicLink>
-            </motion.div>
+            </m.div>
           </div>
 
           {/* COLUMNA DERECHA - Bento Grid */}
           <div className="lg:col-span-7 relative w-full h-[500px] sm:h-[600px] lg:h-[700px] order-1 lg:order-2">
-            <motion.div 
+            <m.div 
               className="grid grid-cols-12 grid-rows-12 gap-1 md:gap-1 w-full h-full"
               initial={hasAnimated ? "visible" : "hidden"}
               whileInView="visible"
@@ -126,7 +126,7 @@ export default function DiputadosPreview() {
               }}
             >
               {/* Imagen Principal */}
-              <motion.div 
+              <m.div 
                 variants={bentoItem}
                 className="col-span-7 row-span-12 relative rounded-2xl overflow-hidden group border border-liberty-border/50 bg-liberty-card transform-gpu will-change-transform"
               >
@@ -138,10 +138,10 @@ export default function DiputadosPreview() {
                   loading="lazy" 
                   decoding="async"
                 />
-              </motion.div>
+              </m.div>
 
               {/* Imagen Superior Derecha */}
-              <motion.div 
+              <m.div 
                 variants={bentoItem}
                 className="col-span-5 row-span-7 relative rounded-2xl overflow-hidden group border border-liberty-border/50 bg-liberty-card transform-gpu will-change-transform"
               >
@@ -153,10 +153,10 @@ export default function DiputadosPreview() {
                   loading="lazy" 
                   decoding="async"
                 />
-              </motion.div>
+              </m.div>
 
               {/* Imagen Inferior Derecha */}
-              <motion.div 
+              <m.div 
                 variants={bentoItem}
                 className="col-span-5 row-span-5 relative rounded-2xl overflow-hidden group border border-liberty-border/50 bg-liberty-card transform-gpu will-change-transform"
               >
@@ -167,11 +167,11 @@ export default function DiputadosPreview() {
                   loading="lazy" 
                   decoding="async"
                 />
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
 
-        </motion.div>
+        </m.div>
       </div>
 
       <style dangerouslySetInnerHTML={{ __html: `

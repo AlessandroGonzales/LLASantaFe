@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import logoLibertad from "../assets/logoLibertad.webp";
 import backgroundImage from "../assets/mileidiezz.webp";
 import backgroundImageDos from "../assets/mileidiez.webp";
@@ -60,7 +60,7 @@ export default function Hero() {
     <header className="relative min-h-[100vh] bg-hero-gradient flex flex-col justify-center items-center px-4 border-b border-liberty-border overflow-hidden">
       
       {/* FONDOS */}
-      <motion.picture
+      <m.picture
         initial={hasAnimated ? { opacity: 0.85, scale: 1 } : { opacity: 0, scale: 1.1 }}
         animate={{ opacity: 0.85, scale: 1 }}
         transition={{ duration: 2.8, ease: "easeOut" }}
@@ -74,7 +74,7 @@ export default function Hero() {
           fetchPriority="high"
           className="w-full h-full object-cover object-top md:object-[center_1%]"
         />
-      </motion.picture>
+      </m.picture>
 
       <div className="absolute inset-0 bg-gradient-to-b from-liberty-bg/10 via-transparent to-liberty-bg z-0 pointer-events-none" />
 
@@ -83,7 +83,7 @@ export default function Hero() {
         
         {/* ÁGUILA */}
         <div className="relative flex justify-center items-center mb-6">
-          <motion.img
+          <m.img
             variants={eagleVariants}
             initial={hasAnimated ? "visible" : "hidden"}
             animate="visible"
@@ -95,30 +95,30 @@ export default function Hero() {
         </div>
 
         {/* TEXTOS */}
-        <motion.div
+        <m.div
           variants={textContainerVariants}
           initial={hasAnimated ? "visible" : "hidden"}
           animate="visible"
           className="space-y-2 md:space-y-4"
         >
-          <motion.h1
+          <m.h1
             variants={titleVariants}
             className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight leading-none uppercase text-white"
           >
             La Libertad Avanza
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             variants={subtitleVariants}
             className="text-lg md:text-2xl font-bold text-white uppercase tracking-[0.2em]"
           >
             Santa Fe
-          </motion.p>
-        </motion.div>
+          </m.p>
+        </m.div>
       </div>
 
       {/* BOTONES - Ahora relativos, no absolutos */}
-      <motion.div
+      <m.div
         initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.8 }}
@@ -135,10 +135,10 @@ export default function Hero() {
             to="/sumate"
             className="w-3/4 md:w-full px-10 py-4 rounded-4xl font-bold bg-[#C026D3] border border-[#C026D3] text-white hover:bg-[#A21CAF] cursor-pointer text-center "
           >
-            Súmate Al Partido
+            Afiliate Al Partido
           </CinematicLink>
         </div>
-      </motion.div>
+      </m.div>
     </header>
   );
 }
