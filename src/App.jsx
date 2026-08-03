@@ -25,6 +25,7 @@ const loadFeatures = () =>
 // El navegador SOLO descargará el código de estas páginas si el usuario hace clic en sus enlaces.
 const SeccionPropuestas = lazy(() => import("./components/SeccionPropuestas"));
 const PropuestaDetalle = lazy(() => import("./components/PropuestaDetalle"));
+const SedesLLA = lazy(() => import("./components/SedesLLA"));
 const NoticiaDetalle = lazy(() => import("./components/NoticiasDetalle"));
 const Sumate = lazy(() => import("./components/Sumate"));
 const NosotrosHistoria = lazy(() => import("./components/NosotrosHistoria"));
@@ -102,6 +103,7 @@ function App() {
                 />
                 <Route path="/diputados" element={<SeccionDiputados />} />
                 <Route path="/propone" element={<SeccionPropone />} />
+                <Route path="/sedes" element={<SedesLLA/>} />
               </Routes>
             </Suspense>
 

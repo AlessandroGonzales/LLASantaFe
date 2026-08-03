@@ -61,7 +61,7 @@ const ConcejalCard = memo(({ concejal, onSelect }) => {
         </span>
         
         {/* Indicador agregado con un mt-6 para evitar que se superponga con el after del nombre */}
-        <div className="mt-6 flex items-center text-liberty-primary font-bold text-[12px] md:text-xs uppercase tracking-wider group-hover:text-white transition-colors duration-300">
+        <div className="mt-6 flex items-center text-liberty-primary font-bold text-[10px] md:text-xs uppercase tracking-wider group-hover:text-white transition-colors duration-300">
           Ver perfil completo
         </div>
       </div>

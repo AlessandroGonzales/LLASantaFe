@@ -124,6 +124,13 @@ export default function Navbar() {
           >
               Propone
           </Link>
+               <Link
+            to="/sedes"
+            className="text-liberty-text-secondary hover:text-liberty-primary transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-primary after:transition-all hover:after:w-full"
+          >
+            Sedes
+          </Link>
+
         </div>
 
         {/* BOTÓN HAMBURGUESA */}
@@ -211,6 +218,14 @@ export default function Navbar() {
             >
             Propone
             </Link>
+              <Link
+              to="/sedes"
+              onClick={() => setIsOpen(false)}
+              className="w-full max-w-md text-white  pb-2 flex justify-center items-center mx-auto"
+            >
+              Sedes
+            </Link>
+
           </div>
 
           {/* Frase final */}
