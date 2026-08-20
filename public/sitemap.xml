@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+    <!-- Página Principal -->
+    <url>
+        <loc>https://www.lalibertadavanzasantafe.com/</loc>
+        <lastmod>2026-08-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <!-- Señal regional fuerte para Argentina -->
+        <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.tudominio.com.ar/" />
+    </url>
+
+    <!-- Ejemplo de una página interna (ej: Sobre Nosotros o Propuestas) -->
+    <url>
+        <loc>https://www.lalibertadavanzasantafe.com/nosotros</loc>
+        <lastmod>2026-08-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.lalibertadavanzasantafe.com/nosotros" />
+    </url>
+
+</urlset>

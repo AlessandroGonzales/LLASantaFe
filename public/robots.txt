@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Bloquea rutas que no quieres que aparezcan en Google (ajusta según tus rutas de React)
+Disallow: /admin/
+Disallow: /login/
+Disallow: /privado/
+
+# Indica explícitamente dónde está tu sitemap (cambia por tu dominio real, idealmente .com.ar o .ar)
+Sitemap: https://www.lalibertadavanzasantafe.com/sitemap.xml
