@@ -81,14 +81,14 @@ export default function SedesLLA() {
           
           {/* COLUMNA IZQUIERDA - MAPA */}
           <div className="lg:col-span-7 relative h-[400px] lg:h-[600px] rounded-2xl overflow-hidden border border-liberty-border/50 shadow-[0_0_40px_rgba(0,0,0,0.5)] group">
-            <div className="absolute inset-0 bg-liberty-bg/20 pointer-events-none z-10 transition-colors duration-500 group-hover:bg-transparent" />
+            <div className="absolute inset-0 pointer-events-none z-10 " />
             
             {/* 4. Iframe dinámico: el src ahora apunta a mapSrc y le agregamos una key para forzar el re-render visual si es necesario (opcional) */}
             <iframe
               key={selectedSede.id}
               title={`Mapa de Sede ${selectedSede.city}`}
               src={mapSrc}
-              className="w-full h-full border-0 grayscale invert opacity-80 transition-opacity duration-300"
+              className="w-full h-full border-0 "
               allowFullScreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

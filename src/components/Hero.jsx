@@ -58,13 +58,13 @@ export default function Hero() {
 
   return (
     <header className="relative min-h-[100vh] bg-hero-gradient flex flex-col justify-center items-center px-4 border-b border-liberty-border overflow-hidden">
-      
+
       {/* FONDOS */}
       <m.picture
         initial={hasAnimated ? { opacity: 0.85, scale: 1 } : { opacity: 0, scale: 1.1 }}
         animate={{ opacity: 0.85, scale: 1 }}
         transition={{ duration: 2.8, ease: "easeOut" }}
-        className="absolute inset-0 w-full h-full z-0"
+        className="absolute inset-0 w-full h-full z-0 cinematografict"
         onViewportEnter={markAsAnimated}
       >
         <source media="(min-width: 768px)" srcSet={backgroundImageDos} />
@@ -73,6 +73,10 @@ export default function Hero() {
           alt="Fondo La Libertad Avanza Santa Fe"
           fetchPriority="high"
           className="w-full h-full object-cover object-top md:object-[center_1%]"
+          style={{
+                  animation: "slowZoom 5s ease-in-out infinite alternate",
+                  transformOrigin: "center center",
+                }}
         />
       </m.picture>
 

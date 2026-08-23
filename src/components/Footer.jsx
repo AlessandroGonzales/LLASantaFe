@@ -1,13 +1,14 @@
-import logo from "../assets/aguila.webp"; 
+import logo from "../assets/aguila.webp";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-liberty-bg border-t border-liberty-border/100 pt-10 pb-8 px-6 overflow-hidden">
+    <footer
+      className="relative pt-10 pb-8 px-6 overflow-hidden"
+    >
       
       <div className="max-w-7xl mx-auto flex flex-col items-center relative z-10">
-        
         {/* LOGO Y NOMBRE */}
         <div className="flex flex-col items-center mb-8 group cursor-default">
           <img
@@ -15,13 +16,13 @@ export default function Footer() {
             alt="La Libertad Avanza Logo"
             loading="lazy"
             decoding="async"
-            className="h-20 md:h-24 w-auto mb-3"   // ← GPU friendly
+            className="h-30 md:h-30 w-auto mb-1"
           />
-          
+
           <h3 className="text-white font-black tracking-widest text-lg md:text-xl uppercase text-center">
             La Libertad Avanza
           </h3>
-          
+
           <p className="text-liberty-text-secondary font-bold tracking-[0.3em] text-xs md:text-sm mt-1 uppercase text-center">
             Santa Fe
           </p>
@@ -32,8 +33,7 @@ export default function Footer() {
           {/* Instagram */}
           <a
             href="https://www.instagram.com/lalibertadavanzasantafe/"
-            className="text-liberty-text-secondary hover:text-liberty-cyan 
-                        hover:scale-110 "
+            className="text-liberty-text-secondary hover:text-liberty-primary hover:scale-110 transition-transform"
             aria-label="Instagram"
             target="_blank"
             rel="noreferrer"
@@ -46,7 +46,7 @@ export default function Footer() {
           {/* Facebook y X (Twitter) - mismo patrón optimizado */}
           <a
             href="https://www.facebook.com/profile.php?id=61574583127255&locale=es_LA"
-            className="text-liberty-text-secondary hover:text-liberty-cyan "
+            className="text-liberty-text-secondary hover:text-liberty-primary transition-colors"
             aria-label="Facebook"
             target="_blank"
             rel="noreferrer"
@@ -58,7 +58,7 @@ export default function Footer() {
 
           <a
             href="https://x.com/LLASantaFe"
-            className="text-liberty-text-secondary hover:text-liberty-cyan "
+            className="text-liberty-text-secondary hover:text-liberty-primary transition-colors"
             aria-label="X"
             target="_blank"
             rel="noreferrer"
@@ -69,13 +69,17 @@ export default function Footer() {
           </a>
         </div>
 
-        <div className="w-full max-w-2xl h-px bg-gradient-to-r from-transparent via-liberty-border/40 to-transparent mb-6" />
+        <div className="w-full max-w-2xl h-1 bg-gradient-to-r from-transparent via-liberty-border  mb-6 mt-4" />
 
-        {/* COPYRIGHT */}
-        <div className="flex flex-col justify-between w-full items-center gap-4 text-liberty-text-secondary/80 text-[11px] md:text-xs uppercase tracking-[2px]">
-          <p className="text-center">
-            © {currentYear} LLA SANTA FE - TODOS LOS DERECHOS RESERVADOS.
-          </p>
+        {/* INFO FINAL: COPYRIGHT, FECHA Y DESARROLLADOR */}
+        <div className="flex flex-col items-center gap-6 text-liberty-text-secondary/99 text-[11px] md:text-xs uppercase tracking-[2px]">
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-2 text-center">
+            <p>
+              © {currentYear} LA LIBERTAD AVANZA SANTA FE - TODOS LOS DERECHOS
+              RESERVADOS
+            </p>
+            <p>HECHO EN AGOSTO 2026</p>
+          </div>
         </div>
       </div>
     </footer>
