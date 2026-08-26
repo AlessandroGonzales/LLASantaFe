@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Search, MapPin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import sedeRosario from "../assets/sedeRosario.webp"
+import maipu from "../assets/maipu.webp"
+import sastre from "../assets/sastre.webp"
 
 // 1. Array actualizado: Se agregaron lat y lng reales a cada sede
 const mockSedes = [
@@ -16,21 +18,21 @@ const mockSedes = [
   },
   {
     id: 2,
-    city: "Santa Fe Capital",
-    address: "Avenida Siempreviva 742",
-    imageUrl: sedeRosario, 
+    city: "Sastre",
+    address: "chacabuco 1499",
+    imageUrl: sastre, 
     defaultVisible: true,
-    lat: -31.6333,
-    lng: -60.7000,
+    lat: -31.768689815073042, 
+    lng: -61.83376706236775,
   },
   {
     id: 3,
-    city: "Rafaela",
-    address: "Bulevar Lehmann 456",
-    imageUrl: "", 
-    defaultVisible: false,
-    lat: -31.2503,
-    lng: -61.4867,
+    city: "Totoras",
+    address: "Av. Maipu 1254",
+    imageUrl: maipu, 
+    defaultVisible: true,
+    lat: -32.58842217989335,
+    lng: -61.163868216461026,
   },
   {
     id: 4,

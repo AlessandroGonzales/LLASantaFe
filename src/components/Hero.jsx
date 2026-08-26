@@ -94,7 +94,7 @@ export default function Hero() {
             src={logoLibertad}
             alt="Águila La Libertad Avanza"
             fetchPriority="high"
-            className="relative z-10 h-36 md:h-48 w-auto object-contain"
+            className="relative z-12 h-39 md:h-50 w-auto object-contain"
           />
         </div>
 
@@ -109,15 +109,10 @@ export default function Hero() {
             variants={titleVariants}
             className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight leading-none uppercase text-white"
           >
-            La Libertad Avanza
+            La Libertad Avanza Santa Fe
           </m.h1>
 
-          <m.p
-            variants={subtitleVariants}
-            className="text-lg md:text-2xl font-bold text-white uppercase tracking-[0.2em]"
-          >
-            Santa Fe
-          </m.p>
+
         </m.div>
       </div>
 

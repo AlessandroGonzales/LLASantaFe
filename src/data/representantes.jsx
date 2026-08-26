@@ -279,7 +279,10 @@ export const concejalesData = [
     cargo: "Concejal",
     profesion: "Politico",
     ciudad: "Funes",
-    redes: {},
+    redes: {
+      instagram: "@jeronimo.gianello",
+      twitter: "@GianelloJ"
+    },
     mail: "",
     telefono: "3413425034",
     proyectos: "Google.com",
@@ -312,7 +315,10 @@ export const concejalesData = [
     cargo: "Concejal",
     profesion: "Extracionista",
     ciudad: "Ciudad de Gálvez",
-    redes: {},
+    redes: {
+      instagram: "@claudiogamboaok",
+      twitter: "@ClaudioGamboa71"
+    },
     mail: "ConcejalGamboa2025@gmail.com.ar",
     telefono: "",
     proyectos: "Facebook y instagram",
