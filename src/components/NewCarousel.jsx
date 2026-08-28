@@ -157,7 +157,7 @@ export default function NewsCarousel() {
                     {news.description}
                   </p>
 
-                  <span className="inline-block w-full sm:w-auto px-10 py-3 rounded-4xl font-bold text-sm bg-liberty-card border border-liberty-border text-white group-hover:bg-liberty-border/40 group-hover:text-liberty-cyan text-center">
+                  <span className="inline-block w-full sm:w-auto px-10 py-3 rounded-4xl font-bold text-sm bg-liberty-card border border-liberty-border text-white group-hover:bg-liberty-border/40 group-hover:text-liberty-primary text-center">
                     Ver más
                   </span>
                 </div>

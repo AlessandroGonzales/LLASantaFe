@@ -45,7 +45,6 @@ export default function Sumate() {
     }
   };
 
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -83,20 +82,19 @@ export default function Sumate() {
   };
 
   return (
-    <main className="min-h-screen bg-liberty-bg text-white  relative overflow-hidden">
+    <main className="min-h-screen bg-liberty-bg text-white relative overflow-hidden">
       {/* =========================================
           FONDOS AMBIENTALES (Optimizados con radial-gradient en vez de blur)
           ========================================= */}
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top,rgba(217,70,239,0.18)_0%,rgba(30,8,45,0.08)_30%,rgba(30,8,45,0)_65%)] transform-gpu translate-z-0" />
-      
+
       {/* CONTENEDOR PRINCIPAL */}
-      <div className="relative z-10 w-full px-6 md:px-16 lg:px-24 xl:px-32 py-8 md:py-12 mt-10">
+      <div className="relative z-10 w-full px-4 md:px-16  xl:px-20 py-8 md:py-12 mt-10">
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-20 xl:gap-24 items-start">
-          
           {/* =========================================
               LADO IZQUIERDO: Textos
               ========================================= */}
-           <m.section
+          <m.section
             onViewportEnter={markAsAnimated}
             initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
             animate={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
@@ -105,13 +103,16 @@ export default function Sumate() {
           >
             <h1 className="mt-7 max-w-3xl text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-black uppercase leading-[0.95] tracking-tight text-white ">
               La reconstrucción <br />
-              <span className=" text-white text-center">
-                te necesita
-              </span>
+              <span className=" text-white text-center">te necesita</span>
             </h1>
 
             <p className="mt-6 max-w-2xl text-base sm:text-lg md:text-xl leading-relaxed text-liberty-text-secondary">
-              Los grandes cambios se realizan cuando todos están sumamente comprometidos. Nosotros queremos lo mejor para la provincia y para el país, ya que en ellos están esos jóvenes, empresarios, comerciantes, profesionales y niños que sueñan con una Argentina grande nuevamente. Por eso, necesitamos de tu apoyo; precisamos de tu valentía y coraje para dar esta batalla ante la casta.
+              Los grandes cambios se realizan cuando todos están sumamente
+              comprometidos. Nosotros queremos lo mejor para la provincia y para
+              el país, ya que en ellos están esos jóvenes, empresarios,
+              comerciantes, profesionales y niños que sueñan con una Argentina
+              grande nuevamente. Por eso, necesitamos de tu apoyo; precisamos de
+              tu valentía y coraje para dar esta batalla ante la casta.
             </p>
 
             <p className="mt-4 max-w-2xl text-base sm:text-lg font-medium text-liberty-primary">
@@ -119,24 +120,43 @@ export default function Sumate() {
             </p>
 
             {/* Steps */}
-            <div className="mt-10 rounded-[2rem] border border-liberty-border bg-liberty-card p-6 md:p-8 shadow-2xl transform-gpu translate-z-0">
-              <div className="mt-5 grid gap-4">
-                {steps.map((step, index) => (
-                  <div
-                    key={step.title}
-                    className="flex gap-4 rounded-2xl border border-white/6 bg-black/20 p-4"
-                  >
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-liberty-primary/15 border border-liberty-primary/25 text-liberty-primary font-black">
-                      {index + 1}
+            {/* Steps */}
+            <div className="mt-10 rounded-[2rem] border border-liberty-border bg-liberty-card/80 p-6 md:p-8 shadow-2xl backdrop-blur-sm transform-gpu translate-z-0">
+              <div className="mb-6">
+                <p className="text-[11px] md:text-xs font-black uppercase tracking-[0.28em] text-liberty-primary">
+                  Proceso simple
+                </p>
+                <h2 className="mt-2 text-xl md:text-2xl font-black uppercase tracking-tight text-white">
+                  Cómo sumarte
+                </h2>
+              </div>
+
+              <div className="relative">
+                {/* Línea vertical del timeline */}
+
+                <div className="grid gap-5">
+                  {steps.map((step, index) => (
+                    <div
+                      key={step.title}
+                      className="group relative flex gap-5 rounded-2xl border border-white/8 bg-black/25 p-5 transition-all duration-300 hover:border-liberty-primary/40 hover:bg-black/40 hover:shadow-[0_0_30px_rgba(217,70,239,0.12)]"
+                    >
+                      {/* Número */}
+                      <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-liberty-primary/30 to-liberty-primary/10 border border-liberty-primary/40 text-liberty-primary font-black text-sm shadow-[0_0_18px_rgba(217,70,239,0.25)] transition-transform duration-300 group-hover:scale-110">
+                        {index + 1}
+                      </div>
+
+                      {/* Contenido */}
+                      <div className="pt-0.5">
+                        <h3 className="font-bold text-white text-[15px] md:text-base tracking-wide">
+                          {step.title}
+                        </h3>
+                        <p className="mt-1.5 text-sm leading-relaxed text-liberty-text-secondary">
+                          {step.description}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-bold text-white">{step.title}</h3>
-                      <p className="mt-1 text-sm leading-relaxed text-liberty-text-secondary">
-                        {step.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </m.section>
@@ -169,15 +189,18 @@ export default function Sumate() {
                 <div className="p-6 sm:p-8 md:p-10">
                   {enviado ? (
                     <div className="flex flex-col items-center justify-center text-center py-12 md:py-16 space-y-5">
-                      
                       {/* Animación de Éxito Optimizada (Sin drop-shadow en animación) */}
                       <div className="relative flex justify-center items-center">
-                      <m.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: "spring", stiffness: 180, damping: 14 }}
-                        className="relative z-10"
-                      >
+                        <m.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 180,
+                            damping: 14,
+                          }}
+                          className="relative z-10"
+                        >
                           <CheckCircle2 className="w-20 h-20 md:w-24 md:h-24 text-green-400" />
                         </m.div>
                       </div>
@@ -197,7 +220,10 @@ export default function Sumate() {
                       </button>
                     </div>
                   ) : (
-                    <form onSubmit={handleSubmit} className="space-y-6 relative z-20">
+                    <form
+                      onSubmit={handleSubmit}
+                      className="space-y-6 relative z-20"
+                    >
                       <div className="mb-6">
                         <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white">
                           Ingreso al partido

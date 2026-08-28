@@ -41,7 +41,7 @@ export default function RepresentantesPreview() {
   return (
     <section
       id="representantes"
-      className="relative w-full py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-hidden border-t border-liberty-border"
+      className="relative w-full py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-hidden "
     >
       {/* Fondo desenfocado - Sin transform-gpu manual */}
       <div className="absolute top-0 left-0 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-liberty-primary/17 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3" />
