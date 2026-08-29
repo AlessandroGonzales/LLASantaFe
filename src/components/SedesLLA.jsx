@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import sedeRosario from "../assets/sedeRosario.webp"
 import maipu from "../assets/maipu.webp"
 import sastre from "../assets/sastre.webp"
+import galvez from "../assets/galvez.webp"
+import venado from "../assets/venado.webp"
 
 // 1. Array actualizado: Se agregaron lat y lng reales a cada sede
 const mockSedes = [
@@ -21,7 +23,7 @@ const mockSedes = [
     city: "Sastre",
     address: "chacabuco 1499",
     imageUrl: sastre, 
-    defaultVisible: true,
+    defaultVisible: false,
     lat: -31.768689815073042, 
     lng: -61.83376706236775,
   },
@@ -30,19 +32,29 @@ const mockSedes = [
     city: "Totoras",
     address: "Av. Maipu 1254",
     imageUrl: maipu, 
-    defaultVisible: true,
+    defaultVisible: false,
     lat: -32.58842217989335,
     lng: -61.163868216461026,
   },
   {
     id: 4,
-    city: "Venado Tuerto",
-    address: "San Martín 890",
-    imageUrl: "", 
-    defaultVisible: false,
-    lat: -33.7456,
-    lng: -61.9688,
+    city: "Galvez",
+    address: "Belgrano 670",
+    imageUrl: galvez, 
+    defaultVisible: true, 
+    lat: -32.031942733731015,
+    lng: -61.21977775358413
   },
+  {
+    id:5,
+    city: "Venado Tuerno",
+    address: "Rivadavia 1055",
+    imageUrl: venado,
+    defaultVisible: "True",
+    lat: -33.75255616699785, 
+    ing: -61.96534593463354
+
+  }
 ];
 
 export default function SedesLLA() {

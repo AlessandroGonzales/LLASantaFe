@@ -1,16 +1,15 @@
 import logo from "../assets/aguila.webp";
+import alessandro from "../assets/as.png"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer
-      className="relative pt-10 pb-8 px-6 overflow-hidden"
-    >
+    <footer className="relative pt-10 pb-8 px-6 overflow-hidden">
       
       <div className="max-w-7xl mx-auto flex flex-col items-center relative z-10">
         {/* LOGO Y NOMBRE */}
-        <div className="flex flex-col items-center mb-8 group cursor-default">
+        <div className="flex flex-col items-center mb-8 group">
           <img
             src={logo}
             alt="La Libertad Avanza Logo"
@@ -43,7 +42,7 @@ export default function Footer() {
             </svg>
           </a>
 
-          {/* Facebook y X (Twitter) - mismo patrón optimizado */}
+          {/* Facebook */}
           <a
             href="https://www.facebook.com/profile.php?id=61574583127255&locale=es_LA"
             className="text-liberty-text-secondary hover:text-liberty-primary transition-colors"
@@ -56,6 +55,7 @@ export default function Footer() {
             </svg>
           </a>
 
+          {/* X (Twitter) */}
           <a
             href="https://x.com/LLASantaFe"
             className="text-liberty-text-secondary hover:text-liberty-primary transition-colors"
@@ -69,17 +69,30 @@ export default function Footer() {
           </a>
         </div>
 
-        <div className="w-full max-w-2xl h-1 bg-gradient-to-r from-transparent via-liberty-border  mb-6 mt-4" />
+        <div className="w-full max-w-2xl h-1 bg-gradient-to-r from-transparent via-liberty-border mb-8 mt-4" />
 
         {/* INFO FINAL: COPYRIGHT, FECHA Y DESARROLLADOR */}
-        <div className="flex flex-col items-center gap-6 text-liberty-text-secondary/99 text-[11px] md:text-xs uppercase tracking-[2px]">
-          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-2 text-center">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 text-liberty-text-secondary text-[10px] md:text-xs uppercase tracking-[1px]">
+          
+          {/* Izquierda: Copyright */}
+          <div className="flex-1 flex justify-center md:justify-start text-center md:text-left">
             <p>
-              © {currentYear} LA LIBERTAD AVANZA SANTA FE - TODOS LOS DERECHOS
-              RESERVADOS
+              © {currentYear} LLA SANTA FE. TODOS LOS DERECHOS RESERVADOS.
             </p>
+          </div>
+
+          {/* Medio: Fecha */}
+          <div className="flex-1 flex justify-center text-center">
             <p>HECHO EN AGOSTO 2026</p>
           </div>
+
+          {/* Derecha: Logo y autoría */}
+          <div className="flex-1 flex justify-center md:justify-end items-center gap-2 text-center md:text-right">
+            <p>Realizado por</p>
+            <img src={alessandro} className="w-18 h-14 flex items-center justify-center  ">
+            </img>
+          </div>
+          
         </div>
       </div>
     </footer>

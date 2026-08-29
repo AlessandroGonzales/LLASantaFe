@@ -34,12 +34,9 @@ export default function PropuestaDetalle() {
   };
 
   return (
-    <main className="bg-liberty-bg text-white min-h-screen relative pt-24 pb-20">
-      {/* Fondos ambientales épicos */}
-
-      <div className="w-full max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+    <main className=" text-white min-h-screen relative pt-24 pb-20">
+      <div className="w-full max-w-7xl mx-auto px-4 md:px-2 relative z-10">
    
-
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* COLUMNA PRINCIPAL (Contenido) */}
           <div className="lg:col-span-8">
@@ -50,7 +47,7 @@ export default function PropuestaDetalle() {
             >
               {/* Etiquetas asimétricas */}
               <div className="flex flex-wrap items-center gap-3 mb-8">
-                <span className="flex items-center gap-2 text-[10px] md:text-xs uppercase tracking-widest font-black px-4 py-2 bg-liberty-primary text-black rounded-sm shadow-[0_0_15px_rgba(255,215,0,0.3)]">
+                <span className="flex items-center gap-2 text-[10px] md:text-xs uppercase tracking-widest font-black px-4 py-2 bg-liberty-primary rounded-sm">
                   <MapPin className="w-3.5 h-3.5" />
                   {propuesta.alcance === "provincial"
                     ? "Provincia de Santa Fe"
@@ -62,7 +59,7 @@ export default function PropuestaDetalle() {
               </div>
 
               {/* Título y Bajada */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-white/70 uppercase tracking-tight leading-[1.05] mb-8">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black  bg-clip-text  uppercase tracking-tight leading-[1.05] mb-8">
                 {propuesta.titulo}
               </h1>
               
@@ -120,7 +117,7 @@ export default function PropuestaDetalle() {
                 {/* Botón Descargar PDF */}
                 <button
                   onClick={handleDownloadPDF}
-                  className="w-full flex items-center justify-center gap-3 bg-liberty-primary text-black font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-white hover:-translate-y-1 transition-all duration-300 shadow-[0_5px_20px_rgba(255,215,0,0.15)] hover:shadow-[0_10px_30px_rgba(255,215,0,0.3)]  cursor-pointer"
+                  className="w-full flex items-center justify-center gap-3 bg-liberty-primary font-black uppercase tracking-wider py-4 px-6 rounded-xl  cursor-pointer"
                 >
                   <Download className="w-5 h-5" />
                   Descargar Proyecto
@@ -129,7 +126,7 @@ export default function PropuestaDetalle() {
                 {/* Botón Compartir WSP */}
                 <button
                   onClick={handleShareWSP}
-                  className="w-full flex items-center justify-center gap-3 bg-liberty-card text-white border border-liberty-border/50 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-[#25D366] hover:border-[#25D366] hover:-translate-y-1 transition-all duration-300 group  cursor-pointer"
+                  className="w-full flex items-center justify-center gap-3 bg-liberty-card text-white border border-liberty-border/50 font-black uppercase tracking-wider py-4 px-9 rounded-xl hover:bg-[#25D366] hover:border-[#25D366] hover:-translate-y-1 transition-all duration-300 group  cursor-pointer"
                 >
                   <Share2 className="w-5 h-5 group-hover:text-white text-[#25D366] transition-colors" />
                   Compartir vía WhatsApp

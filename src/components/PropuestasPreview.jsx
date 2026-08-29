@@ -113,7 +113,7 @@ export default function PropuestasPreview() {
             >
               <CinematicLink
                 to="/propuestas"
-                className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 font-bold text-white  bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-primary mb-10"
+                className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 text-white font-bold uppercase text-xs tracking-[0.2em] bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-primary mb-10"
               >
                   Ver Todas las Propuestas
               </CinematicLink>

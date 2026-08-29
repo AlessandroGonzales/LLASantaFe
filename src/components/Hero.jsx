@@ -118,13 +118,13 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-2xl mx-auto">
           <Link
             to="/#preview"
-            className="w-3/4 md:w-full  px-10 py-4 rounded-4xl font-bold bg-liberty-card border border-liberty-border text-liberty-text hover:bg-liberty-border/40 hover:text-liberty-cyan cursor-pointer text-center"
+            className="w-3/4 md:w-full px-10 py-4 rounded-4xl text-white font-bold uppercase text-xs tracking-[0.2em] bg-liberty-card border border-liberty-border  hover:bg-liberty-border/40 hover:text-liberty-primary cursor-pointer text-center"
           >
-            Conocer Propuestas
+            CONOCER PROPUESTAS
           </Link>
           <CinematicLink
             to="/sumate"
-            className="w-3/4 md:w-full px-10 py-4 rounded-4xl font-bold bg-[#C026D3] border border-[#C026D3] text-white hover:bg-[#A21CAF] cursor-pointer text-center "
+            className="w-3/4 md:w-full px-10 py-4 rounded-4xl  text-white font-bold uppercase text-xs tracking-[0.2em] bg-[#C026D3] border border-[#C026D3] hover:bg-[#B41CBB] cursor-pointer text-center "
           >
             Afiliate Al Partido
           </CinematicLink>
