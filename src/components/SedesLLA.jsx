@@ -20,24 +20,15 @@ const mockSedes = [
   },
   {
     id: 2,
-    city: "Sastre",
-    address: "chacabuco 1499",
-    imageUrl: sastre, 
-    defaultVisible: false,
-    lat: -31.768689815073042, 
-    lng: -61.83376706236775,
+    city: "Venado Tuerno",
+    address: "Rivadavia 1055",
+    imageUrl: venado, 
+    defaultVisible: true,
+    lat: -33.75375153070641, 
+    lng: -61.96468150855656
   },
   {
     id: 3,
-    city: "Totoras",
-    address: "Av. Maipu 1254",
-    imageUrl: maipu, 
-    defaultVisible: false,
-    lat: -32.58842217989335,
-    lng: -61.163868216461026,
-  },
-  {
-    id: 4,
     city: "Galvez",
     address: "Belgrano 670",
     imageUrl: galvez, 
@@ -46,15 +37,25 @@ const mockSedes = [
     lng: -61.21977775358413
   },
   {
-    id:5,
-    city: "Venado Tuerno",
-    address: "Rivadavia 1055",
-    imageUrl: venado,
-    defaultVisible: "True",
-    lat: -33.75255616699785, 
-    ing: -61.96534593463354
+    id: 4,
+    city: "Sastre",
+    address: "chacabuco 1499",
+    imageUrl: sastre, 
+    defaultVisible: false,
+    lat: -31.768689815073042, 
+    lng: -61.83376706236775,
+  },
+  {
+    id: 5,
+    city: "Totoras",
+    address: "Av. Maipu 1254",
+    imageUrl: maipu, 
+    defaultVisible: false,
+    lat: -32.58842217989335,
+    lng: -61.163868216461026,
+  },
 
-  }
+ 
 ];
 
 export default function SedesLLA() {
