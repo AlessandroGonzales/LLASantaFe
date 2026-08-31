@@ -16,9 +16,7 @@ export default function ProponePreview() {
   return (
     <section
       id="propone"
-      // =========================================
-      // SECCIÓN MODIFICADA: Quitamos border-t, agregamos la curva con clip-path
-      // =========================================
+
       className="relative w-full min-h-[95vh] md:min-h-[99vh] flex items-center justify-center overflow-hidden transform-gpu translate-z-0 bg-black"
       // APLICAMOS LA CURVA AQUÍ
       style={{
@@ -31,7 +29,7 @@ export default function ProponePreview() {
       <div className="absolute inset-0 z-0 overflow-hidden cinematografict ">
         <img
           src={proponeBg}
-          alt="Ciudadanos construyendo el futuro"
+          alt="Milei en Rosario"
           className="w-full h-full object-cover "
           loading="lazy"
           decoding="async"
