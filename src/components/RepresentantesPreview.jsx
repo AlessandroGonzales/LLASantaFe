@@ -61,7 +61,7 @@ export default function RepresentantesPreview() {
             <span className="text-sm font-bold tracking-[0.3em] text-liberty-primary uppercase block mb-4">
               El equipo en el territorio
             </span>
-            <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
+            <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tighter leading-[0.99] mb-6">
               Nuestros{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r text-white">
                 Concejales

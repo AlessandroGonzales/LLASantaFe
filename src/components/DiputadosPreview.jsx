@@ -76,7 +76,7 @@ export default function DiputadosPreview() {
                 La voz en la legislatura
               </span>
               
-              <h2 className="text-5xl md:text-6xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
+              <h2 className="text-5xl md:text-6xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.99] mb-6">
                 Nuestros <br className="hidden md:block"/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r text-white">
                   Diputados

@@ -57,7 +57,7 @@ export default function NosotrosPreview() {
                 </span>
               </div>
 
-              <h2 className="text-5xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.85] text-center lg:text-left">
+              <h2 className="text-5xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.99] text-center lg:text-left">
                 La trayectoria<br />
                 hacia la <span className="text-transparent bg-clip-text bg-gradient-to-br text-white">Grandeza</span>
               </h2>

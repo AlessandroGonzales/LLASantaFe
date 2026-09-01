@@ -87,14 +87,7 @@ export default function Footer() {
           </div>
 
           {/* Derecha: Logo y autoría */}
-          <div className="flex-1 flex justify-center md:justify-end items-center gap-2 text-center md:text-right">
-            <p>Realizado por</p>
-            <img 
-              src={alessandro}
-              alt="AlessandroSolutions"
-              className="w-18 h-14 flex items-center justify-center  ">
-            </img>
-          </div>
+          
           
         </div>
       </div>
