@@ -120,7 +120,8 @@ export default function NewsCarousel() {
           {/* CARRUSEL - Aceleración de hardware en el track de scroll */}
           <div
             ref={carouselRef}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-6 pb-8"
+            /* AGREGAMOS LA CLASE 'hide-scrollbar' AQUÍ ABAJO */
+            className="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 px-6 pb-8 hide-scrollbar"
             style={{ scrollPaddingLeft: "1.5rem" }}
           >
             {newsData.map((news, index) => (

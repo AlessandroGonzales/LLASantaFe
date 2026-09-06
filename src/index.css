@@ -23,3 +23,31 @@
   --color-liberty-text-secondary: #E9D5FF; /* Violeta muy claro para textos de lectura */
 
 }
+
+.hero-background-motion {
+  transform: scale(1.02);
+  transform-origin: center center;
+}
+
+@keyframes hero-camera-drift {
+  from {
+    transform: scale(1.02);
+  }
+
+  to {
+    transform: scale(1.07);
+  }
+}
+
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .hero-background-motion {
+    animation: hero-camera-drift 16s ease-in-out infinite alternate;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-background-motion {
+    animation: none;
+    transform: none;
+  }
+}

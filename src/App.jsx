@@ -86,26 +86,28 @@ function App() {
           <div className="bg-liberty-bg text-liberty-text font-satoshi">
             <Navbar />
 
-            <Suspense fallback={<PageLoader />}>
-              <Routes>
-                {/* Home se carga rápido, sin Suspense interrumpiendo el primer pantallazo */}
-                <Route path="/" element={<Home />} />
+            <main id="contenido-principal" tabIndex="-1">
+              <Suspense fallback={<PageLoader />}>
+                <Routes>
+                  {/* Home se carga rápido, sin Suspense interrumpiendo el primer pantallazo */}
+                  <Route path="/" element={<Home />} />
 
-                {/* Estas rutas se descargan bajo demanda gracias al Suspense y el lazy */}
-                <Route path="/propuestas" element={<SeccionPropuestas />} />
-                <Route path="/propuesta/:id" element={<PropuestaDetalle />} />
-                <Route path="/noticia/:id" element={<NoticiaDetalle />} />
-                <Route path="/sumate" element={<Sumate />} />
-                <Route path="/nosotros" element={<NosotrosHistoria />} />
-                <Route
-                  path="/representantes"
-                  element={<SeccionRepresentantes />}
-                />
-                <Route path="/diputados" element={<SeccionDiputados />} />
-                <Route path="/propone" element={<SeccionPropone />} />
-                <Route path="/sedes" element={<SedesLLA/>} />
-              </Routes>
-            </Suspense>
+                  {/* Estas rutas se descargan bajo demanda gracias al Suspense y el lazy */}
+                  <Route path="/propuestas" element={<SeccionPropuestas />} />
+                  <Route path="/propuesta/:id" element={<PropuestaDetalle />} />
+                  <Route path="/noticia/:id" element={<NoticiaDetalle />} />
+                  <Route path="/sumate" element={<Sumate />} />
+                  <Route path="/nosotros" element={<NosotrosHistoria />} />
+                  <Route
+                    path="/representantes"
+                    element={<SeccionRepresentantes />}
+                  />
+                  <Route path="/diputados" element={<SeccionDiputados />} />
+                  <Route path="/propone" element={<SeccionPropone />} />
+                  <Route path="/sedes" element={<SedesLLA />} />
+                </Routes>
+              </Suspense>
+            </main>
 
             <Footer />
           </div>

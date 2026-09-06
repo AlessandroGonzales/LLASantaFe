@@ -95,7 +95,7 @@ export default function Sumate() {
               LADO IZQUIERDO: Textos
               ========================================= */}
           <m.section
-            onViewportEnter={markAsAnimated}
+            onViewportEnter={markAsAnimated}  
             initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
             animate={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}

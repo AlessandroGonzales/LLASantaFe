@@ -1,238 +1,494 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
-import logo from "../assets/aguila.webp"; 
+import { Link, useLocation } from "react-router-dom";
+import logo from "../assets/aguila.webp";
+
+const desktopLinkBase =
+  "relative inline-flex min-h-11 items-center px-2 py-2 text-sm font-bold tracking-wide transition-colors duration-200 after:absolute after:inset-x-2 after:bottom-1 after:h-0.5 after:origin-left after:bg-liberty-primary after:transition-transform after:duration-300 focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white";
+
+const mobileLinkBase =
+  "group flex min-h-14 w-full items-center gap-4 border-b border-white/10 py-3 text-left text-xl font-black uppercase tracking-[0.08em] transition-colors hover:text-liberty-primary focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:text-2xl";
+
+function desktopLinkClass(isActive) {
+  return `${desktopLinkBase} ${
+    isActive
+      ? "text-white after:scale-x-100"
+      : "text-liberty-text-secondary after:scale-x-0 hover:text-white hover:after:scale-x-100"
+  }`;
+}
+
+function mobileLinkClass(isActive) {
+  return `${mobileLinkBase} ${
+    isActive ? "text-liberty-primary" : "text-white"
+  }`;
+}
+
+function MobileIndex({ children }) {
+  return (
+    <span
+      aria-hidden="true"
+      className="w-7 shrink-0 text-xs font-black tracking-[0.18em] text-liberty-primary"
+    >
+      {children}
+    </span>
+  );
+}
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  const [isScrolled, setIsScrolled] = useState(
+    () => typeof window !== "undefined" && window.scrollY > 12,
+  );
   const [isOpen, setIsOpen] = useState(false);
   const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
+  const [isDesktopDropdownOpen, setIsDesktopDropdownOpen] = useState(false);
+  const menuButtonRef = useRef(null);
+  const mobileMenuRef = useRef(null);
+  const desktopDropdownRef = useRef(null);
 
-  // Scroll handler optimizado
+  const isHomeSection = (hash) =>
+    location.pathname === "/" && location.hash === hash;
+
+  const representativesAreActive =
+    location.pathname === "/diputados" ||
+    location.pathname === "/representantes" ||
+    isHomeSection("#diputados") ||
+    isHomeSection("#representantes");
+
+  const closeMobileMenu = () => {
+    setIsOpen(false);
+    setIsMobileDropdownOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    if (isOpen) setIsMobileDropdownOpen(false);
+    setIsOpen((current) => !current);
+  };
+
   useEffect(() => {
-   const handleScroll = () => {
-    const scrolled = window.scrollY > 10;
+    const handleScroll = () => {
+      const scrolled = window.scrollY > 12;
+      setIsScrolled((current) => (current === scrolled ? current : scrolled));
+    };
 
-    setIsScrolled(prev => (
-        prev === scrolled
-            ? prev
-            : scrolled
-    ));
-};
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Bloqueo de scroll
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setIsMobileDropdownOpen(false);
-    }
+    if (!isDesktopDropdownOpen) return undefined;
+
+    const handlePointerDown = (event) => {
+      if (!desktopDropdownRef.current?.contains(event.target)) {
+        setIsDesktopDropdownOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") setIsDesktopDropdownOpen(false);
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isDesktopDropdownOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const focusFrame = window.requestAnimationFrame(() => {
+      mobileMenuRef.current?.querySelector("a")?.focus();
+    });
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        closeMobileMenu();
+        menuButtonRef.current?.focus();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const menuItems = Array.from(
+        mobileMenuRef.current?.querySelectorAll(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ) ?? [],
+      ).filter((element) => element.getClientRects().length > 0);
+      const focusableItems = [menuButtonRef.current, ...menuItems].filter(
+        Boolean,
+      );
+
+      if (focusableItems.length === 0) return;
+
+      const firstItem = focusableItems[0];
+      const lastItem = focusableItems[focusableItems.length - 1];
+
+      if (event.shiftKey && document.activeElement === firstItem) {
+        event.preventDefault();
+        lastItem.focus();
+      } else if (!event.shiftKey && document.activeElement === lastItem) {
+        event.preventDefault();
+        firstItem.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.cancelAnimationFrame(focusFrame);
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, [isOpen]);
 
   return (
     <header
-      className={`w-full fixed top-0 left-0 z-50 h-16 transition-transform duration-300  ${
+      className={`fixed inset-x-0 top-0 z-50 h-16 border-b transition-[background-color,border-color,box-shadow] duration-300 ${
         isScrolled || isOpen
-          ? "bg-liberty-bg/95 shadow-lg border-b border-liberty-border"
+          ? "border-liberty-border/80 bg-liberty-bg/95 shadow-[0_12px_40px_rgba(10,2,18,0.28)] backdrop-blur-xl"
           : "bg-transparent border-b border-transparent"
       }`}
     >
-      <nav className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
-        
-        {/* LOGO E IDENTIDAD */}
+      <a
+        href="#contenido-principal"
+        className="fixed left-4 top-3 z-[70] -translate-y-20 rounded-full bg-white px-5 py-3 text-sm font-black text-liberty-bg shadow-xl transition-transform focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-liberty-primary"
+      >
+        Saltar al contenido
+      </a>
+
+      <nav
+        aria-label="Navegación principal"
+        className="mx-auto flex h-full max-w-[90rem] items-center justify-between px-4 sm:px-6 lg:px-8"
+      >
         <Link
           to="/"
-          onClick={() => setIsOpen(false)}
-          className="flex items-center group z-50"
+          onClick={closeMobileMenu}
+          aria-label="La Libertad Avanza Santa Fe, ir al inicio"
+          className="group relative z-50 flex min-h-11 items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
         >
-          <div className="relative flex items-center h-9 w-auto group-hover:scale-105">
-            <img
-              src={logo}
-              alt="La Libertad Avanza Santa Fe"
-              fetchPriority="high"
-              className="h-16 w-auto object-contain "
-              onError={(e) => {
-                e.target.style.display = "none";
-              }}
-            />
-          </div>
+          <img
+            src={logo}
+            alt=""
+            aria-hidden="true"
+            width="539"
+            height="545"
+            decoding="async"
+            className="h-12 w-12 object-contain drop-shadow-[0_8px_18px_rgba(0,0,0,0.28)] transition-transform duration-300 group-hover:scale-105"
+          />
 
-          <div className="flex flex-col justify-center leading-none ml-2">
-            <span className="text-[12px] font-black tracking-tight uppercase group-hover:text-liberty-primary transition-colors">
-              LA LIBERTAD AVANZA
+          <span className="ml-2 flex flex-col justify-center leading-none">
+            <span className="text-xs font-black uppercase tracking-tight text-white transition-colors group-hover:text-liberty-primary sm:text-[0.82rem]">
+              La Libertad Avanza
             </span>
-            <span className="text-[10px] font-bold tracking-widest text-white uppercase mt-0.5">
-              SANTA FE
+            <span className="mt-1 text-xs font-bold uppercase tracking-[0.2em] text-liberty-text-secondary">
+              Santa Fe
             </span>
-          </div>
+          </span>
         </Link>
 
-        {/* MENÚ DESKTOP */}
-        <div className="hidden md:flex items-center h-full gap-8 text-[15px] font-medium">
+        <div className="hidden h-full items-center gap-1 xl:flex">
           <Link
             to="/#noticias"
-            className="text-liberty-text-secondary hover:text-liberty-primary transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-primary after:transition-all hover:after:w-full"
+            aria-current={isHomeSection("#noticias") ? "location" : undefined}
+            className={desktopLinkClass(isHomeSection("#noticias"))}
           >
             Noticias
           </Link>
           <Link
-            to="/#preview"
-            className="text-liberty-text-secondary hover:text-liberty-primary transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-primary after:transition-all hover:after:w-full"
+            to="/propuestas"
+            aria-current={
+              location.pathname === "/propuestas" ? "page" : undefined
+            }
+            className={desktopLinkClass(
+              location.pathname === "/propuestas" ||
+                location.pathname.startsWith("/propuesta/"),
+            )}
           >
             Propuestas
           </Link>
           <Link
-            to="/#nosotros"
-            className="text-liberty-text-secondary hover:text-liberty-primary transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-primary after:transition-all hover:after:w-full"
+            to="/nosotros"
+            aria-current={location.pathname === "/nosotros" ? "page" : undefined}
+            className={desktopLinkClass(location.pathname === "/nosotros")}
           >
             Nosotros
           </Link>
 
-          {/* Dropdown Representantes */}
-          <div className="relative group h-full flex items-center">
-            <button className="text-liberty-text-secondary hover:text-liberty-primary transition-colors duration-200 relative py-1 flex items-center gap-1 cursor-pointer">
+          <div
+            ref={desktopDropdownRef}
+            className="relative flex h-full items-center"
+            onMouseEnter={() => setIsDesktopDropdownOpen(true)}
+            onMouseLeave={() => setIsDesktopDropdownOpen(false)}
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget)) {
+                setIsDesktopDropdownOpen(false);
+              }
+            }}
+          >
+            <button
+              type="button"
+              aria-haspopup="true"
+              aria-expanded={isDesktopDropdownOpen}
+              aria-controls="desktop-representatives-menu"
+              onClick={() =>
+                setIsDesktopDropdownOpen((current) => !current)
+              }
+              className={`${desktopLinkClass(representativesAreActive)} gap-1.5 cursor-pointer`}
+            >
               Representantes
-              <ChevronDown className="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" />
-              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-liberty-primary transition-all duration-300 group-hover:w-full" />
+              <ChevronDown
+                aria-hidden="true"
+                className={`h-4 w-4 transition-transform duration-300 ${
+                  isDesktopDropdownOpen ? "rotate-180" : ""
+                }`}
+              />
             </button>
 
-            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-              <div className="bg-liberty-card border border-liberty-border rounded-xl shadow-xl overflow-hidden w-48 flex flex-col py-2">
+            <div
+              id="desktop-representatives-menu"
+              aria-hidden={!isDesktopDropdownOpen}
+              className={`absolute left-1/2 top-full w-56 -translate-x-1/2 pt-2 transition-all duration-200 ${
+                isDesktopDropdownOpen
+                  ? "visible translate-y-0 opacity-100"
+                  : "invisible translate-y-2 opacity-0"
+              }`}
+            >
+              <div className="overflow-hidden rounded-2xl border border-liberty-border bg-liberty-bg/98 p-2 shadow-[0_18px_50px_rgba(8,2,14,0.45)] backdrop-blur-xl">
                 <Link
-                  to="/#diputados"
-                  className="px-5 py-3 text-[13px] font-bold tracking-widest uppercase text-white hover:bg-liberty-primary/10 hover:text-liberty-primary transition-colors"
+                  to="/diputados"
+                  tabIndex={isDesktopDropdownOpen ? 0 : -1}
+                  onClick={() => setIsDesktopDropdownOpen(false)}
+                  className="flex min-h-11 items-center rounded-xl px-4 text-sm font-bold text-white transition-colors hover:bg-liberty-primary/15 hover:text-liberty-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                 >
-                  Diputados
+                  Diputados nacionales
                 </Link>
                 <Link
-                  to="/#representantes"
-                  className="px-5 py-3 text-[13px] font-bold tracking-widest uppercase text-white hover:bg-liberty-primary/10 hover:text-liberty-primary transition-colors"
+                  to="/representantes"
+                  tabIndex={isDesktopDropdownOpen ? 0 : -1}
+                  onClick={() => setIsDesktopDropdownOpen(false)}
+                  className="flex min-h-11 items-center rounded-xl px-4 text-sm font-bold text-white transition-colors hover:bg-liberty-primary/15 hover:text-liberty-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                 >
                   Concejales
                 </Link>
               </div>
             </div>
           </div>
+
           <Link
-            to="/#propone"
-            className="text-liberty-text-secondary hover:text-liberty-primary transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-primary after:transition-all hover:after:w-full"
+            to="/propone"
+            aria-current={location.pathname === "/propone" ? "page" : undefined}
+            className={desktopLinkClass(location.pathname === "/propone")}
           >
-              Propone
+            Proponé
           </Link>
-               <Link
+          <Link
             to="/sedes"
-            className="text-liberty-text-secondary hover:text-liberty-primary transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-liberty-primary after:transition-all hover:after:w-full"
+            aria-current={location.pathname === "/sedes" ? "page" : undefined}
+            className={desktopLinkClass(location.pathname === "/sedes")}
           >
             Sedes
           </Link>
-
+          <Link
+            to="/sumate"
+            aria-current={location.pathname === "/sumate" ? "page" : undefined}
+            className="ml-2 inline-flex min-h-11 items-center justify-center rounded-full border border-liberty-primary bg-liberty-primary px-5 text-sm font-black uppercase tracking-[0.08em] text-liberty-text transition-colors hover:border-liberty-primary-hover hover:bg-liberty-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-liberty-bg"
+          >
+            Sumate
+          </Link>
         </div>
 
-        {/* BOTÓN HAMBURGUESA */}
         <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="flex flex-col justify-center items-center md:hidden z-50 w-8 h-8 rounded-lg border border-liberty-border/40 bg-liberty-card/50 space-y-1.5 focus:outline-none cursor-pointer will-change-transform"
-          aria-label="Toggle Menu"
+          ref={menuButtonRef}
+          type="button"
+          onClick={toggleMobileMenu}
+          aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={isOpen}
+          aria-controls="mobile-navigation"
+          className="relative z-50 flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-liberty-bg/70 text-white backdrop-blur-md transition-colors hover:border-liberty-primary hover:text-liberty-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white xl:hidden"
         >
-          <span className={`block w-4 h-0.5 bg-white transition-all duration-300 ease-out ${isOpen ? "rotate-45 translate-y-2 w-5" : ""}`} />
-          <span className={`block w-5 h-0.5 bg-white transition-all duration-300 ease-out ${isOpen ? "opacity-0" : ""}`} />
-          <span className={`block w-4 h-0.5 bg-white transition-all duration-300 ease-out ${isOpen ? "-rotate-45 -translate-y-2 w-5" : ""}`} />
+          <span
+            aria-hidden="true"
+            className={`absolute h-0.5 w-5 bg-current transition-transform duration-300 ${
+              isOpen ? "rotate-45" : "-translate-y-1.5"
+            }`}
+          />
+          <span
+            aria-hidden="true"
+            className={`absolute h-0.5 w-5 bg-current transition-opacity duration-200 ${
+              isOpen ? "opacity-0" : "opacity-100"
+            }`}
+          />
+          <span
+            aria-hidden="true"
+            className={`absolute h-0.5 w-5 bg-current transition-transform duration-300 ${
+              isOpen ? "-rotate-45" : "translate-y-1.5"
+            }`}
+          />
         </button>
 
-        {/* MENÚ FULLSCREEN MOBILE - OPTIMIZADO */}
         <div
-          className={`fixed inset-0 top-0 left-0 w-full h-screen bg-liberty-bg flex flex-col justify-between transition-all duration-300 md:hidden pt-24 pb-12 px-10 ${
-            isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none translate-x-full"
+          ref={mobileMenuRef}
+          id="mobile-navigation"
+          role="dialog"
+          aria-modal={isOpen ? "true" : undefined}
+          aria-label="Menú principal"
+          aria-hidden={!isOpen}
+          className={`fixed inset-0 z-40 h-[100dvh] overflow-y-auto bg-liberty-bg px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-24 transition-[opacity,transform,visibility] duration-300 sm:px-10 xl:hidden ${
+            isOpen
+              ? "visible translate-x-0 opacity-100"
+              : "invisible translate-x-full opacity-0"
           }`}
         >
-          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] bg-liberty-primary/10 rounded-full blur-[80px] pointer-events-none" />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-1/4 h-72 w-72 -translate-x-1/2 rounded-full bg-liberty-primary/10 blur-[90px]"
+          />
 
-          {/* Contenido principal */}
-          <div className="relative z-10 flex flex-col flex-1 justify-center space-y-6 text-2xl font-black uppercase tracking-widest">
-            <Link
-              to="/#noticias"
-              onClick={() => setIsOpen(false)}
-              className="w-full max-w-md text-white  pb-2 flex justify-center items-center mx-auto"
-            >
-              Noticias
-            </Link>
-
-            <Link
-              to="/#preview"
-              onClick={() => setIsOpen(false)}
-              className="w-full max-w-md text-white  pb-2 flex justify-center items-center mx-auto"
-            >
-              Propuestas
-            </Link>
-
-            <Link
-              to="/#nosotros"
-              onClick={() => setIsOpen(false)}
-              className="w-full max-w-md text-white  pb-2 flex justify-center items-center mx-auto"
-            >
-              Nosotros
-            </Link>
-
-            {/* Dropdown Mobile */}
-            <div className="w-full max-w-md flex flex-col items-center  pb-2 mx-auto">
-              <button
-                onClick={() => setIsMobileDropdownOpen(!isMobileDropdownOpen)}
-                className="w-full text-white flex justify-center items-center gap-2 cursor-pointer"
-              >
-                <span>REPRESENTANTES</span>
-                <ChevronDown 
-                  className={`w-6 h-6 transition-transform duration-300 ${isMobileDropdownOpen ? "rotate-180" : ""}`} 
-                />
-              </button>
-              
-              <div 
-                className={`flex flex-col items-center overflow-hidden  ease-in-out w-full ${
-                  isMobileDropdownOpen ? "max-h-40 mt-5 opacity-100" : "max-h-0 opacity-0"
-                }`}
-              >
-                <Link
-                  to="/#diputados"
-                  onClick={() => setIsOpen(false)}
-                  className="text-lg font-bold text-liberty-text-secondary  py-3 w-full text-center uppercase tracking-widest"
-                >
-                  Diputados
-                </Link>
-                <Link
-                  to="/#representantes"
-                  onClick={() => setIsOpen(false)}
-                  className="text-lg font-bold text-liberty-text-secondary py-2 w-full text-center uppercase tracking-widest"
-                >
-                  Concejales
-                </Link>
-              </div>
-            </div>
-            <Link
-              to="/#propone"
-              onClick={() => setIsOpen(false)}
-              className="w-full max-w-md text-white pb-2 flex justify-center items-center mx-auto"
-            >
-            Propone
-            </Link>
-              <Link
-              to="/sedes"
-              onClick={() => setIsOpen(false)}
-              className="w-full max-w-md text-white  pb-2 flex justify-center items-center mx-auto"
-            >
-              Sedes
-            </Link>
-
-          </div>
-
-          {/* Frase final */}
-          <div className="relative z-10 text-center mt-auto pt-8 border-t border-liberty-border">
-            <p className="text-base tracking-wide text-liberty-text-secondary max-w-xs mx-auto leading-relaxed">
-              "Una vida sin libertad no merece ser vivida"
+          <div className="relative mx-auto flex min-h-full w-full max-w-xl flex-col">
+            <p className="mb-4 text-sm font-bold uppercase tracking-[0.22em] text-liberty-text-secondary">
+              Navegación
             </p>
+
+            <div className="flex flex-col">
+              <Link
+                to="/#noticias"
+                onClick={closeMobileMenu}
+                aria-current={
+                  isHomeSection("#noticias") ? "location" : undefined
+                }
+                className={mobileLinkClass(isHomeSection("#noticias"))}
+              >
+                <MobileIndex>01</MobileIndex>
+                Noticias
+              </Link>
+              <Link
+                to="/propuestas"
+                onClick={closeMobileMenu}
+                aria-current={
+                  location.pathname === "/propuestas" ? "page" : undefined
+                }
+                className={mobileLinkClass(
+                  location.pathname === "/propuestas" ||
+                    location.pathname.startsWith("/propuesta/"),
+                )}
+              >
+                <MobileIndex>02</MobileIndex>
+                Propuestas
+              </Link>
+              <Link
+                to="/nosotros"
+                onClick={closeMobileMenu}
+                aria-current={
+                  location.pathname === "/nosotros" ? "page" : undefined
+                }
+                className={mobileLinkClass(location.pathname === "/nosotros")}
+              >
+                <MobileIndex>03</MobileIndex>
+                Nosotros
+              </Link>
+
+              <div className="border-b border-white/10">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setIsMobileDropdownOpen((current) => !current)
+                  }
+                  aria-expanded={isMobileDropdownOpen}
+                  aria-controls="mobile-representatives-menu"
+                  className={`group flex min-h-14 w-full items-center gap-4 py-3 text-left text-xl font-black uppercase tracking-[0.08em] transition-colors hover:text-liberty-primary focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:text-2xl ${
+                    representativesAreActive
+                      ? "text-liberty-primary"
+                      : "text-white"
+                  }`}
+                >
+                  <MobileIndex>04</MobileIndex>
+                  <span className="flex-1">Representantes</span>
+                  <ChevronDown
+                    aria-hidden="true"
+                    className={`h-5 w-5 shrink-0 transition-transform duration-300 ${
+                      isMobileDropdownOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+
+                <div
+                  id="mobile-representatives-menu"
+                  aria-hidden={!isMobileDropdownOpen}
+                  className={`grid transition-[grid-template-rows,opacity] duration-300 ${
+                    isMobileDropdownOpen
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="mb-3 ml-11 flex flex-col border-l border-liberty-primary/50 pl-5">
+                      <Link
+                        to="/diputados"
+                        tabIndex={isMobileDropdownOpen ? 0 : -1}
+                        onClick={closeMobileMenu}
+                        className="flex min-h-11 items-center text-base font-bold uppercase tracking-[0.08em] text-liberty-text-secondary hover:text-liberty-primary focus-visible:outline-none focus-visible:text-white"
+                      >
+                        Diputados nacionales
+                      </Link>
+                      <Link
+                        to="/representantes"
+                        tabIndex={isMobileDropdownOpen ? 0 : -1}
+                        onClick={closeMobileMenu}
+                        className="flex min-h-11 items-center text-base font-bold uppercase tracking-[0.08em] text-liberty-text-secondary hover:text-liberty-primary focus-visible:outline-none focus-visible:text-white"
+                      >
+                        Concejales
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <Link
+                to="/propone"
+                onClick={closeMobileMenu}
+                aria-current={
+                  location.pathname === "/propone" ? "page" : undefined
+                }
+                className={mobileLinkClass(location.pathname === "/propone")}
+              >
+                <MobileIndex>05</MobileIndex>
+                Proponé
+              </Link>
+              <Link
+                to="/sedes"
+                onClick={closeMobileMenu}
+                aria-current={
+                  location.pathname === "/sedes" ? "page" : undefined
+                }
+                className={mobileLinkClass(location.pathname === "/sedes")}
+              >
+                <MobileIndex>06</MobileIndex>
+                Sedes
+              </Link>
+            </div>
+
+            <div className="mt-auto pt-8">
+              <Link
+                to="/sumate"
+                onClick={closeMobileMenu}
+                aria-current={
+                  location.pathname === "/sumate" ? "page" : undefined
+                }
+                className="inline-flex min-h-13 w-full items-center justify-center rounded-full border border-liberty-primary bg-liberty-primary px-7 py-4 text-sm font-black uppercase tracking-[0.12em] text-liberty-bg transition-colors hover:border-liberty-primary-hover hover:bg-liberty-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-liberty-bg"
+              >
+                Sumate a La Libertad Avanza
+              </Link>
+              <p className="mt-5 text-center text-xs font-bold uppercase tracking-[0.2em] text-liberty-text-secondary">
+                La Libertad Avanza · Santa Fe
+              </p>
+            </div>
           </div>
         </div>
       </nav>
