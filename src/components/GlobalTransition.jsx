@@ -43,7 +43,7 @@ const GlobalTransition = memo(function GlobalTransition() {
     <AnimatePresence>
       {transitionData.active && (
         <m.div
-          key="global-transition" // Clave única obligatoria para AnimatePresence
+          key="global-transition" 
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-liberty-bg pointer-events-auto"
           variants={backgroundVariants}
           initial="hidden"
@@ -53,12 +53,10 @@ const GlobalTransition = memo(function GlobalTransition() {
           <m.img
             src={logoLibertad}
             alt="Transición"
-            // Reemplazamos WebkitUserSelect por las clases de Tailwind y props nativas
             className="relative z-30 w-48 h-auto object-contain select-none"
             variants={eagleFlyVariants}
             initial="hidden"
             animate="flying"
-            // Optimizaciones nativas para imágenes críticas de transición
             decoding="sync"
             fetchpriority="high"
             draggable={false}
