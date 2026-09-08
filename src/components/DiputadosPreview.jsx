@@ -16,6 +16,10 @@ const bentoItem = {
   },
 };
 
+const galleryVariants = {
+  visible: { transition: { staggerChildren: 0.2 } },
+};
+
 function readAnimationFlag() {
   if (typeof window === "undefined") return false;
 
@@ -45,6 +49,7 @@ export default function DiputadosPreview() {
     <section 
       id="diputados" 
       aria-labelledby="diputados-preview-heading"
+      aria-describedby="diputados-preview-description"
       className="relative w-full scroll-mt-16 py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-hidden"
     >
       {/* Luces GPU Aisladas */}
@@ -118,7 +123,7 @@ export default function DiputadosPreview() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <p className="text-base md:text-lg text-liberty-text-secondary max-w-lg mx-auto lg:mx-0 mb-10">
+              <p id="diputados-preview-description" className="text-base md:text-lg text-liberty-text-secondary max-w-lg mx-auto lg:mx-0 mb-10">
                 Llevamos las ideas de la libertad a la Cámara de Diputados de la Nación. Conocé a los legisladores que trabajan para reducir el Estado y defender los derechos de los santafesinos.
               </p>
             </m.div>
@@ -142,16 +147,17 @@ export default function DiputadosPreview() {
           {/* COLUMNA DERECHA - Bento Grid */}
           <div className="lg:col-span-7 relative w-full h-[500px] sm:h-[600px] lg:h-[700px] order-1 lg:order-2">
             <m.div 
+              role="list"
+              aria-label="Diputados nacionales de La Libertad Avanza por Santa Fe"
               className="grid grid-cols-12 grid-rows-12 gap-1 md:gap-1 w-full h-full"
               initial={skipAnimation ? false : "hidden"}
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
-              variants={{
-                visible: { transition: { staggerChildren: 0.2 } }
-              }}
+              variants={galleryVariants}
             >
               {/* Imagen Principal */}
               <m.div 
+                role="listitem"
                 variants={bentoItem}
                 className="col-span-7 row-span-12 relative rounded-2xl overflow-hidden group border border-liberty-border/50 bg-liberty-card"
               >
@@ -169,6 +175,7 @@ export default function DiputadosPreview() {
 
               {/* Imagen Superior Derecha */}
               <m.div 
+                role="listitem"
                 variants={bentoItem}
                 className="col-span-5 row-span-7 relative rounded-2xl overflow-hidden group border border-liberty-border/50 bg-liberty-card"
               >
@@ -186,6 +193,7 @@ export default function DiputadosPreview() {
 
               {/* Imagen Inferior Derecha */}
               <m.div 
+                role="listitem"
                 variants={bentoItem}
                 className="col-span-5 row-span-5 relative rounded-2xl overflow-hidden group border border-liberty-border/50 bg-liberty-card"
               >

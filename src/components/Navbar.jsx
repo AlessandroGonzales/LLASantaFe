@@ -156,13 +156,6 @@ export default function Navbar() {
           : "bg-transparent border-b border-transparent"
       }`}
     >
-      <a
-        href="#contenido-principal"
-        className="fixed left-4 top-3 z-[70] -translate-y-20 rounded-full bg-white px-5 py-3 text-sm font-black text-liberty-bg shadow-xl transition-transform focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-liberty-primary"
-      >
-        Saltar al contenido
-      </a>
-
       <nav
         aria-label="Navegación principal"
         className="mx-auto flex h-full max-w-[90rem] items-center justify-between px-4 sm:px-6 lg:px-8"
@@ -171,7 +164,7 @@ export default function Navbar() {
           to="/"
           onClick={closeMobileMenu}
           aria-label="La Libertad Avanza Santa Fe, ir al inicio"
-          className="group relative z-50 flex min-h-11 items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+          className="group relative z-50 flex min-h-11 items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white shrink-0"
         >
           <img
             src={logo}
@@ -193,7 +186,8 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <div className="hidden h-full items-center gap-1 xl:flex">
+        {/* Links centrados en Desktop */}
+        <div className="hidden h-full flex-1 items-center justify-center gap-2 xl:flex px-4">
           <Link
             to="/#noticias"
             aria-current={isHomeSection("#noticias") ? "location" : undefined}
@@ -295,10 +289,14 @@ export default function Navbar() {
           >
             Sedes
           </Link>
+        </div>
+
+        {/* Botón "Sumate" alineado a la derecha en Desktop */}
+        <div className="hidden items-center xl:flex shrink-0">
           <Link
             to="/sumate"
             aria-current={location.pathname === "/sumate" ? "page" : undefined}
-            className="ml-2 inline-flex min-h-11 items-center justify-center rounded-full border border-liberty-primary bg-liberty-primary px-5 text-sm font-black uppercase tracking-[0.08em] text-liberty-text transition-colors hover:border-liberty-primary-hover hover:bg-liberty-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-liberty-bg"
+            className="inline-flex min-h-10 items-center justify-center rounded-full border border-liberty-primary bg-liberty-primary px-5 text-sm font-black uppercase tracking-[0.08em] text-liberty-text transition-colors hover:border-liberty-primary-hover hover:bg-liberty-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-liberty-bg"
           >
             Sumate
           </Link>
@@ -481,7 +479,7 @@ export default function Navbar() {
                 aria-current={
                   location.pathname === "/sumate" ? "page" : undefined
                 }
-                className="inline-flex min-h-13 w-full items-center justify-center rounded-full border border-liberty-primary bg-liberty-primary px-7 py-4 text-sm font-black uppercase tracking-[0.12em] text-liberty-bg transition-colors hover:border-liberty-primary-hover hover:bg-liberty-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-liberty-bg"
+                className="inline-flex min-h-13 w-full items-center justify-center rounded-full border border-liberty-primary bg-liberty-primary px-7 py-4 text-sm font-black uppercase tracking-[0.12em] text-liberty-text transition-colors hover:border-liberty-primary-hover hover:bg-liberty-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-liberty-bg"
               >
                 Sumate a La Libertad Avanza
               </Link>

@@ -122,7 +122,7 @@ export default function Propone() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-liberty-text-secondary">Nombre y Apellido *</label>
+                    <label className="text-sm font-medium text-liberty-text-secondary">Nombre y Apellido</label>
                     <input 
                       type="text" 
                       name="nombre"
@@ -135,7 +135,7 @@ export default function Propone() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-liberty-text-secondary">Teléfono *</label>
+                    <label className="text-sm font-medium text-liberty-text-secondary">Teléfono</label>
                     <input 
                       type="tel" 
                       name="telefono"
@@ -148,7 +148,7 @@ export default function Propone() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-liberty-text-secondary">Email *</label>
+                    <label className="text-sm font-medium text-liberty-text-secondary">Email</label>
                     <input 
                       type="email" 
                       name="email"
@@ -161,7 +161,7 @@ export default function Propone() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-liberty-text-secondary">Profesión / Ocupación *</label>
+                    <label className="text-sm font-medium text-liberty-text-secondary">Profesión / Ocupación</label>
                     <select 
                       name="profesion"
                       required
@@ -184,7 +184,7 @@ export default function Propone() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-liberty-text-secondary">¿Cuál es el motivo de tu mensaje? *</label>
+                  <label className="text-sm font-medium text-liberty-text-secondary">¿Cuál es el motivo de tu mensaje?</label>
                   <select 
                     name="motivo"
                     required
@@ -202,7 +202,7 @@ export default function Propone() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-liberty-text-secondary">Tu Mensaje *</label>
+                  <label className="text-sm font-medium text-liberty-text-secondary">Tu Mensaje</label>
                   <textarea 
                     name="mensaje"
                     required
@@ -226,7 +226,7 @@ export default function Propone() {
                     />
                     <label 
                       htmlFor="file-upload"
-                      className="flex items-center justify-center w-full px-4 py-4 border-2 border-dashed border-liberty-border rounded-xl cursor-pointer hover:border-liberty-primary"
+                      className="flex items-center justify-center w-full h-25 px-4 py-4 border-2 border-dashed border-liberty-border rounded-xl cursor-pointer hover:border-liberty-primary"
                     >
                       <span className="text-sm text-liberty-text-secondary transition-colors">
                         {fileName ? fileName : "Subir documento de tu proyecto (PDF, Word)"}
@@ -238,7 +238,7 @@ export default function Propone() {
                 <button 
                   type="submit"
                   disabled={cargando}
-                  className="w-full mt-4 group relative inline-flex items-center justify-center px-8 py-4 bg-liberty-primary text-liberty-bg font-black uppercase text-sm tracking-[0.2em] rounded-xl overflow-hidden transform-gpu cursor-pointer disabled:opacity-50"
+                  className="w-full mt-4 group relative inline-flex items-center justify-center px-8 py-4 bg-liberty-primary text-liberty-text font-black uppercase text-sm tracking-[0.2em] rounded-xl overflow-hidden transform-gpu cursor-pointer disabled:opacity-50"
                 >
                   <span className="relative z-10">{cargando ? "Enviando propuesta..." : "Enviar Propuesta"}</span>
                 </button>

@@ -117,7 +117,7 @@ export default function Hero() {
           <m.h1
             id="hero-title"
             variants={contentItemVariants}
-            className="max-w-5x1 text-[clamp(2.6rem,8vw,5.75rem)] font-black uppercase leading-[0.9] tracking-[-0.065em] text-white [text-wrap:balance]"
+            className="max-w-5x1 text-[clamp(2.5rem,4vw,5rem)] font-black uppercase leading-[0.9] tracking-[-0.065em] text-white [text-wrap:balance]"
           >
             <span className="block">La Libertad Avanza</span>
             <span className="mt-2 block text-liberty-primary sm:mt-3">

@@ -1,238 +1,243 @@
-import { motion } from "framer-motion";
-import { memo } from "react";
-import uno from "../assets/santafe.webp";
-import santafedos from "../assets/santafedos.webp";
-import santafetres from "../assets/inicios.webp";
-import rominasantafe from "../assets/romisantafe.webp";
-import karina from "../assets/karina.jpeg";
-import libertad from "../assets/libertad.webp";
-import uplUno from "../assets/utn.webp";
-import uplDos from "../assets/cierreupl.webp";
-import uplTres from "../assets/uplunidos.webp";
-import bloque from "../assets/bloque.webp"
-import mileiSantafe from "../assets/mileiSantafe.webp"
-import folleto from "../assets/folleto.webp"
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Expand, X } from "lucide-react";
+import { historiaData, historiaPhotos } from "../data/historiaData";
+import useHistoriaMetadata from "../hooks/useHistoriaMetadata";
+import styles from "./NosotrosHistoria.module.css";
 
-// 1. Definimos las variantes FUERA del componente para no recrearlas en cada render.
-// Esto orquesta las animaciones para que fluyan en cadena sin saturar el procesador.
-const sectionVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2, // Retraso de 0.2s entre cada elemento hijo
-      delayChildren: 0.1,
-    },
-  },
-};
+const heroPhoto = historiaData[1].photos[0];
+const total = historiaData.length;
+const chapterStart = historiaData.map((_, index) =>
+  historiaData.slice(0, index).reduce((sum, chapter) => sum + chapter.photos.length, 0),
+);
 
-const textVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { duration: 0.8, ease: "easeOut" } 
-  },
-};
+function HistoryPhoto({ photo, index, onOpen, featured = false }) {
+  return (
+    <figure className={featured ? styles.featuredPhoto : styles.photo}>
+      <button
+        type="button"
+        className={styles.photoButton}
+        onClick={() => onOpen(index)}
+        aria-label={`Ampliar fotografía: ${photo.caption}`}
+        aria-haspopup="dialog"
+      >
+        <img
+          src={photo.src}
+          srcSet={photo.srcSet}
+          sizes={featured
+            ? "(min-width: 1440px) 768px, (min-width: 960px) 56vw, calc(100vw - 40px)"
+            : "(min-width: 1440px) 372px, (min-width: 960px) 27vw, (min-width: 600px) 45vw, calc(100vw - 40px)"}
+          alt={photo.alt}
+          width={photo.width}
+          height={photo.height}
+          loading="lazy"
+          decoding="async"
+        />
+        <span className={styles.expandIcon} aria-hidden="true"><Expand size={17} /></span>
+      </button>
+      <figcaption>{photo.caption}</figcaption>
+    </figure>
+  );
+}
 
-const smallImageVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { duration: 0.8, ease: "easeOut" } 
-  },
-};
+function PhotoViewer({ initialIndex, onClose }) {
+  const [index, setIndex] = useState(initialIndex);
+  const dialogRef = useRef(null);
+  const photo = historiaPhotos[index];
 
-const largeImageVariants = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: { 
-    opacity: 1, 
-    scale: 1, 
-    transition: { duration: 1, ease: "easeOut" } 
-  },
-};
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    const previousFocus = document.activeElement;
+    const previousOverflow = document.body.style.overflow;
+    dialog.showModal();
+    document.body.style.overflow = "hidden";
+    return () => {
+      dialog.close();
+      document.body.style.overflow = previousOverflow;
+      if (previousFocus instanceof HTMLElement && previousFocus.isConnected) {
+        previousFocus.focus({ preventScroll: true });
+      }
+    };
+  }, []);
 
-// 2. Usamos memo para evitar re-renderizados innecesarios si cambian estados globales
-const NosotrosHistoria = memo(function NosotrosHistoria() {
-  const hasAnimated = sessionStorage.getItem("historia_animated") === "true";
+  const previous = () => setIndex((current) => (current - 1 + historiaPhotos.length) % historiaPhotos.length);
+  const next = () => setIndex((current) => (current + 1) % historiaPhotos.length);
 
-  const markAsAnimated = () => {
-    if (!hasAnimated) {
-      sessionStorage.setItem("historia_animated", "true");
-    }
-  };
+  return createPortal(
+    <dialog
+      ref={dialogRef}
+      className={styles.viewer}
+      aria-labelledby="historia-visor-title"
+      aria-describedby="historia-visor-caption"
+      onCancel={(event) => { event.preventDefault(); onClose(); }}
+      onKeyDown={(event) => {
+        if (event.key === "ArrowLeft") { event.preventDefault(); previous(); }
+        if (event.key === "ArrowRight") { event.preventDefault(); next(); }
+      }}
+    >
+      <div className={styles.viewerHeader}>
+        <h2 id="historia-visor-title">Archivo fotográfico</h2>
+        <button type="button" onClick={onClose} aria-label="Cerrar galería"><X size={23} /></button>
+      </div>
+      <figure className={styles.viewerFigure}>
+        <img key={photo.src} src={photo.src} width={photo.width} height={photo.height} alt={photo.alt} />
+        <figcaption id="historia-visor-caption" aria-live="polite" aria-atomic="true">
+          <span>{photo.year} · {photo.chapter}</span>
+          {photo.caption}
+        </figcaption>
+      </figure>
+      <div className={styles.viewerControls}>
+        <button type="button" onClick={previous} aria-label="Fotografía anterior"><ArrowLeft size={21} /></button>
+        <span aria-live="polite" aria-atomic="true">{index + 1} / {historiaPhotos.length}</span>
+        <button type="button" onClick={next} aria-label="Fotografía siguiente"><ArrowRight size={21} /></button>
+      </div>
+    </dialog>,
+    document.body,
+  );
+}
 
-  // Configuración base para no repetir código en cada bloque
-  const motionProps = {
-    variants: sectionVariants,
-    initial: hasAnimated ? "visible" : "hidden",
-    whileInView: hasAnimated ? undefined : "visible",
-    viewport: { once: true, margin: "-100px" },
-    onViewportEnter: markAsAnimated,
-  };
+export default function NosotrosHistoria() {
+  const [activeChapter, setActiveChapter] = useState(historiaData[0].id);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const pageRef = useRef(null);
+  useHistoriaMetadata();
 
-  // Clase optimizada para las imágenes (Hardware Acceleration + Lazy Loading)
-  const imageClass = "w-full h-full object-cover transform-gpu will-change-[transform,filter] group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out";
+  useEffect(() => {
+    const page = pageRef.current;
+    const navigation = page.querySelector("nav");
+    if (!("ResizeObserver" in window)) return undefined;
+    const observer = new ResizeObserver(() => {
+      page.style.setProperty("--history-nav-height", `${navigation.getBoundingClientRect().height}px`);
+    });
+    observer.observe(navigation);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const chapters = [...pageRef.current.querySelectorAll("[data-history-chapter]")];
+    if (!("IntersectionObserver" in window)) return undefined;
+    const observer = new IntersectionObserver(() => {
+      const readingLine = Math.max(160, window.innerHeight * 0.4);
+      const current = [...chapters].reverse().find((chapter) =>
+        chapter.getBoundingClientRect().top <= readingLine,
+      );
+      setActiveChapter(current?.id ?? historiaData[0].id);
+    }, { rootMargin: "-140px 0px -45% 0px", threshold: 0 });
+    chapters.forEach((chapter) => observer.observe(chapter));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    // La página se carga de forma diferida; resolvemos el ancla al montar.
+    const frame = requestAnimationFrame(() => {
+      const id = window.location.hash.slice(1);
+      const target = id && document.getElementById(id);
+      if (target && pageRef.current?.contains(target)) {
+        target.scrollIntoView({ behavior: "instant", block: "start" });
+      }
+    });
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   return (
-    <section className="relative w-full py-24">
-      <div className="w-full px-2 md:px-8 xl:px-12 space-y-22 md:space-y-38 relative z-10">
-        
-        {/* =========================================
-            BLOQUE 1: AÑO 2023 - EL DESPERTAR
-        ========================================= */}
-        <motion.div {...motionProps} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
-          <div className="lg:col-span-6 flex flex-col justify-between">
-            
-            <motion.div variants={textVariants} className="mb-12 lg:mb-0 flex flex-col items-center text-center">
-              <span className="text-yellow-300 text-sm md:text-base font-black uppercase tracking-[0.3em] block mb-4">
-                Año 2023
-              </span>
-              <h2 className="text-4xl md:text-6xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
-                El inicio del <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-yellow-300">
-                  cambio en santa fe
-                </span>
-              </h2>
-             <p className="text-lg text-liberty-text-secondary leading-relaxed w-full md:w-5/6 mx-auto">
-                Comenzamos siendo un grupo de ciudadanos cansados de los mismos de siempre, caminando las calles de Santa Fe con boletas en la mano y convicción en el pecho. Fue el año donde empezó la batalla cultural, con una militancia inquebrantable liderada por la fuerza de <strong>Romina Diez</strong> en la provincia y bajo la conducción de <strong>Javier Milei</strong> a nivel nacional, teniendo la precaución de cuidar cada voto frente al aparato de la casta. El año en el que conseguimos demostrar que que las ideas de la libertad eran imparables y que ser un liberal no es un insulto.
-              </p>
-
-            </motion.div>
-
-            <div className="grid grid-cols-2 gap-4 md:gap-4 mt-8">
-              <motion.div variants={smallImageVariants} className="relative aspect-[4/5] overflow-hidden rounded-md group">
-                <img src={uno} alt="Militancia 2023" loading="lazy" decoding="async" className={imageClass} />
-              </motion.div>
-              <motion.div variants={smallImageVariants} className="relative aspect-[4/5] overflow-hidden rounded-md group mt-8">
-                <img src={santafetres} alt="Fiscalización 2023" loading="lazy" decoding="async" className={imageClass} />
-              </motion.div>
-            </div>
+    <div ref={pageRef} className={styles.page}>
+      <header className={styles.hero} id="historia-inicio" tabIndex={-1}>
+        <div className={styles.heroImage}>
+          <img
+            src={heroPhoto.src}
+            srcSet={heroPhoto.srcSet}
+            sizes="100vw"
+            alt={heroPhoto.alt}
+            width={heroPhoto.width}
+            height={heroPhoto.height}
+            loading="eager"
+            fetchPriority="high"
+          />
+        </div>
+        <div className={styles.heroContent}>
+          <p className={styles.eyebrow}>La Libertad Avanza Santa Fe</p>
+          <h1>Nuestra<br /><span>historia.</span></h1>
+          <div className={styles.heroBottom}>
+            <p>Los inicios, los encuentros y cada etapa.<br />Un recorrido por nuestra historia en Santa Fe.</p>
+            <a className={styles.textLink} href={`#${historiaData[0].id}`}>
+              Recorrer la historia <ArrowDown size={18} aria-hidden="true" />
+            </a>
           </div>
+        </div>
+        <span className={styles.heroDates} aria-hidden="true">2023 — 2025</span>
+      </header>
 
-          <motion.div variants={largeImageVariants} className="lg:col-span-6 h-[50vh] lg:h-[90vh] relative rounded-md overflow-hidden group border border-white/5">
-            <img src={santafedos} alt="Campaña Presidencial" loading="lazy" decoding="async" className={imageClass} />
-          </motion.div>
-        </motion.div>
+      <nav className={styles.timeline} aria-label="Capítulos de nuestra historia">
+        <ol>
+          {historiaData.map((chapter) => (
+            <li key={chapter.id}>
+              <a
+                href={`#${chapter.id}`}
+                aria-current={activeChapter === chapter.id ? "step" : undefined}
+                style={{ "--chapter-accent": chapter.accent }}
+                onClick={() => setActiveChapter(chapter.id)}
+              >
+                <span>{chapter.year}</span>
+                <span>{chapter.label}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
 
-        <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-liberty-text-secondary/70 to-transparent" />
-
-        {/* =========================================
-            BLOQUE 2: AÑO 2024 - LA CONFORMACION
-        ========================================= */}
-        <motion.div {...motionProps} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
-          <motion.div variants={largeImageVariants} className="lg:col-span-6 h-[50vh] lg:h-[90vh] relative rounded-md overflow-hidden group border border-white/5 order-last lg:order-first">
-            <img src={rominasantafe} alt="Constitución Partido" loading="lazy" decoding="async" className={imageClass} />
-            <div className="absolute inset-0 bg-gradient-to-t via-transparent to-transparent opacity-60 pointer-events-none" />
-          </motion.div>
-
-          <div className="lg:col-span-6 flex flex-col justify-between">
-            <motion.div variants={textVariants} className="mb-12 lg:mb-0 lg:pl-8 flex flex-col items-center text-center">
-              <span className="text-liberty-primary text-sm md:text-base font-black uppercase tracking-[0.3em] block mb-4">
-                Año 2024
-              </span>
-              <h2 className="text-4xl md:text-6xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
-                La Conformación <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-liberty-primary drop-shadow-lg">
-                  Oficial del partido
-                </span>
-              </h2>
-               <p className="text-lg text-liberty-text-secondary leading-relaxed w-full md:w-5/6 mx-auto">
-                Los argentinos decidieron el rumbo para cambiar drásticamente a la Argentina: con el 56% de los votos obtenidos en las elecciones y siendo ya gobierno a nivel nacional, dimos el paso definitivo en nuestra región con la conformación oficial del partido La Libertad Avanza en Santa Fe. Bajo el liderazgo de<strong> Javier Milei, Karina Milei y Romina Diez</strong>, estructuramos una fuerza política real, superando récords de afiliaciones y consolidándonos como la alternativa definitiva para la provincia.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-2 gap-4 md:gap-6 mt-8 lg:pl-8">
-              <motion.div variants={smallImageVariants} className="relative aspect-[4/5] overflow-hidden rounded-md group">
-                <img src={karina} alt="Afiliaciones 2024" loading="lazy" decoding="async" className={imageClass} />
-              </motion.div>
-              <motion.div variants={smallImageVariants} className="relative aspect-[4/5] overflow-hidden rounded-md group mt-8">
-                <img src={libertad} alt="Evento Oficial" loading="lazy" decoding="async" className={imageClass} />
-              </motion.div>
-            </div>
-          </div>
-        </motion.div>
-
-        <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-liberty-text-secondary/70 to-transparent" />
-
-        {/* =========================================
-            BLOQUE 3: AÑO 2024 - EL NACIMIENTO DE UPL
-        ========================================= */}
-        <motion.div {...motionProps} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
-          <div className="lg:col-span-6 flex flex-col justify-between">
-            <motion.div variants={textVariants} className="mb-12 lg:mb-0 flex flex-col items-center text-center">
-              <span className="text-blue-600 text-sm md:text-base font-black uppercase tracking-[0.3em] block mb-4">
-                Año 2024
-              </span>
-              <h2 className="text-4xl md:text-6xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
-                Frente al <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-900">
-                  adoctrinamiento 
-                </span>
-              </h2>
-                <p className="text-lg text-liberty-text-secondary leading-relaxed w-full md:w-5/6 mx-auto">
-                Ese mismo año marcamos un hito con el nacimiento de <strong>Universitarios por la Libertad (UPL)</strong>. Frente al adoctrinamiento y a las estructuras tradicionales en las universidades, decidimos conformar el primer frente estudiantil puramente liberal. El objetivo era claro: devolverle las facultades a los estudiantes y llevar la batalla cultural a cada universidad, defendiendo siempre la libertad de pensamiento.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-2 gap-4 md:gap-6 mt-8">
-              <motion.div variants={smallImageVariants} className="relative aspect-[4/5] overflow-hidden rounded-md group">
-                <img src={uplUno} alt="Nacimiento UPL 2024" loading="lazy" decoding="async" className={imageClass} />
-              </motion.div>
-              <motion.div variants={smallImageVariants} className="relative aspect-[4/5] overflow-hidden rounded-md group mt-8">
-                <img src={uplDos} alt="Militancia Universitaria" loading="lazy" decoding="async" className={imageClass} />
-              </motion.div>
-            </div>
-          </div>
-
-          <motion.div variants={largeImageVariants} className="lg:col-span-6 h-[50vh] lg:h-[90vh] relative rounded-md overflow-hidden group border border-white/5">
-            <img src={uplTres} alt="Universitarios por la Libertad" loading="lazy" decoding="async" className={imageClass} />
-          </motion.div>
-           {/* =========================================
-            BLOQUE 4: AÑO 2024 - LA CONSOLIDACION
-        ========================================= */}
-
-
-        </motion.div>
-            <motion.div {...motionProps} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
-          <motion.div variants={largeImageVariants} className="lg:col-span-6 h-[30vh] lg:h-[85vh] relative rounded-md overflow-hidden group border border-white/5 order-last lg:order-first">
-            <img src={bloque} alt="Constitución Partido" loading="lazy" decoding="async" className={imageClass} />
-          </motion.div>
-
-          <div className="lg:col-span-6 flex flex-col justify-between">
-            <motion.div variants={textVariants} className="mb-12 lg:mb-0 lg:pl-8 flex flex-col items-center text-center">
-              <span className="text-liberty-primary text-sm md:text-base font-black uppercase tracking-[0.3em] block mb-4">
-                Año 2025
-              </span>
-              <h2 className="text-4xl md:text-6xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
-                Nuestra <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-liberty-primary drop-shadow-lg">
-                  Consolidación
-                </span>
-              </h2>
-               <p className="text-lg text-liberty-text-secondary leading-relaxed w-full md:w-5/6 mx-auto">
-                Las ideas de la libertad fueron llegando a cada argentino de bien; fueron creciendo a pesar de que se dijera que ser liberal era un insulto. Perseveramos a pesar del odio y, así, en el 2025 dimos un batacazo en las elecciones legislativas, logrando el 40,67% de los votos. Con el apoyo de todos los santafesinos, podremos promulgar las más grandes reformas que necesita el país y la provincia de Santa Fe.
-                </p>
-            </motion.div>
-
-            <div className="grid grid-cols-2 gap-4 md:gap-6 mt-8 lg:pl-8">
-              <motion.div variants={smallImageVariants} className="relative aspect-[4/5] overflow-hidden rounded-md group">
-                <img src={folleto} alt="Afiliaciones 2024" loading="lazy" decoding="async" className={imageClass} />
-              </motion.div>
-              <motion.div variants={smallImageVariants} className="relative aspect-[4/5] overflow-hidden rounded-md group mt-8">
-                <img src={mileiSantafe} alt="Evento Oficial" loading="lazy" decoding="async" className={imageClass} />
-              </motion.div>
-            </div>
-          </div>
-        </motion.div>
-
-        <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-liberty-text-secondary/70 to-transparent" />
-
-
+      <div className={styles.chapters}>
+        {historiaData.map((chapter, index) => {
+          const nextChapter = historiaData[index + 1];
+          return (
+            <section
+              key={chapter.id}
+              id={chapter.id}
+              data-history-chapter
+              tabIndex={-1}
+              aria-labelledby={`${chapter.id}-title`}
+              className={styles.chapter}
+              style={{ "--chapter-accent": chapter.accent }}
+            >
+              <header className={styles.chapterHeading}>
+                <time dateTime={chapter.year} className={styles.year}>{chapter.year}</time>
+                <div>
+                  <p className={styles.eyebrow}>Capítulo {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")} · {chapter.label}</p>
+                  <h2 id={`${chapter.id}-title`}>{chapter.title}</h2>
+                </div>
+              </header>
+              <div className={styles.chapterBody}>
+                <div className={styles.story}>
+                  <div className={styles.storyInner}>
+                    {chapter.paragraphs.map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph}</p>)}
+                    <span className={styles.storyRule} aria-hidden="true" />
+                  </div>
+                </div>
+                <div className={styles.gallery}>
+                  <HistoryPhoto photo={chapter.photos[0]} index={chapterStart[index]} onOpen={setSelectedPhoto} featured />
+                  <div className={styles.photoPair}>
+                    {chapter.photos.slice(1).map((photo, photoIndex) => (
+                      <HistoryPhoto key={photo.src} photo={photo} index={chapterStart[index] + photoIndex + 1} onOpen={setSelectedPhoto} />
+                    ))}
+                  </div>
+                </div>
+              </div>
+              {nextChapter && (
+                <a className={styles.nextChapter} href={`#${nextChapter.id}`}>
+                  <span>Siguiente capítulo <span>{nextChapter.year} · {nextChapter.label}</span></span>
+                  <ArrowDown size={23} aria-hidden="true" />
+                </a>
+              )}
+            </section>
+          );
+        })}
       </div>
-    </section>
-  );
-});
 
-export default NosotrosHistoria;
+      <footer className={styles.ending}>
+        <p className={styles.eyebrow}>La Libertad Avanza Santa Fe</p>
+        <p className={styles.endingTitle}>Nuestra historia,<br />año a año.</p>
+        <a className={styles.textLink} href="#historia-inicio">Volver al inicio <ArrowUp size={18} aria-hidden="true" /></a>
+      </footer>
+      {selectedPhoto !== null && <PhotoViewer initialIndex={selectedPhoto} onClose={() => setSelectedPhoto(null)} />}
+    </div>
+  );
+}
