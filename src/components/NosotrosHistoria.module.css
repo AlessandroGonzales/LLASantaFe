@@ -44,7 +44,7 @@
 .hero .eyebrow { color: #f4e5fa; }
 .hero h1 {
   margin: 24px 0 34px;
-  font-size: clamp(4.5rem, 10.5vw, 10rem);
+  font-size: clamp(4.5rem, 8vw, 7rem);
   font-weight: 900;
   letter-spacing: -0.065em;
   line-height: 0.9;
@@ -98,7 +98,7 @@
 .chapter { padding: 100px 0 48px; scroll-margin-top: calc(4rem + var(--history-nav-height, 74px) + 20px); }
 .chapter + .chapter { border-top: 1px solid #ffffff20; }
 .chapterHeading { display: grid; grid-template-columns: 0.7fr 1fr; gap: 64px; align-items: center; margin-bottom: 60px; }
-.year { font-size: clamp(6rem, 13vw, 12rem); font-weight: 900; letter-spacing: -0.07em; line-height: 0.85; color: var(--chapter-accent); }
+.year { font-size: clamp(8rem, 12vw, 9rem); font-weight: 900; letter-spacing: -0.07em; line-height: 0.85; color: var(--chapter-accent); }
 .chapter .eyebrow { color: var(--chapter-accent); margin-bottom: 18px; }
 .chapter h2 { max-width: 20ch; font-size: clamp(2rem, 3.3vw, 3.5rem); line-height: 1.06; font-weight: 700; letter-spacing: -0.045em; text-wrap: balance; }
 .chapterBody { display: grid; grid-template-columns: 0.7fr 1fr; align-items: start; gap: 64px; }
@@ -168,16 +168,55 @@
   .story p { max-width: 64ch; }
   .photoPair { gap: 24px; }
 }
+
 @media (max-width: 599px) {
-  .hero { min-height: 0; padding: 0 20px 40px; display: block; }
-  .heroImage { position: relative; inset: auto; width: calc(100% + 40px); margin: 0 -20px; padding-top: 64px; }
-  .heroImage img { height: auto; object-fit: contain; }
-  .heroImage::after { background: linear-gradient(0deg, #160820, transparent 30%); }
-  .heroContent { position: relative; padding-top: 16px; }
-  .hero h1 { font-size: clamp(3.6rem, 17vw, 6.2rem); margin: 20px 0 28px; }
-  .heroBottom { display: block; }
-  .heroBottom p { font-size: 0.9rem; }
-  .heroBottom .textLink { margin-top: 20px; }
+  .hero {
+    min-height: 100svh;
+    padding: 80px 20px 32px;
+    display: flex;
+    align-items: flex-end;
+  }
+  .heroImage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    margin: 0;
+    padding-top: 0;
+  }
+  .heroImage img,
+  .heroImage picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+  }
+  .heroImage::after {
+    background: linear-gradient(
+      0deg,
+      #160820 0%,
+      #160820f0 10%,
+      #16082070 20%,
+      #16082020 60%
+    );
+  }
+  .heroContent {
+    position: relative;
+    padding-top: 0;
+  }
+  .hero h1 {
+    font-size: clamp(5rem, 12vw, 4.5rem);
+    margin: 12px 0 16px;
+  }
+  .heroBottom {
+    display: block;
+  }
+  .heroBottom p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+  .heroBottom .textLink {
+    margin-top: 16px;
+  }
   .heroDates { display: none; }
   .eyebrow { font-size: 0.65rem; letter-spacing: 0.16em; }
   .timeline a { flex-direction: column; gap: 2px; min-height: 74px; padding: 12px 3px; }
@@ -185,8 +224,8 @@
   .timeline a span:last-child { font-size: 0.625rem; }
   .chapter { padding-top: 56px; }
   .chapterHeading { grid-template-columns: 1fr; gap: 26px; }
-  .year { font-size: min(30vw, 10rem); }
-  .chapter h2 { font-size: clamp(2rem, 8vw, 2.8rem); }
+  .year { font-size: min(19vw, 9rem); }
+  .chapter h2 { font-size: clamp(2rem, 9vw, 2.8rem); }
   .story p { font-size: 1rem; line-height: 1.8; }
   .story p:first-child { font-size: 1.125rem; }
   .photoPair { grid-template-columns: 1fr; gap: 28px; margin-top: 28px; }
@@ -194,6 +233,7 @@
   .nextChapter { margin-top: 40px; }
   .ending { padding-block: 64px; }
 }
+
 @media (max-height: 700px) and (min-width: 960px) {
   .storyInner { position: static; }
 }

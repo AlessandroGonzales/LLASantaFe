@@ -6,6 +6,7 @@ import useHistoriaMetadata from "../hooks/useHistoriaMetadata";
 import styles from "./NosotrosHistoria.module.css";
 
 const heroPhoto = historiaData[1].photos[0];
+const heroPhotoMobile = historiaData[3].photos[1]; // Imagen vertical ideal para mobile
 const total = historiaData.length;
 const chapterStart = historiaData.map((_, index) =>
   historiaData.slice(0, index).reduce((sum, chapter) => sum + chapter.photos.length, 0),
@@ -128,7 +129,6 @@ export default function NosotrosHistoria() {
   }, []);
 
   useEffect(() => {
-    // La página se carga de forma diferida; resolvemos el ancla al montar.
     const frame = requestAnimationFrame(() => {
       const id = window.location.hash.slice(1);
       const target = id && document.getElementById(id);
@@ -143,20 +143,26 @@ export default function NosotrosHistoria() {
     <div ref={pageRef} className={styles.page}>
       <header className={styles.hero} id="historia-inicio" tabIndex={-1}>
         <div className={styles.heroImage}>
-          <img
-            src={heroPhoto.src}
-            srcSet={heroPhoto.srcSet}
-            sizes="100vw"
-            alt={heroPhoto.alt}
-            width={heroPhoto.width}
-            height={heroPhoto.height}
-            loading="eager"
-            fetchPriority="high"
-          />
+          <picture>
+            <source
+              media="(max-width: 768px)"
+              srcSet={heroPhotoMobile.srcSet}
+              sizes="100vw"
+            />
+            <img
+              src={heroPhoto.src}
+              srcSet={heroPhoto.srcSet}
+              sizes="100vw"
+              alt={heroPhoto.alt}
+              width={heroPhoto.width}
+              height={heroPhoto.height}
+              loading="eager"
+              fetchPriority="high"
+            />
+          </picture>
         </div>
         <div className={styles.heroContent}>
-          <p className={styles.eyebrow}>La Libertad Avanza Santa Fe</p>
-          <h1>Nuestra<br /><span>historia.</span></h1>
+          <h1>Nuestra<br /><span>historia</span></h1>
           <div className={styles.heroBottom}>
             <p>Los inicios, los encuentros y cada etapa.<br />Un recorrido por nuestra historia en Santa Fe.</p>
             <a className={styles.textLink} href={`#${historiaData[0].id}`}>
@@ -164,7 +170,6 @@ export default function NosotrosHistoria() {
             </a>
           </div>
         </div>
-        <span className={styles.heroDates} aria-hidden="true">2023 — 2025</span>
       </header>
 
       <nav className={styles.timeline} aria-label="Capítulos de nuestra historia">

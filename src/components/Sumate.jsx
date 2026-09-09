@@ -1,34 +1,33 @@
-import { useState } from "react";
-import { m } from "framer-motion";
-import {
-  User,
-  CreditCard,
-  Phone,
-  MapPin,
-  ShieldCheck,
-  ArrowRight,
-  CheckCircle2,
-} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight, Check, CheckCircle2, LoaderCircle } from "lucide-react";
 import afiliacion from "../assets/militantes.webp";
+import afiliacionMobile from "../assets/sumate-mobile.webp";
+import useSumateMetadata from "../hooks/useSumateMetadata";
+import styles from "./Sumate.module.css";
+
+const GOOGLE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbx-VKfxtg1dQrFMt1zT9Zxy7zq21Rop7B0r2eaM5WyTdAJNAol0dcgVv0lbBxyU6dH35Q/exec";
 
 const steps = [
   {
-    title: "Completá tus datos",
-    description: "Ingresá tu información real para poder contactarte.",
+    title: "Dejá tus datos",
+    description: "Completá el formulario para que podamos conocerte y contactarte.",
   },
   {
-    title: "Te contacta un referente",
-    description: "Recibís el seguimiento del equipo de tu localidad.",
+    title: "Conectá con tu localidad",
+    description: "Un referente del equipo se comunica con vos por WhatsApp.",
   },
   {
-    title: "Entrás al movimiento",
-    description: "Te incorporás a actividades, equipos y acciones concretas.",
+    title: "Encontrá cómo participar",
+    description: "Conocé las actividades, los equipos y las formas de aportar.",
   },
 ];
 
 export default function Sumate() {
   const [enviado, setEnviado] = useState(false);
   const [cargando, setCargando] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     nombre: "",
     dni: "",
@@ -36,341 +35,255 @@ export default function Sumate() {
     localidad: "",
     quiereFiscalizar: false,
   });
-  // === Lógica para animar solo una vez ===
-  const hasAnimated = sessionStorage.getItem("sumate_animated") === "true";
+  const inFlight = useRef(false);
+  const successRef = useRef(null);
+  const errorRef = useRef(null);
+  useSumateMetadata();
 
-  const markAsAnimated = () => {
-    if (!hasAnimated) {
-      sessionStorage.setItem("sumate_animated", "true");
-    }
-  };
+  useEffect(() => {
+    if (enviado) successRef.current?.focus();
+  }, [enviado]);
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
+  useEffect(() => {
+    if (error) errorRef.current?.focus();
+  }, [error]);
+
+  useEffect(() => {
+    // Las rutas se cargan bajo demanda: el destino existe después del montaje.
+    const frame = requestAnimationFrame(() => {
+      const hash = window.location.hash;
+      if (hash === "#sumate-formulario" || hash === "#como-sumarte") {
+        document.getElementById(hash.slice(1))?.scrollIntoView({ block: "start" });
+      }
     });
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((current) => ({
+      ...current,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (inFlight.current || enviado) return;
+    inFlight.current = true;
     setCargando(true);
+    setError("");
 
     try {
-      const GOOGLE_SCRIPT_URL =
-        "https://script.google.com/macros/s/AKfycbx-VKfxtg1dQrFMt1zT9Zxy7zq21Rop7B0r2eaM5WyTdAJNAol0dcgVv0lbBxyU6dH35Q/exec";
-
+      // Se conserva el contrato del Apps Script: endpoint, modo y cinco campos.
       await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
+      // Una respuesta opaca no permite comprobar el guardado en Google Sheets.
       setEnviado(true);
-    } catch (error) {
-      console.error("Error al enviar:", error);
-      alert(
-        "Hubo un problema de conexión. Revisá tu internet e intentá de nuevo.",
-      );
+    } catch {
+      setError("No pudimos enviar tu solicitud. Revisá tu conexión e intentá nuevamente. Tus datos siguen en el formulario.");
     } finally {
+      inFlight.current = false;
       setCargando(false);
     }
   };
 
   return (
-    <main className="min-h-screen bg-liberty-bg text-white relative overflow-hidden">
-      {/* =========================================
-          FONDOS AMBIENTALES (Optimizados con radial-gradient en vez de blur)
-          ========================================= */}
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top,rgba(217,70,239,0.18)_0%,rgba(30,8,45,0.08)_30%,rgba(30,8,45,0)_65%)] transform-gpu translate-z-0" />
-
-      {/* CONTENEDOR PRINCIPAL */}
-      <div className="relative z-10 w-full px-4 md:px-16  xl:px-20 py-8 md:py-12 mt-10">
-        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-20 xl:gap-24 items-start">
-          {/* =========================================
-              LADO IZQUIERDO: Textos
-              ========================================= */}
-          <m.section
-            onViewportEnter={markAsAnimated}  
-            initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
-            animate={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="pt-10 md:pt-14 will-change-transform transform-gpu translate-z-0"
-          >
-            <h1 className="mt-7 max-w-3xl text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-black uppercase leading-[0.95] tracking-tight text-white ">
-              La reconstrucción <br />
-              <span className=" text-white text-center">te necesita</span>
-            </h1>
-
-            <p className="mt-6 max-w-2xl text-base sm:text-lg md:text-xl leading-relaxed text-liberty-text-secondary">
-              Los grandes cambios se realizan cuando todos están sumamente
-              comprometidos. Nosotros queremos lo mejor para la provincia y para
-              el país, ya que en ellos están esos jóvenes, empresarios,
-              comerciantes, profesionales y niños que sueñan con una Argentina
-              grande nuevamente. Por eso, necesitamos de tu apoyo; precisamos de
-              tu valentía y coraje para dar esta batalla ante la casta.
-            </p>
-
-            <p className="mt-4 max-w-2xl text-base sm:text-lg font-medium text-liberty-primary">
-              Queremos que seas parte de esta convocatoria histórica.
-            </p>
-
-            {/* Steps */}
-            {/* Steps */}
-            <div className="mt-10 rounded-[2rem] border border-liberty-border bg-liberty-card/80 p-6 md:p-8 shadow-2xl backdrop-blur-sm transform-gpu translate-z-0">
-              <div className="mb-6">
-                <p className="text-[11px] md:text-xs font-black uppercase tracking-[0.28em] text-liberty-primary">
-                  Proceso simple
-                </p>
-                <h2 className="mt-2 text-xl md:text-2xl font-black uppercase tracking-tight text-white">
-                  Cómo sumarte
-                </h2>
-              </div>
-
-              <div className="relative">
-                {/* Línea vertical del timeline */}
-
-                <div className="grid gap-5">
-                  {steps.map((step, index) => (
-                    <div
-                      key={step.title}
-                      className="group relative flex gap-5 rounded-2xl border border-white/8 bg-black/25 p-5 transition-all duration-300 hover:border-liberty-primary/40 hover:bg-black/40 hover:shadow-[0_0_30px_rgba(217,70,239,0.12)]"
-                    >
-                      {/* Número */}
-                      <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-liberty-primary/30 to-liberty-primary/10 border border-liberty-primary/40 text-liberty-primary font-black text-sm shadow-[0_0_18px_rgba(217,70,239,0.25)] transition-transform duration-300 group-hover:scale-110">
-                        {index + 1}
-                      </div>
-
-                      {/* Contenido */}
-                      <div className="pt-0.5">
-                        <h3 className="font-bold text-white text-[15px] md:text-base tracking-wide">
-                          {step.title}
-                        </h3>
-                        <p className="mt-1.5 text-sm leading-relaxed text-liberty-text-secondary">
-                          {step.description}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </m.section>
-
-          {/* =========================================
-              LADO DERECHO: Imagen + Formulario
-              ========================================= */}
-          <m.section
-            initial={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-            animate={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, delay: 0.1 }}
-            className="sticky lg:top-8 pt-6 md:pt-10 will-change-transform transform-gpu translate-z-0"
-          >
-            <div className="space-y-6">
-              {/* Imagen Hero Optimizada */}
-              <div className="relative overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.45)] transform-gpu translate-z-0">
-                <img
-                  src={afiliacion}
-                  alt="Militancia y encuentro"
-                  fetchPriority="high"
-                  decoding="async"
-                  className="h-[300px] md:h-[360px] w-full object-cover object-center scale-[1.03] transform-gpu translate-z-0"
-                />
-              </div>
-
-              {/* Form Card */}
-              <div className="rounded-[2rem] border border-liberty-border/70 bg-liberty-card/90 shadow-2xl overflow-hidden transform-gpu translate-z-0">
-                <div className="h-1 w-full bg-gradient-to-r from-liberty-primary via-fuchsia-300 to-liberty-cyan" />
-
-                <div className="p-6 sm:p-8 md:p-10">
-                  {enviado ? (
-                    <div className="flex flex-col items-center justify-center text-center py-12 md:py-16 space-y-5">
-                      {/* Animación de Éxito Optimizada (Sin drop-shadow en animación) */}
-                      <div className="relative flex justify-center items-center">
-                        <m.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{
-                            type: "spring",
-                            stiffness: 180,
-                            damping: 14,
-                          }}
-                          className="relative z-10"
-                        >
-                          <CheckCircle2 className="w-20 h-20 md:w-24 md:h-24 text-green-400" />
-                        </m.div>
-                      </div>
-
-                      <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white">
-                        ¡Bienvenido a La Libertad Avanza!
-                      </h3>
-                      <p className="text-sm md:text-base text-liberty-text-secondary max-w-md leading-relaxed">
-                        Tus datos fueron recibidos. Un referente de tu localidad
-                        te va a contactar por WhatsApp en los próximos días.
-                      </p>
-                      <button
-                        onClick={() => (window.location.href = "/")}
-                        className="mt-4 inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-sm font-black uppercase tracking-widest text-black transition hover:bg-gray-200 cursor-pointer will-change-transform"
-                      >
-                        Volver al inicio
-                      </button>
-                    </div>
-                  ) : (
-                    <form
-                      onSubmit={handleSubmit}
-                      className="space-y-6 relative z-20"
-                    >
-                      <div className="mb-6">
-                        <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white">
-                          Ingreso al partido
-                        </h2>
-                        <p className="mt-2 text-sm md:text-base text-liberty-text-secondary leading-relaxed">
-                          Completá tus datos reales para que podamos contactarte
-                          oficialmente.
-                        </p>
-                      </div>
-
-                      {/* Inputs (Se eliminaron clases innecesarias, estructura limpia) */}
-                      <div className="space-y-2">
-                        <label className="ml-1 text-[10px] md:text-xs font-black uppercase tracking-[0.24em] text-gray-300">
-                          Nombre y apellido
-                        </label>
-                        <div className="relative group">
-                          <div className="absolute inset-y-0 left-0 flex items-center pl-4 md:pl-5 pointer-events-none">
-                            <User className="h-4 w-4 md:h-5 md:w-5 text-gray-200 group-focus-within:text-liberty-primary transition-colors" />
-                          </div>
-                          <input
-                            required
-                            type="text"
-                            name="nombre"
-                            value={formData.nombre}
-                            onChange={handleChange}
-                            className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-400 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70 transform-gpu translate-z-0"
-                            placeholder="Ej: Javier Milei"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        <div className="space-y-2">
-                          <label className="ml-1 text-[10px] md:text-xs font-black uppercase tracking-[0.24em] text-gray-300">
-                            DNI
-                          </label>
-                          <div className="relative group">
-                            <div className="absolute inset-y-0 left-0 flex items-center pl-4 md:pl-5 pointer-events-none">
-                              <CreditCard className="h-4 w-4 md:h-5 md:w-5 text-gray-200 group-focus-within:text-liberty-primary transition-colors" />
-                            </div>
-                            <input
-                              required
-                              type="number"
-                              name="dni"
-                              value={formData.dni}
-                              onChange={handleChange}
-                              className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-400 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70 appearance-none transform-gpu translate-z-0"
-                              placeholder="12345678"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="space-y-2">
-                          <label className="ml-1 text-[10px] md:text-xs font-black uppercase tracking-[0.24em] text-gray-300">
-                            WhatsApp
-                          </label>
-                          <div className="relative group">
-                            <div className="absolute inset-y-0 left-0 flex items-center pl-4 md:pl-5 pointer-events-none">
-                              <Phone className="h-4 w-4 md:h-5 md:w-5 text-gray-200 group-focus-within:text-liberty-primary transition-colors" />
-                            </div>
-                            <input
-                              required
-                              type="tel"
-                              name="whatsapp"
-                              value={formData.whatsapp}
-                              onChange={handleChange}
-                              className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-400 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70 transform-gpu translate-z-0"
-                              placeholder="+54 9 341..."
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <label className="ml-1 text-[10px] md:text-xs font-black uppercase tracking-[0.24em] text-gray-300">
-                          Localidad
-                        </label>
-                        <div className="relative group">
-                          <div className="absolute inset-y-0 left-0 flex items-center pl-4 md:pl-5 pointer-events-none">
-                            <MapPin className="h-4 w-4 md:h-5 md:w-5 text-gray-200 group-focus-within:text-liberty-primary transition-colors" />
-                          </div>
-                          <input
-                            required
-                            type="text"
-                            name="localidad"
-                            value={formData.localidad}
-                            onChange={handleChange}
-                            className="w-full rounded-2xl border border-liberty-border bg-black/35 py-4 md:py-5 pl-11 md:pl-14 pr-4 md:pr-5 text-base md:text-lg text-white placeholder:text-gray-400 outline-none transition focus:border-liberty-primary focus:ring-1 focus:ring-liberty-primary/70 transform-gpu translate-z-0"
-                            placeholder="Ej: Rosario, Santa Fe"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="pt-2">
-                        <label className="group flex cursor-pointer items-start gap-4 rounded-2xl border border-liberty-border/50 bg-black/20 p-4 md:p-5 transition hover:border-liberty-primary/40 hover:bg-black/25 transform-gpu translate-z-0">
-                          <div className="relative mt-1 flex-shrink-0">
-                            <input
-                              type="checkbox"
-                              name="quiereFiscalizar"
-                              checked={formData.quiereFiscalizar}
-                              onChange={handleChange}
-                              className="peer sr-only"
-                            />
-                            <div className="flex h-7 w-7 items-center justify-center rounded-lg border-2 border-gray-600 bg-black transition peer-checked:border-liberty-primary peer-checked:bg-liberty-primary">
-                              <ShieldCheck className="h-4 w-4 text-white opacity-0 " />
-                            </div>
-                          </div>
-                          <div>
-                            <span className="block text-base md:text-lg font-bold uppercase tracking-wide text-white">
-                              Quiero ser fiscal
-                            </span>
-                            <span className="mt-1 block text-sm md:text-base leading-relaxed text-liberty-text-secondary">
-                              Las elecciones se ganan cuidando los votos. Marcá
-                              esta casilla si estás dispuesto a defender las
-                              urnas en tu ciudad el día de la elección.
-                            </span>
-                          </div>
-                        </label>
-                      </div>
-
-                      <button
-                        type="submit"
-                        disabled={cargando}
-                        className={`group mt-3 mx-auto flex w-full sm:w-fit items-center justify-center gap-3 rounded-2xl px-5 py-4 md:py-4 text-[14px] md:text-[15px] font-black uppercase tracking-[0.2em] text-white cursor-pointer will-change-transform   ${
-                          cargando
-                            ? "cursor-not-allowed bg-liberty-primary/65 opacity-80"
-                            : "bg-gradient-to-r bg-liberty-primary hover:shadow-[0_0_40px_rgba(217,70,239,0.45)] hover:scale-[1.01]"
-                        }`}
-                      >
-                        {cargando ? "Enviando..." : "Quiero ser parte"}
-                        {!cargando && (
-                          <ArrowRight className="h-5 w-5 md:h-6 md:w-6  group-hover:translate-x-1.5" />
-                        )}
-                      </button>
-
-                      <p className="mt-3 text-center text-[10px] md:text-xs uppercase tracking-[0.22em] text-gray-300">
-                        Al enviar, acepto ser contactado por los referentes
-                        territoriales.
-                      </p>
-                    </form>
-                  )}
-                </div>
-              </div>
-            </div>
-          </m.section>
+    <div className={styles.page}>
+      <header className={styles.hero}>
+        <div className={styles.heroCopy}>
+          <h1>La libertad<span>empieza</span><span className={styles.accent}>con vos.</span></h1>
+          <p className={styles.invitation}>
+            Los grandes cambios se realizan cuando todos están sumamente
+            comprometidos. Nosotros queremos lo mejor para la provincia y para
+            el país, ya que en ellos están esos jóvenes, empresarios,
+            comerciantes, profesionales y niños que sueñan con una Argentina
+            grande nuevamente. Por eso, necesitamos de tu apoyo; precisamos de
+            tu valentía y coraje para dar esta batalla ante la casta.
+          </p>
+     
         </div>
-      </div>
-    </main>
+        <figure className={styles.heroPhoto}>
+          <img
+            src={afiliacion}
+            srcSet={`${afiliacionMobile} 640w, ${afiliacion} 1280w`}
+            sizes="(min-width: 1440px) 700px, (min-width: 960px) 52vw, calc(100vw - 40px)"
+            width="1280"
+            height="816"
+            alt="Encuentro de militantes con banderas argentinas y de La Libertad Avanza"
+            loading="eager"
+            fetchPriority="high"
+          />
+          <figcaption>
+            <span>La Libertad Avanza</span>
+            <span>Las ideas, en acción.</span>
+          </figcaption>
+        </figure>
+      </header>
+
+      <section id="como-sumarte" className={styles.process} aria-labelledby="sumate-process-title" tabIndex={-1}>
+        <div className={styles.processIntro}>
+          <p className={styles.eyebrow}>Cómo sumarte</p>
+          <h2 id="sumate-process-title">De las ideas<span>a la acción.</span></h2>
+        </div>
+        <ol className={styles.steps}>
+          {steps.map((step, index) => (
+            <li key={step.title}>
+              <span className={styles.stepNumber} aria-hidden="true">0{index + 1}</span>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section id="sumate-formulario" className={styles.contact} aria-labelledby="sumate-form-title" tabIndex={-1}>
+        <div className={styles.contactLayout}>
+          <div className={styles.contactIntro}>
+            <p className={styles.eyebrow}>El primer paso</p>
+            <h2 id="sumate-form-title">Tu lugar<span>empieza acá.</span></h2>
+            <p>Dejanos tus datos para que el equipo de tu localidad se contacte con vos.</p>
+            <div className={styles.contactNote}>
+              <span aria-hidden="true" />
+              <p>Queremos que seas parte de esta convocatoria.</p>
+            </div>
+          </div>
+
+          <div className={styles.formArea}>
+            {enviado ? (
+              <div className={styles.success}>
+                <CheckCircle2 size={48} strokeWidth={1.4} aria-hidden="true" />
+                <p className={styles.eyebrow}>Solicitud enviada</p>
+                <h3 ref={successRef} tabIndex={-1}>Gracias por dar<span>el primer paso.</span></h3>
+                <p>
+                  El siguiente paso es el contacto con un referente de tu
+                  localidad por WhatsApp para conversar sobre cómo participar.
+                </p>
+                <Link to="/" className={styles.submit}>
+                  Volver al inicio <ArrowRight size={19} aria-hidden="true" />
+                </Link>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} aria-labelledby="sumate-form-title" aria-busy={cargando}>
+                <div className={styles.formHeading}>
+                  <p className={styles.eyebrow}>Solicitud de contacto</p>
+                  <p>Los cuatro campos son obligatorios.</p>
+                </div>
+                {error && (
+                  <p className={styles.error} ref={errorRef} tabIndex={-1} role="alert">{error}</p>
+                )}
+
+                <fieldset className={styles.fields} disabled={cargando}>
+                  <legend className={styles.srOnly}>Tus datos de contacto</legend>
+                  <div className={styles.field}>
+                    <label htmlFor="sumate-nombre">Nombre y apellido</label>
+                    <input
+                      id="sumate-nombre"
+                      required
+                      type="text"
+                      name="nombre"
+                      autoComplete="name"
+                      autoCapitalize="words"
+                      value={formData.nombre}
+                      onChange={handleChange}
+                      placeholder="Tu nombre completo"
+                    />
+                  </div>
+
+                  <div className={styles.fieldRow}>
+                    <div className={styles.field}>
+                      <label htmlFor="sumate-dni">DNI</label>
+                      <input
+                        id="sumate-dni"
+                        required
+                        type="text"
+                        inputMode="numeric"
+                        pattern="[0-9]+"
+                        title="Ingresá el DNI con números, sin puntos ni espacios."
+                        name="dni"
+                        aria-describedby="sumate-dni-help"
+                        value={formData.dni}
+                        onChange={handleChange}
+                        placeholder="Tu número de documento"
+                      />
+                      <p id="sumate-dni-help" className={styles.fieldHelp}>Sin puntos ni espacios.</p>
+                    </div>
+                    <div className={styles.field}>
+                      <label htmlFor="sumate-whatsapp">WhatsApp</label>
+                      <input
+                        id="sumate-whatsapp"
+                        required
+                        type="tel"
+                        name="whatsapp"
+                        autoComplete="tel"
+                        aria-describedby="sumate-whatsapp-help"
+                        value={formData.whatsapp}
+                        onChange={handleChange}
+                        placeholder="Código de área y número"
+                      />
+                      <p id="sumate-whatsapp-help" className={styles.fieldHelp}>Incluí el código de área.</p>
+                    </div>
+                  </div>
+
+                  <div className={styles.field}>
+                    <label htmlFor="sumate-localidad">Localidad</label>
+                    <input
+                      id="sumate-localidad"
+                      required
+                      type="text"
+                      name="localidad"
+                      autoComplete="address-level2"
+                      autoCapitalize="words"
+                      value={formData.localidad}
+                      onChange={handleChange}
+                      placeholder="Tu ciudad o comuna"
+                    />
+                  </div>
+
+                  <label className={styles.fiscalOption}>
+                    <span className={styles.checkbox}>
+                      <input
+                        type="checkbox"
+                        name="quiereFiscalizar"
+                        checked={formData.quiereFiscalizar}
+                        onChange={handleChange}
+                        aria-describedby="sumate-fiscal-help"
+                      />
+                      <Check size={16} strokeWidth={3} aria-hidden="true" />
+                    </span>
+                    <span>
+                      <span className={styles.fiscalTitle}>Quiero ser fiscal <span>Opcional</span></span>
+                      <span id="sumate-fiscal-help" className={styles.fiscalDescription}>
+                        También quiero colaborar cuidando los votos el día de la elección.
+                      </span>
+                    </span>
+                  </label>
+
+                  <p className={styles.consent}>
+                    Al enviar, aceptás que los referentes territoriales te
+                    contacten por WhatsApp.
+                  </p>
+                  <button type="submit" className={styles.submit} disabled={cargando}>
+                    {cargando ? (
+                      <>Enviando… <LoaderCircle className={styles.spinner} size={20} aria-hidden="true" /></>
+                    ) : (
+                      <>Quiero ser parte <ArrowRight size={20} aria-hidden="true" /></>
+                    )}
+                  </button>
+                </fieldset>
+              </form>
+            )}
+            <p role="status" aria-live="polite" className={styles.srOnly}>
+              {cargando ? "Enviando tu solicitud. Esperá un momento." : ""}
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
