@@ -60,10 +60,6 @@ export default function DiputadosPreview() {
           Nuestros diputados
         </h2>
         
-        {/* =========================================
-            TÍTULO SOLO EN MOBILE (arriba de las imágenes)
-            Diseño intacto
-        ========================================= */}
         <div className="lg:hidden mb-10 text-center">
           <m.div
             initial={skipAnimation ? false : { opacity: 0, y: 20 }}
