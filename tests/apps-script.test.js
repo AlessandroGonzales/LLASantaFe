@@ -12,7 +12,7 @@ const otherId = "12345678-1234-4123-8123-123456789abd";
 
 function fixture() {
   const state = { sheets: new Map(), files: new Map(), opens: 0, failWrite: false, failFlush: false, creates: 0,
-    account: "oficial@llasantafe.com.ar", privateResources: [],
+    account: "oficial@llasantafe.com.ar", privateResources: [], failDetails: false, failDescription: false,
     properties: { API_SECRET: secret, SPREADSHEET_ID: "private-sheet", UPLOAD_FOLDER_ID: "private-folder" } };
   function sheet(headers) {
     const rows = headers ? [headers] : [], model = { rows, maxRows: 2,
@@ -28,6 +28,8 @@ function fixture() {
           getRow: () => row,
           getValues: () => Array.from({ length: height }, (_, i) =>
             Array.from({ length: width }, (_, j) => rows[row - 1 + i]?.[column - 1 + j] ?? "")),
+          getDisplayValues: () => Array.from({ length: height }, (_, i) =>
+            Array.from({ length: width }, (_, j) => String(rows[row - 1 + i]?.[column - 1 + j] ?? "").replace(/^'/, ""))),
           getValue: () => rows[row - 1]?.[column - 1] ?? "",
           setValues(values) {
             if (row > model.maxRows) throw new Error("grid limit");
@@ -57,9 +59,21 @@ function fixture() {
       return { hasNext: () => state.files.has(name), next: () => state.files.get(name) };
     },
     createFile(blob) {
+      if (state.failDetails && blob.name.endsWith(".ficha-propuesta.txt")) {
+        state.failDetails = false; throw new Error("details creation failure");
+      }
       state.creates++;
-      const file = { getId: () => "private-file-id", getUrl: () => "https://drive.google.com/file/d/private-file-id/view",
-        setSharing(access, permission) { assert.equal(access, "PRIVATE"); assert.equal(permission, "NONE"); } };
+      const fileId = state.creates === 1 ? "private-file-id" : "private-file-" + state.creates;
+      const file = { content: blob.bytes, mime: blob.type, description: "", private: false,
+        getName: () => blob.name, getId: () => fileId, getUrl: () => "https://drive.google.com/file/d/" + fileId + "/view",
+        setContent(content) { this.content = content; },
+        setDescription(description) {
+          if (state.failDescription) { state.failDescription = false; throw new Error("description failure"); }
+          this.description = description;
+        },
+        setSharing(access, permission) {
+          assert.equal(access, "PRIVATE"); assert.equal(permission, "NONE"); this.private = true;
+        } };
       state.files.set(blob.name, file);
       return file;
     },
@@ -84,10 +98,10 @@ function fixture() {
     },
     DriveApp: {
       getFolderById: () => folder, createFolder: () => folder,
-      getFileById: () => ({ setSharing(access, permission) {
+      getFileById: fileId => fileId === "private-sheet" ? ({ setSharing(access, permission) {
         assert.equal(access, "PRIVATE"); assert.equal(permission, "NONE");
         state.privateResources.push("sheet");
-      } }),
+      } }) : [...state.files.values()].find(file => file.getId() === fileId),
       Access: { PRIVATE: "PRIVATE" }, Permission: { NONE: "NONE" },
     },
     Utilities: {
@@ -107,7 +121,7 @@ function fixture() {
     const signature = createHmac("sha256", secret).update(timestamp + "." + payload).digest("hex");
     return JSON.parse(context.doPost({ postData: { contents: JSON.stringify(change({ payload, timestamp, signature })) } }).text);
   }
-  return { state, send, setup: () => context.setupWorkspace() };
+  return { state, send, setup: () => context.setupWorkspace(), restore: () => context.restoreExistingProposalDetails() };
 }
 
 test("setupWorkspace crea recursos restringidos y encabezados sin duplicarlos ni borrar filas", () => {
@@ -178,7 +192,7 @@ test("Apps Script no duplica registros por ID ni por contenido", () => {
 test("Apps Script guarda adjunto privado y escapa fórmulas", () => {
   const f = fixture();
   assert.deepEqual(f.send(submission("propone")), { ok: true, id });
-  assert.equal(f.state.creates, 1);
+  assert.equal(f.state.creates, 2);
   const row = f.state.sheets.get("Propuestas").rows[1];
   assert.ok(row[10].startsWith("'=IMPORTXML"));
   assert.equal(row[11], "private-file-id");
@@ -189,7 +203,7 @@ test("Apps Script recupera el archivo sin duplicarlo tras un fallo de Sheets", (
   f.state.failWrite = true;
   assert.equal(f.send(value).ok, false);
   assert.deepEqual(f.send(value), { ok: true, id });
-  assert.equal(f.state.creates, 1);
+  assert.equal(f.state.creates, 2);
   assert.equal(f.state.sheets.get("Propuestas").rows.length, 2);
 });
 
@@ -206,4 +220,125 @@ test("Apps Script amplía las filas al llegar al límite inicial de la hoja", ()
   assert.equal(f.send(value).ok, true);
   assert.equal(f.send({ ...value, requestId: otherId, fingerprint: "d".repeat(64) }).ok, true);
   assert.equal(f.state.sheets.get("Sumate").rows.length, 3);
+});
+
+test("Propone conserva todos los campos en Sheets, ficha privada y descripción del PDF", () => {
+  const f = fixture(), value = submission("propone");
+  value.data.profesion = "docente";
+  value.data.mensaje = "Primera línea con tildes: educación.\nSegunda línea <texto> sin HTML.";
+  assert.equal(f.send(value).ok, true);
+  const row = f.state.sheets.get("Propuestas").rows[1];
+  assert.deepEqual(row.slice(5, 11), [value.data.nombre, "'" + value.data.telefono,
+    value.data.email, "docente", "proyecto", value.data.mensaje]);
+  const details = f.state.files.get(id + ".ficha-propuesta.txt");
+  const pdf = f.state.files.get(id + "_prueba.pdf");
+  assert.equal(details.mime, "text/plain");
+  assert.equal(details.private, true);
+  assert.equal(pdf.private, true);
+  assert.deepEqual(pdf.content, [...Buffer.from(value.attachment.base64, "base64")]);
+  for (const text of [value.data.nombre, value.data.telefono, value.data.email,
+    "Docente / Investigador", "Proyecto / Propuesta formal", value.data.mensaje,
+    id, value.receivedAt, pdf.getUrl()]) {
+    assert.ok(details.content.includes(text));
+    assert.ok(pdf.description.includes(text));
+  }
+  assert.ok(pdf.description.includes(details.getUrl()));
+  assert.equal(f.send(value).ok, true);
+  assert.equal(f.send({ ...value, requestId: otherId }).ok, true);
+  assert.equal(f.state.creates, 2);
+});
+
+test("Propone sin adjunto también genera ficha y conserva el mensaje literal", () => {
+  const f = fixture(), value = submission("propone");
+  value.attachment = null;
+  assert.equal(f.send(value).ok, true);
+  const details = f.state.files.get(id + ".ficha-propuesta.txt");
+  assert.ok(details.content.includes("Sin documento adjunto."));
+  assert.ok(details.content.includes(value.data.mensaje));
+  assert.equal(f.state.creates, 1);
+  assert.equal(f.state.sheets.get("Propuestas").rows[1][11], "");
+});
+
+for (const failure of ["failDetails", "failDescription"]) {
+  test("Propone no confirma sin ficha completa y recupera el reintento: " + failure, () => {
+    const f = fixture(), value = submission("propone");
+    f.state[failure] = true;
+    assert.equal(f.send(value).ok, false);
+    assert.equal(f.state.sheets.get("Propuestas").rows.length, 1);
+    assert.equal(f.send(value).ok, true);
+    assert.equal(f.state.creates, 2);
+    assert.equal(f.state.sheets.get("Propuestas").rows.length, 2);
+  });
+}
+
+test("El nombre de un adjunto TXT no puede colisionar con la ficha", () => {
+  const f = fixture(), value = submission("propone");
+  value.attachment.name = ".ficha-propuesta.txt";
+  assert.equal(f.send(value).ok, true);
+  assert.equal(f.state.files.size, 2);
+  assert.ok(f.state.files.has(id + "_.ficha-propuesta.txt"));
+  assert.ok(f.state.files.has(id + ".ficha-propuesta.txt"));
+});
+
+test("Recuperación histórica genera fichas desde Sheets sin duplicar ni alterar filas", () => {
+  const f = fixture(), value = submission("propone");
+  assert.equal(f.send(value).ok, true);
+  // Simular una fila anterior a esta mejora, con solo su PDF en Drive.
+  f.state.files.delete(id + ".ficha-propuesta.txt");
+  const pdf = f.state.files.get(id + "_prueba.pdf");
+  pdf.description = "";
+  const before = JSON.stringify(f.state.sheets.get("Propuestas").rows);
+  f.restore();
+  assert.equal(f.state.files.size, 2);
+  const details = f.state.files.get(id + ".ficha-propuesta.txt");
+  assert.ok(details.content.includes("Teléfono: " + value.data.telefono));
+  assert.ok(details.content.includes("MENSAJE\n" + value.data.mensaje));
+  assert.ok(pdf.description.includes(value.data.nombre));
+  assert.equal(JSON.stringify(f.state.sheets.get("Propuestas").rows), before);
+  assert.equal(f.state.properties.PROPOSAL_DETAILS_NEXT_ROW, "3");
+  f.restore();
+  assert.equal(f.state.files.size, 2);
+});
+
+test("Recuperación histórica rechaza otra cuenta y no inventa datos ausentes", () => {
+  const f = fixture();
+  f.state.account = "otra@example.com";
+  assert.throws(f.restore, /oficial@llasantafe/);
+  f.state.account = "oficial@llasantafe.com.ar";
+  assert.equal(f.send(submission("propone")).ok, true);
+  f.state.sheets.get("Propuestas").rows[1][5] = "";
+  assert.throws(f.restore, /Faltan datos en la fila 2/);
+  assert.equal(f.state.properties.PROPOSAL_DETAILS_NEXT_ROW, undefined);
+});
+
+test("Recuperación histórica limita cada lote a 25 filas y continúa desde el cursor", () => {
+  const f = fixture(), sheet = f.state.sheets.get("Propuestas");
+  const value = submission("propone");
+  for (let index = 1; index <= 26; index++) {
+    const rowId = "12345678-1234-4123-8123-" + String(index).padStart(12, "0");
+    sheet.rows.push([rowId, value.receivedAt, value.fingerprint, 1, "pendiente",
+      value.data.nombre, "'" + value.data.telefono, value.data.email,
+      value.data.profesion, value.data.motivo, "'" + value.data.mensaje, "", "", "", "", ""]);
+  }
+  f.restore();
+  assert.equal(f.state.files.size, 25);
+  assert.equal(f.state.properties.PROPOSAL_DETAILS_NEXT_ROW, "27");
+  f.restore();
+  assert.equal(f.state.files.size, 26);
+  assert.equal(f.state.properties.PROPOSAL_DETAILS_NEXT_ROW, "28");
+  f.state.properties.PROPOSAL_DETAILS_NEXT_ROW = "2";
+  f.restore();
+  assert.equal(f.state.files.size, 26);
+});
+
+test("Recuperación histórica conserva la fila pendiente tras un fallo de Drive", () => {
+  const f = fixture(), value = submission("propone");
+  assert.equal(f.send(value).ok, true);
+  f.state.files.delete(id + ".ficha-propuesta.txt");
+  f.state.failDetails = true;
+  assert.throws(f.restore, /details creation failure/);
+  assert.equal(f.state.properties.PROPOSAL_DETAILS_NEXT_ROW, undefined);
+  f.restore();
+  assert.equal(f.state.files.size, 2);
+  assert.equal(f.state.properties.PROPOSAL_DETAILS_NEXT_ROW, "3");
 });

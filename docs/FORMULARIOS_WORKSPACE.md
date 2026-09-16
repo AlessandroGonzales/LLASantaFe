@@ -93,7 +93,7 @@ Con datos ficticios y la autorización del responsable:
 
 1. Comprobar que `GET /api/forms` responde JSON y estado 405; no debe devolver el HTML de React.
 2. Completar una solicitud de Sumate. Verificar una única fila en **Sumate**, DNI/teléfono como texto, fiscalización como booleano y `estado=pendiente`.
-3. Enviar una propuesta sin adjunto y otra con un PDF o DOCX pequeño. Verificar filas en **Propuestas**, enlace al archivo y archivo en la carpeta oficial.
+3. Enviar una propuesta sin adjunto y otra con un PDF o DOCX pequeño. Verificar todos los campos en **Propuestas**. En Drive debe existir una ficha `UUID.ficha-propuesta.txt` con remitente, contacto, profesión, motivo y mensaje; si hay adjunto, verificar también el documento, sus datos en la descripción y los enlaces entre ficha y documento.
 4. Abrir el enlace del documento en una ventana sin sesión: no debe quedar públicamente disponible.
 5. Repetir exactamente el mismo contenido: debe confirmar el registro existente, sin duplicar fila ni documento. La deduplicación es por contenido normalizado completo, no por DNI o email solamente.
 6. Verificar una extensión no admitida y un documento de más de 2 MB: se rechazan. Comprobar también un envío inválido directo al endpoint: no debe escribirse una fila.
@@ -114,6 +114,7 @@ La suite de Node prueba validaciones, límites, firmas, errores, idempotencia y 
 ## Archivos, privacidad y límites de esta etapa
 
 - Se acepta un documento por propuesta: PDF, DOC, DOCX, XLS, XLSX, ODT o TXT, hasta **2 MiB** (el texto del formulario dice 2 MB). Excel se conserva porque ya estaba permitido. No se admiten ZIP independientes ni extensiones de macros como DOCM/XLSM.
+- Cada propuesta genera además una ficha TXT privada en la misma carpeta, aunque no adjunte ningún documento. Incluye nombre, teléfono, email, profesión, motivo, mensaje completo, ID y fecha UTC. El adjunto conserva sus bytes originales; sus metadatos de descripción incluyen esos datos y un enlace a la ficha. Esos metadatos usan [la descripción de archivos de Drive](https://developers.google.com/apps-script/reference/drive/file#setDescription(String)). No compartir el documento ni la ficha con personas que no deban acceder a los datos del remitente.
 - El servidor comprueba tamaño, extensión y señales de contenido; no confía en el MIME informado por el navegador. Se limita también el contenido de los contenedores Office/ODT para rechazar estructuras peligrosas o excesivas.
 - **Esto no es un antivirus.** PDF y documentos Office antiguos pueden contener contenido activo. No habilitar macros ni ejecutar adjuntos recibidos; revisarlos con herramientas de seguridad antes de abrirlos o distribuirlos. No se renderizan en la web.
 - El límite conserva margen para Base64 dentro del máximo de petición de Vercel. No aumentarlo sin revisar ambos límites y las cuotas de Google. [Límites de Vercel Functions](https://vercel.com/docs/functions/limitations).
@@ -124,6 +125,24 @@ La suite de Node prueba validaciones, límites, firmas, errores, idempotencia y 
 - Si falla Sheets después de crear el archivo, un reintento con el mismo ID recupera ese archivo. Si no hay reintento, puede quedar un archivo sin fila; revisar esos casos antes de eliminar nada. No hay transacción conjunta entre Drive y Sheets.
 
 ## Migración futura y mantenimiento
+
+### Actualización: datos de Propone también en Drive
+
+La versión inicial guardaba los campos del formulario en la pestaña **Propuestas** de Sheets y solamente el documento en Drive. Esta actualización agrega la ficha y la descripción del adjunto sin modificar la web, las columnas existentes ni las claves.
+
+Para activarla:
+
+1. Reemplazar el contenido de `Code.gs` en el proyecto existente de Apps Script por `google-apps-script/Code.gs` de este repositorio y guardar.
+2. Ir a **Implementar → Administrar implementaciones → Editar → Versión: Nueva versión → Implementar**. Actualizar la implementación existente para mantener la misma URL `/exec` y las variables de Vercel. No hace falta volver a ejecutar `setupWorkspace`, cambiar el manifiesto ni desplegar React por esta corrección.
+3. Hacer un envío ficticio nuevo y comprobar la ficha TXT, todos los campos en Sheets y la descripción del adjunto en el panel de detalles de Drive. Un reenvío idéntico se deduplica; para comprobar el flujo nuevo usar contenido de prueba diferente.
+
+Para completar propuestas anteriores, ejecutar **restoreExistingProposalDetails** manualmente desde el editor con la cuenta oficial. Lee la pestaña Propuestas, crea las fichas faltantes y actualiza las descripciones de los adjuntos referenciados, sin alterar filas ni documentos originales. Reutiliza fichas existentes y restablece su contenido desde Sheets; no editar manualmente las fichas que deban conservarse como registros del envío. Restringe el acceso general de los archivos procesados; no elimina colaboradores individuales.
+
+Procesa hasta **25 filas por ejecución**. Si el registro indica que quedan filas, volver a ejecutarla. La propiedad `PROPOSAL_DETAILS_NEXT_ROW` guarda la próxima fila: no ordenar, insertar ni eliminar filas de la planilla durante esta recuperación. Si falla una fila, corregir la causa y reintentar; el avance se conserva. Para volver a revisar todas las filas más adelante, establecer esa propiedad en `2` antes de ejecutarla.
+
+**La recuperación necesita que los datos originales estén en Sheets.** Si también faltan allí, no se pueden reconstruir a partir del PDF de forma fiable: no inventar nombre, contacto, profesión ni mensaje. Revisar la pestaña Propuestas de la planilla indicada por `SPREADSHEET_ID` y la versión del script publicada. Si el archivo fue eliminado o la cuenta perdió acceso, restaurar ese archivo/acceso antes de continuar. La función se detiene en registros incompletos.
+
+### Migración a base de datos
 
 Los registros incluyen `id` UUID, `created_at` ISO, `schema_version`, `estado`, `fingerprint` y campos estables. Los adjuntos se referencian por ID y URL de Drive. Eso permite migrar a PostgreSQL sin depender de títulos visuales del formulario. Mantener los UUID y el registro de documentos al migrar.
 

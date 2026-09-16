@@ -120,17 +120,18 @@ function doPost(event) {
         values[key] = literal_(submission.data[key]);
       });
       values.telefono = identifier_(submission.data.telefono);
+      const folder = DriveApp.getFolderById(properties.getProperty("UPLOAD_FOLDER_ID"));
+      let file = null;
       if (submission.attachment) {
         const attachment = submission.attachment;
         const bytes = Utilities.base64Decode(attachment.base64);
         if (!bytes.length || bytes.length > 2 * 1024 * 1024 || bytes.length !== attachment.size ||
             typeof attachment.name !== "string" || attachment.name.length > 180 ||
             /[\u0000-\u001f/\\]/.test(attachment.name)) throw new Error("attachment");
-        const folder = DriveApp.getFolderById(properties.getProperty("UPLOAD_FOLDER_ID"));
         const filename = submission.requestId + "_" + attachment.name;
         const existingFiles = folder.getFilesByName(filename);
         // Un reintento recupera el archivo si falló la escritura de la fila.
-        const file = existingFiles.hasNext() ? existingFiles.next() :
+        file = existingFiles.hasNext() ? existingFiles.next() :
           folder.createFile(Utilities.newBlob(bytes, attachment.mimeType, filename));
         file.setSharing(DriveApp.Access.PRIVATE, DriveApp.Permission.NONE);
         values.archivo_id = file.getId();
@@ -139,6 +140,8 @@ function doPost(event) {
         values.archivo_mime = attachment.mimeType;
         values.archivo_bytes = bytes.length;
       }
+      // La ficha también existe para propuestas sin documento adjunto.
+      saveProposalDetails_(folder, submission, file);
     }
     const row = HEADERS[submission.kind].map(function (key) {
       return values[key] === undefined ? "" : values[key];
@@ -153,6 +156,88 @@ function doPost(event) {
   } finally {
     if (lock && lock.hasLock()) lock.releaseLock();
   }
+}
+
+function saveProposalDetails_(folder, submission, attachmentFile) {
+  const professions = {
+    estudiante: "Estudiante", comerciante: "Comerciante / Pyme",
+    empresario: "Emprendedor / Empresario", salud: "Profesional de la Salud",
+    docente: "Docente / Investigador", agro: "Sector Agropecuario",
+    independiente: "Trabajador Independiente", jubilado: "Jubilado", otro: "Otro",
+  };
+  const reasons = {
+    proyecto: "Proyecto / Propuesta formal", sugerencia: "Sugerencia para la provincia",
+    duda: "Duda o Consulta general", voluntariado: "Voluntario / Fiscal",
+    denuncia: "Denuncia / Irregularidad",
+  };
+  const data = submission.data;
+  // Texto plano: no interpretar como HTML ni como fórmulas el mensaje recibido.
+  const text = [
+    "PROPUESTA RECIBIDA - LLA SANTA FE",
+    "ID: " + submission.requestId,
+    "Fecha de recepción (UTC): " + submission.receivedAt,
+    "", "DATOS DEL REMITENTE",
+    "Nombre y apellido: " + data.nombre,
+    "Teléfono: " + data.telefono,
+    "Email: " + data.email,
+    "Profesión / Ocupación: " + (professions[data.profesion] || data.profesion),
+    "Motivo: " + (reasons[data.motivo] || data.motivo),
+    "", "MENSAJE", data.mensaje,
+    "", "DOCUMENTO ADJUNTO",
+    attachmentFile ? "Archivo: " + attachmentFile.getName() : "Sin documento adjunto.",
+    attachmentFile ? "Enlace privado: " + attachmentFile.getUrl() : "",
+  ].join("\n");
+  // El punto después del UUID evita colisiones con UUID_nombre del adjunto.
+  const filename = submission.requestId + ".ficha-propuesta.txt";
+  const existing = folder.getFilesByName(filename);
+  const details = existing.hasNext() ? existing.next() :
+    folder.createFile(Utilities.newBlob(text, "text/plain", filename));
+  details.setSharing(DriveApp.Access.PRIVATE, DriveApp.Permission.NONE);
+  // Repara reintentos parciales sin crear otra ficha.
+  details.setContent(text);
+  if (attachmentFile) {
+    attachmentFile.setSharing(DriveApp.Access.PRIVATE, DriveApp.Permission.NONE);
+    attachmentFile.setDescription(text + "\n\nFicha de la propuesta: " + details.getUrl());
+  }
+  return details;
+}
+
+// Ejecutar MANUALMENTE desde el editor para completar los envíos históricos.
+// Procesa hasta 25 filas por ejecución y conserva el avance ante un fallo.
+function restoreExistingProposalDetails() {
+  if (Session.getEffectiveUser().getEmail() !== "oficial@llasantafe.com.ar") {
+    throw new Error("Ejecutá esta recuperación desde oficial@llasantafe.com.ar.");
+  }
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const properties = PropertiesService.getScriptProperties();
+    const spreadsheet = SpreadsheetApp.openById(properties.getProperty("SPREADSHEET_ID"));
+    const sheet = spreadsheet.getSheetByName(TAB_NAMES.propone);
+    assertHeaders_(sheet, "propone");
+    const folder = DriveApp.getFolderById(properties.getProperty("UPLOAD_FOLDER_ID"));
+    const start = Number(properties.getProperty("PROPOSAL_DETAILS_NEXT_ROW") || 2);
+    if (!Number.isInteger(start) || start < 2) throw new Error("invalid_recovery_cursor");
+    const end = Math.min(sheet.getLastRow(), start + 24);
+    for (let row = start; row <= end; row++) {
+      // getDisplayValues recupera el texto visible, sin los escapes de Sheets.
+      const cells = sheet.getRange(row, 1, 1, HEADERS.propone.length).getDisplayValues()[0];
+      const record = {};
+      HEADERS.propone.forEach(function (key, index) { record[key] = cells[index]; });
+      if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(record.id) ||
+          ["nombre", "telefono", "email", "profesion", "motivo", "mensaje"].some(function (key) { return !record[key]; })) {
+        throw new Error("Faltan datos en la fila " + row + ". Revisá Sheets antes de continuar.");
+      }
+      const file = record.archivo_id ? DriveApp.getFileById(record.archivo_id) : null;
+      saveProposalDetails_(folder, {
+        requestId: record.id, receivedAt: record.created_at, data: record,
+      }, file);
+      properties.setProperty("PROPOSAL_DETAILS_NEXT_ROW", String(row + 1));
+    }
+    console.log(end < sheet.getLastRow()
+      ? "Lote completado. Volvé a ejecutar restoreExistingProposalDetails para continuar."
+      : "Fichas completadas hasta la última fila disponible.");
+  } finally { lock.releaseLock(); }
 }
 
 function assertHeaders_(sheet, kind) {
