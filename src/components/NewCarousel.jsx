@@ -29,7 +29,6 @@ export default function NewsCarousel() {
     }
   };
 
-  // 3. Lectura de DOM optimizada (sin querySelectors costosos)
   const scrollLeft = () => {
     if (carouselRef.current) {
       const cardWidth =

@@ -5,9 +5,8 @@ import afiliacion from "../assets/militantes.webp";
 import afiliacionMobile from "../assets/sumate-mobile.webp";
 import useSumateMetadata from "../hooks/useSumateMetadata";
 import styles from "./Sumate.module.css";
-
-const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbx-VKfxtg1dQrFMt1zT9Zxy7zq21Rop7B0r2eaM5WyTdAJNAol0dcgVv0lbBxyU6dH35Q/exec";
+import useSecureSubmission from "../hooks/useSecureSubmission";
+import FormProtection from "./FormProtection";
 
 const steps = [
   {
@@ -38,6 +37,7 @@ export default function Sumate() {
   const inFlight = useRef(false);
   const successRef = useRef(null);
   const errorRef = useRef(null);
+  const protection = useSecureSubmission("sumate");
   useSumateMetadata();
 
   useEffect(() => {
@@ -75,18 +75,10 @@ export default function Sumate() {
     setError("");
 
     try {
-      // Se conserva el contrato del Apps Script: endpoint, modo y cinco campos.
-      await fetch(GOOGLE_SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      // Una respuesta opaca no permite comprobar el guardado en Google Sheets.
+      await protection.submit(formData);
       setEnviado(true);
-    } catch {
-      setError("No pudimos enviar tu solicitud. Revisá tu conexión e intentá nuevamente. Tus datos siguen en el formulario.");
+    } catch (error) {
+      setError(error.message || "No pudimos enviar tu solicitud. Revisá tu conexión e intentá nuevamente.");
     } finally {
       inFlight.current = false;
       setCargando(false);
@@ -189,6 +181,7 @@ export default function Sumate() {
                       name="nombre"
                       autoComplete="name"
                       autoCapitalize="words"
+                      maxLength={120}
                       value={formData.nombre}
                       onChange={handleChange}
                       placeholder="Tu nombre completo"
@@ -203,7 +196,9 @@ export default function Sumate() {
                         required
                         type="text"
                         inputMode="numeric"
-                        pattern="[0-9]+"
+                        pattern="[0-9]{7,8}"
+                        minLength={7}
+                        maxLength={8}
                         title="Ingresá el DNI con números, sin puntos ni espacios."
                         name="dni"
                         aria-describedby="sumate-dni-help"
@@ -221,6 +216,7 @@ export default function Sumate() {
                         type="tel"
                         name="whatsapp"
                         autoComplete="tel"
+                        maxLength={32}
                         aria-describedby="sumate-whatsapp-help"
                         value={formData.whatsapp}
                         onChange={handleChange}
@@ -238,6 +234,7 @@ export default function Sumate() {
                       type="text"
                       name="localidad"
                       autoComplete="address-level2"
+                      maxLength={120}
                       autoCapitalize="words"
                       value={formData.localidad}
                       onChange={handleChange}
@@ -276,6 +273,7 @@ export default function Sumate() {
                     )}
                   </button>
                 </fieldset>
+                <FormProtection challengeRef={protection.challengeRef} honeypotRef={protection.honeypotRef} />
               </form>
             )}
             <p role="status" aria-live="polite" className={styles.srOnly}>

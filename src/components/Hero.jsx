@@ -91,7 +91,6 @@ export default function Hero() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b via-liberty-bg/1 to-liberty-bg"
       />
-
       {/* CAMBIO 2: Agregamos 'flex-1'. Cambiamos pt-24 a pt-12 (y pt-28 a pt-16) para subir el bloque de logo y título */}
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col items-center px-5 pb-14 pt-20 text-center sm:px-8 sm:pb-16 md:pt-16">
         <m.img

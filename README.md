@@ -1,5 +1,9 @@
 # React + Vite
 
+## Formularios y Google Workspace
+
+La configuración de Sheets, documentos privados en Drive, variables de Vercel y protección contra spam está en [la guía de activación](docs/FORMULARIOS_WORKSPACE.md). Configurar estos servicios antes de publicar los formularios. Pruebas locales: `npm run test:forms`.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

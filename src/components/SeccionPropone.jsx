@@ -1,10 +1,18 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { FILE_ACCEPT, validateFileSelection } from "../../shared/forms";
+import useSecureSubmission from "../hooks/useSecureSubmission";
+import FormProtection from "./FormProtection";
 
 export default function Propone() {
   const [fileName, setFileName] = useState("");
   const [cargando, setCargando] = useState(false);
   const [enviado, setEnviado] = useState(false);
+  const [leyendoArchivo, setLeyendoArchivo] = useState(false);
+  const fileReaderRef = useRef(null);
+  const fileVersion = useRef(0);
+  const inFlight = useRef(false);
+  const protection = useSecureSubmission("propone");
   const [formData, setFormData] = useState({
     nombre: "",
     telefono: "",
@@ -17,12 +25,32 @@ export default function Propone() {
     fileName: "",
   });
 
+  useEffect(() => () => {
+    fileVersion.current += 1;
+    fileReaderRef.current?.abort();
+  }, []);
+
   const handleFileChange = (e) => {
+    const input = e.target;
+    fileVersion.current += 1;
+    const version = fileVersion.current;
+    fileReaderRef.current?.abort();
+    setLeyendoArchivo(false);
+    setFileName("");
+    setFormData((prev) => ({ ...prev, fileData: "", fileType: "", fileName: "" }));
     const file = e.target.files[0];
     if (file) {
-      setFileName(file.name);
+      try { validateFileSelection(file); }
+      catch (error) {
+        e.target.value = "";
+        alert(error.message);
+        return;
+      }
+      setLeyendoArchivo(true);
       const reader = new FileReader();
-      reader.onloadend = () => {
+      fileReaderRef.current = reader;
+      reader.onload = () => {
+        if (version !== fileVersion.current) return;
         // Separamos el Base64 puro del prefijo data:*/*;base64,
         const base64String = reader.result.split(",")[1];
         setFormData((prev) => ({
@@ -31,6 +59,14 @@ export default function Propone() {
           fileType: file.type,
           fileName: file.name,
         }));
+        setFileName(file.name);
+        setLeyendoArchivo(false);
+      };
+      reader.onerror = () => {
+        if (version !== fileVersion.current) return;
+        input.value = "";
+        setLeyendoArchivo(false);
+        alert("No se pudo leer el documento. Seleccionalo nuevamente.");
       };
       reader.readAsDataURL(file);
     }
@@ -43,27 +79,19 @@ export default function Propone() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (inFlight.current || leyendoArchivo || enviado) return;
+    inFlight.current = true;
     setCargando(true);
 
     try {
-      // Reemplazá con la URL del nuevo Google Apps Script para este formulario
-      const GOOGLE_SCRIPT_URL = "PEGAR_AQUI_LA_NUEVA_URL_DE_APPS_SCRIPT";
-
-      await fetch(GOOGLE_SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      await protection.submit(formData);
 
       setEnviado(true);
     } catch (error) {
-      console.error("Error al enviar:", error);
-      alert("Hubo un problema al enviar la propuesta. Intentá de nuevo.");
+      alert(error.message || "Hubo un problema al enviar la propuesta. Intentá de nuevo.");
     } finally {
       setCargando(false);
+      inFlight.current = false;
     }
   };
 
@@ -96,7 +124,7 @@ export default function Propone() {
                 ¿Contacto Directo?
               </span>
               <span className="text-2xl md:text-3xl font-black text-white tracking-tight">
-                info@lla-santafe.com
+                oficial@llasantafe.com.ar
               </span>
             </div>
           </div>
@@ -119,13 +147,15 @@ export default function Propone() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6" aria-busy={cargando || leyendoArchivo}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-liberty-text-secondary">Nombre y Apellido</label>
                     <input 
                       type="text" 
                       name="nombre"
+                      disabled={cargando}
+                      maxLength={120}
                       required
                       value={formData.nombre}
                       onChange={handleChange}
@@ -139,6 +169,8 @@ export default function Propone() {
                     <input 
                       type="tel" 
                       name="telefono"
+                      disabled={cargando}
+                      maxLength={32}
                       required
                       value={formData.telefono}
                       onChange={handleChange}
@@ -152,6 +184,8 @@ export default function Propone() {
                     <input 
                       type="email" 
                       name="email"
+                      disabled={cargando}
+                      maxLength={254}
                       required
                       value={formData.email}
                       onChange={handleChange}
@@ -164,6 +198,7 @@ export default function Propone() {
                     <label className="text-sm font-medium text-liberty-text-secondary">Profesión / Ocupación</label>
                     <select 
                       name="profesion"
+                      disabled={cargando}
                       required
                       value={formData.profesion}
                       onChange={handleChange}
@@ -187,6 +222,7 @@ export default function Propone() {
                   <label className="text-sm font-medium text-liberty-text-secondary">¿Cuál es el motivo de tu mensaje?</label>
                   <select 
                     name="motivo"
+                    disabled={cargando}
                     required
                     value={formData.motivo}
                     onChange={handleChange}
@@ -205,6 +241,9 @@ export default function Propone() {
                   <label className="text-sm font-medium text-liberty-text-secondary">Tu Mensaje</label>
                   <textarea 
                     name="mensaje"
+                    disabled={cargando}
+                    minLength={10}
+                    maxLength={10000}
                     required
                     rows="4"
                     value={formData.mensaje}
@@ -222,14 +261,15 @@ export default function Propone() {
                       id="file-upload"
                       className="hidden"
                       onChange={handleFileChange}
-                      accept=".pdf,.doc,.docx,.xls,.xlsx"
+                      disabled={cargando}
+                      accept={FILE_ACCEPT}
                     />
                     <label 
                       htmlFor="file-upload"
                       className="flex items-center justify-center w-full h-25 px-4 py-4 border-2 border-dashed border-liberty-border rounded-xl cursor-pointer hover:border-liberty-primary"
                     >
                       <span className="text-sm text-liberty-text-secondary transition-colors">
-                        {fileName ? fileName : "Subir documento de tu proyecto (PDF, Word)"}
+                        {leyendoArchivo ? "Leyendo documento..." : fileName || "Subir documento (PDF, Word, Excel, ODT o TXT; máx. 2 MB)"}
                       </span>
                     </label>
                   </div>
@@ -237,11 +277,12 @@ export default function Propone() {
 
                 <button 
                   type="submit"
-                  disabled={cargando}
+                  disabled={cargando || leyendoArchivo}
                   className="w-full mt-4 group relative inline-flex items-center justify-center px-8 py-4 bg-liberty-primary text-liberty-text font-black uppercase text-sm tracking-[0.2em] rounded-xl overflow-hidden transform-gpu cursor-pointer disabled:opacity-50"
                 >
                   <span className="relative z-10">{cargando ? "Enviando propuesta..." : "Enviar Propuesta"}</span>
                 </button>
+                <FormProtection challengeRef={protection.challengeRef} honeypotRef={protection.honeypotRef} />
               </form>
             )}
           </div>
