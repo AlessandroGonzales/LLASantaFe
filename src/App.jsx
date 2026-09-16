@@ -89,10 +89,7 @@ function App() {
             <main id="contenido-principal" tabIndex="-1">
               <Suspense fallback={<PageLoader />}>
                 <Routes>
-                  {/* Home se carga rápido, sin Suspense interrumpiendo el primer pantallazo */}
                   <Route path="/" element={<Home />} />
-
-                  {/* Estas rutas se descargan bajo demanda gracias al Suspense y el lazy */}
                   <Route path="/propuestas" element={<SeccionPropuestas />} />
                   <Route path="/propuesta/:id" element={<PropuestaDetalle />} />
                   <Route path="/noticia/:id" element={<NoticiaDetalle />} />
