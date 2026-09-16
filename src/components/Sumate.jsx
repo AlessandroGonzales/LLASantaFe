@@ -89,7 +89,7 @@ export default function Sumate() {
     <div className={styles.page}>
       <header className={styles.hero}>
         <div className={styles.heroCopy}>
-          <h1>La libertad<span>empieza</span><span className={styles.accent}>con vos.</span></h1>
+          <h1>La libertad<span>empieza</span><span className={styles.accent}>con vos</span></h1>
           <p className={styles.invitation}>
             Los grandes cambios se realizan cuando todos están sumamente
             comprometidos. Nosotros queremos lo mejor para la provincia y para
@@ -121,7 +121,7 @@ export default function Sumate() {
       <section id="como-sumarte" className={styles.process} aria-labelledby="sumate-process-title" tabIndex={-1}>
         <div className={styles.processIntro}>
           <p className={styles.eyebrow}>Cómo sumarte</p>
-          <h2 id="sumate-process-title">De las ideas<span>a la acción.</span></h2>
+          <h2 id="sumate-process-title">De las ideas<span>a la acción</span></h2>
         </div>
         <ol className={styles.steps}>
           {steps.map((step, index) => (

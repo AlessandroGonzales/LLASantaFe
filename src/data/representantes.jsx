@@ -15,6 +15,8 @@ import franco from "../assets/franco.webp";
 import aleart from "../assets/aleart.webp";
 import jeronimo from "../assets/jeronimo.webp";
 import samanta from "../assets/samanta.webp";
+import milagroszafra from "../assets/milagroszafra.webp"
+import brunela from "../assets/brunelascaloni.webp"
 
 export const concejalesData = [
   {
@@ -325,4 +327,40 @@ export const concejalesData = [
     descripcion: "Por más libertad en mí ciudad",
     foto: gambo,
   },
+  {
+    id: 18,
+    nombre: "Milagros Zafra",
+    edad: 41,
+    cargo: "Concejal",
+    profesion: "Microbióloga / Bacterióloga clínica",
+    ciudad: "Rafaela",
+    redes: {
+      instagram: "@milagros_zafra ",
+      twitter: "@zafranina",
+    },
+    
+    mail: "milagros_zafra@hotmail.com",
+    telefono: "",
+    proyectos: "https://drive.google.com/drive/folders/1JX8BIzHShK7BOv2k2XGcWknhRoZbUOWU",
+    descripcion: "Defiendo la vida, la libertad y la propiedad privada desde Rafaela. Quiero un estado más chico para que la gente progrese y tenga más libertad y mejor calidad de vida. Mi perfil profesional me ayuda a ser objetiva y analítica.",
+    foto: milagroszafra
+  },
+  {
+    id: 19,
+    nombre: "Brunela Scaloni",
+    edad: 32,
+    cargo: "Concejal",
+    profesion: "Comerciante",
+    ciudad : "Capitán Bermúdez",
+    redes: {
+      instagram: "@brunescaloni",
+      twitter: "@BrunelaScaloni",
+      facebook: "https://www.facebook.com/share/1DWkYcsMnq/"
+    },
+    mail: "brunescaloni@gmail.com",
+    telefon: "341152527562",
+    descripcion: "Nací, me eduqué, formé mi familia y tengo mi negocio en esta ciudad que tanto amo. Quiero que Capitán Bermúdez vuelva a ser una ciudad en crecimiento, limpia, ordenada y más segura",
+    foto: brunela
+  }
+
 ];

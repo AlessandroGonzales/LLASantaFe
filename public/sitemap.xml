@@ -21,4 +21,10 @@
         <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.lalibertadavanzasantafe.com/nosotros" />
     </url>
 
+    <url>
+        <loc>https://www.lalibertadavanzasantafe.com/presidentes-comunales</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.lalibertadavanzasantafe.com/presidentes-comunales" />
+    </url>
 </urlset>

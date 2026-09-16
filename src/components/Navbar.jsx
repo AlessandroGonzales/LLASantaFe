@@ -52,6 +52,8 @@ export default function Navbar() {
   const representativesAreActive =
     location.pathname === "/diputados" ||
     location.pathname === "/representantes" ||
+    location.pathname === "/presidentes-comunales" ||
+    isHomeSection("#presidentes-comunales") ||
     isHomeSection("#diputados") ||
     isHomeSection("#representantes");
 
@@ -158,13 +160,13 @@ export default function Navbar() {
     >
       <nav
         aria-label="Navegación principal"
-        className="mx-auto flex h-full max-w-[90rem] items-center justify-between px-4 sm:px-6 lg:px-8"
+        className="flex h-full w-full items-center justify-between px-4 sm:px-6 lg:px-8 xl:grid xl:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] xl:gap-4"
       >
         <Link
           to="/"
           onClick={closeMobileMenu}
           aria-label="La Libertad Avanza Santa Fe, ir al inicio"
-          className="group relative z-50 flex min-h-11 items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white shrink-0"
+          className="group relative z-50 flex min-h-11 items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white shrink-0 xl:justify-self-start"
         >
           <img
             src={logo}
@@ -187,7 +189,7 @@ export default function Navbar() {
         </Link>
 
         {/* Links centrados en Desktop */}
-        <div className="hidden h-full flex-1 items-center justify-center gap-2 xl:flex px-4">
+        <div className="hidden h-full items-center justify-center gap-2 xl:flex">
           <Link
             to="/#noticias"
             aria-current={isHomeSection("#noticias") ? "location" : undefined}
@@ -271,6 +273,15 @@ export default function Navbar() {
                 >
                   Concejales
                 </Link>
+                <Link
+                  to="/presidentes-comunales"
+                  tabIndex={isDesktopDropdownOpen ? 0 : -1}
+                  aria-current={location.pathname === "/presidentes-comunales" ? "page" : undefined}
+                  onClick={() => setIsDesktopDropdownOpen(false)}
+                  className="flex min-h-11 items-center rounded-xl px-4 text-sm font-bold text-white transition-colors hover:bg-liberty-primary/15 hover:text-liberty-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                >
+                  Presidentes comunales
+                </Link>
               </div>
             </div>
           </div>
@@ -289,10 +300,17 @@ export default function Navbar() {
           >
             Sedes
           </Link>
+          <Link
+            to="/reclamos"
+            aria-current={location.pathname === "/reclamos" ? "page" : undefined}
+            className={desktopLinkClass(location.pathname === "/reclamos")}
+          >
+            Reclamos
+          </Link>
         </div>
 
         {/* Botón "Sumate" alineado a la derecha en Desktop */}
-        <div className="hidden items-center xl:flex shrink-0">
+        <div className="hidden items-center xl:flex shrink-0 xl:justify-self-end">
           <Link
             to="/sumate"
             aria-current={location.pathname === "/sumate" ? "page" : undefined}
@@ -443,6 +461,15 @@ export default function Navbar() {
                       >
                         Concejales
                       </Link>
+                      <Link
+                        to="/presidentes-comunales"
+                        tabIndex={isMobileDropdownOpen ? 0 : -1}
+                        aria-current={location.pathname === "/presidentes-comunales" ? "page" : undefined}
+                        onClick={closeMobileMenu}
+                        className="flex min-h-11 items-center text-base font-bold uppercase tracking-[0.08em] text-liberty-text-secondary hover:text-liberty-primary focus-visible:outline-none focus-visible:text-white"
+                      >
+                        Presidentes comunales
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -469,6 +496,17 @@ export default function Navbar() {
               >
                 <MobileIndex>06</MobileIndex>
                 Sedes
+              </Link>
+              <Link
+                to="/reclamos"
+                onClick={closeMobileMenu}
+                aria-current={
+                  location.pathname === "/reclamos" ? "page" : undefined
+                }
+                className={mobileLinkClass(location.pathname === "/reclamos")}
+              >
+                <MobileIndex>07</MobileIndex>
+                Reclamos
               </Link>
             </div>
 

@@ -8,21 +8,18 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTop from "./ScrollToTop";
 
-// 🚀 1. IMPORTACIONES ESTÁTICAS (Para la carga inicial)
-// Estos componentes arman el Home. Se cargan de inmediato para no mostrar el loader al entrar.
 import Hero from "./components/Hero";
 import NewsCarousel from "./components/NewCarousel";
 import PropuestasPreview from "./components/PropuestasPreview";
 import NosotrosPreview from "./components/NosotrosPreview";
 import RepresentantesPreview from "./components/RepresentantesPreview";
+import PresidentesComunalesPreview from "./components/PresidentesComunalesPreview";
 import DiputadosPreview from "./components/DiputadosPreview";
 import ProponePreview from "./components/ProponePreview";
 
 const loadFeatures = () =>
   import("framer-motion").then((res) => res.domAnimation);
 
-// ✂️ 2. IMPORTACIONES LAZY (Code Splitting real)
-// El navegador SOLO descargará el código de estas páginas si el usuario hace clic en sus enlaces.
 const SeccionPropuestas = lazy(() => import("./components/SeccionPropuestas"));
 const PropuestaDetalle = lazy(() => import("./components/PropuestaDetalle"));
 const SedesLLA = lazy(() => import("./components/SedesLLA"));
@@ -33,9 +30,10 @@ const SeccionRepresentantes = lazy(
   () => import("./components/SeccionRepresentantes"),
 );
 const SeccionDiputados = lazy(() => import("./components/SeccionDiputados"));
+const SeccionPresidentesComunales = lazy(() => import("./components/SeccionPresidentesComunales"));
 const SeccionPropone = lazy(() => import("./components/SeccionPropone"));
+const SeccionReclamos = lazy(() => import("./components/SeccionReclamos"));
 
-// Fallback más profesional (Se mostrará solo al navegar hacia otras páginas)
 const PageLoader = () => (
   <div className="min-h-[60vh] flex items-center justify-center">
     <div className="flex flex-col items-center gap-3">
@@ -70,6 +68,7 @@ function Home() {
       <NosotrosPreview />
       <DiputadosPreview />
       <RepresentantesPreview />
+      <PresidentesComunalesPreview />
       <ProponePreview />
     </>
   );
@@ -100,8 +99,10 @@ function App() {
                     element={<SeccionRepresentantes />}
                   />
                   <Route path="/diputados" element={<SeccionDiputados />} />
+                  <Route path="/presidentes-comunales" element={<SeccionPresidentesComunales />} />
                   <Route path="/propone" element={<SeccionPropone />} />
                   <Route path="/sedes" element={<SedesLLA />} />
+                  <Route path="/reclamos" element={<SeccionReclamos />} />
                 </Routes>
               </Suspense>
             </main>
