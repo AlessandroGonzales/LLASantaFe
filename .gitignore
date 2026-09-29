@@ -16,6 +16,7 @@ dist-ssr
 !.env.example
 .vercel
 bundle-analisis.html
+/artifacts/hero-video/render-work/
 
 # Editor directories and files
 .vscode/*

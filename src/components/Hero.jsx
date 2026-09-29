@@ -1,9 +1,13 @@
+import { useEffect, useRef, useState } from "react";
 import { m, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import logoLibertad from "../assets/logoLibertad.webp";
 import backgroundImage from "../assets/hero-mobile.webp";
 import backgroundImageDos from "../assets/hero-desktop.webp";
+import heroVideo from "../assets/hero-intro.mp4";
+import heroVideoMobile from "../assets/hero-intro-mobile-vertical.mp4";
 import CinematicLink from "./CinematicLink";
+import { startHeroVideoPlayback } from "../utils/heroVideoPlayback";
 
 const eagleVariants = {
   hidden: { opacity: 0, scale: 0.84, y: 24 },
@@ -32,44 +36,58 @@ const contentItemVariants = {
   },
 };
 
-function heroWasAnimated() {
-  if (typeof window === "undefined") return false;
-
-  try {
-    return window.sessionStorage.getItem("hero_animated") === "true";
-  } catch {
-    return false;
-  }
-}
-
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
-  const hasAnimated = heroWasAnimated();
-  const skipIntro = hasAnimated || shouldReduceMotion;
+  const [saveData] = useState(() =>
+    typeof navigator !== "undefined" && Boolean(navigator.connection?.saveData),
+  );
+  const [videoStarted, setVideoStarted] = useState(false);
+  const [videoPaused, setVideoPaused] = useState(false);
+  const [contentRevealed, setContentRevealed] = useState(false);
+  const [introFinished, setIntroFinished] = useState(false);
+  const [videoReleased, setVideoReleased] = useState(false);
+  const videoRef = useRef(null);
+  const playbackRef = useRef(null);
+  const controlsRef = useRef(null);
+  const titleRef = useRef(null);
+  const restoreFocusRef = useRef(false);
+  const allowVideo = !shouldReduceMotion && !saveData;
+  const showContent = !allowVideo || introFinished || contentRevealed;
+  const showControls = allowVideo && !introFinished;
 
-  const markAsAnimated = () => {
-    if (typeof window === "undefined" || hasAnimated) return;
+  useEffect(() => {
+    if (!allowVideo || introFinished) return;
+    const playback = startHeroVideoPlayback(videoRef.current, {
+      onReady: () => setVideoStarted(true),
+      onReveal: () => setContentRevealed(true),
+      onPauseChange: setVideoPaused,
+      onFinish: () => {
+        restoreFocusRef.current = controlsRef.current?.contains(document.activeElement);
+        setIntroFinished(true);
+      },
+    });
+    playbackRef.current = playback;
+    return () => {
+      playback.dispose();
+      playbackRef.current = null;
+    };
+  }, [allowVideo, introFinished]);
 
-    try {
-      window.sessionStorage.setItem("hero_animated", "true");
-    } catch {
-      // La experiencia sigue funcionando aunque el navegador bloquee el storage.
+  useEffect(() => {
+    if (showContent && introFinished && restoreFocusRef.current) {
+      titleRef.current?.focus({ preventScroll: true });
+      restoreFocusRef.current = false;
     }
-  };
+  }, [showContent, introFinished]);
 
   return (
     <section
       aria-labelledby="hero-title"
-      // CAMBIO 1: Quitamos 'items-center' y agregamos 'flex-col' para distribuir verticalmente.
-      className="relative isolate flex min-h-screen min-h-[100svh] flex-col overflow-hidden border-b border-liberty-border bg-liberty-bg"
+      className="relative isolate flex h-9/12 flex-col overflow-hidden border-b border-liberty-border bg-liberty-bg"
     >
-      <m.picture
+      <picture
         aria-hidden="true"
-        initial={skipIntro ? false : { opacity: 0, scale: 1.04 }}
-        animate={{ opacity: 0.82, scale: 1 }}
-        transition={{ duration: skipIntro ? 0 : 1.6, ease: "easeOut" }}
-        className="absolute inset-0 z-0 h-full w-full"
-        onAnimationComplete={markAsAnimated}
+        className="absolute inset-0 z-0 h-full w-full opacity-[0.82]"
       >
         <source
           media="(min-width: 768px)"
@@ -85,18 +103,43 @@ export default function Hero() {
           decoding="async"
           className="hero-background-motion h-full w-full object-cover object-top md:object-[center_1%]"
         />
-      </m.picture>
+      </picture>
+
+      {allowVideo && !videoReleased && (!introFinished || videoStarted) && (
+        <m.video
+          id="hero-intro-video"
+          ref={videoRef}
+          aria-hidden="true"
+          tabIndex={-1}
+          muted
+          playsInline
+          preload="none"
+          disablePictureInPicture
+          initial={false}
+          animate={{ opacity: videoStarted && !introFinished ? 1 : 0 }}
+          transition={{ duration: introFinished ? 1.2 : 0.5, ease: "easeInOut" }}
+          onAnimationComplete={() => {
+            if (introFinished) setVideoReleased(true);
+          }}
+          className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-center"
+        >
+          <source src={heroVideoMobile} media="(max-width: 767px)" type="video/mp4" />
+          <source src={heroVideo} type="video/mp4" />
+        </m.video>
+      )}
 
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b via-liberty-bg/1 to-liberty-bg"
       />
-      {/* CAMBIO 2: Agregamos 'flex-1'. Cambiamos pt-24 a pt-12 (y pt-28 a pt-16) para subir el bloque de logo y título */}
-      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col items-center px-5 pb-14 pt-20 text-center sm:px-8 sm:pb-16 md:pt-16">
+      <div
+        inert={!showContent}
+        className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col items-center px-5 pb-14 pt-20 text-center sm:px-8 sm:pb-16 md:pt-16"
+      >
         <m.img
           variants={eagleVariants}
-          initial={skipIntro ? false : "hidden"}
-          animate="visible"
+          initial={showContent ? false : "hidden"}
+          animate={showContent ? "visible" : "hidden"}
           src={logoLibertad}
           alt=""
           aria-hidden="true"
@@ -106,30 +149,29 @@ export default function Hero() {
           className="mb-5 h-40 w-auto object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.38)] sm:h-36 md:mb-6 md:h-44"
         />
 
-        {/* CAMBIO 3: Agregamos 'flex-1' a este wrapper para que empuje el contenido hacia abajo. */}
         <m.div
           variants={contentVariants}
-          initial={skipIntro ? false : "hidden"}
-          animate="visible"
+          initial={showContent ? false : "hidden"}
+          animate={showContent ? "visible" : "hidden"}
           className="flex w-full flex-1 flex-col items-center"
         >
           <m.h1
             id="hero-title"
+            ref={titleRef}
+            tabIndex={-1}
             variants={contentItemVariants}
-            className="max-w-5x1 text-[clamp(2.5rem,4vw,5rem)] font-black uppercase leading-[0.9] tracking-[-0.065em] text-white [text-wrap:balance]"
+            className="max-w-5x1 text-[clamp(2.5rem,3.5vw,5rem)] font-black uppercase leading-[0.9] tracking-[-0.065em] text-white [text-wrap:balance]"
           >
             <span className="block">La Libertad Avanza</span>
-            <span className="mt-2 block text-liberty-primary sm:mt-3">
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-liberty-primary to-liberty-primary-hover" >
               Santa Fe
             </span>
           </m.h1>
 
-          {/* CAMBIO 4: Cambiamos 'mt-6' a 'mt-auto md:mt-7'. 
-              En celular 'mt-auto' baja esto y los botones al límite inferior. En desktop 'md:mt-7' los vuelve a juntar. */}
           <m.p
             id="hero-purpose"
             variants={contentItemVariants}
-            className="mt-72 max-w-2xl text-base font-medium leading-relaxed text-white/85 [text-wrap:balance] sm:text-lg md:mt-49 md:text-xl"
+            className="mt-72 max-w-2xl text-base font-medium leading-relaxed text-white/85 [text-wrap:balance] sm:text-lg md:mt-69 md:text-ms"
           >
             Impulsamos ideas, propuestas y participación ciudadana para construir
             una Santa Fe más libre, segura y próspera.
@@ -154,6 +196,28 @@ export default function Hero() {
           </m.div>
         </m.div>
       </div>
+
+      {showControls && (
+        <div ref={controlsRef} className="absolute bottom-3 right-4 z-20 flex gap-2 sm:right-6">
+          {videoStarted && (
+            <button
+              type="button"
+              aria-controls="hero-intro-video"
+              onClick={() => playbackRef.current?.togglePause()}
+              className="min-h-11 rounded-full border border-white/30 bg-liberty-bg/80 px-4 text-xs font-medium text-white transition-colors hover:bg-liberty-bg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              {videoPaused ? "Reanudar video" : "Pausar video"}
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={() => playbackRef.current?.finish()}
+            className="min-h-11 rounded-full border border-white/30 bg-liberty-bg/80 px-4 text-xs font-medium text-white transition-colors hover:bg-liberty-bg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
+            Omitir introducción
+          </button>
+        </div>
+      )}
 
       <div
         aria-hidden="true"

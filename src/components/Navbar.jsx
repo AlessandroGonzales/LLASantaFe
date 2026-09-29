@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/aguila.webp";
 
 const desktopLinkBase =
-  "relative inline-flex min-h-11 items-center px-2 py-2 text-sm font-bold tracking-wide transition-colors duration-200 after:absolute after:inset-x-2 after:bottom-1 after:h-0.5 after:origin-left after:bg-liberty-primary after:transition-transform after:duration-300 focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white";
+  "relative inline-flex min-h-11 items-center px-2 py-2 text-[13px] font-bold tracking-wide transition-colors duration-200 after:absolute after:inset-x-2 after:bottom-1 after:h-0.5 after:origin-left after:bg-liberty-primary after:transition-transform after:duration-300 focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white";
 
 const mobileLinkBase =
   "group flex min-h-14 w-full items-center gap-4 border-b border-white/10 py-3 text-left text-xl font-black uppercase tracking-[0.08em] transition-colors hover:text-liberty-primary focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:text-2xl";
@@ -152,7 +152,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 h-16 border-b transition-[background-color,border-color,box-shadow] duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 h-14 border-b transition-[background-color,border-color,box-shadow] duration-300 ${
         isScrolled || isOpen
           ? "border-liberty-border/80 bg-liberty-bg/95 shadow-[0_12px_40px_rgba(10,2,18,0.28)] backdrop-blur-xl"
           : "bg-transparent border-b border-transparent"

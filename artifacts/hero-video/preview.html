@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Previsualización del hero — montaje fotográfico</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; color: white; background: #12081c; font-family: Arial, sans-serif; }
+    .hero { position: relative; height: 100svh; min-height: 580px; overflow: hidden; }
+    video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 5vh 24px 6vh; text-align: center; background: linear-gradient(#14072070, transparent 45%, #14072090); opacity: 0; visibility: hidden; transition: opacity 1s; }
+    .content.visible { opacity: 1; visibility: visible; }
+    .brand img { width: 210px; height: 94px; object-fit: contain; }
+    h1 { margin: 14px 0 0; font-size: clamp(32px, 4.5vw, 68px); line-height: .95; font-weight: 900; letter-spacing: -.05em; text-transform: uppercase; text-shadow: 0 2px 25px #0008; }
+    h1 span { display: block; color: #d459e8; }
+    .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .actions a { padding: 16px 25px; border-radius: 50px; color: white; background: #9e27b9; border: 1px solid #c66dde; text-decoration: none; text-transform: uppercase; letter-spacing: .08em; font-size: 12px; font-weight: bold; }
+    .actions a + a { background: #190b26bb; border-color: #ffffff80; }
+    .playback { position: absolute; right: 16px; top: 16px; display: flex; gap: 8px; z-index: 2; }
+    button { color: white; background: #150c20bf; border: 1px solid #ffffff60; border-radius: 30px; padding: 10px 14px; cursor: pointer; }
+    :focus-visible { outline: 2px solid white; outline-offset: 4px; }
+    footer { padding: 22px; color: #c5bccd; font-size: 13px; line-height: 1.6; text-align: center; }
+    @media (max-width: 700px) { .brand img { width: 160px; height: 72px; } .content { padding-top: 9vh; } h1 { font-size: 34px; } .actions { flex-direction: column; width: 100%; max-width: 340px; } }
+    @media (prefers-reduced-motion: reduce) { .content { transition: none; } }
+  </style>
+</head>
+<body>
+  <main class="hero">
+    <video id="film" muted playsinline preload="metadata" aria-label="Montaje de tres fotografías del encuentro en Rosario"></video>
+    <div class="content" id="content">
+      <div class="brand"><img src="../../src/assets/logoLibertad.webp" alt=""><h1>La Libertad Avanza<span>Santa Fe</span></h1></div>
+      <div class="actions"><a href="https://www.lalibertadavanzasantafe.com/propuestas">Las propuestas</a><a href="https://www.lalibertadavanzasantafe.com/sumate">Quiero ser parte</a></div>
+    </div>
+    <div class="playback"><button id="play" type="button">Reproducir</button><button id="skip" type="button">Ver cierre</button></div>
+  </main>
+  <footer>Previsualización editorial: montaje de fotografías con movimiento de encuadre. No es una filmación continua ni una animación generativa de las personas. El logo y los botones pertenecen a esta demostración HTML; no están incrustados en el MP4.</footer>
+  <script>
+    const film = document.getElementById('film');
+    const content = document.getElementById('content');
+    const play = document.getElementById('play');
+    const mobile = matchMedia('(max-width: 700px)').matches;
+    film.src = mobile ? 'hero-mobile-montaje.mp4' : 'hero-desktop-montaje.mp4';
+    film.poster = mobile ? 'poster-mobile.jpg' : 'poster-desktop.jpg';
+    film.addEventListener('timeupdate', () => content.classList.toggle('visible', film.currentTime >= 12.5));
+    film.addEventListener('play', () => { play.textContent = 'Pausar'; });
+    film.addEventListener('pause', () => { play.textContent = film.ended ? 'Repetir' : 'Reproducir'; });
+    play.addEventListener('click', () => { if (film.paused) { if (film.ended) film.currentTime = 0; film.play(); } else film.pause(); });
+    document.getElementById('skip').addEventListener('click', () => { film.pause(); if (Number.isFinite(film.duration)) film.currentTime = film.duration - .05; content.classList.add('visible'); });
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || navigator.connection?.saveData) content.classList.add('visible');
+    else film.play().catch(() => content.classList.add('visible'));
+  </script>
+</body>
+</html>
