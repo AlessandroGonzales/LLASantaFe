@@ -52,7 +52,6 @@ export default function DiputadosPreview() {
       aria-describedby="diputados-preview-description"
       className="relative w-full scroll-mt-16 py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-hidden"
     >
-      {/* Luces GPU Aisladas */}
       <div aria-hidden="true" className="absolute top-0 right-0 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-liberty-primary/17 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3" />
 
       <div className="w-full px-6 md:px-12 lg:px-20 max-w-[1600px] mx-auto relative z-10">
@@ -88,10 +87,7 @@ export default function DiputadosPreview() {
           className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center"
         >
           
-          {/* COLUMNA IZQUIERDA - Textos + Botón */}
           <div className="lg:col-span-5 flex flex-col justify-center text-center lg:text-left z-10 order-2 lg:order-1">
-            
-            {/* Título oculto en mobile (Diseño intacto) */}
             <m.div 
               className="hidden lg:block"
               initial={skipAnimation ? false : { opacity: 0, y: 20 }}
