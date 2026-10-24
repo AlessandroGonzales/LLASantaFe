@@ -7,6 +7,7 @@ import { LazyMotion } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTop from "./ScrollToTop";
+import AccountSession from "./components/AccountSession";
 
 import Hero from "./components/Hero";
 import NewsCarousel from "./components/NewCarousel";
@@ -35,6 +36,8 @@ const SeccionPresidentesComunales = lazy(() => import("./components/SeccionPresi
 const SeccionPropone = lazy(() => import("./components/SeccionPropone"));
 const SeccionReclamos = lazy(() => import("./components/SeccionReclamos"));
 const NotFound = lazy(() => import("./components/NotFound"));
+const Cuenta = lazy(() => import("./pages/Cuenta"));
+const accountRoutes = ["/ingresar", "/registro", "/verificar-email", "/recuperar-cuenta", "/restablecer-password", "/mi-cuenta"];
 
 const PageLoader = () => (
   <div className="min-h-[60vh] flex items-center justify-center">
@@ -84,6 +87,7 @@ function App() {
         <TransitionProvider>
           <GlobalTransition />
           <ScrollToTop />
+          <AccountSession />
 
           <div className="bg-liberty-bg text-liberty-text font-satoshi">
             <Navbar />
@@ -91,6 +95,7 @@ function App() {
             <main id="contenido-principal" tabIndex="-1">
               <Suspense fallback={<PageLoader />}>
                 <Routes>
+                  {accountRoutes.map(path => <Route key={path} path={path} element={<Cuenta />} />)}
                   <Route path="/" element={<Home />} />
                   <Route path="/propuestas" element={<SeccionPropuestas />} />
                   <Route path="/propuesta/:id" element={<PropuestaDetalle />} />

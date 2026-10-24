@@ -33,6 +33,11 @@ hallazgos; no se almacenan credenciales ni variables privadas en este commit.
 
 ## Trabajo y pruebas
 
+Primer bloque implementado localmente: cliente HTTP y sesión de usuario, con
+registro, verificación, login, recuperación, perfil, PATCH, cierre y baja. Guía y
+verificación en [API_CUENTA_LOCAL.md](API_CUENTA_LOCAL.md). Los siguientes módulos
+de participación y la preparación de Azure todavía no están integrados en React.
+
 1. Antes de editar, comprobar la rama con `git branch --show-current`.
 2. Conectar primero cliente HTTP y sesión; luego cuenta, afiliación, encuestas y
    solicitudes de texto, según los contratos de LLASantaFeApi.

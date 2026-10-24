@@ -310,7 +310,8 @@ export default function Navbar() {
         </div>
 
         {/* Botón "Sumate" alineado a la derecha en Desktop */}
-        <div className="hidden items-center xl:flex shrink-0 xl:justify-self-end">
+        <div className="hidden items-center gap-3 xl:flex shrink-0 xl:justify-self-end">
+          <Link to="/mi-cuenta" className={desktopLinkClass(location.pathname === "/mi-cuenta")}>Mi cuenta</Link>
           <Link
             to="/sumate"
             aria-current={location.pathname === "/sumate" ? "page" : undefined}
@@ -511,6 +512,7 @@ export default function Navbar() {
             </div>
 
             <div className="mt-auto pt-8">
+              <Link to="/mi-cuenta" onClick={closeMobileMenu} className="mb-4 flex min-h-11 items-center justify-center rounded-full border border-white/40 px-5 py-3 text-sm font-bold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">Mi cuenta</Link>
               <Link
                 to="/sumate"
                 onClick={closeMobileMenu}
