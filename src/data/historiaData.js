@@ -79,9 +79,12 @@ export const historiaData = [
     ],
     photos: [
       photograph("bloque", 1123, 977, "Representantes de La Libertad Avanza reunidos en el recinto de la Cámara de Diputados", "La representación en el Congreso"),
-      photograph("folleto", 960, 1280, "Militantes y dirigentes repartiendo folletos de campaña en la calle", "La campaña en las calles"),
+      photograph("cierrelista", 892, 665, "Militantes y dirigentes repartiendo folletos de campaña en la calle", "La campaña en las calles"),
       photograph("mileiSantafe", 960, 1280, "Concentración de militantes con una bandera que dice Santa Fe es de Milei", "Santa Fe, presente"),
     ],
+    photosMobile: [
+      photograph("folleto", 960, 1280, "Concentración de militantes con una bandera que dice Santa Fe es de Milei", "Santa Fe, presente"),
+    ]
   },
 ];
 

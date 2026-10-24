@@ -1,5 +1,5 @@
-export const HERO_CONTENT_REVEAL_SECONDS = 4;
-export const HERO_VIDEO_WAIT_TIMEOUT_MS = 4000;
+export const HERO_CONTENT_REVEAL_SECONDS = 2;
+export const HERO_VIDEO_WAIT_TIMEOUT_MS = 2000;
 
 // El reloj del video, no un temporizador de la página, dirige la introducción.
 export function startHeroVideoPlayback(video, callbacks, timers = globalThis) {
@@ -48,7 +48,7 @@ export function startHeroVideoPlayback(video, callbacks, timers = globalThis) {
       if (finished || disposed) return;
       clearWait();
       callbacks.onReady();
-      callbacks.onPauseChange(false);
+      callbacks.onPauseChange?.(false);
     },
     timeupdate: () => {
       if (finished || disposed) return;
@@ -57,7 +57,7 @@ export function startHeroVideoPlayback(video, callbacks, timers = globalThis) {
     },
     pause: () => {
       clearWait();
-      if (!finished && !disposed) callbacks.onPauseChange(true);
+      if (!finished && !disposed) callbacks.onPauseChange?.(true);
     },
     waiting: () => {
       if (!finished && !disposed && !video.paused) waitForPlayback();

@@ -6,6 +6,7 @@ import maipu from "../assets/maipu.webp"
 import sastre from "../assets/sastre.webp"
 import galvez from "../assets/galvez.webp"
 import venado from "../assets/venado.webp"
+import santafe from "../assets/bunkersantafe.webp"
 
 // 1. Array actualizado: Se agregaron lat y lng reales a cada sede
 const mockSedes = [
@@ -53,6 +54,15 @@ const mockSedes = [
     defaultVisible: false,
     lat: -32.58842217989335,
     lng: -61.163868216461026,
+  },
+  {
+    id: 6,
+    city: "Santa Fe Capital",
+    address: "Cornelio Saavedra 3012",
+    imageUrl: santafe, 
+    defaultVisible: true,
+    lat: -31.639121446770115,
+    lng: -60.7138005167213
   },
 
  

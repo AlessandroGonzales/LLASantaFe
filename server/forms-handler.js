@@ -140,7 +140,7 @@ export function createFormsHandler({ env = process.env, fetchImpl = fetch, now =
       const fingerprint = hmac(env.GOOGLE_APPS_SCRIPT_SECRET, JSON.stringify({ kind: body.kind, data, attachment }));
       const timestamp = String(now());
       const payload = JSON.stringify({
-        schemaVersion: 1, requestId: body.requestId, kind: body.kind,
+        schemaVersion: body.kind === "sumate" ? 2 : 1, requestId: body.requestId, kind: body.kind,
         receivedAt: new Date(Number(timestamp)).toISOString(), fingerprint, data, attachment,
       });
       const signature = hmac(env.GOOGLE_APPS_SCRIPT_SECRET, `${timestamp}.${payload}`);

@@ -12,6 +12,8 @@ export const FILE_TYPES = {
 export const FILE_ACCEPT = Object.keys(FILE_TYPES).map((extension) => `.${extension}`).join(",");
 export const PROFESSIONS = ["estudiante", "comerciante", "empresario", "salud", "docente", "agro", "independiente", "jubilado", "otro"];
 export const REASONS = ["proyecto", "sugerencia", "duda", "voluntariado", "denuncia"];
+// Una sola dirección: evita listas de destinatarios e inyección de cabeceras.
+export const EMAIL_PATTERN = /^[a-z0-9.!#$%&'*+/=?^_{|}~-]+@[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+$/i;
 
 export class FormError extends Error {
   constructor(message, status = 400, code = "invalid_request") {
@@ -41,6 +43,12 @@ function phone(value) {
   return text;
 }
 
+export function emailField(value) {
+  const email = textField(value, "correo electrónico", 254).toLowerCase();
+  if (!EMAIL_PATTERN.test(email)) throw new FormError("Ingresá un correo electrónico válido.");
+  return email;
+}
+
 export function validateFields(kind, input) {
   if (!input || typeof input !== "object" || Array.isArray(input)) throw new FormError("Formulario inválido.");
   const nombre = textField(input.nombre, "nombre y apellido", 120, 2);
@@ -48,11 +56,10 @@ export function validateFields(kind, input) {
     const dni = textField(input.dni, "DNI", 8, 7);
     if (!/^\d{7,8}$/.test(dni)) throw new FormError("Ingresá un DNI de 7 u 8 números, sin puntos.");
     if (typeof input.quiereFiscalizar !== "boolean") throw new FormError("Revisá la opción de fiscalización.");
-    return { nombre, dni, whatsapp: phone(input.whatsapp), localidad: textField(input.localidad, "localidad", 120, 2), quiereFiscalizar: input.quiereFiscalizar };
+    return { nombre, dni, whatsapp: phone(input.whatsapp), localidad: textField(input.localidad, "localidad", 120, 2), quiereFiscalizar: input.quiereFiscalizar, email: emailField(input.email) };
   }
   if (kind !== "propone") throw new FormError("Formulario desconocido.");
-  const email = textField(input.email, "email", 254).toLowerCase();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new FormError("Ingresá un email válido.");
+  const email = emailField(input.email);
   if (!PROFESSIONS.includes(input.profesion) || !REASONS.includes(input.motivo)) {
     throw new FormError("Seleccioná una profesión y un motivo válidos.");
   }

@@ -17,6 +17,17 @@ import jeronimo from "../assets/jeronimo.webp";
 import samanta from "../assets/samanta.webp";
 import milagroszafra from "../assets/milagroszafra.webp"
 import brunela from "../assets/brunelascaloni.webp"
+import ana from "../assets/ana.webp"
+import ani from "../assets/ani.webp"
+import francovolpe from "../assets/francovolpe.webp"
+import pablo from "../assets/pabloesteban.webp"
+
+
+
+
+
+
+
 
 export const concejalesData = [
   {
@@ -38,24 +49,22 @@ export const concejalesData = [
       "Desregular, desburocratizar y eliminar todas las tasas posibles en Rosario. Hay que sacarle al vecino la bota del estado de la cabeza.",
     foto: lautaro,
   },
-  {
+    {
     id: 2,
-    nombre: "Samanta Arias",
-    edad: 29,
+    nombre: "Franco volpe",
+    edad: 26,
     cargo: "Concejal",
-    profesion: "Diseñadora Gráfica",
-    ciudad: "Rosario",
+    profesion: "Politico",
+    ciudad : "Rosario",
     redes: {
-      instagram: "@_samiarias",
-      twitter: "@_samiarias",
-      tiktok: "@_samiarias",
+      instagram: "@francovolpe1",
+      twitter: "@francovolpeok",
+      facebook: "https://www.facebook.com/share/1DWkYcsMnq/"
     },
-    mail: "",
-    telefono: "3415827238",
-    proyectos: "https://www.samiarias.com/",
-    descripcion:
-      "Soy rosarina, nacida en Puente Gallego y criada en Acindar. Hice el secundario en el Superior de Comercio, estudié Diseño Gráfico y, hoy, soy concejal de la mejor ciudad del mundo. Estoy convencida de que, si no nos involucramos, otros deciden por nosotros.",
-    foto: samanta,
+    mail: "Francovolpe@concejorosario.gov.ar",
+    proyectos: "https://expedientes.concejorosario.gov.ar/home",
+    descripcion: "Concejal electo en 2023. Actualmente, presidente del bloque de La Libertad Avanza del concejo de la ciudad de Rosario. Estudiante en la carrera de Lic. en administración.",
+    foto: francovolpe
   },
   {
      id: 3,
@@ -75,23 +84,22 @@ export const concejalesData = [
       "Nuestro objetivo es hacer que las ideas de la libertad prevalezcan entre los rosarinos. Así Rosario recuperara su grandeza. ",
     foto: aleart,
   },
-  {
+    {
     id: 4,
-    nombre: "Carlos Bonetto",
-    edad: null,
-    cargo: "Concejal de Totoras",
-    profesion: "Médico Veterinario",
-    ciudad: "Totoras",
+    nombre: "Ana Cantiani",
+    edad: 54,
+    cargo: "Concejal",
+    profesion: "Licenciada en Comunicación Social",
+    ciudad : "Santa Fe",
     redes: {
-      instagram: "@bonettococo",
-      twitter: "@cocobonetto",
+      instagram: "@anacantiani",
+      twitter: "@anacantiani",
+      facebook: "https://www.facebook.com/share/1N7DxXCbxT/?mibextid=wwXIfr"
     },
-    mail: "cbonetto78@gmail.com",
-    telefono: "3476-350837",
-    proyectos: "https://www.instagram.com/bonettococo",
-    descripcion:
-      "Trabajo en la actividad privada, en el campo y como Concejal en Totoras, Sta Fe. El propósito del equipo es lograr obtener la Intendencia el año próximo.",
-    foto: carlos,
+    mail: "concejalacantiani@concejosantafe.gov.ar",
+    telefon: "3424669768",
+    descripcion: "Mamá de Ivana y Valentino. Licenciada en Comunicación Social y Concejal de la ciudad de Santa Fe. Creo en el esfuerzo, la libertad y en un Estado que no ponga trabas a la gente. Trabajo para construir una ciudad más transparente y con más oportunidades para todos.",
+    foto: ana
   },
   {
     id: 5,
@@ -101,69 +109,70 @@ export const concejalesData = [
     profesion: "Abogado - Corredor inmobiliario",
     ciudad: "Granadero Baigorria",
     redes: {
-      instagram: "@fontana.liberal",
+      instagram: "@fontanasantiago.ok",
       twitter: "@santiagofont4na",
     },
     mail: null,
     telefono: "3413220467",
-    proyectos: "https://www.instagram.com/fontana.liberal",
+    proyectos: "https://www.instagram.com/fontanasantiago.ok",
     descripcion:
       "Convertir a Granadero Baigorria en una ciudad pujante, con innovación, empleo y nuevas inversiones, donde tanto los empresarios como los simples vecinos se sientan orgullosos de vivir en una ciudad como Baigorria.",
     foto: santiago,
   },
-  {
+    {
     id: 6,
-    nombre: "Mariano Javier Trossero",
+    nombre: "Anabel Lencina",
     edad: 43,
-    cargo: "Concejal de Sastre",
-    profesion: "Productor Agropecuario - Comerciante",
-    ciudad: "Sastre",
+    cargo: "Concejal",
+    profesion: "Emprendedora",
+    ciudad : "Rosario",
     redes: {
-      instagram: "@marianojaviertrossero",
-      twitter: "@marianotrossero",
+      instagram: "@aniwaydash",
+      twitter: "@aniwaydash",
+      facebook: "https://www.facebook.com/share/1DWkYcsMnq/"
     },
-    mail: "lalibertadavanzasastre366@gmail.com",
-    telefono: "3406-422980",
-    proyectos: "https://www.instagram.com/p/DZtDMcBl-wP/",
-    descripcion:
-      "Como concejal de La Libertad Avanza en Sastre, defiendo los valores de la libertad, la transparencia y la responsabilidad en la gestión pública. Trabajo para impulsar iniciativas que mejoren la calidad de vida de los sastrenses.",
-    foto: mariano,
+    mail: "anabellencina@concejorosario.gov.ar",
+    telefon: "",
+    descripcion: "Soy Anabel, una emprendedora que defiende las ideas de la Libertad. Trabajé toda mi vida en el sector privado, y fundé mi marca de ropa, Waydash, con la que descubrí los problemas que causan la burocracia y el estatismo sobre la producción. Decidí involucrarme en la política porque quiero una Rosario más libre, con un estado más chico, que no moleste al sector productivo y en la que se pueda trabajar con libertad.",
+    foto: ani
   },
+
   {
     id: 7,
-    nombre: "Silvia Nardin",
-    edad: 58,
-    cargo: "Concejal de Malabrigo",
-    profesion: "Docente",
-    ciudad: "Malabrigo",
+    nombre: "FRANCO MARTÍN MAZZOLI",
+    edad: 50,
+    cargo: "Concejal",
+    profesion: "Abogado",
+    ciudad: "Cañada de Gómez",
     redes: {
-      instagram: "@silviarnardin",
-      twitter: null,
+      instagram: "@francomartinmazzoli",
+      twitter: "@drfrancomazzoli",
+      facebook: "Franco Martín Mazzoli",
     },
-    mail: null,
-    telefono: "3482-443064",
-    proyectos: "https://www.instagram.com/concejales.lla.mgo",
+    mail: "",
+    telefono: "3471-43606",
+    proyectos: "En el concejo deliberante",
     descripcion:
-      "Trabajo bajo tres pilares: transparencia activa en la gestión, soluciones reales para el bienestar de los Malabriguenses y cercanía para fortalecer la participación ciudadana.",
-    foto: silvia,
+      "Soy abogado y concejal de la ciudad de Cañada de Gómez, comprometido con una gestión basada en la transparencia, la eficiencia y el respeto por los recursos de los vecinos. Trabajo para impulsar políticas que promuevan el desarrollo económico, mejoren los servicios públicos y fortalezcan el control de la administración municipal. Mi objetivo es contribuir a una ciudad con más oportunidades, más seguridad y un Estado local moderno, austero y cercano a la gente.",
+    foto: franco,
   },
-  {
+     {
     id: 8,
-    nombre: "Maria Giselle Miravete",
-    edad: 52,
-    cargo: "Concejal de Santo Tomé",
-    profesion: "Técnica en Saneamiento Ambiental y Tecnología de Alimentos",
-    ciudad: "Santo Tomé",
+    nombre: "Pablo Esteban Mussio",
+    edad: 31,
+    cargo: "Concejal",
+    profesion: "Licenciado en Biotecnología / Doctorando en Ciencias Biológicas",
+    ciudad : "Ciudad de Santa Fe",
     redes: {
-      instagram: "@giselmiravete",
-      twitter: "@giselmira",
+      instagram: "@pabloestebanmussio",
+      twitter: "@PEMussio",
+      facebook: "https://www.facebook.com/pablo.esteban.mussio"
     },
-    mail: "giselmiravete2711@gmail.com",
-    telefono: null,
-    proyectos: "https://linktr.ee/giselmiravete_concejal",
-    descripcion:
-      "Soy Giselle Miravete concejal de LLA Santo Tomé. Tengo el objetivo de trabajar para que mi ciudad pueda salir adelante con mayor inversión privada y que no dependa del rescate estatal.",
-    foto: giselle,
+    mail: "pablo.esteban.mussio@gmail.com",
+    proyectos: "https://www.pabloestebanmussio.com/",
+    telefon: "3425165878",
+    descripcion: "Como concejal y científico de formación, me guío por la evidencia empírica, la cual demuestra que el liberalismo es el único camino comprobado hacia la prosperidad. Mi misión es reducir el peso del Estado y desatarle las manos al sector privado. Busco una Santa Fe próspera y abierta al libre mercado, basada en el mérito y libre.",
+    foto: pablo
   },
   {
     id: 9,
@@ -183,24 +192,25 @@ export const concejalesData = [
       "Trabajo en el sector privado hace 21 años y la experiencia adquirida me dió las convicciones necesarias para saber que la única vía posible para que nuestro país salga adelante, es achicar el gasto público, bajar impuestos y reducir el estado.",
     foto: matias,
   },
-  {
-    id: 10,
-    nombre: "Miguel Angel Chiarena",
-    edad: 57,
-    cargo: "Concejal de Recreo",
-    profesion: "Docente / Técnico Mecánico-Electricista",
-    ciudad: "Recreo",
+    {
+    id: 18,
+    nombre: "Milagros Zafra",
+    edad: 41,
+    cargo: "Concejal",
+    profesion: "Microbióloga / Bacterióloga clínica",
+    ciudad: "Rafaela",
     redes: {
-      instagram: "@miguel.chiarena",
-      twitter: "@MiguelChiarena",
+      instagram: "@milagros_zafra ",
+      twitter: "@zafranina",
     },
-    mail: "miguelchiarena@gmail.com",
-    telefono: "3425089345",
-    proyectos: "https://www.instagram.com/lalibertad_avanza_recreo",
-    descripcion:
-      "Simpático y accesible para la gente. Emprendedor y creativo en la vida profesional. Motivador e impulsor del cambio en la vida política.",
-    foto: miguel,
+    
+    mail: "milagros_zafra@hotmail.com",
+    telefono: "",
+    proyectos: "https://drive.google.com/drive/folders/1JX8BIzHShK7BOv2k2XGcWknhRoZbUOWU",
+    descripcion: "Defiendo la vida, la libertad y la propiedad privada desde Rafaela. Quiero un estado más chico para que la gente progrese y tenga más libertad y mejor calidad de vida. Mi perfil profesional me ayuda a ser objetiva y analítica.",
+    foto: milagroszafra
   },
+
   {
     id: 11,
     nombre: "Marianela De los Santos",
@@ -291,25 +301,24 @@ export const concejalesData = [
     descripcion: "Ciudad de funes",
     foto: jeronimo,
   },
-  {
+   {
     id: 16,
-    nombre: "FRANCO MARTÍN MAZZOLI",
-    edad: 50,
+    nombre: "Brunela Scaloni",
+    edad: 32,
     cargo: "Concejal",
-    profesion: "Abogado",
-    ciudad: "Cañada de Gómez",
+    profesion: "Comerciante",
+    ciudad : "Capitán Bermúdez",
     redes: {
-      instagram: "@francomartinmazzoli",
-      twitter: "@drfrancomazzoli",
-      facebook: "Franco Martín Mazzoli",
+      instagram: "@brunescaloni",
+      twitter: "@BrunelaScaloni",
+      facebook: "https://www.facebook.com/share/1DWkYcsMnq/"
     },
-    mail: "",
-    telefono: "3471-43606",
-    proyectos: "En el concejo deliberante",
-    descripcion:
-      "Soy abogado y concejal de la ciudad de Cañada de Gómez, comprometido con una gestión basada en la transparencia, la eficiencia y el respeto por los recursos de los vecinos. Trabajo para impulsar políticas que promuevan el desarrollo económico, mejoren los servicios públicos y fortalezcan el control de la administración municipal. Mi objetivo es contribuir a una ciudad con más oportunidades, más seguridad y un Estado local moderno, austero y cercano a la gente.",
-    foto: franco,
+    mail: "brunescaloni@gmail.com",
+    telefon: "341152527562",
+    descripcion: "Nací, me eduqué, formé mi familia y tengo mi negocio en esta ciudad que tanto amo. Quiero que Capitán Bermúdez vuelva a ser una ciudad en crecimiento, limpia, ordenada y más segura",
+    foto: brunela
   },
+ 
   {
     id: 17,
     nombre: "Claudio Eduardo Gamboa",
@@ -327,40 +336,114 @@ export const concejalesData = [
     descripcion: "Por más libertad en mí ciudad",
     foto: gambo,
   },
-  {
+    {
     id: 18,
-    nombre: "Milagros Zafra",
-    edad: 41,
-    cargo: "Concejal",
-    profesion: "Microbióloga / Bacterióloga clínica",
-    ciudad: "Rafaela",
+    nombre: "Miguel Angel Chiarena",
+    edad: 57,
+    cargo: "Concejal de Recreo",
+    profesion: "Docente / Técnico Mecánico-Electricista",
+    ciudad: "Recreo",
     redes: {
-      instagram: "@milagros_zafra ",
-      twitter: "@zafranina",
+      instagram: "@miguel.chiarena",
+      twitter: "@MiguelChiarena",
     },
-    
-    mail: "milagros_zafra@hotmail.com",
-    telefono: "",
-    proyectos: "https://drive.google.com/drive/folders/1JX8BIzHShK7BOv2k2XGcWknhRoZbUOWU",
-    descripcion: "Defiendo la vida, la libertad y la propiedad privada desde Rafaela. Quiero un estado más chico para que la gente progrese y tenga más libertad y mejor calidad de vida. Mi perfil profesional me ayuda a ser objetiva y analítica.",
-    foto: milagroszafra
+    mail: "miguelchiarena@gmail.com",
+    telefono: "3425089345",
+    proyectos: "https://www.instagram.com/lalibertad_avanza_recreo",
+    descripcion:
+      "Simpático y accesible para la gente. Emprendedor y creativo en la vida profesional. Motivador e impulsor del cambio en la vida política.",
+    foto: miguel,
+  },
+     {
+    id: 19,
+    nombre: "Silvia Nardin",
+    edad: 58,
+    cargo: "Concejal de Malabrigo",
+    profesion: "Docente",
+    ciudad: "Malabrigo",
+    redes: {
+      instagram: "@silviarnardin",
+      twitter: null,
+    },
+    mail: null,
+    telefono: "3482-443064",
+    proyectos: "https://www.instagram.com/concejales.lla.mgo",
+    descripcion:
+      "Trabajo bajo tres pilares: transparencia activa en la gestión, soluciones reales para el bienestar de los Malabriguenses y cercanía para fortalecer la participación ciudadana.",
+    foto: silvia,
   },
   {
-    id: 19,
-    nombre: "Brunela Scaloni",
-    edad: 32,
-    cargo: "Concejal",
-    profesion: "Comerciante",
-    ciudad : "Capitán Bermúdez",
+    id: 20,
+    nombre: "Maria Giselle Miravete",
+    edad: 52,
+    cargo: "Concejal de Santo Tomé",
+    profesion: "Técnica en Saneamiento Ambiental y Tecnología de Alimentos",
+    ciudad: "Santo Tomé",
     redes: {
-      instagram: "@brunescaloni",
-      twitter: "@BrunelaScaloni",
-      facebook: "https://www.facebook.com/share/1DWkYcsMnq/"
+      instagram: "@giselmiravete",
+      twitter: "@giselmira",
     },
-    mail: "brunescaloni@gmail.com",
-    telefon: "341152527562",
-    descripcion: "Nací, me eduqué, formé mi familia y tengo mi negocio en esta ciudad que tanto amo. Quiero que Capitán Bermúdez vuelva a ser una ciudad en crecimiento, limpia, ordenada y más segura",
-    foto: brunela
-  }
+    mail: "giselmiravete2711@gmail.com",
+    telefono: null,
+    proyectos: "https://linktr.ee/giselmiravete_concejal",
+    descripcion:
+      "Soy Giselle Miravete concejal de LLA Santo Tomé. Tengo el objetivo de trabajar para que mi ciudad pueda salir adelante con mayor inversión privada y que no dependa del rescate estatal.",
+    foto: giselle,
+  },
+  {
+    id: 21,
+    nombre: "Samanta Arias",
+    edad: 29,
+    cargo: "Concejal",
+    profesion: "Diseñadora Gráfica",
+    ciudad: "Rosario",
+    redes: {
+      instagram: "@_samiarias",
+      twitter: "@_samiarias",
+      tiktok: "@_samiarias",
+    },
+    mail: "",
+    telefono: "3415827238",
+    proyectos: "https://www.samiarias.com/",
+    descripcion:
+      "Soy rosarina, nacida en Puente Gallego y criada en Acindar. Hice el secundario en el Superior de Comercio, estudié Diseño Gráfico y, hoy, soy concejal de la mejor ciudad del mundo. Estoy convencida de que, si no nos involucramos, otros deciden por nosotros.",
+    foto: samanta,
+  },
+  {
+    id: 22,
+    nombre: "Carlos Bonetto",
+    edad: null,
+    cargo: "Concejal de Totoras",
+    profesion: "Médico Veterinario",
+    ciudad: "Totoras",
+    redes: {
+      instagram: "@bonettococo",
+      twitter: "@cocobonetto",
+    },
+    mail: "cbonetto78@gmail.com",
+    telefono: "3476-350837",
+    proyectos: "https://www.instagram.com/bonettococo",
+    descripcion:
+      "Trabajo en la actividad privada, en el campo y como Concejal en Totoras, Sta Fe. El propósito del equipo es lograr obtener la Intendencia el año próximo.",
+    foto: carlos,
+  },
+    {
+    id: 23,
+    nombre: "Mariano Javier Trossero",
+    edad: 43,
+    cargo: "Concejal de Sastre",
+    profesion: "Productor Agropecuario - Comerciante",
+    ciudad: "Sastre",
+    redes: {
+      instagram: "@marianojaviertrossero",
+      twitter: "@marianotrossero",
+    },
+    mail: "lalibertadavanzasastre366@gmail.com",
+    telefono: "3406-422980",
+    proyectos: "https://www.instagram.com/p/DZtDMcBl-wP/",
+    descripcion:
+      "Como concejal de La Libertad Avanza en Sastre, defiendo los valores de la libertad, la transparencia y la responsabilidad en la gestión pública. Trabajo para impulsar iniciativas que mejoren la calidad de vida de los sastrenses.",
+    foto: mariano,
+  },
 
 ];

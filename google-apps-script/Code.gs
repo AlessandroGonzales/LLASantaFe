@@ -6,12 +6,14 @@
  */
 const HEADERS = {
   sumate: ["id", "created_at", "fingerprint", "schema_version", "estado",
-    "nombre", "dni", "whatsapp", "localidad", "quiere_fiscalizar", "consentimiento_version"],
+    "nombre", "dni", "whatsapp", "localidad", "quiere_fiscalizar", "consentimiento_version",
+    "email", "correo_estado", "correo_enviado_at"],
   propone: ["id", "created_at", "fingerprint", "schema_version", "estado",
     "nombre", "telefono", "email", "profesion", "motivo", "mensaje",
     "archivo_id", "archivo_url", "archivo_nombre", "archivo_mime", "archivo_bytes"],
 };
 const TAB_NAMES = { sumate: "Sumate", propone: "Propuestas" };
+const EMAIL_PATTERN = /^[a-z0-9.!#$%&'*+/=?^_{|}~-]+@[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+$/i;
 
 function setupWorkspace() {
   const account = Session.getEffectiveUser().getEmail();
@@ -41,6 +43,7 @@ function setupWorkspace() {
         sheet.getRange(1, 1, 1, HEADERS[kind].length).setValues([HEADERS[kind]]);
         sheet.setFrozenRows(1);
       }
+      if (kind === "sumate") upgradeSumateHeaders_(sheet);
       assertHeaders_(sheet, kind);
     });
     let folderId = properties.getProperty("UPLOAD_FOLDER_ID");
@@ -51,6 +54,13 @@ function setupWorkspace() {
       properties.setProperty("UPLOAD_FOLDER_ID", folderId);
     }
     DriveApp.getFolderById(folderId).setSharing(DriveApp.Access.PRIVATE, DriveApp.Permission.NONE);
+    // Solicita el permiso de correo al autorizar la configuración.
+    MailApp.getRemainingDailyQuota();
+    if (!ScriptApp.getProjectTriggers().some(function (trigger) {
+      return trigger.getHandlerFunction() === "sendPendingMembershipEmails";
+    })) {
+      ScriptApp.newTrigger("sendPendingMembershipEmails").timeBased().everyMinutes(5).create();
+    }
     // No registrar claves ni datos de personas.
     console.log("Planilla: " + spreadsheet.getUrl());
     console.log("Carpeta privada: https://drive.google.com/drive/folders/" + folderId);
@@ -80,11 +90,17 @@ function doPost(event) {
     ).map(function (byte) { return (byte & 255).toString(16).padStart(2, "0"); }).join("");
     if (!constantEquals_(signature, envelope.signature)) throw new Error("authentication");
     const submission = JSON.parse(envelope.payload);
-    if (submission.schemaVersion !== 1 || !Object.prototype.hasOwnProperty.call(HEADERS, submission.kind) ||
+    if (![1, 2].includes(submission.schemaVersion) || (submission.schemaVersion === 2 && submission.kind !== "sumate") ||
+        !Object.prototype.hasOwnProperty.call(HEADERS, submission.kind) ||
         !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(submission.requestId || "") ||
         !/^[a-f0-9]{64}$/.test(submission.fingerprint || "") ||
         !submission.data || typeof submission.data !== "object" ||
         !Number.isFinite(Date.parse(submission.receivedAt))) throw new Error("payload");
+    if (submission.kind === "sumate" && (submission.schemaVersion === 2 || submission.data.email !== undefined)) {
+      if (typeof submission.data.email !== "string" || submission.data.email.length > 254 ||
+          submission.data.email !== submission.data.email.trim() ||
+          !EMAIL_PATTERN.test(submission.data.email)) throw new Error("email");
+    }
 
     lock = LockService.getScriptLock();
     if (!lock.tryLock(10000)) return json_({ ok: false, code: "busy" });
@@ -97,16 +113,20 @@ function doPost(event) {
       if (previous) {
         const fingerprint = sheet.getRange(previous.getRow(), 3).getValue();
         if (fingerprint !== submission.fingerprint) throw new Error("id_conflict");
+        if (submission.kind === "sumate") tryMembershipEmail_(sheet, previous.getRow());
         return json_({ ok: true, id: submission.requestId });
       }
       // Evita filas y archivos duplicados aunque se cambie el identificador de envío.
       const sameContent = sheet.getRange(2, 3, lastRow - 1, 1).createTextFinder(submission.fingerprint).matchEntireCell(true).findNext();
-      if (sameContent) return json_({ ok: true, id: sheet.getRange(sameContent.getRow(), 1).getValue() });
+      if (sameContent) {
+        if (submission.kind === "sumate") tryMembershipEmail_(sheet, sameContent.getRow());
+        return json_({ ok: true, id: sheet.getRange(sameContent.getRow(), 1).getValue() });
+      }
     }
 
     const values = {
       id: submission.requestId, created_at: submission.receivedAt,
-      fingerprint: submission.fingerprint, schema_version: 1, estado: "pendiente",
+      fingerprint: submission.fingerprint, schema_version: submission.schemaVersion, estado: "pendiente",
       nombre: literal_(submission.data.nombre),
     };
     if (submission.kind === "sumate") {
@@ -115,6 +135,12 @@ function doPost(event) {
       values.localidad = literal_(submission.data.localidad);
       values.quiere_fiscalizar = submission.data.quiereFiscalizar === true;
       values.consentimiento_version = "contacto-whatsapp-v1";
+      if (submission.data.email !== undefined) {
+        values.consentimiento_version = "contacto-whatsapp-email-v2";
+        values.email = literal_(submission.data.email.toLowerCase());
+        values.correo_estado = "pendiente";
+        saveMembershipDetails_(DriveApp.getFolderById(properties.getProperty("UPLOAD_FOLDER_ID")), submission);
+      }
     } else {
       ["email", "profesion", "motivo", "mensaje"].forEach(function (key) {
         values[key] = literal_(submission.data[key]);
@@ -149,6 +175,7 @@ function doPost(event) {
     if (lastRow >= sheet.getMaxRows()) sheet.insertRowsAfter(sheet.getMaxRows(), 100);
     sheet.getRange(lastRow + 1, 1, 1, row.length).setValues([row]);
     SpreadsheetApp.flush();
+    if (submission.kind === "sumate") tryMembershipEmail_(sheet, lastRow + 1);
     return json_({ ok: true, id: submission.requestId });
   } catch {
     // No filtrar excepciones de Google, documentos, IDs privados ni datos personales.
@@ -156,6 +183,90 @@ function doPost(event) {
   } finally {
     if (lock && lock.hasLock()) lock.releaseLock();
   }
+}
+
+// Solo amplía el esquema original reconocido; nunca mueve ni reescribe datos.
+function upgradeSumateHeaders_(sheet) {
+  const legacy = HEADERS.sumate.slice(0, 11);
+  const headers = sheet.getRange(1, 1, 1, HEADERS.sumate.length).getValues()[0];
+  if (JSON.stringify(headers.slice(0, 11)) !== JSON.stringify(legacy)) throw new Error("schema_mismatch");
+  const extra = headers.slice(11);
+  if (extra.every(function (value) { return value === ""; })) {
+    sheet.getRange(1, 1, 1, HEADERS.sumate.length).setValues([HEADERS.sumate]);
+  }
+}
+
+function saveMembershipDetails_(folder, submission) {
+  const data = submission.data;
+  const text = ["SOLICITUD DE AFILIACIÓN RECIBIDA - LLA SANTA FE",
+    "ID: " + submission.requestId, "Fecha de recepción (UTC): " + submission.receivedAt,
+    "Estado: pendiente de tramitación", "Nombre y apellido: " + data.nombre,
+    "DNI: " + data.dni, "WhatsApp: " + data.whatsapp, "Localidad: " + data.localidad,
+    "Email: " + data.email.toLowerCase(), "Quiere fiscalizar: " + (data.quiereFiscalizar ? "Sí" : "No"),
+    "Consentimiento: contacto-whatsapp-email-v2"].join("\n");
+  const filename = submission.requestId + ".ficha-afiliacion.txt";
+  const existing = folder.getFilesByName(filename);
+  const file = existing.hasNext() ? existing.next() : folder.createFile(Utilities.newBlob(text, "text/plain", filename));
+  file.setSharing(DriveApp.Access.PRIVATE, DriveApp.Permission.NONE);
+  file.setContent(text);
+}
+
+// Se llama bajo el mismo lock que protege la fila. Un fallo de correo no pierde la solicitud.
+function tryMembershipEmail_(sheet, row) {
+  try {
+    if (Session.getEffectiveUser().getEmail() !== "oficial@llasantafe.com.ar") throw new Error("account");
+    const record = sheet.getRange(row, 1, 1, HEADERS.sumate.length).getDisplayValues()[0];
+    if (record[12] !== "pendiente" || !EMAIL_PATTERN.test(record[11])) return;
+    if (MailApp.getRemainingDailyQuota() < 1) return;
+    // Si Google corta la ejecución después de aceptar el mensaje, este marcador
+    // impide reenviarlo a ciegas. Revisar 'enviando'/'revisar' en la cuenta oficial.
+    sheet.getRange(row, 13, 1, 2).setValues([["enviando", ""]]);
+    SpreadsheetApp.flush();
+    try {
+      MailApp.sendEmail({
+        to: record[11], name: "La Libertad Avanza Santa Fe", replyTo: "oficial@llasantafe.com.ar",
+        subject: "Recibimos tu solicitud de afiliación | LLA Santa Fe",
+        body: ["Hola, " + record[5] + ".", "",
+          "Tu solicitud de afiliación a La Libertad Avanza Santa Fe fue recibida y aceptada para su tramitación.",
+          "Gracias por confiar en el partido y por querer participar. Esperamos trabajar juntos por Santa Fe.",
+          "", "El equipo de tu localidad se comunicará con vos por WhatsApp para continuar el proceso.",
+          "Esta confirmación corresponde al registro de tu solicitud; la afiliación formal queda sujeta a su tramitación.",
+          "", "Referencia de tu solicitud: " + record[0],
+          "Si no realizaste esta solicitud, respondé a este correo para avisarnos.",
+          "", "La Libertad Avanza Santa Fe", "oficial@llasantafe.com.ar"].join("\n"),
+      });
+    } catch {
+      sheet.getRange(row, 13, 1, 2).setValues([["revisar", ""]]);
+      SpreadsheetApp.flush();
+      return;
+    }
+    sheet.getRange(row, 13, 1, 2).setValues([["enviado", new Date().toISOString()]]);
+    SpreadsheetApp.flush();
+  } catch {
+    console.log("Confirmación pendiente de revisión; la solicitud permanece guardada.");
+  }
+}
+
+// Trigger instalado una única vez por setupWorkspace; retoma pendientes por cuota.
+function sendPendingMembershipEmails() {
+  if (Session.getEffectiveUser().getEmail() !== "oficial@llasantafe.com.ar") throw new Error("account");
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(1000)) return;
+  try {
+    const properties = PropertiesService.getScriptProperties();
+    const sheet = SpreadsheetApp.openById(properties.getProperty("SPREADSHEET_ID")).getSheetByName(TAB_NAMES.sumate);
+    assertHeaders_(sheet, "sumate");
+    const count = sheet.getLastRow() - 1;
+    if (count < 1 || MailApp.getRemainingDailyQuota() < 1) return;
+    const statuses = sheet.getRange(2, 13, count, 1).getValues();
+    let processed = 0;
+    for (let i = 0; i < statuses.length && processed < 20; i++) {
+      if (statuses[i][0] !== "pendiente") continue;
+      if (MailApp.getRemainingDailyQuota() < 1) break;
+      tryMembershipEmail_(sheet, i + 2);
+      processed++;
+    }
+  } finally { lock.releaseLock(); }
 }
 
 function saveProposalDetails_(folder, submission, attachmentFile) {

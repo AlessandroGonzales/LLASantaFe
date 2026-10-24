@@ -13,6 +13,7 @@ const otherId = "12345678-1234-4123-8123-123456789abd";
 function fixture() {
   const state = { sheets: new Map(), files: new Map(), opens: 0, failWrite: false, failFlush: false, creates: 0,
     account: "oficial@llasantafe.com.ar", privateResources: [], failDetails: false, failDescription: false,
+    emails: [], quota: 100, triggers: [], failSend: false, failSentMark: false,
     properties: { API_SECRET: secret, SPREADSHEET_ID: "private-sheet", UPLOAD_FOLDER_ID: "private-folder" } };
   function sheet(headers) {
     const rows = headers ? [headers] : [], model = { rows, maxRows: 2,
@@ -34,7 +35,13 @@ function fixture() {
           setValues(values) {
             if (row > model.maxRows) throw new Error("grid limit");
             if (state.failWrite) { state.failWrite = false; throw new Error("write failure"); }
-            values.forEach((valuesRow, i) => { rows[row - 1 + i] = [...valuesRow]; });
+            if (column === 13 && values[0][0] === "enviado" && state.failSentMark) {
+              state.failSentMark = false; throw new Error("status persistence failure");
+            }
+            values.forEach((valuesRow, i) => {
+              rows[row - 1 + i] ??= [];
+              valuesRow.forEach((value, j) => { rows[row - 1 + i][column - 1 + j] = value; });
+            });
           },
           createTextFinder(value) {
             return { matchEntireCell() { return this; }, findNext() {
@@ -87,6 +94,20 @@ function fixture() {
   const context = createContext({
     console: { log() {} }, Date, JSON,
     Session: { getEffectiveUser: () => ({ getEmail: () => state.account }) },
+    MailApp: {
+      getRemainingDailyQuota: () => state.quota,
+      sendEmail(message) {
+        if (state.failSend) { state.failSend = false; throw new Error("mail failure"); }
+        state.emails.push(message); state.quota--;
+      },
+    },
+    ScriptApp: {
+      getProjectTriggers: () => state.triggers,
+      newTrigger(handler) { return {
+        timeBased() { return this; }, everyMinutes(minutes) { assert.equal(minutes, 5); return this; },
+        create() { state.triggers.push({ getHandlerFunction: () => handler }); },
+      }; },
+    },
     PropertiesService: { getScriptProperties: () => ({
       getProperty: name => state.properties[name], setProperty: (name, value) => { state.properties[name] = value; },
     }) },
@@ -121,7 +142,8 @@ function fixture() {
     const signature = createHmac("sha256", secret).update(timestamp + "." + payload).digest("hex");
     return JSON.parse(context.doPost({ postData: { contents: JSON.stringify(change({ payload, timestamp, signature })) } }).text);
   }
-  return { state, send, setup: () => context.setupWorkspace(), restore: () => context.restoreExistingProposalDetails() };
+  return { state, send, setup: () => context.setupWorkspace(), restore: () => context.restoreExistingProposalDetails(),
+    sendPending: () => context.sendPendingMembershipEmails() };
 }
 
 test("setupWorkspace crea recursos restringidos y encabezados sin duplicarlos ni borrar filas", () => {
@@ -155,9 +177,9 @@ test("setupWorkspace exige cuenta oficial, secreto y esquema compatible", () => 
 
 function submission(kind = "sumate") {
   return {
-    schemaVersion: 1, requestId: id, kind, receivedAt: new Date().toISOString(), fingerprint: "b".repeat(64),
+    schemaVersion: kind === "sumate" ? 2 : 1, requestId: id, kind, receivedAt: new Date().toISOString(), fingerprint: "b".repeat(64),
     data: kind === "sumate"
-      ? { nombre: "Persona de prueba", dni: "01234567", whatsapp: "+54 9 341 1234567", localidad: "Rosario", quiereFiscalizar: false }
+      ? { nombre: "Persona de prueba", dni: "01234567", whatsapp: "+54 9 341 1234567", localidad: "Rosario", quiereFiscalizar: false, email: "prueba@example.com" }
       : { nombre: "Persona de prueba", telefono: "+54 9 341 1234567", email: "prueba@example.com", profesion: "otro", motivo: "proyecto", mensaje: '=IMPORTXML("https://malicious.example","//a")' },
     attachment: kind === "sumate" ? null : { name: "prueba.pdf", mimeType: "application/pdf", size: 14, base64: Buffer.from("%PDF-1.7\n%%EOF").toString("base64") },
   };
@@ -187,6 +209,97 @@ test("Apps Script no duplica registros por ID ni por contenido", () => {
   assert.deepEqual(f.send({ ...value, requestId: otherId }), { ok: true, id });
   assert.equal(f.send({ ...value, fingerprint: "c".repeat(64) }).ok, false);
   assert.equal(f.state.sheets.get("Sumate").rows.length, 2);
+  assert.equal(f.state.emails.length, 1);
+  assert.equal(f.state.creates, 1);
+});
+
+test("Afiliate conserva email y ficha privada y confirma solo después del guardado", () => {
+  const f = fixture(), value = submission();
+  assert.equal(f.send(value).ok, true);
+  const row = f.state.sheets.get("Sumate").rows[1];
+  assert.equal(row[11], value.data.email);
+  assert.equal(row[12], "enviado");
+  assert.ok(Number.isFinite(Date.parse(row[13])));
+  assert.equal(row[10], "contacto-whatsapp-email-v2");
+  const file = f.state.files.get(id + ".ficha-afiliacion.txt");
+  assert.equal(file.private, true);
+  for (const field of [value.data.nombre, value.data.dni, value.data.whatsapp, value.data.localidad, value.data.email]) {
+    assert.ok(file.content.includes(field));
+  }
+  assert.equal(f.state.emails[0].to, value.data.email);
+  assert.equal(f.state.emails[0].replyTo, "oficial@llasantafe.com.ar");
+  assert.ok(f.state.emails[0].body.includes("aceptada para su tramitación"));
+  assert.ok(!f.state.emails[0].body.includes(value.data.dni));
+});
+
+test("No envía correo si falla Sheets; el reintento reutiliza la ficha", () => {
+  const f = fixture(), value = submission();
+  f.state.failWrite = true;
+  assert.equal(f.send(value).ok, false);
+  assert.equal(f.state.emails.length, 0);
+  assert.equal(f.send(value).ok, true);
+  assert.equal(f.state.emails.length, 1);
+  assert.equal(f.state.creates, 1);
+});
+
+test("Sin cuota guarda la solicitud y el trigger retoma sin duplicar correos", () => {
+  const f = fixture(), value = submission();
+  f.state.quota = 0;
+  assert.equal(f.send(value).ok, true);
+  assert.equal(f.state.sheets.get("Sumate").rows[1][12], "pendiente");
+  assert.equal(f.state.emails.length, 0);
+  f.state.quota = 10;
+  f.sendPending(); f.sendPending();
+  assert.equal(f.state.emails.length, 1);
+  assert.equal(f.state.sheets.get("Sumate").rows[1][12], "enviado");
+});
+
+test("Correo incierto no duplica ni convierte una solicitud guardada en fallo", () => {
+  for (const failure of ["failSend", "failSentMark"]) {
+    const f = fixture(), value = submission();
+    f.state[failure] = true;
+    assert.equal(f.send(value).ok, true);
+    const count = f.state.emails.length;
+    assert.ok(["revisar", "enviando"].includes(f.state.sheets.get("Sumate").rows[1][12]));
+    f.sendPending();
+    assert.equal(f.send(value).ok, true);
+    assert.equal(f.state.emails.length, count);
+    assert.equal(f.state.sheets.get("Sumate").rows.length, 2);
+  }
+});
+
+test("setupWorkspace migra encabezados antiguos sin tocar filas ni enviar correo histórico", () => {
+  const f = fixture(), sheet = f.state.sheets.get("Sumate");
+  sheet.rows[0] = sheet.rows[0].slice(0, 11);
+  const oldRow = [id, new Date().toISOString(), "a".repeat(64), 1, "pendiente", "Persona previa", "'12345678", "'3411234567", "Rosario", false, "contacto-whatsapp-v1"];
+  sheet.rows.push([...oldRow]);
+  f.setup(); f.setup();
+  assert.deepEqual(sheet.rows[1], oldRow);
+  assert.deepEqual(sheet.rows[0].slice(11), ["email", "correo_estado", "correo_enviado_at"]);
+  assert.equal(f.state.triggers.length, 1);
+  f.sendPending();
+  assert.equal(f.state.emails.length, 0);
+});
+
+test("Apps Script rechaza email ausente o con múltiples destinatarios antes de guardar", () => {
+  for (const email of [undefined, "", "a@gmail.com,b@gmail.com", "a@gmail.com\nBcc: b@gmail.com", "a@gmail.com\n"]) {
+    const f = fixture(), value = submission();
+    value.data.email = email;
+    assert.equal(f.send(value).ok, false);
+    assert.equal(f.state.creates, 0);
+    assert.equal(f.state.emails.length, 0);
+  }
+});
+
+test("La actualización de Apps Script sigue aceptando la versión anterior durante el deploy", () => {
+  const f = fixture(), value = submission();
+  value.schemaVersion = 1;
+  delete value.data.email;
+  assert.equal(f.send(value).ok, true);
+  assert.equal(f.state.sheets.get("Sumate").rows[1][10], "contacto-whatsapp-v1");
+  assert.equal(f.state.emails.length, 0);
+  f.sendPending();
+  assert.equal(f.state.emails.length, 0);
 });
 
 test("Apps Script guarda adjunto privado y escapa fórmulas", () => {

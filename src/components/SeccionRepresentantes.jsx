@@ -1,5 +1,5 @@
-import { useState, useEffect, useMemo, memo, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useMemo, useRef, memo, useCallback } from "react";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   X,
   MapPin,
@@ -13,6 +13,11 @@ import {
 } from "lucide-react";
 
 import { concejalesData } from "../data/representantes";
+import ProfileImage from "./ProfileImage";
+import ProfilePagination from "./ProfilePagination";
+import useProfilePagination from "../hooks/useProfilePagination";
+import useProfileDialog from "../hooks/useProfileDialog";
+import { COUNCILLORS_PAGE_SIZE } from "../utils/profilePagination";
 
 // 1. Memoizamos los íconos puros para evitar re-crearlos
 const Instagram = memo((props) => (
@@ -34,59 +39,70 @@ const Instagram = memo((props) => (
   </svg>
 ));
 
-// 2. Extraemos y Memoizamos la Tarjeta (VITAL para el rendimiento con >30 items)
-// Al usar memo, cuando filtras o abres el modal, las tarjetas que no cambian no se re-renderizan.
+// Only visible cards are mounted; opening a profile does not re-render the grid.
 const ConcejalCard = memo(({ concejal, onSelect }) => {
+  const reduceMotion = useReducedMotion();
   return (
-    <motion.div
-      layout // Mantiene la magia de reordenamiento automático
-      initial={{ opacity: 0, scale: 0.9 }}
+    <m.button
+      type="button"
+      aria-haspopup="dialog"
+      aria-label={`Ver perfil completo de ${concejal.nombre.trim()}, ${concejal.ciudad}`}
+      initial={reduceMotion ? false : { opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.3, ease: "easeOut" }} // Un poco más rápido para no saturar al tener 30 items
+      transition={{ duration: 0.3, ease: "easeOut" }}
       onClick={() => onSelect(concejal)}
-      className="relative aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-sm group cursor-pointer border border-white/5"
+      className="relative w-full text-left aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-sm group cursor-pointer border border-white/5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-liberty-primary"
     >
-      <img
-        src={concejal.foto}
+      <ProfileImage
+        foto={concejal.foto}
         alt={concejal.nombre}
-        loading="lazy"
-        decoding="async"
-        // Optimizamos el CSS: pasamos de transition-all a will-change y transform-gpu
-        className="w-full h-full object-cover transform-gpu will-change-[transform,filter] transition-[transform,filter] duration-700   group-hover:grayscale-0 group-hover:scale-105"
+        sizes="(min-width: 1700px) 393px, (min-width: 1024px) calc((100vw - 128px) / 4), (min-width: 768px) calc((100vw - 112px) / 2), calc((100vw - 40px) / 2)"
+        className="w-full h-full object-cover transition-[transform,filter] duration-700 group-hover:grayscale-0 group-hover:scale-105 motion-reduce:transition-none motion-reduce:transform-none"
       />
-        <div className="absolute bottom-6 left-0 right-0 flex flex-col items-center px-4 transition-transform duration-500 group-hover:-translate-y-2">
-        <span className="text-white text-sm md:text-base font-black uppercase tracking-widest relative inline-block after:content-[''] after:absolute after:-bottom-3 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-[1px] after:bg-liberty-primary">
+      <span className="absolute bottom-6 left-0 right-0 flex flex-col items-center px-4 max-[359px]:px-3 transition-transform duration-500 group-hover:-translate-y-2 motion-reduce:transition-none motion-reduce:transform-none">
+        <span className="text-white text-sm max-[359px]:text-xs max-[359px]:tracking-wide md:text-base font-black uppercase tracking-widest relative inline-block after:content-[''] after:absolute after:-bottom-3 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-[1px] after:bg-liberty-primary">
           {concejal.nombre}
         </span>
         
-        {/* Indicador agregado con un mt-6 para evitar que se superponga con el after del nombre */}
-        <div className="mt-6 flex items-center text-liberty-primary font-bold text-[10px] md:text-xs uppercase tracking-wider group-hover:text-white transition-colors duration-300">
+        <span className="mt-6 flex items-center justify-center gap-1 text-xs max-[359px]:text-[10px] text-white text-center drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
+          <MapPin size={14} className="shrink-0" aria-hidden="true" />
+          {concejal.ciudad}
+        </span>
+        <span className="mt-2 flex items-center text-liberty-primary font-bold text-[10px] md:text-xs uppercase tracking-wider group-hover:text-white transition-colors duration-300">
           Ver perfil completo
-        </div>
-      </div>
-    </motion.div>
+        </span>
+      </span>
+    </m.button>
   );
 });
 
-// 3. Extraemos el Modal para aislar su carga del hilo principal de la lista
+// The full-size photo is only requested when opening a profile.
 const ModalConcejal = memo(({ concejal, onClose }) => {
+  const dialogRef = useProfileDialog(onClose);
+  const reduceMotion = useReducedMotion();
   return (
-    <motion.div
+    <m.div
+      ref={dialogRef}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="concejal-perfil-nombre"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
       className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-0 md:p-6 lg:p-12"
     >
-      <motion.div
-        initial={{ y: 50, opacity: 0, scale: 0.95 }}
+      <m.div
+        initial={reduceMotion ? false : { y: 50, opacity: 0, scale: 0.95 }}
         animate={{ y: 0, opacity: 1, scale: 1 }}
-        exit={{ y: 20, opacity: 0, scale: 0.95 }}
+        exit={reduceMotion ? { opacity: 0 } : { y: 20, opacity: 0, scale: 0.95 }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         className="w-full h-full max-w-[1400px] bg-liberty-bg md:rounded-2xl overflow-hidden flex flex-col lg:flex-row relative border border-liberty-border shadow-2xl"
       >
         <button
+          type="button"
+          aria-label="Cerrar perfil"
           onClick={onClose}
           className="absolute top-4 right-4 md:top-8 md:right-8 z-50 p-2 md:p-3 bg-black/40 hover:bg-liberty-primary text-white rounded-full cursor-pointer transition-colors"
         >
@@ -94,12 +110,11 @@ const ModalConcejal = memo(({ concejal, onClose }) => {
         </button>
 
         <div className="w-full lg:w-1/2 h-[45vh] lg:h-full relative overflow-hidden bg-black flex-shrink-0">
-          <img
-            src={concejal.foto}
+          <ProfileImage
+            foto={concejal.foto}
             alt={concejal.nombre}
-            loading="lazy"
-            decoding="async"
-            className="w-full h-full object-cover object-center transform-gpu"
+            fullSize
+            className="w-full h-full object-cover object-center"
           />
         </div>
 
@@ -109,7 +124,7 @@ const ModalConcejal = memo(({ concejal, onClose }) => {
               <span className="inline-block px-3 py-1 bg-liberty-primary/10 text-liberty-primary text-[12px] uppercase tracking-widest font-bold rounded-sm mb-4 border border-liberty-primary/20">
                 {concejal.cargo}
               </span>
-              <h3 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-white leading-none mb-2">
+              <h3 id="concejal-perfil-nombre" className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-white leading-none mb-2">
                 {concejal.nombre}
               </h3>
             </div>
@@ -163,6 +178,7 @@ const ModalConcejal = memo(({ concejal, onClose }) => {
               <div className="flex gap-3 justify-center sm:justify-start">
                 {concejal.redes?.instagram && (
                   <a
+                    aria-label={`Instagram de ${concejal.nombre}`}
                     href={`https://instagram.com/${concejal.redes.instagram.replace("@", "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -173,6 +189,7 @@ const ModalConcejal = memo(({ concejal, onClose }) => {
                 )}
                 {concejal.redes?.twitter && (
                   <a
+                    aria-label={`X de ${concejal.nombre}`}
                     href={`https://twitter.com/${concejal.redes.twitter.replace("@", "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -207,8 +224,8 @@ const ModalConcejal = memo(({ concejal, onClose }) => {
             </div>
           </div>
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 });
 
@@ -217,6 +234,8 @@ export default function SeccionRepresentantes() {
   const [selectedConcejal, setSelectedConcejal] = useState(null);
   const [ciudadFiltro, setCiudadFiltro] = useState("Todos");
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
+  const filterButtonRef = useRef(null);
+  const gridRef = useRef(null);
 
   // Mantenemos la identidad de la función para no romper el memo() de los hijos
   const handleSelectConcejal = useCallback((concejal) => {
@@ -237,16 +256,7 @@ export default function SeccionRepresentantes() {
       : concejalesData.filter((c) => c.ciudad === ciudadFiltro);
   }, [ciudadFiltro]);
 
-  useEffect(() => {
-    if (selectedConcejal) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [selectedConcejal]);
+  const pagination = useProfilePagination(concejalesFiltrados, COUNCILLORS_PAGE_SIZE, gridRef);
 
   return (
     <section className="relative w-full py-24 md:py-32 bg-liberty-bg text-white overflow-hidden">
@@ -270,6 +280,10 @@ export default function SeccionRepresentantes() {
         <div className="flex justify-center mt-12 relative z-50">
           <div className="relative w-full max-w-lg">
             <button
+              ref={filterButtonRef}
+              type="button"
+              aria-expanded={isFilterMenuOpen}
+              aria-controls={isFilterMenuOpen ? "representantes-ciudades" : undefined}
               onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)}
               className="w-full flex items-center justify-between px-6 py-4 bg-liberty-surface border border-liberty-border rounded-xl shadow-lg hover:border-liberty-primary text-white group cursor-pointer transition-colors"
             >
@@ -288,7 +302,14 @@ export default function SeccionRepresentantes() {
 
             <AnimatePresence>
               {isFilterMenuOpen && (
-                <motion.div
+                <m.div
+                  id="representantes-ciudades"
+                  onKeyDown={(event) => {
+                    if (event.key === "Escape") {
+                      setIsFilterMenuOpen(false);
+                      filterButtonRef.current?.focus();
+                    }
+                  }}
                   initial={{ opacity: 0, y: -10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
@@ -306,10 +327,14 @@ export default function SeccionRepresentantes() {
                   <div className="p-4 md:p-6 max-h-[40vh] overflow-y-auto hide-scrollbar flex flex-wrap gap-2 md:gap-3 bg-liberty-surface/50">
                     {ciudades.map((ciudad) => (
                       <button
+                        type="button"
+                        aria-pressed={ciudadFiltro === ciudad}
                         key={ciudad}
                         onClick={() => {
                           setCiudadFiltro(ciudad);
+                          pagination.resetPage();
                           setIsFilterMenuOpen(false);
+                          filterButtonRef.current?.focus();
                         }}
                         className={`px-4 py-2 md:px-5 md:py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 border cursor-pointer ${
                           ciudadFiltro === ciudad
@@ -321,7 +346,7 @@ export default function SeccionRepresentantes() {
                       </button>
                     ))}
                   </div>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </div>
@@ -330,17 +355,16 @@ export default function SeccionRepresentantes() {
 
       {/* Grilla de Cards Optimizada */}
       <div className="w-full px-4 md:px-12 lg:px-10 max-w-[1700px] mx-auto relative z-10">
-        <motion.div layout className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-2 md:gap-4">
-          <AnimatePresence mode="popLayout">
-            {concejalesFiltrados.map((concejal) => (
+        <div id="representantes-listado" ref={gridRef} tabIndex={-1} aria-label="Listado de concejales" className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-2 md:gap-4 scroll-mt-24 focus:outline-none">
+            {pagination.items.map((concejal) => (
               <ConcejalCard
                 key={concejal.id}
                 concejal={concejal}
                 onSelect={handleSelectConcejal}
               />
             ))}
-          </AnimatePresence>
-        </motion.div>
+        </div>
+        <ProfilePagination pagination={pagination} label="Concejales" gridId="representantes-listado" />
 
         {concejalesFiltrados.length === 0 && (
           <div className="w-full py-12 text-center">

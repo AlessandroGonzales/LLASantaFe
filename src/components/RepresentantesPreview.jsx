@@ -3,9 +3,10 @@ import { useMemo } from "react";
 import CinematicLink from "./CinematicLink";
 
 import rep1 from "../assets/lautaro-preview.webp";
-import rep2 from "../assets/giselle.webp";
-import rep3 from "../assets/santiago-preview.webp";
-import rep4 from "../assets/david-preview.webp";
+import rep2 from "../assets/franco.webp";
+import rep3 from "../assets/aleart.webp";
+import rep4 from "../assets/ana.webp";
+
 
 const representatives = [
   {
@@ -85,7 +86,7 @@ export default function RepresentantesPreview() {
       id="representantes"
       aria-labelledby="representantes-preview-heading"
       aria-describedby="representantes-preview-description"
-      className="relative w-full scroll-mt-16 py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-hidden "
+      className="relative w-full scroll-mt-16 py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-x-clip overflow-y-visible "
     >
       <div
         aria-hidden="true"
@@ -179,7 +180,7 @@ export default function RepresentantesPreview() {
             <m.div variants={itemVariants} className="mt-4 lg:mt-0">
               <CinematicLink
                 to="/representantes"
-                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-card text-white font-bold uppercase text-xs tracking-[0.2em] rounded-3xl border border-liberty-border hover:border-liberty-primary  w-full sm:w-max focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-text-secondary text-liberty-bg font-bold uppercase text-xs tracking-[0.2em] rounded-3xl border border-liberty-border hover:border-liberty-primary  w-full sm:w-max focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 Conocer al equipo
               </CinematicLink>

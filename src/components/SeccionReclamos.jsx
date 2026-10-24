@@ -51,8 +51,8 @@ export default function SeccionReclamos() {
     <section aria-labelledby="reclamos-heading" className="bg-liberty-bg text-liberty-text px-6 pt-28 pb-20 md:px-12 md:pt-36 md:pb-28">
       <div className="max-w-6xl mx-auto">
         <header className="max-w-2xl mb-10 md:mb-14">
-          <p className="text-xs font-bold uppercase tracking-[0.25em] text-liberty-primary mb-4">Cerca de tu ciudad</p>
-          <h1 id="reclamos-heading" className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-6">Reclamos</h1>
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-liberty-primary ">Cerca de tu ciudad</p>
+          <h1 id="reclamos-heading" className="text-5xl md:text-6xl font-black uppercase tracking-tighter leading-none mb-6">Reclamos</h1>
           <p className="text-base md:text-lg leading-relaxed text-liberty-text-secondary">
             Encontrá el espacio para hacer reclamos sobre tu ciudad y seguir su recorrido.
             Acá reunimos las plataformas disponibles en la provincia de Santa Fe.

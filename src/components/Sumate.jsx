@@ -32,6 +32,7 @@ export default function Sumate() {
     dni: "",
     whatsapp: "",
     localidad: "",
+    email: "",
     quiereFiscalizar: false,
   });
   const inFlight = useRef(false);
@@ -91,11 +92,11 @@ export default function Sumate() {
         <div className={styles.heroCopy}>
           <h1>La libertad<span>empieza</span><span className={styles.accent}>con vos</span></h1>
           <p className={styles.invitation}>
-            Los grandes cambios se realizan cuando todos están sumamente
-            comprometidos. Nosotros queremos lo mejor para la provincia y para
+            Los grandes cambios se realizan cuando todos están 
+            comprometidos. Queremos lo mejor para la provincia y para
             el país, ya que en ellos están esos jóvenes, empresarios,
             comerciantes, profesionales y niños que sueñan con una Argentina
-            grande nuevamente. Por eso, necesitamos de tu apoyo; precisamos de
+            grande nuevamente. Por eso, necesitamos de tu apoyo, de
             tu valentía y coraje para dar esta batalla ante la casta.
           </p>
      
@@ -117,28 +118,11 @@ export default function Sumate() {
           </figcaption>
         </figure>
       </header>
-
-      <section id="como-sumarte" className={styles.process} aria-labelledby="sumate-process-title" tabIndex={-1}>
-        <div className={styles.processIntro}>
-          <p className={styles.eyebrow}>Cómo sumarte</p>
-          <h2 id="sumate-process-title">De las ideas<span>a la acción</span></h2>
-        </div>
-        <ol className={styles.steps}>
-          {steps.map((step, index) => (
-            <li key={step.title}>
-              <span className={styles.stepNumber} aria-hidden="true">0{index + 1}</span>
-              <h3>{step.title}</h3>
-              <p>{step.description}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section id="sumate-formulario" className={styles.contact} aria-labelledby="sumate-form-title" tabIndex={-1}>
+       <section id="sumate-formulario" className={styles.contact} aria-labelledby="sumate-form-title" tabIndex={-1}>
         <div className={styles.contactLayout}>
           <div className={styles.contactIntro}>
             <p className={styles.eyebrow}>El primer paso</p>
-            <h2 id="sumate-form-title">Tu lugar<span>empieza acá.</span></h2>
+            <h2 id="sumate-form-title">Tu lugar<span>empieza acá</span></h2>
             <p>Dejanos tus datos para que el equipo de tu localidad se contacte con vos.</p>
             <div className={styles.contactNote}>
               <span aria-hidden="true" />
@@ -153,6 +137,9 @@ export default function Sumate() {
                 <p className={styles.eyebrow}>Solicitud enviada</p>
                 <h3 ref={successRef} tabIndex={-1}>Gracias por dar<span>el primer paso.</span></h3>
                 <p>
+                  Recibimos tu solicitud. Te enviaremos una confirmación al correo que ingresaste.
+                </p>
+                <p>
                   El siguiente paso es el contacto con un referente de tu
                   localidad por WhatsApp para conversar sobre cómo participar.
                 </p>
@@ -164,7 +151,7 @@ export default function Sumate() {
               <form onSubmit={handleSubmit} aria-labelledby="sumate-form-title" aria-busy={cargando}>
                 <div className={styles.formHeading}>
                   <p className={styles.eyebrow}>Solicitud de contacto</p>
-                  <p>Los cuatro campos son obligatorios.</p>
+                  <p>Los cinco campos son obligatorios.</p>
                 </div>
                 {error && (
                   <p className={styles.error} ref={errorRef} tabIndex={-1} role="alert">{error}</p>
@@ -242,6 +229,26 @@ export default function Sumate() {
                     />
                   </div>
 
+                  <div className={styles.field}>
+                    <label htmlFor="sumate-email">Correo electrónico</label>
+                    <input
+                      id="sumate-email"
+                      required
+                      type="email"
+                      inputMode="email"
+                      name="email"
+                      autoComplete="email"
+                      autoCapitalize="none"
+                      spellCheck={false}
+                      maxLength={254}
+                      aria-describedby="sumate-email-help"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="tuemail@gmail.com"
+                    />
+                    <p id="sumate-email-help" className={styles.fieldHelp}>Te enviaremos la confirmación de tu solicitud. Podés usar Gmail u otro proveedor.</p>
+                  </div>
+
                   <label className={styles.fiscalOption}>
                     <span className={styles.checkbox}>
                       <input
@@ -263,7 +270,7 @@ export default function Sumate() {
 
                   <p className={styles.consent}>
                     Al enviar, aceptás que los referentes territoriales te
-                    contacten por WhatsApp.
+                    contacten por WhatsApp y recibir la confirmación de tu solicitud por correo electrónico.
                   </p>
                   <button type="submit" className={styles.submit} disabled={cargando}>
                     {cargando ? (
@@ -282,6 +289,24 @@ export default function Sumate() {
           </div>
         </div>
       </section>
+
+      <section id="como-sumarte" className={styles.process} aria-labelledby="sumate-process-title" tabIndex={-1}>
+        <div className={styles.processIntro}>
+          <p className={styles.eyebrow}>Cómo sumarte</p>
+          <h2 id="sumate-process-title">De las ideas<span>a la acción</span></h2>
+        </div>
+        <ol className={styles.steps}>
+          {steps.map((step, index) => (
+            <li key={step.title}>
+              <span className={styles.stepNumber} aria-hidden="true">0{index + 1}</span>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+     
     </div>
   );
 }

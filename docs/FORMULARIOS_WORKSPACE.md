@@ -6,7 +6,36 @@ El código integra **Sumate** y **Propone** sin rediseñarlos. Todavía hay que 
 
 Flujo: navegador → `/api/forms` en Vercel → verificación anti-bot y límites → solicitud firmada a Apps Script → Sheets y Drive privados de `oficial@llasantafe.com.ar`.
 
-No hace falta activar Gmail API ni guardar la contraseña del correo. No se envían correos automáticos. Esta función de Vercel es únicamente el puente seguro de los formularios; no incorpora la futura base PostgreSQL ni el backend general.
+No hace falta activar Gmail API ni guardar la contraseña del correo. Sumate envía una confirmación transaccional mediante MailApp desde la cuenta oficial; Propone conserva su funcionamiento. Esta función de Vercel es únicamente el puente seguro de los formularios; no incorpora la futura base PostgreSQL ni el backend general.
+
+## Actualización de Afiliate: email y confirmación automática (11 de octubre de 2026)
+
+El formulario ahora exige cinco campos, incluido **Correo electrónico**. Acepta Gmail y otros proveedores. El servidor valida y normaliza una única dirección y la incluye en la petición firmada; las solicitudes nuevas de Sumate usan `schemaVersion=2`.
+
+La hoja **Sumate** conserva las once columnas originales y agrega al final `email` (L), `correo_estado` (M) y `correo_enviado_at` (N). Las últimas dos son operativas: permiten controlar la confirmación sin alterar el estado administrativo de la afiliación. Los registros previos permanecen intactos, sin inventar correos ni enviarles confirmaciones. La carpeta privada existente recibe además `UUID.ficha-afiliacion.txt` con los datos completos de cada solicitud nueva, incluido el email.
+
+### Activar en el Workspace que ya está funcionando
+
+1. Con `oficial@llasantafe.com.ar`, reemplazar **Code.gs** y **appsscript.json** por los del repositorio. Conservar `API_SECRET`, `SPREADSHEET_ID` y `UPLOAD_FOLDER_ID` actuales.
+2. Ejecutar **setupWorkspace** y autorizar los permisos nuevos de envío de correo y creación de triggers. Migra solamente los encabezados originales reconocidos, reutiliza planilla/carpeta y crea un único trigger `sendPendingMembershipEmails` cada cinco minutos. No añadir ni reordenar columnas manualmente.
+3. En **Implementar → Gestionar implementaciones → Editar**, seleccionar **Nueva versión** y actualizar la aplicación web existente, ejecutada como la cuenta oficial. Conservar la URL `/exec`. Guardar el código sin publicar una versión nueva no activa la mejora.
+4. Desplegar después el código actualizado de React y la función de Vercel juntos. El Apps Script nuevo también acepta solicitudes antiguas firmadas de versión 1 sin email durante la transición, de modo que el despliegue anterior puede seguir funcionando hasta el cambio. Las solicitudes versión 2 requieren email.
+5. Hacer una prueba con una dirección de prueba propia: comprobar la fila, la ficha privada, el correo recibido y `correo_estado=enviado`. Repetir el mismo envío: no debe agregar otra fila, ficha ni correo. Verificar también Propone.
+
+El correo se envía **después de guardar y confirmar la fila**. Su texto confirma que la solicitud fue recibida y aceptada para su tramitación, agradece la participación y anticipa el contacto por WhatsApp. El estado administrativo sigue siendo `pendiente`; el correo no declara una afiliación formal aprobada por un proceso inexistente. No incluye DNI, teléfono ni enlaces a archivos privados. El remitente depende de la cuenta que ejecuta Apps Script; `replyTo` es `oficial@llasantafe.com.ar`.
+
+### Cuotas, reintentos y diagnóstico
+
+- `pendiente`: sin enviar. Si la cuota de Google se agota, la solicitud sigue guardada y el trigger retoma cuando haya cuota, en lotes de hasta 20 por ejecución.
+- `enviando`: se persistió el inicio del intento. Si una ejecución se interrumpe, revisar la cuenta antes de decidir un reenvío.
+- `enviado`: MailApp aceptó el envío; la fecha UTC queda en N. Esto no garantiza llegada a la bandeja principal: revisar spam y eventuales rebotes.
+- `revisar`: MailApp devolvió un error al intentar enviar. No se reenvía automáticamente, porque el error puede ser ambiguo. Revisar permisos, cuotas y la cuenta oficial; solo si se confirmó que no salió el mensaje, cambiar M a `pendiente` para que el trigger lo retome.
+
+Google MailApp no ofrece una transacción conjunta con Sheets ni una clave de idempotencia. El marcador previo y el lock evitan reenvíos automáticos cuando no se puede saber si Google aceptó el mensaje. Un fallo de correo no convierte una solicitud ya guardada en un envío fallido para el usuario. Si falla Drive o el guardado inicial de la fila, sí se conserva el formulario para reintentar. La deduplicación existente por UUID/huella también se conserva.
+
+Si el trigger falla, revisar sus ejecuciones desde Apps Script; puede ejecutarse manualmente `sendPendingMembershipEmails` con la cuenta oficial. No poner registros ya enviados nuevamente en `pendiente` salvo que se quiera reenviar expresamente. No modificar a mano la columna administrativa `estado` para activar correos: son procesos independientes.
+
+Referencias: [MailApp y permiso script.send_mail](https://developers.google.com/apps-script/reference/mail/mail-app), [triggers instalables](https://developers.google.com/apps-script/guides/triggers/installable). No se requiere acceso de lectura a Gmail ni credenciales nuevas en Vercel. Las pruebas locales simulan el correo; la entrega real se verifica tras autorizar y publicar Apps Script.
 
 ## 1. Crear el almacenamiento en Workspace
 

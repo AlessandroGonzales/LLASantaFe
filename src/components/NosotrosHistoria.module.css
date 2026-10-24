@@ -31,7 +31,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, #160820 0%, #160820ed 12%, #16082080 48%, #16082010 80%, #16082070 100%);
+  background: linear-gradient(0deg, #160820 0%, #160820ed 2%, #16082080 48%, #16082010 80%, #16082070 100%);
 }
 .heroContent { width: 100%; max-width: 1320px; margin-inline: auto; }
 .eyebrow {
@@ -94,7 +94,7 @@
 .timeline a span { max-width: 100%; overflow-wrap: anywhere; text-align: center; }
 .timeline a:focus-visible { outline-offset: -5px; }
 
-.chapters { max-width: 1440px; padding-inline: max(4vw, 20px); margin-inline: auto; }
+.chapters { max-width: 1540px; padding-inline: max(4vw, 20px); margin-inline: auto; }
 .chapter { padding: 100px 0 48px; scroll-margin-top: calc(4rem + var(--history-nav-height, 74px) + 20px); }
 .chapter + .chapter { border-top: 1px solid #ffffff20; }
 .chapterHeading { display: grid; grid-template-columns: 0.7fr 1fr; gap: 64px; align-items: center; margin-bottom: 60px; }
@@ -195,8 +195,8 @@
       0deg,
       #160820 0%,
       #160820f0 10%,
-      #16082070 20%,
-      #16082020 60%
+      #16082070 40%,
+      #16082020 50%
     );
   }
   .heroContent {

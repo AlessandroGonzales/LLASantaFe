@@ -316,7 +316,7 @@ export default function Navbar() {
             aria-current={location.pathname === "/sumate" ? "page" : undefined}
             className="inline-flex min-h-10 items-center justify-center rounded-full border border-liberty-primary bg-liberty-primary px-5 text-sm font-black uppercase tracking-[0.08em] text-liberty-text transition-colors hover:border-liberty-primary-hover hover:bg-liberty-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-liberty-bg"
           >
-            Sumate
+            Afiliate
           </Link>
         </div>
 

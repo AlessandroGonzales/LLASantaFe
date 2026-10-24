@@ -12,6 +12,7 @@ import Hero from "./components/Hero";
 import NewsCarousel from "./components/NewCarousel";
 import PropuestasPreview from "./components/PropuestasPreview";
 import NosotrosPreview from "./components/NosotrosPreview";
+import ChatbotPreview from "./components/ChatbotPreview";
 import RepresentantesPreview from "./components/RepresentantesPreview";
 import PresidentesComunalesPreview from "./components/PresidentesComunalesPreview";
 import DiputadosPreview from "./components/DiputadosPreview";
@@ -33,6 +34,7 @@ const SeccionDiputados = lazy(() => import("./components/SeccionDiputados"));
 const SeccionPresidentesComunales = lazy(() => import("./components/SeccionPresidentesComunales"));
 const SeccionPropone = lazy(() => import("./components/SeccionPropone"));
 const SeccionReclamos = lazy(() => import("./components/SeccionReclamos"));
+const NotFound = lazy(() => import("./components/NotFound"));
 
 const PageLoader = () => (
   <div className="min-h-[60vh] flex items-center justify-center">
@@ -65,6 +67,7 @@ function Home() {
       <Hero />
       <NewsCarousel />
       <PropuestasPreview />
+      <ChatbotPreview />
       <NosotrosPreview />
       <DiputadosPreview />
       <RepresentantesPreview />
@@ -103,6 +106,7 @@ function App() {
                   <Route path="/propone" element={<SeccionPropone />} />
                   <Route path="/sedes" element={<SedesLLA />} />
                   <Route path="/reclamos" element={<SeccionReclamos />} />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
             </main>

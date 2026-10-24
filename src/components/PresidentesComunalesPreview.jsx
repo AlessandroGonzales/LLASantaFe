@@ -16,7 +16,7 @@ export default function PresidentesComunalesPreview() {
   );
 
   return (
-    <section id="presidentes-comunales" aria-labelledby="presidentes-preview-heading" className="relative w-full scroll-mt-16 py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-hidden">
+    <section id="presidentes-comunales" aria-labelledby="presidentes-preview-heading" className="relative w-full scroll-mt-16 py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-x-clip overflow-y-visible">
       <div aria-hidden="true" className="absolute top-0 left-0 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-liberty-primary/17 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3" />
       <div className="w-full px-6 md:px-12 lg:px-20 max-w-[1600px] mx-auto relative z-10">
         <h2 id="presidentes-preview-heading" className="sr-only">Presidentes comunales</h2>
@@ -44,7 +44,7 @@ export default function PresidentesComunalesPreview() {
           <div className="lg:col-span-5 min-w-0 text-center lg:text-left lg:order-1">
             <div className="hidden lg:block" aria-hidden="true">{heading}</div>
             <p className="text-base md:text-lg text-liberty-text-secondary max-w-lg mx-auto lg:mx-0 mb-10">Conocé a nuestros presidentes comunales, sus localidades y su trabajo en la provincia de Santa Fe.</p>
-            <CinematicLink to="/presidentes-comunales" className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-card text-white font-bold uppercase text-xs tracking-[0.2em] rounded-3xl border border-liberty-border hover:border-liberty-primary w-full sm:w-max focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">Conocer al equipo</CinematicLink>
+            <CinematicLink to="/presidentes-comunales" className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-text-secondary text-liberty-bg font-bold uppercase text-xs tracking-[0.2em] rounded-3xl border border-liberty-border hover:border-liberty-primary w-full sm:w-max focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">Conocer al equipo</CinematicLink>
           </div>
           
         </m.div>

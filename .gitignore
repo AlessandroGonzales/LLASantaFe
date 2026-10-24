@@ -18,6 +18,10 @@ dist-ssr
 bundle-analisis.html
 /artifacts/hero-video/render-work/
 
+# Copias y evidencias locales; los archivos ya versionados se conservan.
+/*.zip
+/artifacts/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -7,7 +7,7 @@ import { validateAttachment } from "../server/attachments.js";
 import { createFormsHandler, ipBucket } from "../server/forms-handler.js";
 
 const id = "12345678-1234-4123-8123-123456789abc";
-const member = { nombre: "Persona de prueba", dni: "12345678", whatsapp: "+54 9 341 1234567", localidad: "Rosario", quiereFiscalizar: false };
+const member = { nombre: "Persona de prueba", dni: "12345678", whatsapp: "+54 9 341 1234567", localidad: "Rosario", quiereFiscalizar: false, email: "prueba@example.com" };
 const proposal = { nombre: "Persona de prueba", telefono: "341 1234567", email: "prueba@example.com", profesion: "otro", motivo: "proyecto", mensaje: "Propuesta ficticia para pruebas locales." };
 const env = {
   VERCEL: "1", FORMS_ALLOWED_ORIGINS: "https://example.com",
@@ -50,6 +50,13 @@ test("campos y tipos se validan y normalizan en servidor", () => {
   assert.throws(() => validateFields("propone", { ...proposal, email: "no-es-email" }));
   assert.throws(() => validateFields("sumate", { ...member, nombre: "  " }));
   assert.throws(() => validateFields("sumate", { ...member, whatsapp: "123" }));
+});
+
+test("Afiliate exige y normaliza un solo correo, sin listas ni cabeceras", () => {
+  assert.equal(validateFields("sumate", { ...member, email: " PRUEBA@GMAIL.COM " }).email, "prueba@gmail.com");
+  for (const email of [undefined, "", "incorrecto", "a@b.com,c@d.com", "a@b.com;c@d.com", "a@b.com\r\nBcc: c@d.com", "x".repeat(255) + "@gmail.com"]) {
+    assert.throws(() => validateFields("sumate", { ...member, email }));
+  }
 });
 
 test("archivos: firmas reales, tamaño, Base64 y MIME derivado del servidor", () => {
@@ -120,6 +127,7 @@ test("escritura confirmada, firma HMAC y ningún dato personal en la respuesta",
   const envelope = f.calls.at(-1).data;
   assert.equal(envelope.signature, createHmac("sha256", env.GOOGLE_APPS_SCRIPT_SECRET).update(envelope.timestamp + "." + envelope.payload).digest("hex"));
   assert.deepEqual(JSON.parse(envelope.payload).data, member);
+  assert.equal(JSON.parse(envelope.payload).schemaVersion, 2);
   assert.equal(f.calls[0].data.some(part => String(part).includes("203.0.113.10")), false);
   assert.equal(f.res.headers["Cache-Control"], "no-store");
 });

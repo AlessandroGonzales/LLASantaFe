@@ -58,17 +58,17 @@ function setup(video = new FakeVideo()) {
   return { video, playback, calls, pending, expireWait };
 }
 
-test("revela el contenido al llegar a 4 segundos reales, una sola vez", () => {
+test("revela el contenido al llegar a 2 segundos reales, una sola vez", () => {
   const { video, playback, calls, pending } = setup();
   assert.equal(video.playCalls, 1);
   video.emit("playing");
   assert.equal(pending.size, 0);
-  for (const time of [0, 2, 3.99]) {
+  for (const time of [0, 1, 1.99]) {
     video.currentTime = time;
     video.emit("timeupdate");
   }
   assert.equal(calls.reveal, 0);
-  for (const time of [4, 4.25, 10]) {
+  for (const time of [2, 2.25, 10]) {
     video.currentTime = time;
     video.emit("timeupdate");
   }
@@ -77,14 +77,31 @@ test("revela el contenido al llegar a 4 segundos reales, una sola vez", () => {
   playback.dispose();
 });
 
-test("terminar el video revela el contenido, incluso en un clip menor a 4 segundos", () => {
+test("terminar el video revela el contenido, incluso en un clip menor a 2 segundos", () => {
   const { video, calls, playback } = setup();
-  video.currentTime = 3;
+  video.currentTime = 1;
   video.emit("ended");
   video.emit("error");
   assert.equal(calls.reveal, 1);
   assert.equal(calls.finish, 1);
   assert.equal(video.paused, true);
+  playback.dispose();
+});
+
+test("reproducir y pausar funciona sin callback opcional de pausa", () => {
+  const video = new FakeVideo();
+  const calls = { ready: 0, finish: 0 };
+  const playback = startHeroVideoPlayback(video, {
+    onReady: () => calls.ready++,
+    onReveal: () => {},
+    onFinish: () => calls.finish++,
+  });
+  video.emit("playing");
+  playback.togglePause();
+  assert.equal(calls.ready, 1);
+  assert.equal(video.paused, true);
+  playback.finish();
+  assert.equal(calls.finish, 1);
   playback.dispose();
 });
 

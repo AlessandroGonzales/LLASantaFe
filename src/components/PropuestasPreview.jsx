@@ -14,7 +14,7 @@ export default function PropuestasPreview() {
   };
 
   return (
-    <section id="preview" className="relative w-full py-1 lg:py-14 bg-liberty-bg overflow-hidden mb-10 ">
+    <section id="preview" className="relative w-full scroll-mt-16 py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-x-clip overflow-y-visible">
       
       {/* LUZ DE FONDO (Forzadas a la GPU para evitar recalcular el Blur en el scroll) */}
       <motion.div 
@@ -113,7 +113,7 @@ export default function PropuestasPreview() {
             >
               <CinematicLink
                 to="/propuestas"
-                className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 text-white font-bold uppercase text-xs tracking-[0.2em] bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-primary mb-10"
+                className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-4  font-bold uppercase text-xs tracking-[0.2em] bg-liberty-text-secondary text-liberty-bg border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-primary mb-10"
               >
                   Ver Todas las Propuestas
               </CinematicLink>

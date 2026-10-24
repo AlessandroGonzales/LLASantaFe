@@ -1,5 +1,5 @@
-import { useState, useEffect, memo, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef, memo, useCallback } from "react";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   X,
   MapPin,
@@ -11,6 +11,11 @@ import {
 } from "lucide-react";
 
 import { diputadosData } from "../data/diputadosData";
+import ProfileImage from "./ProfileImage";
+import ProfilePagination from "./ProfilePagination";
+import useProfilePagination from "../hooks/useProfilePagination";
+import useProfileDialog from "../hooks/useProfileDialog";
+import { DEPUTIES_PAGE_SIZE } from "../utils/profilePagination";
 
 // 1. Memoizamos el ícono puro
 const Instagram = memo((props) => (
@@ -34,56 +39,65 @@ const Instagram = memo((props) => (
 
 // 2. Tarjeta extraída y memoizada para que no se re-renderice al abrir el modal
 const DiputadoCard = memo(({ diputado, onSelect }) => {
+  const reduceMotion = useReducedMotion();
   return (
-    <motion.div
-      // Se mantiene layout por si en el futuro agregas un filtro
-      initial={{ opacity: 0, scale: 0.95 }}
+    <m.button
+      type="button"
+      aria-haspopup="dialog"
+      aria-label={`Ver perfil completo de ${diputado.nombre}`}
+      initial={reduceMotion ? false : { opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
       onClick={() => onSelect(diputado)}
-      className="relative aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-sm group cursor-pointer  "
+      className="relative w-full text-left aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-sm group cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-liberty-primary"
     >
-      <img
-        src={diputado.foto}
+      <ProfileImage
+        foto={diputado.foto}
         alt={diputado.nombre}
-        loading="lazy"
-        decoding="async"
-        // transform-gpu y will-change trasladan el cálculo visual a la placa de video
-        className="w-full h-full object-cover transform-gpu will-change-[transform,filter] transition-[transform,filter] duration-700 ease-out  group-hover:grayscale-0 group-hover:scale-105"
+        sizes="(min-width: 1400px) 403px, (min-width: 1024px) calc((100vw - 192px) / 3), (min-width: 768px) calc((100vw - 112px) / 2), (min-width: 640px) calc((100vw - 104px) / 2), calc(100vw - 80px)"
+        className="w-full h-full object-cover transition-[transform,filter] duration-700 ease-out group-hover:grayscale-0 group-hover:scale-105 motion-reduce:transition-none motion-reduce:transform-none"
       />
-      <div className="absolute bottom-6 left-0 right-0 flex flex-col items-center px-4 transition-transform duration-500 group-hover:-translate-y-2">
+      <span className="absolute bottom-6 left-0 right-0 flex flex-col items-center px-4 transition-transform duration-500 group-hover:-translate-y-2 motion-reduce:transition-none motion-reduce:transform-none">
         <span className="text-white text-sm md:text-base font-black uppercase tracking-widest relative inline-block after:content-[''] after:absolute after:-bottom-3 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-[1px] after:bg-liberty-primary">
           {diputado.nombre}
         </span>
         
         {/* Indicador agregado con un mt-6 para evitar que se superponga con el after del nombre */}
-        <div className="mt-6 flex items-center text-liberty-primary font-bold text-[12px] md:text-xs uppercase tracking-wider group-hover:text-white transition-colors duration-300">
+        <span className="mt-6 flex items-center text-liberty-primary font-bold text-[12px] md:text-xs uppercase tracking-wider group-hover:text-white transition-colors duration-300">
           Ver perfil completo
-        </div>
-      </div>
-    </motion.div>
+        </span>
+      </span>
+    </m.button>
   );
 });
 
 // 3. Modal extraído para aislar su ciclo de vida
 const ModalDiputado = memo(({ diputado, onClose }) => {
+  const dialogRef = useProfileDialog(onClose);
+  const reduceMotion = useReducedMotion();
   return (
-    <motion.div
+    <m.div
+      ref={dialogRef}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="diputado-perfil-nombre"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
       className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-0 md:p-6 lg:p-12"
     >
-      <motion.div
-        initial={{ y: 30, opacity: 0, scale: 0.98 }}
+      <m.div
+        initial={reduceMotion ? false : { y: 30, opacity: 0, scale: 0.98 }}
         animate={{ y: 0, opacity: 1, scale: 1 }}
-        exit={{ y: 20, opacity: 0, scale: 0.98 }}
+        exit={reduceMotion ? { opacity: 0 } : { y: 20, opacity: 0, scale: 0.98 }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         className="w-full h-full max-w-[1400px] bg-liberty-bg md:rounded-2xl overflow-hidden flex flex-col lg:flex-row relative border border-liberty-border/50 shadow-2xl"
       >
         <button
+          type="button"
+          aria-label="Cerrar perfil"
           onClick={onClose}
           className="absolute top-4 right-4 md:top-8 md:right-8 z-50 p-2 md:p-3 bg-black/40 hover:bg-liberty-primary text-white rounded-full group cursor-pointer border border-white/10 transition-colors"
         >
@@ -91,12 +105,11 @@ const ModalDiputado = memo(({ diputado, onClose }) => {
         </button>
 
         <div className="w-full lg:w-1/2 h-[45vh] lg:h-full relative overflow-hidden bg-black flex-shrink-0">
-          <img
-            src={diputado.foto}
+          <ProfileImage
+            foto={diputado.foto}
             alt={diputado.nombre}
-            loading="lazy"
-            decoding="async"
-            className="w-full h-full object-cover object-top transform-gpu"
+            fullSize
+            className="w-full h-full object-cover object-top"
           />
         </div>
 
@@ -106,7 +119,7 @@ const ModalDiputado = memo(({ diputado, onClose }) => {
               <span className="inline-block px-3 py-1 bg-liberty-primary/10 text-liberty-primary text-[12px] uppercase tracking-widest font-bold rounded-sm mb-4 border border-liberty-primary/20">
                 {diputado.cargo || "Diputado Nacional"}
               </span>
-              <h3 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-white leading-none mb-2">
+              <h3 id="diputado-perfil-nombre" className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-white leading-none mb-2">
                 {diputado.nombre}
               </h3>
             </div>
@@ -172,6 +185,7 @@ const ModalDiputado = memo(({ diputado, onClose }) => {
               <div className="flex gap-3 justify-center sm:justify-start">
                 {diputado.redes?.instagram && (
                   <a
+                    aria-label={`Instagram de ${diputado.nombre}`}
                     href={`https://instagram.com/${diputado.redes.instagram.replace("@", "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -182,6 +196,7 @@ const ModalDiputado = memo(({ diputado, onClose }) => {
                 )}
                 {diputado.redes?.twitter && (
                   <a
+                    aria-label={`X de ${diputado.nombre}`}
                     href={`https://twitter.com/${diputado.redes.twitter.replace("@", "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -216,13 +231,15 @@ const ModalDiputado = memo(({ diputado, onClose }) => {
             </div>
           </div>
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 });
 
 export default function SeccionDiputados() {
   const [selectedDiputado, setSelectedDiputado] = useState(null);
+  const gridRef = useRef(null);
+  const pagination = useProfilePagination(diputadosData, DEPUTIES_PAGE_SIZE, gridRef);
 
   // Mantenemos la referencia estable de las funciones para no romper el React.memo
   const handleSelectDiputado = useCallback((diputado) => {
@@ -232,18 +249,6 @@ export default function SeccionDiputados() {
   const handleCloseModal = useCallback(() => {
     setSelectedDiputado(null);
   }, []);
-
-  useEffect(() => {
-    if (selectedDiputado) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    // Cleanup de seguridad al desmontar
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [selectedDiputado]);
 
   return (
     <section className="relative w-full py-24 md:py-32 bg-liberty-bg text-white overflow-hidden">
@@ -266,8 +271,8 @@ export default function SeccionDiputados() {
       </div>
 
       <div className="w-full px-10 md:px-12 lg:px-20 max-w-[1400px] mx-auto relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-4">
-          {diputadosData.map((diputado) => (
+        <div id="diputados-listado" ref={gridRef} tabIndex={-1} aria-label="Listado de diputados" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-4 scroll-mt-24 focus:outline-none">
+          {pagination.items.map((diputado) => (
             <DiputadoCard
               key={diputado.id}
               diputado={diputado}
@@ -275,6 +280,7 @@ export default function SeccionDiputados() {
             />
           ))}
         </div>
+        <ProfilePagination pagination={pagination} label="Diputados" gridId="diputados-listado" />
 
         {diputadosData.length === 0 && (
           <div className="w-full py-12 text-center">

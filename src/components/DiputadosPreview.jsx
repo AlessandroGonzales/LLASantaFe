@@ -50,7 +50,7 @@ export default function DiputadosPreview() {
       id="diputados" 
       aria-labelledby="diputados-preview-heading"
       aria-describedby="diputados-preview-description"
-      className="relative w-full scroll-mt-16 py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-hidden"
+      className="relative w-full scroll-mt-16 py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-x-clip overflow-y-visible"
     >
       <div aria-hidden="true" className="absolute top-0 right-0 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-liberty-primary/17 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3" />
 
@@ -129,7 +129,7 @@ export default function DiputadosPreview() {
             >
               <CinematicLink
                 to="/diputados"
-                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-card text-white font-bold uppercase text-xs tracking-[0.2em]  rounded-3xl border border-liberty-border hover:border-liberty-primary w-full sm:w-max focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-text-secondary text-liberty-bg font-bold uppercase text-xs tracking-[0.2em]  rounded-3xl border border-liberty-border hover:border-liberty-primary w-full sm:w-max focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                   Ver legisladores
               </CinematicLink>

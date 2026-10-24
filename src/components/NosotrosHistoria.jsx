@@ -6,7 +6,7 @@ import useHistoriaMetadata from "../hooks/useHistoriaMetadata";
 import styles from "./NosotrosHistoria.module.css";
 
 const heroPhoto = historiaData[1].photos[0];
-const heroPhotoMobile = historiaData[3].photos[1]; // Imagen vertical ideal para mobile
+const heroPhotoMobile = historiaData[3].photosMobile[0]; // Imagen vertical ideal para mobile
 const total = historiaData.length;
 const chapterStart = historiaData.map((_, index) =>
   historiaData.slice(0, index).reduce((sum, chapter) => sum + chapter.photos.length, 0),

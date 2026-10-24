@@ -96,7 +96,7 @@ export default function NosotrosPreview() {
             <div className="hidden lg:block ">
               <CinematicLink
                 to="/nosotros"
-                className="group relative inline-flex items-center justify-center w-auto px-8 py-4  text-white font-bold uppercase text-xs tracking-[0.2em] bg-liberty-card border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="group relative inline-flex items-center justify-center w-auto px-8 py-4 bg-liberty-text-secondary text-liberty-bg font-bold uppercase text-xs tracking-[0.2em]  border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 Conocer nuestra historia
               </CinematicLink>
@@ -140,7 +140,7 @@ export default function NosotrosPreview() {
               
               <CinematicLink
                 to="/nosotros"
-                className="group relative flex items-center justify-center w-full sm:w-auto px-8 py-4  text-white font-bold uppercase text-xs tracking-[0.2em] bg-liberty-card border border-liberty-border rounded-4xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="group relative flex items-center justify-center w-full sm:w-auto px-8 py-4  font-bold uppercase text-xs tracking-[0.2em] bg-liberty-text-secondary text-liberty-bg border border-liberty-border rounded-4xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 Conocer nuestra historia
               </CinematicLink>

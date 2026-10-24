@@ -77,7 +77,7 @@ export default function ProponePreview() {
 
           <CinematicLink
             to="/propone"
-            className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-card text-white font-bold uppercase text-xs tracking-[0.2em] rounded-3xl border border-liberty-border hover:border-liberty-primary  w-full sm:w-max "
+            className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-text-secondary text-liberty-bg font-bold uppercase text-xs tracking-[0.2em] rounded-3xl border border-liberty-border hover:border-liberty-primary  w-full sm:w-max "
           >
             Enviar mi propuesta
           </CinematicLink>
