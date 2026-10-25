@@ -153,5 +153,5 @@ Fuentes: [variables y modos de Vite](https://vite.dev/guide/env-and-mode) y
   Deben cerrarse antes de fusionar con main. La advertencia previa de importación
   dinámica/estática de Framer Motion también permanece visible en el build.
 
-La siguiente entrega conecta afiliación, después encuestas y solicitudes de texto.
-El PDF y la preparación de Azure mantienen el alcance pendiente acordado.
+La afiliación ya tiene su entrega de integración en [API_AFILIACION_LOCAL.md](API_AFILIACION_LOCAL.md).
+Continúan pendientes encuestas, solicitudes de texto y la preparación de PDF/Azure.

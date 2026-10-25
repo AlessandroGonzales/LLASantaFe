@@ -36,7 +36,9 @@ hallazgos; no se almacenan credenciales ni variables privadas en este commit.
 Primer bloque implementado localmente: cliente HTTP y sesión de usuario, con
 registro, verificación, login, recuperación, perfil, PATCH, cierre y baja. Guía y
 verificación en [API_CUENTA_LOCAL.md](API_CUENTA_LOCAL.md). Los siguientes módulos
-de participación y la preparación de Azure todavía no están integrados en React.
+de participación se incorporan por entregas. Afiliación ya dispone del formulario
+con datos de cuenta y de una bandeja administrativa por estado, descritos en
+[API_AFILIACION_LOCAL.md](API_AFILIACION_LOCAL.md). La preparación de Azure sigue pendiente.
 
 1. Antes de editar, comprobar la rama con `git branch --show-current`.
 2. Conectar primero cliente HTTP y sesión; luego cuenta, afiliación, encuestas y

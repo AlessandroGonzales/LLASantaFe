@@ -24,7 +24,8 @@ function retrySeconds(value) {
 function validationErrors(values) {
   if (!values || typeof values !== "object" || Array.isArray(values)) return {};
   const labels = { nombre: "nombre", apellido: "apellido", email: "email", password: "contraseña", nuevapassword: "nueva contraseña",
-    codigo: "código del enlace", fechanacimiento: "fecha de nacimiento", telefono: "teléfono", fotoperfilurl: "foto de perfil", ciudadid: "localidad" };
+    codigo: "código del enlace", fechanacimiento: "fecha de nacimiento", telefono: "teléfono", fotoperfilurl: "foto de perfil", ciudadid: "localidad",
+    dni: "DNI", confirmacion: "confirmación", quierefiscalizar: "interés en fiscalizar" };
   const result = {};
   for (const [key, items] of Object.entries(values)) {
     if (!Array.isArray(items) || key.toLowerCase() === "request") continue;

@@ -37,6 +37,7 @@ const SeccionPropone = lazy(() => import("./components/SeccionPropone"));
 const SeccionReclamos = lazy(() => import("./components/SeccionReclamos"));
 const NotFound = lazy(() => import("./components/NotFound"));
 const Cuenta = lazy(() => import("./pages/Cuenta"));
+const AdminAfiliaciones = lazy(() => import("./pages/AdminAfiliaciones"));
 const accountRoutes = ["/ingresar", "/registro", "/verificar-email", "/recuperar-cuenta", "/restablecer-password", "/mi-cuenta"];
 
 const PageLoader = () => (
@@ -96,6 +97,7 @@ function App() {
               <Suspense fallback={<PageLoader />}>
                 <Routes>
                   {accountRoutes.map(path => <Route key={path} path={path} element={<Cuenta />} />)}
+                  <Route path="/administracion/afiliaciones" element={<AdminAfiliaciones />} />
                   <Route path="/" element={<Home />} />
                   <Route path="/propuestas" element={<SeccionPropuestas />} />
                   <Route path="/propuesta/:id" element={<PropuestaDetalle />} />

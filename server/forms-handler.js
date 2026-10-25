@@ -80,7 +80,7 @@ async function readBody(req) {
   } catch { throw new FormError("El formulario no pudo leerse."); }
 }
 
-export function createFormsHandler({ env = process.env, fetchImpl = fetch, now = Date.now } = {}) {
+export function createFormsHandler({ env = process.env, fetchImpl = fetch, now = Date.now, retiredKinds = ["sumate"] } = {}) {
   async function jsonFetch(url, options, timeout = 8000) {
     try {
       const response = await fetchImpl(url, { ...options, signal: AbortSignal.timeout(timeout) });
@@ -121,6 +121,9 @@ export function createFormsHandler({ env = process.env, fetchImpl = fetch, now =
       const ipHash = hmac(env.GOOGLE_APPS_SCRIPT_SECRET, ipBucket(ip));
       await rateLimit([`${namespace}:attempt:${ipHash}`, `${namespace}:attempt:global`], [[20, 600], [3000, 600]]);
       const body = await readBody(req);
+      if (retiredKinds.includes(body.kind)) {
+        throw new FormError("Este formulario se trasladó a tu cuenta. Iniciá sesión para enviar tu solicitud de afiliación.", 410, "form_retired");
+      }
       if (body.website !== "") throw new FormError("No se pudo verificar la solicitud.", 400, "verification_failed");
       if (!UUID.test(body.requestId || "")) throw new FormError("Identificador de envío inválido.");
       const data = validateFields(body.kind, body.data);

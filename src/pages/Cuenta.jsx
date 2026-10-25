@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { account } from "../lib/backend.js";
 import { getAccountCode, clearAccountCode, validateNewPassword } from "../lib/accountLinks.js";
+import { accountReturn, affiliationReturn } from "../lib/affiliationFormat.js";
+import { isAdministrator } from "../lib/affiliationService.js";
 import { useAccount } from "../hooks/useAccount.js";
 import { useAccountAction } from "../hooks/useAccountAction.js";
 import { AccountShell, Field, Feedback, SubmitButton, BusyForm } from "../components/account/AccountForm.jsx";
@@ -14,18 +16,19 @@ function ConfigNotice() {
 function Login() {
   const state = useAccount(), action = useAccountAction(), location = useLocation(), navigate = useNavigate();
   const [email, setEmail] = useState(""), [password, setPassword] = useState("");
-  if (state.authenticated) return <Navigate to="/mi-cuenta" replace />;
+  const destination = accountReturn(location.state?.returnTo);
+  if (state.authenticated) return <Navigate to={destination} replace />;
   return <AccountShell title="Ingresar" description="Accedé con tu email verificado y tu contraseña.">
     <ConfigNotice /><Feedback {...action} success={action.success || location.state?.notice} />
     <BusyForm busy={action.busy} onSubmit={event => { event.preventDefault(); action.run(async signal => {
-      await account.login({ email: email.trim(), password }, signal); setPassword(""); navigate("/mi-cuenta", { replace: true });
+      await account.login({ email: email.trim(), password }, signal); setPassword(""); navigate(destination, { replace: true });
     }); }}>
       <Field label="Email" type="email" autoComplete="username" value={email} onChange={event => setEmail(event.target.value)} required maxLength={254} />
       <Field label="Contraseña" type="password" autoComplete="current-password" value={password} onChange={event => setPassword(event.target.value)} required maxLength={72} />
       <SubmitButton {...action} busy={action.busy || !account.api.configured}>Ingresar</SubmitButton>
     </BusyForm>
     {action.error?.code === "email_not_verified" && <p><Link to="/verificar-email">Verificar mi email</Link></p>}
-    <div className="account-links"><Link to="/recuperar-cuenta">Olvidé mi contraseña</Link><Link to="/registro">Crear una cuenta</Link></div>
+    <div className="account-links"><Link to="/recuperar-cuenta">Olvidé mi contraseña</Link><Link to="/registro" state={{ returnTo: destination }}>Crear una cuenta</Link></div>
   </AccountShell>;
 }
 function Register() {
@@ -146,6 +149,8 @@ function Profile() {
   if (!state.authenticated && !leaving) return <Navigate to="/ingresar" replace state={{ notice: "Para acceder a tu cuenta, iniciá sesión." }} />;
   return <AccountShell title="Mi cuenta" description="Consultá tus datos y administrá tu acceso.">
     <Feedback {...action} /><Feedback error={state.profileError} />
+    <div className="account-links"><Link to={affiliationReturn}>Mi solicitud de afiliación</Link>
+      {isAdministrator(state.profile) && <Link to="/administracion/afiliaciones">Administrar afiliaciones</Link>}</div>
     {state.profileStatus === "loading" && <p role="status">Cargando tu perfil…</p>}
     {state.profileError && <button type="button" className="account-secondary" disabled={action.busy} onClick={() => action.run(() => account.loadProfile({ force: true }))}>Volver a cargar el perfil</button>}
     {state.profile && <ProfileEditor key={state.profile.idUsuario} profile={state.profile} />}
