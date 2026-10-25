@@ -129,5 +129,5 @@ no crea ni eleva una cuenta real automáticamente.
   de ambos repositorios terminó sin hallazgos; API, Vite y PostgreSQL temporales
   quedaron detenidos. La configuración privada permanece excluida de Git.
 
-Siguiente entrega: encuestas desde React. Solicitudes ciudadanas y PDF/Azure
+Encuestas ya tiene su integración en [API_ENCUESTAS_LOCAL.md](API_ENCUESTAS_LOCAL.md). Solicitudes ciudadanas y PDF/Azure
 mantienen su lugar en el plan. Resolver los tres fallos previos antes de fusionar.

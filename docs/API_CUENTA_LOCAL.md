@@ -154,4 +154,5 @@ Fuentes: [variables y modos de Vite](https://vite.dev/guide/env-and-mode) y
   dinámica/estática de Framer Motion también permanece visible en el build.
 
 La afiliación ya tiene su entrega de integración en [API_AFILIACION_LOCAL.md](API_AFILIACION_LOCAL.md).
-Continúan pendientes encuestas, solicitudes de texto y la preparación de PDF/Azure.
+Encuestas ya tiene su integración en [API_ENCUESTAS_LOCAL.md](API_ENCUESTAS_LOCAL.md).
+Continúan pendientes solicitudes de texto y la preparación de PDF/Azure.

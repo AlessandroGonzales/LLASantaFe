@@ -307,6 +307,7 @@ export default function Navbar() {
           >
             Reclamos
           </Link>
+          <Link to="/encuestas" aria-current={location.pathname.startsWith("/encuestas") ? "page" : undefined} className={desktopLinkClass(location.pathname.startsWith("/encuestas"))}>Encuestas</Link>
         </div>
 
         {/* Botón "Sumate" alineado a la derecha en Desktop */}
@@ -509,6 +510,7 @@ export default function Navbar() {
                 <MobileIndex>07</MobileIndex>
                 Reclamos
               </Link>
+              <Link to="/encuestas" onClick={closeMobileMenu} aria-current={location.pathname.startsWith("/encuestas") ? "page" : undefined} className={mobileLinkClass(location.pathname.startsWith("/encuestas"))}><MobileIndex>08</MobileIndex>Encuestas</Link>
             </div>
 
             <div className="mt-auto pt-8">

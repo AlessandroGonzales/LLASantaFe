@@ -39,6 +39,8 @@ verificación en [API_CUENTA_LOCAL.md](API_CUENTA_LOCAL.md). Los siguientes mód
 de participación se incorporan por entregas. Afiliación ya dispone del formulario
 con datos de cuenta y de una bandeja administrativa por estado, descritos en
 [API_AFILIACION_LOCAL.md](API_AFILIACION_LOCAL.md). La preparación de Azure sigue pendiente.
+Encuestas incorpora lectura pública y respuesta con sesión en
+[API_ENCUESTAS_LOCAL.md](API_ENCUESTAS_LOCAL.md), manteniendo los controles de la API.
 
 1. Antes de editar, comprobar la rama con `git branch --show-current`.
 2. Conectar primero cliente HTTP y sesión; luego cuenta, afiliación, encuestas y
