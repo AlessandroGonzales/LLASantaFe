@@ -1,3 +1,4 @@
+import SectionTitle from "./SectionTitle.jsx";
 import { useState } from "react";
 import { Search, MapPin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -94,9 +95,7 @@ export default function SedesLLA() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="mb-12 md:mb-16">
-          <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight mb-4">
-            Nuestras <span className="text-liberty-primary">Sedes</span>
-          </h2>
+          <SectionTitle as="h2" title="Nuestras Sedes" />
           <p className="text-lg text-liberty-text-secondary border-l-2 border-liberty-primary pl-4">
             Encontrá el búnker de La Libertad Avanza más cercano a tu ciudad y sumate a la fuerza.
           </p>
@@ -173,7 +172,7 @@ export default function SedesLLA() {
                         </div>
 
                         <div className="w-2/3 p-5 flex flex-col justify-center">
-                          <span className="text-[10px] uppercase tracking-widest text-liberty-primary font-bold mb-1 block">
+                          <span className="text-sm uppercase tracking-widest text-liberty-primary font-bold mb-1 block">
                             Sede Oficial
                           </span>
                           <h3 className={`text-xl font-black uppercase tracking-tight mb-2 transition-colors ${isSelected ? "text-liberty-primary" : "text-white"}`}>

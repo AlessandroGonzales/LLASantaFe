@@ -161,7 +161,7 @@ aviso anterior; los errores de otras preguntas permanecen. El envío vuelve a va
 todas las respuestas. Corregir un campo no oculta errores de red ni modifica datos.
 
 La integración de cuenta, afiliación, encuestas, solicitudes y formularios históricos
-aprueba 100 pruebas Node. La suite completa ejecuta 153: 150 correctas y los mismos
-tres fallos previos de perfiles/imágenes, pendientes antes de fusionar. Build Vite,
+aprueba 100 pruebas Node. Tras cerrar los tres fallos previos de perfiles/imágenes,
+la suite completa pasa las 153 pruebas. El cierre está en representantes-rendimiento.md. Build Vite,
 ESLint de los cambios y revisión de secretos correctos. La regresión existente de
 backend aprobó 975 comprobaciones. No hay migraciones ni dependencias nuevas.

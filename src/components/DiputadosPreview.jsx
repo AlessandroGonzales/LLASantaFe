@@ -58,7 +58,7 @@ export default function DiputadosPreview() {
         <h2 id="diputados-preview-heading" className="sr-only">
           Nuestros diputados
         </h2>
-        
+
         <div className="lg:hidden mb-10 text-center">
           <m.div
             initial={skipAnimation ? false : { opacity: 0, y: 20 }}
@@ -67,10 +67,8 @@ export default function DiputadosPreview() {
             transition={{ duration: 0.6 }}
             aria-hidden="true"
           >
-            <span className="text-sm font-bold tracking-[0.3em] text-liberty-primary uppercase block mb-4">
-              La voz en el Congreso
-            </span>
-            
+
+
             <div className="text-5xl md:text-6xl font-black uppercase tracking-tighter leading-[0.9]">
               Nuestros <span className=" text-white">Diputados</span>
             </div>
@@ -86,7 +84,7 @@ export default function DiputadosPreview() {
           viewport={{ once: true }}
           className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center"
         >
-          
+
           <div className="lg:col-span-5 flex flex-col justify-center text-center lg:text-left z-10 order-2 lg:order-1">
             <m.div 
               className="hidden lg:block"
@@ -96,10 +94,8 @@ export default function DiputadosPreview() {
               transition={{ duration: 0.6 }}
               aria-hidden="true"
             >
-              <span className="text-sm font-bold tracking-[0.3em] text-liberty-primary uppercase block mb-4">
-                La voz en el Congreso
-              </span>
-              
+
+
               <div className="text-5xl md:text-6xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.99] mb-6">
                 Nuestros <br className="hidden md:block"/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r text-white">
@@ -129,7 +125,7 @@ export default function DiputadosPreview() {
             >
               <CinematicLink
                 to="/diputados"
-                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-text-secondary text-liberty-bg font-bold uppercase text-xs tracking-[0.2em]  rounded-3xl border border-liberty-border hover:border-liberty-primary w-full sm:w-max focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-text-secondary text-liberty-bg font-bold uppercase text-sm tracking-[0.2em]  rounded-3xl border border-liberty-border hover:border-liberty-primary w-full sm:w-max focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                   Ver legisladores
               </CinematicLink>

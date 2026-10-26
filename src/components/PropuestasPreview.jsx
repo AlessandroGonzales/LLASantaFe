@@ -1,3 +1,4 @@
+import SectionTitle from "./SectionTitle.jsx";
 import { motion } from "framer-motion";
 import mapaSantaFe from "../assets/mapaSantaFe.webp"; 
 import CinematicLink from "./CinematicLink";
@@ -15,7 +16,7 @@ export default function PropuestasPreview() {
 
   return (
     <section id="preview" className="relative w-full scroll-mt-16 py-24 md:py-32 bg-liberty-bg text-liberty-text overflow-x-clip overflow-y-visible">
-      
+
       {/* LUZ DE FONDO (Forzadas a la GPU para evitar recalcular el Blur en el scroll) */}
       <motion.div 
         onViewportEnter={markAsAnimated}
@@ -38,15 +39,8 @@ export default function PropuestasPreview() {
             className="w-full text-center lg:hidden will-change-transform"
           >
             <div className="space-y-2">
-              <span className="text-sm font-bold tracking-[0.3em] text-liberty-primary uppercase block mb-4">
-                El plan para la provincia
-              </span>
-              <h2 className="text-5xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.99] text-center lg:text-left">
-                Nuestras{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-br text-white">
-                  Propuestas
-                </span>
-              </h2>
+
+              <SectionTitle as="h2" title="Nuestras propuestas" className="text-center lg:text-left" />
             </div>
           </motion.div>
 
@@ -81,15 +75,8 @@ export default function PropuestasPreview() {
               transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
               className="space-y-2 hidden lg:block will-change-transform"
             >
-               <span className="text-sm font-bold tracking-[0.3em] text-liberty-primary uppercase block mb-4">
-                El plan para la provincia
-              </span>
-              <h2 className="text-5xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.99] text-center lg:text-left">
-                Nuestras{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-br text-white">
-                  Propuestas
-                </span>
-              </h2>
+
+              <SectionTitle as="h2" title="Nuestras propuestas" className="text-center lg:text-left" />
             </motion.div>
 
             {/* Descripción */}
@@ -113,7 +100,7 @@ export default function PropuestasPreview() {
             >
               <CinematicLink
                 to="/propuestas"
-                className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-4  font-bold uppercase text-xs tracking-[0.2em] bg-liberty-text-secondary text-liberty-bg border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-primary mb-10"
+                className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-4  font-bold uppercase text-sm tracking-[0.2em] bg-liberty-text-secondary text-liberty-bg border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-primary mb-10"
               >
                   Ver Todas las Propuestas
               </CinematicLink>

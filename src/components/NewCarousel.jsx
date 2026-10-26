@@ -1,3 +1,4 @@
+import SectionTitle from "./SectionTitle.jsx";
 import { useRef, useEffect } from "react";
 import { newsData } from "../data/noticiasData";
 import CinematicLink from "./CinematicLink";
@@ -58,9 +59,7 @@ export default function NewsCarousel() {
     >
       {/* TÍTULO DE LA SECCIÓN */}
       <div className="max-w-7xl mx-auto px-6 mb-12 text-center">
-        <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight">
-          Últimas Noticias
-        </h2>
+        <SectionTitle as="h2" title="Últimas Noticias" />
         <p className="text-liberty-text-secondary mt-3 text-sm md:text-base tracking-wide">
           Enterate de las novedades del espacio en Santa Fe.
         </p>
@@ -143,7 +142,7 @@ export default function NewsCarousel() {
                 <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/90 pointer-events-none" />
 
                 <div className="absolute top-6 left-6 z-10">
-                  <span className="text-xs font-bold text-white/90 uppercase tracking-[0.2em]">
+                  <span className="text-sm font-bold text-white/90 uppercase tracking-[0.2em]">
                     {news.category}
                   </span>
                 </div>
@@ -157,7 +156,7 @@ export default function NewsCarousel() {
                     {news.description}
                   </p>
 
-                  <span className="inline-block w-full sm:w-auto px-10 py-3 rounded-4xl  text-white font-bold uppercase text-xs tracking-[0.2em] bg-liberty-card border border-liberty-border group-hover:bg-liberty-border/40 group-hover:text-liberty-primary text-center">
+                  <span className="inline-block w-full sm:w-auto px-10 py-3 rounded-4xl  text-white font-bold uppercase text-sm tracking-[0.2em] bg-liberty-card border border-liberty-border group-hover:bg-liberty-border/40 group-hover:text-liberty-primary text-center">
                     Ver más
                   </span>
                 </div>

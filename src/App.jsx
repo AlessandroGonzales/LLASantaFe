@@ -8,6 +8,9 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTop from "./ScrollToTop";
 import AccountSession from "./components/AccountSession";
+import LoginProvider from "./components/account/LoginProvider.jsx";
+import LoginRoute from "./components/account/LoginRoute.jsx";
+import RegistrationProvider from "./components/account/RegistrationProvider.jsx";
 
 import Hero from "./components/Hero";
 import NewsCarousel from "./components/NewCarousel";
@@ -36,10 +39,13 @@ const SeccionPresidentesComunales = lazy(() => import("./components/SeccionPresi
 const SeccionPropone = lazy(() => import("./components/SeccionPropone"));
 const SeccionReclamos = lazy(() => import("./components/SeccionReclamos"));
 const NotFound = lazy(() => import("./components/NotFound"));
+const Registro = lazy(() => import("./pages/Registro.jsx"));
+const MisDatos = lazy(() => import("./pages/MisDatos.jsx"));
 const Cuenta = lazy(() => import("./pages/Cuenta"));
 const AdminAfiliaciones = lazy(() => import("./pages/AdminAfiliaciones"));
 const Encuestas = lazy(() => import("./pages/Encuestas"));
-const accountRoutes = ["/ingresar", "/registro", "/verificar-email", "/recuperar-cuenta", "/restablecer-password", "/mi-cuenta"];
+const MisRespuestas = lazy(() => import("./pages/MisRespuestas.jsx"));
+const accountRoutes = ["/verificar-email", "/recuperar-cuenta", "/restablecer-password"];
 
 const PageLoader = () => (
   <div className="min-h-[60vh] flex items-center justify-center">
@@ -85,6 +91,8 @@ function Home() {
 function App() {
   return (
     <BrowserRouter>
+      <RegistrationProvider>
+      <LoginProvider>
       <LazyMotion features={loadFeatures} strict>
         <TransitionProvider>
           <GlobalTransition />
@@ -97,10 +105,14 @@ function App() {
             <main id="contenido-principal" tabIndex="-1">
               <Suspense fallback={<PageLoader />}>
                 <Routes>
+                  <Route path="/ingresar" element={<LoginRoute><Home /></LoginRoute>} />
+                  <Route path="/registro" element={<Registro />} />
+                  <Route path="/mi-cuenta" element={<MisDatos />} />
                   {accountRoutes.map(path => <Route key={path} path={path} element={<Cuenta />} />)}
                   <Route path="/administracion/afiliaciones" element={<AdminAfiliaciones />} />
                   <Route path="/encuestas" element={<Encuestas />} />
                   <Route path="/encuestas/:id" element={<Encuestas />} />
+                  <Route path="/mi-cuenta/encuestas" element={<MisRespuestas />} />
                   <Route path="/" element={<Home />} />
                   <Route path="/propuestas" element={<SeccionPropuestas />} />
                   <Route path="/propuesta/:id" element={<PropuestaDetalle />} />
@@ -125,6 +137,8 @@ function App() {
           </div>
         </TransitionProvider>
       </LazyMotion>
+      </LoginProvider>
+      </RegistrationProvider>
     </BrowserRouter>
   );
 }

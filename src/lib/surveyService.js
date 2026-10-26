@@ -91,6 +91,34 @@ export function createSurveyService(account, { now = Date.now } = {}) {
       }, options);
     },
     loadReceipt,
+    ownResponses({ cursor, ...options } = {}) {
+      const captured = session(), privateSignal = privateController.signal;
+      if (cursor && !uuid.test(cursor)) return Promise.reject(invalid());
+      const query = new URLSearchParams({ limite: "20" }); if (cursor) query.set("cursor", cursor);
+      return read(`r:history:${captured}:${query}`, async signal => {
+        const data = await account.api.request(`/api/Usuario/me/encuestas/respuestas?${query}`, { auth: true, signal: AbortSignal.any([signal, privateSignal]) });
+        if (!Array.isArray(data?.items) || data.items.length > 20 || (data.siguienteCursor !== null && !uuid.test(data.siguienteCursor))) throw invalid();
+        const ids = new Set();
+        const items = data.items.map(item => {
+          if (!uuid.test(item?.encuestaId) || typeof item.titulo !== "string" || ids.has(item.id)) throw invalid();
+          ids.add(item.id); return Object.freeze({ ...receipt(item), encuestaId: item.encuestaId, titulo: item.titulo });
+        });
+        return Object.freeze({ items: Object.freeze(items), siguienteCursor: data.siguienteCursor });
+      }, options);
+    },
+    ownResponse(id, options = {}) {
+      const captured = session(), privateSignal = privateController.signal;
+      if (!uuid.test(id)) return Promise.reject(invalid());
+      return read(`r:answer:${captured}:${id}`, async signal => {
+        const data = await account.api.request(`/api/Usuario/me/encuestas/respuestas/${id}`, { auth: true, signal: AbortSignal.any([signal, privateSignal]) });
+        if (data?.id?.toLowerCase() !== id.toLowerCase() || !uuid.test(data.encuestaId) || typeof data.titulo !== "string" || !Array.isArray(data.preguntas) || data.preguntas.length > 50) throw invalid();
+        const preguntas = data.preguntas.map(value => {
+          if (typeof value?.pregunta !== "string" || typeof value.respondida !== "boolean" || !["texto", "numero", "opcion_unica", "opcion_multiple"].includes(value.tipo) || !Array.isArray(value.valores) || value.valores.some(v => typeof v !== "string")) throw invalid();
+          return Object.freeze({ ...value, valores: Object.freeze([...value.valores]) });
+        });
+        return Object.freeze({ ...receipt(data), encuestaId: data.encuestaId, titulo: data.titulo, preguntas: Object.freeze(preguntas) });
+      }, options);
+    },
     knownReceipt(id) {
       const value = cache.get(`r:${sessionId}:${id}`);
       return account.getSnapshot().authenticated && value?.expires > now() ? value.value : null;
@@ -103,6 +131,7 @@ export function createSurveyService(account, { now = Date.now } = {}) {
         if (captured !== sessionId) throw new DOMException("Sesión finalizada", "AbortError");
       };
       sending.add(key);
+      for (const entry of cache.keys()) if (entry.startsWith("r:history:")) cache.delete(entry);
       try {
         const existing = await loadReceipt(id, { signal }); ensureCurrent(); if (existing) return existing;
         try {

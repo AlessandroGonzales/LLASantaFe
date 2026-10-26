@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/aguila.webp";
+import AccountMenu from "./account/AccountMenu.jsx";
+import { account } from "../lib/backend.js";
+import { useAccountAction } from "../hooks/useAccountAction.js";
 
 const desktopLinkBase =
   "relative inline-flex min-h-11 items-center px-2 py-2 text-[13px] font-bold tracking-wide transition-colors duration-200 after:absolute after:inset-x-2 after:bottom-1 after:h-0.5 after:origin-left after:bg-liberty-primary after:transition-transform after:duration-300 focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white";
@@ -36,6 +39,13 @@ function MobileIndex({ children }) {
 
 export default function Navbar() {
   const location = useLocation();
+  const navigate = useNavigate(), logout = useAccountAction();
+  const logoutFromMenu = () => logout.run(async signal => {
+    let notice = "Se cerraron todas las sesiones de tu cuenta.";
+    try { await account.logout(signal); }
+    catch { notice = "Cerraste la sesión en este navegador. No pudimos confirmar el cierre en otros dispositivos."; }
+    if (!signal.aborted) navigate("/ingresar", { replace: true, state: { notice } });
+  });
   const [isScrolled, setIsScrolled] = useState(
     () => typeof window !== "undefined" && window.scrollY > 12,
   );
@@ -153,7 +163,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 h-14 border-b transition-[background-color,border-color,box-shadow] duration-300 ${
-        isScrolled || isOpen
+        isScrolled || isOpen || ["/registro", "/mi-cuenta"].includes(location.pathname)
           ? "border-liberty-border/80 bg-liberty-bg/95 shadow-[0_12px_40px_rgba(10,2,18,0.28)] backdrop-blur-xl"
           : "bg-transparent border-b border-transparent"
       }`}
@@ -310,18 +320,10 @@ export default function Navbar() {
           <Link to="/encuestas" aria-current={location.pathname.startsWith("/encuestas") ? "page" : undefined} className={desktopLinkClass(location.pathname.startsWith("/encuestas"))}>Encuestas</Link>
         </div>
 
-        {/* Botón "Sumate" alineado a la derecha en Desktop */}
-        <div className="hidden items-center gap-3 2xl:flex shrink-0 2xl:justify-self-end">
-          <Link to="/mi-cuenta" className={desktopLinkClass(location.pathname === "/mi-cuenta")}>Mi cuenta</Link>
-          <Link
-            to="/sumate"
-            aria-current={location.pathname === "/sumate" ? "page" : undefined}
-            className="inline-flex min-h-10 items-center justify-center rounded-full border border-liberty-primary bg-liberty-primary px-5 text-sm font-black uppercase tracking-[0.08em] text-liberty-text transition-colors hover:border-liberty-primary-hover hover:bg-liberty-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-liberty-bg"
-          >
-            Afiliate
-          </Link>
-        </div>
-
+        <div className="relative z-50 flex items-center gap-2 shrink-0 2xl:justify-self-end">
+          <Link to="/sumate" onClick={closeMobileMenu} aria-current={location.pathname === "/sumate" ? "page" : undefined}
+            className="hidden sm:inline-flex min-h-8 items-center justify-center rounded-full border border-liberty-primary/50 px-3 text-[11px] font-bold uppercase tracking-[0.08em] text-white/90 transition-colors hover:border-liberty-primary hover:bg-liberty-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">Afiliate</Link>
+          <AccountMenu key={location.key} onOpen={closeMobileMenu} onLogout={logoutFromMenu} logoutBusy={logout.busy} />
         <button
           ref={menuButtonRef}
           type="button"
@@ -350,6 +352,7 @@ export default function Navbar() {
             }`}
           />
         </button>
+        </div>
 
         <div
           ref={mobileMenuRef}
@@ -514,7 +517,6 @@ export default function Navbar() {
             </div>
 
             <div className="mt-auto pt-8">
-              <Link to="/mi-cuenta" onClick={closeMobileMenu} className="mb-4 flex min-h-11 items-center justify-center rounded-full border border-white/40 px-5 py-3 text-sm font-bold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">Mi cuenta</Link>
               <Link
                 to="/sumate"
                 onClick={closeMobileMenu}

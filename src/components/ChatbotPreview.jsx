@@ -1,5 +1,6 @@
 import chatbot from "../assets/chatbot-rosario.webp";
 import chatbotSmall from "../assets/chatbot-rosario-small.webp";
+import SectionTitle from "./SectionTitle.jsx";
 
 export default function ChatbotPreview() {
   return (
@@ -17,9 +18,7 @@ export default function ChatbotPreview() {
           className="block h-auto w-full object-contain"
         />
         <div className="min-w-0 max-w-lg">
-          <h2 id="chatbot-preview-title" className="text-xl font-bold leading-tight tracking-tight text-liberty-text sm:text-3xl">
-            El chatbot de La Libertad Avanza
-          </h2>
+          <SectionTitle as="h2" id="chatbot-preview-title" title="El chatbot de" accent="La Libertad Avanza" className="section-title--compact" />
           <p className="mt-3 text-sm leading-relaxed text-liberty-text-secondary sm:text-base">
             Recibe tus reclamos sobre la ciudad de Rosario.
           </p>

@@ -1,3 +1,4 @@
+import SectionTitle from "./SectionTitle.jsx";
 import { useEffect,  useState } from "react";
 import {
   ArrowLeft,
@@ -328,9 +329,7 @@ export default function NoticiaDetalle() {
         <p className="text-sm font-black uppercase tracking-[0.2em] text-liberty-primary">
           Noticias
         </p>
-        <h1 className="mt-4 text-4xl font-black uppercase md:text-6xl">
-          Noticia no encontrada
-        </h1>
+        <SectionTitle title="Noticia no encontrada" className="max-w-5xl" />
         <p className="mt-5 max-w-xl text-lg text-liberty-text-secondary">
           La publicación que buscás no está disponible.
         </p>
@@ -366,16 +365,14 @@ export default function NoticiaDetalle() {
         <div className="relative z-10 mx-auto flex min-h-full w-full max-w-7xl flex-col justify-end px-5 pb-12 pt-24 sm:px-6 md:pb-16 md:pt-28 lg:px-8">
 
           <div className="max-w-5xl">
-            <div className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs font-bold uppercase tracking-[0.16em] text-white/75 sm:text-sm">
+            <div className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-bold uppercase tracking-[0.16em] text-white/75 sm:text-sm">
               <span className="text-liberty-primary">{noticia.category}</span>
               <span aria-hidden="true" className="h-1 w-1 rounded-full bg-white/50" />
               <time dateTime={publishedDate ?? undefined}>{displayedDate}</time>
               <span aria-hidden="true" className="h-1 w-1 rounded-full bg-white/50" />
             </div>
 
-            <h1 className="max-w-5xl text-[clamp(2.6rem,5vw,5rem)] font-black uppercase leading-[0.92] tracking-[-0.04em] text-white [text-wrap:balance]">
-              {noticia.title}
-            </h1>
+            <SectionTitle title={noticia.title} className="max-w-5xl" />
 
             <p className="mt-6 max-w-3xl text-lg font-medium leading-relaxed text-white/85 sm:text-xl md:text-2xl">
               {noticia.description}
@@ -418,7 +415,7 @@ export default function NoticiaDetalle() {
 
         <aside aria-labelledby="share-heading" className="relative">
           <div className="border-y border-liberty-border/60 py-7 lg:sticky lg:top-24">
-            <p className="text-xs font-black uppercase tracking-[0.2em] text-liberty-primary">
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-liberty-primary">
               Difundí la noticia
             </p>
             <h2 id="share-heading" className="mt-3 text-xl font-black text-white">
@@ -468,7 +465,7 @@ export default function NoticiaDetalle() {
 
             {(noticia.linkX || noticia.linkInstagram) && (
               <div className="mt-6 border-t border-liberty-border/40 pt-6">
-                <p className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-liberty-text-secondary">
+                <p className="mb-3 text-sm font-bold uppercase tracking-[0.16em] text-liberty-text-secondary">
                   Publicación relacionada
                 </p>
                 <div className="flex flex-col gap-2">

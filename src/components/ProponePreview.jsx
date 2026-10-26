@@ -1,3 +1,4 @@
+import SectionTitle from "./SectionTitle.jsx";
 import { motion } from "framer-motion";
 import CinematicLink from "./CinematicLink";
 
@@ -54,18 +55,8 @@ export default function ProponePreview() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="will-change-transform flex flex-col items-center"
         >
-          {/* Subtítulo */}
-          <span className="text-xs md:text-sm font-bold tracking-[0.3em] text-liberty-primary uppercase block mb-6 ">
-            Tu voz es el motor del cambio
-          </span>
-
           {/* Título Principal */}
-          <h2 className="text-5xl md:text-6xl lg:text-6x1 font-black uppercase tracking-tighter leading-[0.85] mb-8 text-white drop-shadow-2xl">
-            Sumá tu <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-liberty-primary to-liberty-primary-hover">
-              Propuesta
-            </span>
-          </h2>
+          <SectionTitle as="h2" title="Sumá tu" accent="Propuesta" breakLine className="drop-shadow-2xl" />
 
           {/* Descripción */}
           <p className="text-base md:text-lg text-liberty-text max-w-2xl mx-auto mb-12 leading-relaxed drop-shadow-md font-medium px-4">
@@ -77,7 +68,7 @@ export default function ProponePreview() {
 
           <CinematicLink
             to="/propone"
-            className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-text-secondary text-liberty-bg font-bold uppercase text-xs tracking-[0.2em] rounded-3xl border border-liberty-border hover:border-liberty-primary  w-full sm:w-max "
+            className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-text-secondary text-liberty-bg font-bold uppercase text-sm tracking-[0.2em] rounded-3xl border border-liberty-border hover:border-liberty-primary  w-full sm:w-max "
           >
             Enviar mi propuesta
           </CinematicLink>

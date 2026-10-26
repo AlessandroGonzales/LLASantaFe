@@ -1,3 +1,4 @@
+import SectionTitle from "./SectionTitle.jsx";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Expand, X } from "lucide-react";
@@ -162,7 +163,7 @@ export default function NosotrosHistoria() {
           </picture>
         </div>
         <div className={styles.heroContent}>
-          <h1>Nuestra<br /><span>historia</span></h1>
+          <SectionTitle as="h1" title="Nuestra" accent="historia" breakLine />
           <div className={styles.heroBottom}>
             <p>Los inicios, los encuentros y cada etapa.<br />Un recorrido por nuestra historia en Santa Fe.</p>
             <a className={styles.textLink} href={`#${historiaData[0].id}`}>
@@ -238,7 +239,6 @@ export default function NosotrosHistoria() {
       </div>
 
       <footer className={styles.ending}>
-        <p className={styles.eyebrow}>La Libertad Avanza Santa Fe</p>
         <p className={styles.endingTitle}>Nuestra historia,<br />año a año.</p>
         <a className={styles.textLink} href="#historia-inicio">Volver al inicio <ArrowUp size={18} aria-hidden="true" /></a>
       </footer>

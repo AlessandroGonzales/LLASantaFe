@@ -17,10 +17,11 @@ Los originales permanecen intactos. Los archivos derivados están en `src/assets
 Las tarjetas usan WebP de hasta 960 píxeles de ancho; cuando aporta una reducción relevante, también hay una versión de 480 píxeles seleccionada mediante `srcset` y `sizes`.
 La foto de mayor tamaño solo se solicita al abrir el perfil. No se precargan fotos de otras páginas.
 
-Medición de los 26 retratos actuales (suma de archivos, no una descarga inicial):
+Medición actualizada el 25 de octubre de 2026 de los 30 retratos actuales
+(suma de archivos, no una descarga inicial):
 
-- Originales: 8.576.512 bytes.
-- Versiones mayores para tarjetas: 1.815.312 bytes, una reducción del 78,8 %.
+- Originales: 8.962.898 bytes.
+- Versiones mayores para tarjetas: 2.056.006 bytes, una reducción del 77,1 %.
 
 En la prueba local de producción a 390 píxeles, la primera página de concejales solicitó únicamente sus ocho retratos optimizados y el logo. Al abrir Lautaro se solicitó su versión de modal, sin descargar los demás perfiles.
 
@@ -32,6 +33,24 @@ En la prueba local de producción a 390 píxeles, la primera página de concejal
 4. Ejecutar `node --test tests/*.test.js` y la compilación habitual.
 
 El generador no modifica los originales. Si falta una imagen en el manifiesto, el componente usa la original como respaldo; las pruebas detectan los perfiles que aún no tienen una entrada optimizada.
+
+## Cierre de los fallos de perfiles (25 de octubre)
+
+- Milagros Zafra usa el ID 10, que estaba libre; Miguel conserva el 18. Los 23
+  concejales tienen identificadores únicos. Se conserva el orden y el contenido
+  de los perfiles.
+- Se regeneró el catálogo con el script existente. Incorpora las fotos de Ana,
+  Anabel, Franco Volpe y Pablo Esteban, y sincroniza los tamaños/derivados de la
+  foto actual de Romina. Se añadieron once derivados WebP; los archivos derivados
+  previamente versionados no cambiaron.
+- Se comparó SHA-256 de las 76 imágenes WebP originales: todas permanecen iguales.
+- La suite completa pasa **153 de 153 pruebas**. Las tres pruebas que fallaban
+  quedan resueltas sin modificar ni omitir pruebas. Build Vite y ESLint de los
+  dos archivos de datos modificados correctos.
+- La comprobación visual del build de producción conserva páginas de 8, 8 y 7
+  concejales. Milagros y Miguel abren su perfil correspondiente; el filtro desde
+  la última página vuelve a la primera y muestra el perfil de la ciudad elegida.
+  La foto actualizada de Romina también se comprobó en su modal de diputados.
 
 ## Verificación
 

@@ -1,3 +1,4 @@
+import SectionTitle from "./SectionTitle.jsx";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { m, useReducedMotion } from "framer-motion";
@@ -211,13 +212,8 @@ export default function SeccionPropuestas() {
           }}
           className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-4 pt-32 sm:px-8 md:pb-29 lg:px-12"
         >
-          <p className="mb-5 text-xs font-bold uppercase tracking-[0.3em] text-liberty-primary sm:text-sm">
-            Propuestas para Santa Fe
-          </p>
-          <h1 className="max-w-5xl text-[clamp(2.8rem,4vw,7.5rem)] font-black uppercase leading-[0.86] tracking-[-0.055em] text-white">
-            Un plan para
-            <span className="block text-liberty-primary">transformar</span>
-          </h1>
+
+          <SectionTitle as="h1" title="Un plan para" accent="transformar" breakLine className="max-w-5xl" />
           <p className="mt-7 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg md:text-xl">
             Reformas basadas en la libertad económica, el orden institucional y
             un Estado al servicio de los santafesinos.
@@ -239,15 +235,8 @@ export default function SeccionPropuestas() {
         >
           <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.28em] text-liberty-primary">
-                El propósito
-              </p>
-              <h2
-                id="principios-title"
-                className="mt-5 max-w-xl text-4xl font-black uppercase leading-[0.95] tracking-tight sm:text-5xl md:text-6xl"
-              >
-                Menos privilegios. Más libertad.
-              </h2>
+
+              <SectionTitle as="h2" title="Menos privilegios." accent="Más libertad." breakLine id="principios-title" className="mt-5 max-w-xl" />
             </div>
             <ol className="border-t border-white/15">
               {pilares.map((pilar) => (
@@ -255,7 +244,7 @@ export default function SeccionPropuestas() {
                   key={pilar.numero}
                   className="grid gap-3 border-b border-white/15 py-7 sm:grid-cols-[3rem_0.65fr_1.35fr] sm:gap-6"
                 >
-                  <span className="text-xs font-bold text-liberty-primary">
+                  <span className="text-sm font-bold text-liberty-primary">
                     {pilar.numero}
                   </span>
                   <h3 className="text-lg font-black uppercase tracking-tight">
@@ -277,12 +266,7 @@ export default function SeccionPropuestas() {
       >
         <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
           <div className="max-w-3xl">
-            <h2
-              id="propuestas-title"
-              className="mt-4 text-4xl font-black uppercase tracking-tight text-[#281334] sm:text-5xl md:text-6xl"
-            >
-              Propuestas
-            </h2>
+            <SectionTitle as="h2" title="Propuestas" tone="light" id="propuestas-title" className="mt-4" />
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#614e6a] md:text-lg">
               Explorá las iniciativas según el territorio y el eje que más te
               interese.
@@ -291,7 +275,7 @@ export default function SeccionPropuestas() {
 
           <div className="mt-12 grid gap-8 border-y border-[#281334]/15  py-8 lg:grid-cols-2 lg:gap-16">
             <fieldset>
-              <legend className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[#614e6a]">
+              <legend className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-[#614e6a]">
                 Territorio
               </legend>
               <div className="flex flex-wrap gap-2">
@@ -312,7 +296,7 @@ export default function SeccionPropuestas() {
               </div>
             </fieldset>
             <fieldset>
-              <legend className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[#614e6a]">
+              <legend className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-[#614e6a]">
                 Eje temático
               </legend>
               <div className="flex flex-wrap gap-2">
@@ -353,7 +337,7 @@ export default function SeccionPropuestas() {
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <div className="max-w-3xl">
-                      <div className="mb-4 flex flex-wrap gap-x-4 gap-y-2 text-xs font-bold uppercase tracking-[0.18em]">
+                      <div className="mb-4 flex flex-wrap gap-x-4 gap-y-2 text-sm font-bold uppercase tracking-[0.18em]">
                         <span className="text-[#542169]">
                           {categoriaLabels[item.categoria]}
                         </span>
@@ -411,7 +395,7 @@ export default function SeccionPropuestas() {
               aria-hidden="true"
               className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent"
             />
-            <figcaption className="absolute bottom-6 left-6 text-xs font-bold uppercase tracking-[0.28em] text-white md:bottom-8 md:left-8">
+            <figcaption className="absolute bottom-6 left-6 text-sm font-bold uppercase tracking-[0.28em] text-white md:bottom-8 md:left-8">
               Convicción
             </figcaption>
           </figure>
@@ -429,14 +413,14 @@ export default function SeccionPropuestas() {
               aria-hidden="true"
               className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent"
             />
-            <figcaption className="absolute bottom-6 left-6 text-xs font-bold uppercase tracking-[0.28em] text-white md:bottom-8 md:left-8">
+            <figcaption className="absolute bottom-6 left-6 text-sm font-bold uppercase tracking-[0.28em] text-white md:bottom-8 md:left-8">
               Futuro
             </figcaption>
           </figure>
         </div>
         <blockquote className="ml-auto max-w-3xl py-14 text-right text-2xl font-medium leading-tight tracking-tight text-white sm:text-3xl md:py-20 md:text-3xl">
           “No vinimos a guiar corderos, vinimos a despertar leones.”
-          <footer className="mt-6 text-xs font-bold uppercase tracking-[0.25em] text-liberty-primary">
+          <footer className="mt-6 text-sm font-bold uppercase tracking-[0.25em] text-liberty-primary">
             La Libertad Avanza Santa Fe
           </footer>
         </blockquote>

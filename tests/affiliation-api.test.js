@@ -2,7 +2,14 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { createAccountService } from "../src/lib/accountService.js";
 import { createAffiliationService, affiliationBody, isAdministrator } from "../src/lib/affiliationService.js";
-import { accountReturn, affiliationReturn } from "../src/lib/affiliationFormat.js";
+import { accountReturn, affiliationReturn, affiliationPhotoSource } from "../src/lib/affiliationFormat.js";
+
+test("la miniatura de afiliación solo admite JPEG en base64 y con tamaño acotado", () => {
+  assert.equal(affiliationPhotoSource("/9j/AA=="), "data:image/jpeg;base64,/9j/AA==");
+  for (const value of [null, undefined, {}, "", "https://externo.example/foto.jpg", "data:image/svg+xml,<svg/>", "iVBORw0KGgo=", "/9j/AA==\n", "/9j/" + "A".repeat(10924)]) {
+    assert.equal(affiliationPhotoSource(value), null);
+  }
+});
 
 const id = "11111111-1111-4111-8111-111111111111", city = "22222222-2222-4222-8222-222222222222";
 const own = { id, estado: "pendiente", fechaSolicitud: "2026-10-24T10:00:00Z", dni: "30123456", quiereFiscalizar: false };

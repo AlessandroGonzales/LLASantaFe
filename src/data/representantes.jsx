@@ -193,7 +193,7 @@ export const concejalesData = [
     foto: matias,
   },
     {
-    id: 18,
+    id: 10,
     nombre: "Milagros Zafra",
     edad: 41,
     cargo: "Concejal",

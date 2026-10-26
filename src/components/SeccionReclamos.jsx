@@ -1,3 +1,4 @@
+import SectionTitle from "./SectionTitle.jsx";
 import { useEffect } from "react";
 import { ArrowUpRight } from "lucide-react";
 import rosarioPreview from "../assets/reclamos-rosario-preview.jpg";
@@ -51,8 +52,8 @@ export default function SeccionReclamos() {
     <section aria-labelledby="reclamos-heading" className="bg-liberty-bg text-liberty-text px-6 pt-28 pb-20 md:px-12 md:pt-36 md:pb-28">
       <div className="max-w-6xl mx-auto">
         <header className="max-w-2xl mb-10 md:mb-14">
-          <p className="text-xs font-bold uppercase tracking-[0.25em] text-liberty-primary ">Cerca de tu ciudad</p>
-          <h1 id="reclamos-heading" className="text-5xl md:text-6xl font-black uppercase tracking-tighter leading-none mb-6">Reclamos</h1>
+
+          <SectionTitle as="h1" title="Reclamos" id="reclamos-heading" />
           <p className="text-base md:text-lg leading-relaxed text-liberty-text-secondary">
             Encontrá el espacio para hacer reclamos sobre tu ciudad y seguir su recorrido.
             Acá reunimos las plataformas disponibles en la provincia de Santa Fe.
@@ -66,13 +67,13 @@ export default function SeccionReclamos() {
                 <img src={ciudad.imagen} alt={`Vista previa del sitio de reclamos de ${ciudad.nombre}`} width="1200" height="750" decoding="async" className="block w-full h-auto" />
               </a>
               <div className="flex flex-col justify-center items-start p-6 md:p-10 min-w-0">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-liberty-primary mb-3">Plataforma disponible</p>
+                <p className="text-sm font-bold uppercase tracking-[0.2em] text-liberty-primary mb-3">Plataforma disponible</p>
                 <h2 id={`reclamos-${ciudad.id}`} className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-4">{ciudad.nombre}</h2>
                 <p className="text-base leading-relaxed text-liberty-text-secondary mb-6">{ciudad.descripcion}</p>
-                <a href={ciudad.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-liberty-border px-5 py-3 text-xs font-bold uppercase tracking-widest hover:border-liberty-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+                <a href={ciudad.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-liberty-border px-5 py-3 text-sm font-bold uppercase tracking-widest hover:border-liberty-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
                   Ir a reclamos <ArrowUpRight size={18} aria-hidden="true" /><span className="sr-only"> de {ciudad.nombre} (nueva pestaña)</span>
                 </a>
-                <p className="mt-4 text-xs text-liberty-text-secondary break-all">{ciudad.dominio}</p>
+                <p className="mt-4 text-sm text-liberty-text-secondary break-all">{ciudad.dominio}</p>
               </div>
             </article>
           ))}

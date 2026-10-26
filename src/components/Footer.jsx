@@ -1,5 +1,4 @@
 import logo from "../assets/aguila.webp";
-import alessandro from "../assets/as.png"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -22,7 +21,7 @@ export default function Footer() {
             La Libertad Avanza
           </h3>
 
-          <p className="text-liberty-text-secondary font-bold tracking-[0.3em] text-xs md:text-sm mt-1 uppercase text-center">
+          <p className="text-liberty-text-secondary font-bold tracking-[0.3em] text-sm mt-1 uppercase text-center">
             Santa Fe
           </p>
         </div>
@@ -72,7 +71,7 @@ export default function Footer() {
         <div className="w-full max-w-2xl h-1 bg-gradient-to-r from-transparent via-liberty-border mb-8 mt-4" />
 
         {/* INFO FINAL: COPYRIGHT, FECHA Y DESARROLLADOR */}
-        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 text-liberty-text-secondary text-[10px] md:text-xs uppercase tracking-[1px]">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 text-liberty-text-secondary text-sm uppercase tracking-[1px]">
           
           {/* Izquierda: Copyright */}
           <div className="flex-1 flex justify-center md:justify-start text-center md:text-left">

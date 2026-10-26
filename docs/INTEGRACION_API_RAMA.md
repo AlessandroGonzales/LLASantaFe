@@ -31,6 +31,11 @@ con main. Esta rama no se considera lista para producción por el solo hecho de
 compilar. La revisión de secretos del contenido preparado y del historial no tuvo
 hallazgos; no se almacenan credenciales ni variables privadas en este commit.
 
+Actualización del 25 de octubre: esos tres fallos ya se resolvieron. La suite
+completa pasa 153 pruebas; detalles y mediciones actuales en
+[representantes-rendimiento.md](representantes-rendimiento.md). La preparación de
+Azure, configuración de producción y prueba con Vercel Preview siguen pendientes.
+
 ## Trabajo y pruebas
 
 Primer bloque implementado localmente: cliente HTTP y sesión de usuario, con

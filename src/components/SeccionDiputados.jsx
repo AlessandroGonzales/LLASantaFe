@@ -1,3 +1,4 @@
+import SectionTitle from "./SectionTitle.jsx";
 import { useState, useRef, memo, useCallback } from "react";
 import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
@@ -62,9 +63,9 @@ const DiputadoCard = memo(({ diputado, onSelect }) => {
         <span className="text-white text-sm md:text-base font-black uppercase tracking-widest relative inline-block after:content-[''] after:absolute after:-bottom-3 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-[1px] after:bg-liberty-primary">
           {diputado.nombre}
         </span>
-        
+
         {/* Indicador agregado con un mt-6 para evitar que se superponga con el after del nombre */}
-        <span className="mt-6 flex items-center text-liberty-primary font-bold text-[12px] md:text-xs uppercase tracking-wider group-hover:text-white transition-colors duration-300">
+        <span className="mt-6 flex items-center text-liberty-primary font-bold text-sm uppercase tracking-wider group-hover:text-white transition-colors duration-300">
           Ver perfil completo
         </span>
       </span>
@@ -116,7 +117,7 @@ const ModalDiputado = memo(({ diputado, onClose }) => {
         <div className="w-full lg:w-1/2 h-[55vh] lg:h-full overflow-y-auto p-6 md:p-12 lg:p-16 flex flex-col hide-scrollbar bg-gradient-to-br from-liberty-bg to-liberty-surface">
           <div className="max-w-xl mx-auto lg:mx-0 w-full mt-auto lg:mt-0">
             <div className="mb-8">
-              <span className="inline-block px-3 py-1 bg-liberty-primary/10 text-liberty-primary text-[12px] uppercase tracking-widest font-bold rounded-sm mb-4 border border-liberty-primary/20">
+              <span className="inline-block px-3 py-1 bg-liberty-primary/10 text-liberty-primary text-sm uppercase tracking-widest font-bold rounded-sm mb-4 border border-liberty-primary/20">
                 {diputado.cargo || "Diputado Nacional"}
               </span>
               <h3 id="diputado-perfil-nombre" className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-white leading-none mb-2">
@@ -128,7 +129,7 @@ const ModalDiputado = memo(({ diputado, onClose }) => {
               <div className="flex items-center gap-3 text-liberty-text-secondary">
                 <MapPin className="w-5 h-5 text-liberty-cyan" />
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest">
+                  <p className="text-sm uppercase tracking-widest">
                     Representación
                   </p>
                   <p className="text-sm font-bold text-white">Santa Fe</p>
@@ -137,7 +138,7 @@ const ModalDiputado = memo(({ diputado, onClose }) => {
               <div className="flex items-center gap-3 text-liberty-text-secondary">
                 <Briefcase className="w-5 h-5 text-liberty-cyan" />
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest">
+                  <p className="text-sm uppercase tracking-widest">
                     Profesión
                   </p>
                   <p className="text-sm font-bold text-white">
@@ -149,7 +150,7 @@ const ModalDiputado = memo(({ diputado, onClose }) => {
                 <div className="flex items-center gap-3 text-liberty-text-secondary">
                   <Calendar className="w-5 h-5 text-liberty-cyan" />
                   <div>
-                    <p className="text-[10px] uppercase tracking-widest">
+                    <p className="text-sm uppercase tracking-widest">
                       Edad
                     </p>
                     <p className="text-sm font-bold text-white">
@@ -161,7 +162,7 @@ const ModalDiputado = memo(({ diputado, onClose }) => {
             </div>
 
             <div className="mb-10">
-              <h4 className="text-xs font-black uppercase tracking-widest text-liberty-text-secondary mb-4">
+              <h4 className="text-sm font-black uppercase tracking-widest text-liberty-text-secondary mb-4">
                 Labor Parlamentaria y Visión
               </h4>
               <p className="text-base md:text-lg leading-relaxed text-zinc-300">
@@ -175,7 +176,7 @@ const ModalDiputado = memo(({ diputado, onClose }) => {
                   href={diputado.proyectos}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-6 py-3 bg-liberty-card border border-liberty-border text-white text-xs font-bold uppercase tracking-widest hover:border-liberty-primary hover:text-liberty-primary rounded-sm "
+                  className="flex items-center justify-center gap-2 px-6 py-3 bg-liberty-card border border-liberty-border text-white text-sm font-bold uppercase tracking-widest hover:border-liberty-primary hover:text-liberty-primary rounded-sm "
                 >
                   <LinkIcon className="w-4 h-4" />
                   Ver Proyectos de Ley
@@ -254,15 +255,8 @@ export default function SeccionDiputados() {
     <section className="relative w-full py-24 md:py-32 bg-liberty-bg text-white overflow-hidden">
       <div className="w-full px-6 md:px-12 lg:px-20 max-w-[1600px] mx-auto relative z-20 mb-16 md:mb-24">
         <div className="text-center">
-          <span className="text-[11px] md:text-xs font-bold tracking-[0.4em] text-liberty-primary uppercase block mb-4">
-            Congreso de la Nación
-          </span>
-          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
-            Nuestra voz en <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-liberty-primary to-liberty-primary-hover">
-              la Nación
-            </span>
-          </h2>
+
+          <SectionTitle as="h2" title="Nuestra voz en" accent="la Nación" breakLine />
           <p className="text-base md:text-lg text-liberty-text-secondary leading-relaxed max-w-2xl mx-auto">
             Conoce a los diputados nacionales que defienden los intereses de
             Santa Fe y dan la batalla cultural en la Cámara Baja del Congreso.

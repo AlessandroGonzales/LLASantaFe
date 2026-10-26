@@ -131,4 +131,22 @@ no crea ni eleva una cuenta real automáticamente.
 
 Encuestas ya tiene su integración en [API_ENCUESTAS_LOCAL.md](API_ENCUESTAS_LOCAL.md).
 Solicitud Ciudadana está en [API_SOLICITUD_CIUDADANA_LOCAL.md](API_SOLICITUD_CIUDADANA_LOCAL.md).
-PDF/Azure sigue pendiente. Resolver los tres fallos previos antes de fusionar.
+PDF/Azure sigue pendiente. Los tres fallos previos de perfiles se resolvieron:
+la suite completa pasa 153 pruebas, según representantes-rendimiento.md.
+
+## Legibilidad y fotos de afiliación — 26 de octubre de 2026
+
+- Títulos principales compartidos: 36 px en móvil y 60 px desde 768 px,
+  mayúsculas, peso 900 y degradado en la última palabra/frase. Las pantallas
+  claras conservan la misma escala con un degradado violeta de mayor contraste.
+- Textos de apoyo de cuenta, registro, encuestas, solicitudes y afiliación:
+  mínimo 14 px. El aviso y la confirmación de baja usan 16 px.
+- La bandeja administrativa y el detalle muestran `fotoPerfil`: JPEG de 80 × 80,
+  hasta 8 KiB, recibido en base64 con la misma respuesta paginada. Sin foto o ante
+  un error de imagen se muestran las iniciales. No se agregan peticiones por fila.
+- La foto solo se incluye en los contratos administrativos existentes, protegidos
+  por autorización y `no-store`. No requiere un script SQL adicional; usa la tabla
+  privada de fotos ya implementada. Reiniciar la API compilada para usar el contrato.
+- Validación: 167 pruebas de cliente, 1.066 comprobaciones HTTP/PostgreSQL y
+  79 comprobaciones de consumo. Navegador con cuentas ficticias, foto cargada desde
+  dispositivo, lista/detalle, iniciales y baja de cuenta en escritorio y a 390 px.

@@ -1,0 +1,9 @@
+.section-title.section-title{--heading-base:#fff;--heading-accent:var(--color-liberty-primary,#d946ef);--heading-end:var(--color-liberty-primary-hover,#f472b6);font-size:2.25rem;font-weight:900;text-transform:uppercase;letter-spacing:-.05em;line-height:.9;color:var(--heading-base);margin:0 0 1.5rem;overflow-wrap:anywhere}
+.section-title.section-title--light{--heading-base:#281334;--heading-accent:#8a3c9d;--heading-end:#652477}
+.section-title .section-title-accent,.section-title .section-title-single{display:inline;font-size:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit;margin:0;background:linear-gradient(90deg,var(--heading-base),var(--heading-accent),var(--heading-end));background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.section-title .section-title-single{background-image:linear-gradient(90deg,var(--heading-base) 0%,var(--heading-base) 40%,var(--heading-accent) 76%,var(--heading-end) 100%)}
+.section-title-break{display:none}
+@media(min-width:768px){.section-title.section-title{font-size:3.75rem}.section-title-break{display:block}}
+.section-title.section-title--compact{font-size:1.5rem;line-height:1.1}
+@media(min-width:768px){.section-title.section-title--compact{font-size:2rem}}
+@media(forced-colors:active){.section-title .section-title-accent,.section-title .section-title-single{background:none;color:CanvasText;-webkit-text-fill-color:CanvasText}}

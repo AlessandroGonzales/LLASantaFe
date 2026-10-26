@@ -1,3 +1,4 @@
+import LoginLink from "../account/LoginLink.jsx";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle2, LoaderCircle, ShieldCheck } from "lucide-react";
@@ -21,7 +22,7 @@ function Application({ profile }) {
     const item = state.request;
     return <div className={`affiliation-form ${styles.success}`}>
       <CheckCircle2 size={42} strokeWidth={1.3} aria-hidden="true" />
-      <p className={styles.eyebrow}>Tu solicitud</p>
+
       <h3>{item.estado === "aprobada" ? "Solicitud aprobada." : item.estado === "rechazada" ? "Solicitud resuelta." : "Ya dimos el primer paso."}</h3>
       <span className={`af-badge af-badge-${item.estado}`}>{affiliationLabels[item.estado]}</span>
       <ol className="af-progress" aria-label="Estado del trámite">
@@ -41,7 +42,7 @@ function Application({ profile }) {
   return <form className="affiliation-form" aria-labelledby="sumate-form-title" aria-busy={blocked} onSubmit={event => {
     event.preventDefault(); action.run(signal => affiliation.submit({ dni, telefono: phone, ciudadId: city, quiereFiscalizar: fiscal, confirmacion: confirm }, signal));
   }}>
-    <div className={styles.formHeading}><p className={styles.eyebrow}>Solicitud de afiliación</p><p>Tu cuenta, un paso menos.</p><span className={styles.fieldHelp}>Completamos tus datos disponibles. Solo falta revisar y confirmar.</span></div>
+    <div className={styles.formHeading}><p>Tu cuenta, un paso menos.</p><span className={styles.fieldHelp}>Completamos tus datos disponibles. Solo falta revisar y confirmar.</span></div>
     <div className="af-feedback"><Feedback error={state.error || action.error} /></div>
     {state.status === "loading" && <p role="status" className={styles.fieldHelp}>Consultando tu solicitud…</p>}
     {state.status === "error" && <RetryButton error={state.error || action.error} className="af-retry" busy={action.busy} onClick={() => action.run(() => affiliation.loadOwn({ force: true }))}>Volver a consultar</RetryButton>}
@@ -62,8 +63,8 @@ function Application({ profile }) {
 }
 export default function AffiliationForm() {
   const state = useAccount(), action = useAccountAction();
-  if (!account.api.configured) return <div className={`${styles.success} affiliation-form`}><p className={styles.eyebrow}>Afiliaciones</p><h3>Próximamente.</h3><p>La solicitud desde tu cuenta todavía no está disponible en este entorno.</p></div>;
-  if (!state.authenticated) return <div className={`${styles.success} affiliation-form`}><ShieldCheck size={42} strokeWidth={1.3} aria-hidden="true" /><p className={styles.eyebrow}>Un trámite personal</p><h3>Empezá desde<span>tu cuenta.</span></h3><p>Ingresá para completar tu solicitud con tus datos y consultar su estado en un solo lugar.</p><Link to="/ingresar" state={{ returnTo: affiliationReturn }} className={styles.submit}>Ingresar y continuar <ArrowRight size={19} aria-hidden="true" /></Link><p className="af-signup">¿Todavía no tenés cuenta? <Link to="/registro" state={{ returnTo: affiliationReturn }}>Registrarme</Link></p></div>;
+  if (!account.api.configured) return <div className={`${styles.success} affiliation-form`}><h3>Próximamente.</h3><p>La solicitud desde tu cuenta todavía no está disponible en este entorno.</p></div>;
+  if (!state.authenticated) return <div className={`${styles.success} affiliation-form`}><ShieldCheck size={42} strokeWidth={1.3} aria-hidden="true" /><h3>Empezá desde<span>tu cuenta.</span></h3><p>Ingresá para completar tu solicitud con tus datos y consultar su estado en un solo lugar.</p><LoginLink state={{ returnTo: affiliationReturn }} className={styles.submit}>Ingresar y continuar <ArrowRight size={19} aria-hidden="true" /></LoginLink><p className="af-signup">¿Todavía no tenés cuenta? <Link to="/registro" state={{ returnTo: affiliationReturn }}>Registrarme</Link></p></div>;
   if (!state.profile) return <div className="affiliation-form"><p role="status">Cargando los datos de tu cuenta…</p><div className="af-feedback"><Feedback error={state.profileError || action.error} /></div>{state.profileError && <button type="button" className="af-retry" disabled={action.busy} onClick={() => action.run(() => account.loadProfile({ force: true }))}>Volver a cargar mis datos</button>}</div>;
   return <Application key={`${state.sessionId}:${state.profile.idUsuario}`} profile={state.profile} />;
 }

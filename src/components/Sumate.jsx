@@ -1,4 +1,6 @@
+import SectionTitle from "./SectionTitle.jsx";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import afiliacion from "../assets/militantes.webp";
 import afiliacionMobile from "../assets/sumate-mobile.webp";
 import useSumateMetadata from "../hooks/useSumateMetadata";
@@ -13,18 +15,18 @@ const steps = [
 
 export default function Sumate() {
   useSumateMetadata();
+  const { hash, key } = useLocation();
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
-      const hash = window.location.hash;
       if (hash === "#sumate-formulario" || hash === "#como-sumarte") document.getElementById(hash.slice(1))?.scrollIntoView({ block: "start" });
     });
     return () => cancelAnimationFrame(frame);
-  }, []);
+  }, [hash, key]);
   return (
     <div className={styles.page}>
       <header className={styles.hero}>
         <div className={styles.heroCopy}>
-          <h1>La libertad<span>empieza</span><span className={styles.accent}>con vos</span></h1>
+          <SectionTitle as="h1" title="La libertad" accent="empieza con vos" breakLine />
           <p className={styles.invitation}>
             Los grandes cambios se realizan cuando todos están 
             comprometidos. Queremos lo mejor para la provincia y para
@@ -33,7 +35,7 @@ export default function Sumate() {
             grande nuevamente. Por eso, necesitamos de tu apoyo, de
             tu valentía y coraje para dar esta batalla ante la casta.
           </p>
-     
+
         </div>
         <figure className={styles.heroPhoto}>
           <img
@@ -55,7 +57,7 @@ export default function Sumate() {
        <section id="sumate-formulario" className={styles.contact} aria-labelledby="sumate-form-title" tabIndex={-1}>
         <div className={styles.contactLayout}>
           <div className={styles.contactIntro}>
-            <p className={styles.eyebrow}>El primer paso</p>
+
             <h2 id="sumate-form-title">Tu lugar<span>empieza acá</span></h2>
             <p>Iniciá tu solicitud de afiliación y seguí su estado desde tu cuenta.</p>
             <div className={styles.contactNote}>
@@ -70,7 +72,7 @@ export default function Sumate() {
 
       <section id="como-sumarte" className={styles.process} aria-labelledby="sumate-process-title" tabIndex={-1}>
         <div className={styles.processIntro}>
-          <p className={styles.eyebrow}>Cómo sumarte</p>
+
           <h2 id="sumate-process-title">De las ideas<span>a la acción</span></h2>
         </div>
         <ol className={styles.steps}>
@@ -84,7 +86,7 @@ export default function Sumate() {
         </ol>
       </section>
 
-     
+
     </div>
   );
 }

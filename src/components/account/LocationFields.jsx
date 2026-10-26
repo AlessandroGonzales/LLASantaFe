@@ -3,7 +3,7 @@ import { account } from "../../lib/backend.js";
 import { ApiError } from "../../lib/apiClient.js";
 import { Field, Feedback } from "./AccountForm.jsx";
 
-export default function LocationFields({ onChange, hasCurrent = false, initialDepartment = "", initialCity = "", required = false }) {
+export default function LocationFields({ onChange, onDepartmentChange, hasCurrent = false, initialDepartment = "", initialCity = "", required = false }) {
   const [departments, setDepartments] = useState([]), [cities, setCities] = useState([]);
   const [department, setDepartment] = useState(initialDepartment);
   const [city, setCity] = useState(initialCity);
@@ -32,7 +32,7 @@ export default function LocationFields({ onChange, hasCurrent = false, initialDe
     <p className="account-help">{hasCurrent ? "Podés conservar tu localidad o seleccionar una nueva." : "Elegí un departamento para ver sus localidades."}</p>
     <div className="account-grid">
       <Field label="Departamento" value={department} required={required} onChange={event => {
-        setDepartment(event.target.value); setCity(""); setCities([]); setError(null); setLoading(Boolean(event.target.value)); onChange(undefined);
+        setDepartment(event.target.value); onDepartmentChange?.(event.target.value); setCity(""); setCities([]); setError(null); setLoading(Boolean(event.target.value)); onChange(undefined);
       }}>
         <option value="">{hasCurrent ? "Conservar localidad actual" : "Sin seleccionar"}</option>
         {departments.map(item => <option key={item.idDepartamento} value={item.idDepartamento}>{item.nombre}</option>)}
@@ -43,7 +43,7 @@ export default function LocationFields({ onChange, hasCurrent = false, initialDe
         {cities.map(item => <option key={item.idCiudad} value={item.idCiudad}>{item.nombre}</option>)}
       </Field>
     </div>
-    {hasCurrent && <button className="account-link-button" type="button" onClick={() => { setDepartment(""); setCity(""); setCities([]); onChange(null); }}>Quitar la localidad de mi perfil</button>}
+    {hasCurrent && <button className="account-link-button" type="button" onClick={() => { setDepartment(""); onDepartmentChange?.(""); setCity(""); setCities([]); onChange(null); }}>Quitar la localidad de mi perfil</button>}
     <Feedback error={error} />
   </fieldset>;
 }

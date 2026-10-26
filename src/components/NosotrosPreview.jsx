@@ -1,3 +1,4 @@
+import SectionTitle from "./SectionTitle.jsx";
 import { m, useReducedMotion } from "framer-motion";
 import { useMemo } from "react";
 import CinematicLink from "./CinematicLink";
@@ -73,16 +74,7 @@ export default function NosotrosPreview() {
             className="flex flex-col space-y-8 lg:col-span-7 pr-0 lg:pr-10"
           >
             <div className="space-y-3 md:space-y-4">
-              <div className="flex items-center gap-4 justify-center lg:justify-start">
-                <span className="text-sm font-bold tracking-[0.3em] text-liberty-primary uppercase block ">
-                  Nuestra Historia
-                </span>
-              </div>
-
-              <h2 id="nosotros-preview-heading" className="text-5xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter text-white leading-[0.99] text-center lg:text-left">
-                La trayectoria<br />
-                hacia la <span className="text-transparent bg-clip-text bg-gradient-to-br text-white">Grandeza</span>
-              </h2>
+              <SectionTitle as="h2" title="La trayectoria hacia" accent="la Grandeza" breakLine id="nosotros-preview-heading" className="text-center lg:text-left" />
             </div>
 
             {/* PÁRRAFO — Oculto en mobile (aparece solo en desktop lg en adelante) */}
@@ -96,7 +88,7 @@ export default function NosotrosPreview() {
             <div className="hidden lg:block ">
               <CinematicLink
                 to="/nosotros"
-                className="group relative inline-flex items-center justify-center w-auto px-8 py-4 bg-liberty-text-secondary text-liberty-bg font-bold uppercase text-xs tracking-[0.2em]  border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="group relative inline-flex items-center justify-center w-auto px-8 py-4 bg-liberty-text-secondary text-liberty-bg font-bold uppercase text-sm tracking-[0.2em]  border border-liberty-border rounded-4xl hover:bg-liberty-border/40 hover:border-liberty-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 Conocer nuestra historia
               </CinematicLink>
@@ -140,7 +132,7 @@ export default function NosotrosPreview() {
               
               <CinematicLink
                 to="/nosotros"
-                className="group relative flex items-center justify-center w-full sm:w-auto px-8 py-4  font-bold uppercase text-xs tracking-[0.2em] bg-liberty-text-secondary text-liberty-bg border border-liberty-border rounded-4xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="group relative flex items-center justify-center w-full sm:w-auto px-8 py-4  font-bold uppercase text-sm tracking-[0.2em] bg-liberty-text-secondary text-liberty-bg border border-liberty-border rounded-4xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 Conocer nuestra historia
               </CinematicLink>

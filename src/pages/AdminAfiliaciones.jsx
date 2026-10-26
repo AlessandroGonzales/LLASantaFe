@@ -8,6 +8,8 @@ import { useAccount } from "../hooks/useAccount.js";
 import { useAccountAction } from "../hooks/useAccountAction.js";
 import { Feedback } from "../components/account/AccountForm.jsx";
 import RetryButton from "../components/account/RetryButton.jsx";
+import SectionTitle from "../components/SectionTitle.jsx";
+import AffiliationPhoto from "../components/affiliation/AffiliationPhoto.jsx";
 import "./AdminAfiliaciones.css";
 import "../components/affiliation/Affiliation.css";
 
@@ -24,7 +26,7 @@ function Inbox({ estado, cursor, selected, onSelect, onNext, onPrevious, canGoBa
     {!error && !page && <p className="af-empty" role="status">Cargando solicitudes…</p>}
     {page?.items.length === 0 && <div className="af-empty"><Check size={26} strokeWidth={1.2} aria-hidden="true" /><h3>No hay solicitudes aquí.</h3><p>Cuando existan solicitudes en este estado, aparecerán en esta bandeja.</p></div>}
     {page && <ul className="af-rows">{page.items.map(item => <li key={item.id}><button type="button" className={selected === item.id ? "is-selected" : ""} aria-pressed={selected === item.id} onClick={() => onSelect(item.id)}>
-      <span className="af-avatar" aria-hidden="true">{item.nombre.slice(0, 1)}{item.apellido.slice(0, 1)}</span>
+      <AffiliationPhoto item={item} />
       <span className="af-row-copy"><strong>{item.nombre} {item.apellido}</strong><span>{affiliationDate(item.fechaSolicitud)}{!item.usuarioActivo && " · Cuenta inactiva"}</span></span>
       <ChevronRight size={17} aria-hidden="true" />
     </button></li>)}</ul>}
@@ -49,7 +51,7 @@ function Detail({ id, onClose, onResolved }) {
     <Feedback error={error} />
     {error && <RetryButton error={error} busy={action.busy} onClick={() => setRevision(value => value + 1)}>Volver a cargar el detalle</RetryButton>}
     {item && <>
-      <h2 ref={heading} tabIndex={-1}>{item.nombre}<span>{item.apellido}</span></h2>
+      <div className="af-detail-identity"><AffiliationPhoto item={item} large /><h2 ref={heading} tabIndex={-1}>{item.nombre}<span>{item.apellido}</span></h2></div>
       <span className={`af-badge af-badge-${item.estado}`}>{affiliationLabels[item.estado]}</span>
       <dl className="af-contact-grid">
         <div><dt>DNI declarado</dt><dd>{item.dni || "Sin registro histórico"}</dd></div><div><dt>Localidad actual</dt><dd>{item.ciudadNombre || "Sin indicar"}</dd></div>
@@ -107,12 +109,12 @@ function Workspace() {
   }, [revision]);
   const refresh = () => setRevision(value => value + 1);
   return <div className="af-admin">
-    <header className="af-admin-header"><div><Link to="/mi-cuenta" className="af-back"><ArrowLeft size={15} aria-hidden="true" /> Mi cuenta</Link><p className="af-admin-eyebrow">Administración · Acceso privado</p><h1>Afiliaciones<span>Un lugar para cada solicitud.</span></h1></div><RetryButton error={totalError} className="af-refresh" onClick={refresh}><RefreshCw size={16} aria-hidden="true" /> Actualizar</RetryButton></header>
+    <header className="af-admin-header"><div><Link to="/mi-cuenta" className="af-back"><ArrowLeft size={15} aria-hidden="true" /> Mi cuenta</Link><SectionTitle title="Afiliaciones" /><p className="af-admin-subtitle">Un lugar para cada solicitud.</p></div><RetryButton error={totalError} className="af-refresh" onClick={refresh}><RefreshCw size={16} aria-hidden="true" /> Actualizar</RetryButton></header>
     {totalError && <Feedback error={totalError} />}
     <dl className="af-stats">{[["Solicitudes", totals?.totalSolicitudes], ["Aprobadas en el sistema", totals?.totalAfiliados], ["Por revisar", totals ? totals.pendientes + totals.enRevision : null], ["Rechazadas", totals?.rechazadas]].map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value ?? "—"}</dd></div>)}</dl>
     <nav className="af-filter" aria-label="Filtrar afiliaciones por estado">{Object.entries(affiliationStates).map(([key, label]) => <button key={key} type="button" aria-pressed={estado === key} onClick={() => { setEstado(key); setCursors([null]); setSelected(null); }}>{label}</button>)}</nav>
     <div className="af-admin-body"><Inbox key={`${estado}:${cursors.at(-1)}:${revision}`} estado={estado} cursor={cursors.at(-1)} selected={selected} onSelect={setSelected} canGoBack={cursors.length > 1} onPrevious={() => { setCursors(current => current.slice(0, -1)); setSelected(null); }} onNext={cursor => { setCursors(current => [...current, cursor]); setSelected(null); }} onRefresh={refresh} />
-      {selected ? <Detail key={selected} id={selected} onClose={() => setSelected(null)} onResolved={refresh} /> : <aside className="af-detail-placeholder"><ShieldCheck size={35} strokeWidth={1} aria-hidden="true" /><h2>Lo necesario,<br />en el momento indicado.</h2><p>Seleccioná una solicitud para revisar sus datos de contacto y su estado.</p><span>Los datos personales se cargan al abrir el detalle.</span></aside>}
+      {selected ? <Detail key={selected} id={selected} onClose={() => setSelected(null)} onResolved={refresh} /> : <aside className="af-detail-placeholder"><ShieldCheck size={35} strokeWidth={1} aria-hidden="true" /><h2>Lo necesario,<br />en el momento indicado.</h2><p>Seleccioná una solicitud para revisar sus datos de contacto y su estado.</p><span>Los datos de contacto se cargan al abrir el detalle.</span></aside>}
     </div>
   </div>;
 }

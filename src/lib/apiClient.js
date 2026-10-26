@@ -42,7 +42,7 @@ export function createApiClient({ baseUrl, allowLocalHttp = false, fetchImpl = g
   const origin = apiOrigin(baseUrl, allowLocalHttp);
   return {
     configured: Boolean(origin),
-    async request(path, { method = "GET", body, auth = false, signal, headers = {} } = {}) {
+    async request(path, { method = "GET", body, auth = false, signal, headers = {}, responseType = "json" } = {}) {
       if (!origin) throw new ApiError("El servicio de cuentas no está disponible en este momento.", { code: "configuration" });
       if (!/^\/api\//.test(path) || path.includes("\\") || path.includes("#")) throw new ApiError("La operación no es válida.");
       signal?.throwIfAborted();
@@ -55,12 +55,13 @@ export function createApiClient({ baseUrl, allowLocalHttp = false, fetchImpl = g
       const timer = setTimeout(() => { timedOut = true; controller.abort(); }, timeoutMs);
       try {
         const requestHeaders = new Headers(headers);
-        requestHeaders.set("Accept", "application/json");
+        const binary = body instanceof Blob;
+        requestHeaders.set("Accept", responseType === "blob" ? "image/jpeg" : "application/json");
         requestHeaders.delete("Authorization");
         if (token) requestHeaders.set("Authorization", `Bearer ${token}`);
-        if (body !== undefined) requestHeaders.set("Content-Type", "application/json");
+        if (body !== undefined) requestHeaders.set("Content-Type", binary ? body.type : "application/json");
         const response = await fetchImpl(`${origin}${path}`, {
-          method, headers: requestHeaders, body: body === undefined ? undefined : JSON.stringify(body),
+          method, headers: requestHeaders, body: body === undefined ? undefined : binary ? body : JSON.stringify(body),
           credentials: "omit", redirect: "error", cache: auth ? "no-store" : "default", signal: controller.signal,
         });
         controller.signal.throwIfAborted();
@@ -78,6 +79,13 @@ export function createApiClient({ baseUrl, allowLocalHttp = false, fetchImpl = g
             status: response.status, code: data?.code || "request_failed", errors,
             traceId: data?.traceId, retryAfterSeconds: retrySeconds(response.headers.get("Retry-After")),
           });
+        }
+        if (response.ok && responseType === "blob" && response.status !== 204) {
+          if (response.headers.get("content-type")?.split(";")[0] !== "image/jpeg") throw new ApiError("No pudimos leer tu foto.", { code: "invalid_response" });
+          const blob = await response.blob();
+          controller.signal.throwIfAborted();
+          if (blob.size < 20 || blob.size > 65536) throw new ApiError("No pudimos leer tu foto.", { code: "invalid_response" });
+          return blob;
         }
         if (response.status !== 204 && data === null) throw new ApiError("No se pudo confirmar el resultado. Comprobalo antes de volver a enviar.", { code: "invalid_response" });
         return data;

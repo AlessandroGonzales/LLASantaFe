@@ -1,3 +1,4 @@
+import SectionTitle from "./SectionTitle.jsx";
 import { useState, useMemo, useRef, memo, useCallback } from "react";
 import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
@@ -61,15 +62,15 @@ const ConcejalCard = memo(({ concejal, onSelect }) => {
         className="w-full h-full object-cover transition-[transform,filter] duration-700 group-hover:grayscale-0 group-hover:scale-105 motion-reduce:transition-none motion-reduce:transform-none"
       />
       <span className="absolute bottom-6 left-0 right-0 flex flex-col items-center px-4 max-[359px]:px-3 transition-transform duration-500 group-hover:-translate-y-2 motion-reduce:transition-none motion-reduce:transform-none">
-        <span className="text-white text-sm max-[359px]:text-xs max-[359px]:tracking-wide md:text-base font-black uppercase tracking-widest relative inline-block after:content-[''] after:absolute after:-bottom-3 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-[1px] after:bg-liberty-primary">
+        <span className="text-white text-sm max-[359px]:text-sm max-[359px]:tracking-wide md:text-base font-black uppercase tracking-widest relative inline-block after:content-[''] after:absolute after:-bottom-3 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-[1px] after:bg-liberty-primary">
           {concejal.nombre}
         </span>
-        
-        <span className="mt-6 flex items-center justify-center gap-1 text-xs max-[359px]:text-[10px] text-white text-center drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
+
+        <span className="mt-6 flex items-center justify-center gap-1 text-sm max-[359px]:text-sm text-white text-center drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
           <MapPin size={14} className="shrink-0" aria-hidden="true" />
           {concejal.ciudad}
         </span>
-        <span className="mt-2 flex items-center text-liberty-primary font-bold text-[10px] md:text-xs uppercase tracking-wider group-hover:text-white transition-colors duration-300">
+        <span className="mt-2 flex items-center text-liberty-primary font-bold text-sm uppercase tracking-wider group-hover:text-white transition-colors duration-300">
           Ver perfil completo
         </span>
       </span>
@@ -121,7 +122,7 @@ const ModalConcejal = memo(({ concejal, onClose }) => {
         <div className="w-full lg:w-1/2 h-[55vh] lg:h-full overflow-y-auto p-6 md:p-12 lg:p-16 flex flex-col hide-scrollbar bg-gradient-to-br from-liberty-bg to-liberty-surface">
           <div className="max-w-xl mx-auto lg:mx-0 w-full mt-auto lg:mt-0">
             <div className="mb-8">
-              <span className="inline-block px-3 py-1 bg-liberty-primary/10 text-liberty-primary text-[12px] uppercase tracking-widest font-bold rounded-sm mb-4 border border-liberty-primary/20">
+              <span className="inline-block px-3 py-1 bg-liberty-primary/10 text-liberty-primary text-sm uppercase tracking-widest font-bold rounded-sm mb-4 border border-liberty-primary/20">
                 {concejal.cargo}
               </span>
               <h3 id="concejal-perfil-nombre" className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-white leading-none mb-2">
@@ -133,28 +134,28 @@ const ModalConcejal = memo(({ concejal, onClose }) => {
               <div className="flex items-center gap-3 text-liberty-text-secondary">
                 <MapPin className="w-5 h-5 text-liberty-cyan" />
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest">Ciudad</p>
+                  <p className="text-sm uppercase tracking-widest">Ciudad</p>
                   <p className="text-sm font-bold text-white">{concejal.ciudad}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 text-liberty-text-secondary">
                 <Briefcase className="w-5 h-5 text-liberty-cyan" />
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest">Profesión</p>
+                  <p className="text-sm uppercase tracking-widest">Profesión</p>
                   <p className="text-sm font-bold text-white">{concejal.profesion}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 text-liberty-text-secondary">
                 <Calendar className="w-5 h-5 text-liberty-cyan" />
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest">Edad</p>
+                  <p className="text-sm uppercase tracking-widest">Edad</p>
                   <p className="text-sm font-bold text-white">{concejal.edad} años</p>
                 </div>
               </div>
             </div>
 
             <div className="mb-10">
-              <h4 className="text-xs font-black uppercase tracking-widest text-liberty-text-secondary mb-4">
+              <h4 className="text-sm font-black uppercase tracking-widest text-liberty-text-secondary mb-4">
                 Visión y Objetivos
               </h4>
               <p className="text-base md:text-lg leading-relaxed text-zinc-100">
@@ -168,7 +169,7 @@ const ModalConcejal = memo(({ concejal, onClose }) => {
                   href={concejal.proyectos}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-6 py-3 bg-liberty-card border border-liberty-border text-white text-xs font-bold uppercase tracking-widest hover:border-liberty-primary hover:text-liberty-primary rounded-sm transition-colors"
+                  className="flex items-center justify-center gap-2 px-6 py-3 bg-liberty-card border border-liberty-border text-white text-sm font-bold uppercase tracking-widest hover:border-liberty-primary hover:text-liberty-primary rounded-sm transition-colors"
                 >
                   <LinkIcon className="w-4 h-4" />
                   Ver Proyectos
@@ -262,15 +263,8 @@ export default function SeccionRepresentantes() {
     <section className="relative w-full py-24 md:py-32 bg-liberty-bg text-white overflow-hidden">
       <div className="w-full px-6 md:px-12 lg:px-20 max-w-[1600px] mx-auto relative z-20 mb-16 md:mb-24">
         <div className="text-center">
-          <span className="text-[11px] md:text-xs font-bold tracking-[0.4em] text-liberty-primary uppercase block mb-4">
-            Nuestros Representantes
-          </span>
-          <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
-            La fuerza de <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-liberty-primary to-liberty-primary-hover">
-              Santa Fe
-            </span>
-          </h2>
+
+          <SectionTitle as="h2" title="La fuerza de" accent="Santa Fe" breakLine />
           <p className="text-base md:text-lg text-liberty-text-secondary leading-relaxed max-w-2xl mx-auto">
             Conoce a los hombres y mujeres que están dando la batalla cultural y política en cada concejo deliberante. Profesionales, trabajadores y ciudadanos comprometidos con las ideas de la libertad.
           </p>
@@ -320,7 +314,7 @@ export default function SeccionRepresentantes() {
                     <h3 className="text-lg md:text-xl font-black text-white uppercase tracking-widest mb-1">
                       Ciudades de Santa Fe
                     </h3>
-                    <p className="text-[10px] md:text-xs text-liberty-cyan uppercase tracking-[0.2em] font-bold">
+                    <p className="text-sm text-liberty-cyan uppercase tracking-[0.2em] font-bold">
                       Busca según tu ciudad
                     </p>
                   </div>
@@ -336,7 +330,7 @@ export default function SeccionRepresentantes() {
                           setIsFilterMenuOpen(false);
                           filterButtonRef.current?.focus();
                         }}
-                        className={`px-4 py-2 md:px-5 md:py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 border cursor-pointer ${
+                        className={`px-4 py-2 md:px-5 md:py-2.5 rounded-full text-sm font-bold uppercase tracking-widest transition-all duration-300 border cursor-pointer ${
                           ciudadFiltro === ciudad
                             ? "bg-liberty-primary border-liberty-primary text-white "
                             : "bg-transparent border-liberty-border text-liberty-text-secondary hover:border-liberty-primary hover:text-white hover:bg-liberty-primary/10"

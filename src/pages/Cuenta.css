@@ -1,6 +1,6 @@
 .account-page { min-height: 80vh; padding: 7rem 1.25rem 4rem; }
 .account-card { max-width: 48rem; margin: auto; padding: clamp(1.25rem, 4vw, 2.75rem); border: 1px solid var(--color-liberty-border); border-radius: 1.5rem; background: var(--color-liberty-surface); }
-.account-eyebrow { color: var(--color-liberty-primary); text-transform: uppercase; letter-spacing: .15em; font-size: .75rem; font-weight: 800; }
+.account-eyebrow { color: var(--color-liberty-primary); text-transform: uppercase; letter-spacing: .15em; font-size: 14px; font-weight: 800; }
 .account-card h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 900; margin: .5rem 0 1rem; line-height: 1.15; }
 .account-card h2 { font-size: 1.25rem; font-weight: 800; margin-bottom: 1.25rem; }
 .account-description, .account-help { color: var(--color-liberty-text-secondary); line-height: 1.6; margin-bottom: 1.25rem; }
@@ -14,7 +14,7 @@
 .account-field input:read-only { opacity: .7; }
 .account-card :is(a, button, input, select, summary):focus-visible { outline: 2px solid white; outline-offset: 3px; }
 .account-card :disabled { opacity: .5; cursor: not-allowed; }
-.account-primary, .account-secondary, .account-delete { min-height: 2.9rem; padding: .7rem 1.1rem; border-radius: .7rem; font-weight: 800; cursor: pointer; }
+.account-primary, .account-secondary { min-height: 2.9rem; padding: .7rem 1.1rem; border-radius: .7rem; font-weight: 800; cursor: pointer; }
 .account-primary { background: var(--color-liberty-primary); color: var(--color-liberty-bg); }
 .account-primary:hover:not(:disabled) { background: var(--color-liberty-primary-hover); }
 .account-secondary { border: 1px solid var(--color-liberty-primary); color: white; margin-top: 1rem; }
@@ -23,16 +23,9 @@
 .account-success { border: 1px solid #6ee7b7; color: #d1fae5; }
 .account-message ul { list-style: disc; padding-left: 1.25rem; margin-top: .5rem; }
 .account-links { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1.5rem 0; }
-.account-card a, .account-link-button { color: var(--color-liberty-text-secondary); text-decoration: underline; text-underline-offset: 3px; }
+.account-card a, .account-links>button, .account-link-button { color: var(--color-liberty-text-secondary); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .account-card a:hover { color: white; }
 .account-home { display: inline-block; margin-top: 2rem; font-size: .875rem; }
 .account-location { border: 1px solid var(--color-liberty-border); border-radius: .7rem; padding: 1rem; }
 .account-link-button { display: block; margin-top: 1rem; cursor: pointer; }
-.account-session { border-top: 1px solid var(--color-liberty-border); margin-top: 2rem; padding-top: 1rem; }
-.account-danger { margin-top: 2.5rem; border-top: 1px solid var(--color-liberty-border); padding-top: 1.5rem; }
-.account-danger summary { cursor: pointer; font-weight: 700; color: #fda4af; }
-.account-danger p { margin: 1rem 0; line-height: 1.6; }
-.account-check { display: flex; align-items: flex-start; gap: .75rem; line-height: 1.5; }
-.account-check input { margin-top: .35rem; width: 1.1rem; height: 1.1rem; flex-shrink: 0; }
-.account-delete { background: #9f1239; color: white; }
 @media (max-width: 540px) { .account-grid { grid-template-columns: 1fr; } }

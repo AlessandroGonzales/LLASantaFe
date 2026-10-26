@@ -1,9 +1,10 @@
+import SectionTitle from "../SectionTitle.jsx";
 import { useId } from "react";
 import { Link } from "react-router-dom";
 
 export function AccountShell({ title, description, children }) {
   return <section className="account-page"><div className="account-card">
-    <p className="account-eyebrow">Tu cuenta</p><h1>{title}</h1>
+    <SectionTitle title={title} />
     {description && <p className="account-description">{description}</p>}
     {children}<Link className="account-home" to="/">Volver al inicio</Link>
   </div></section>;

@@ -1,5 +1,6 @@
+import LoginLink from "../account/LoginLink.jsx";
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ArrowRight, CheckCircle2, ShieldCheck } from "lucide-react";
 import { account, citizenRequests } from "../../lib/backend.js";
 import { citizenMotives, citizenStates } from "../../lib/citizenRequestService.js";
@@ -43,8 +44,14 @@ function RequestPage({ cursor, estado, revision, onNext, onPrevious, canGoBack, 
   </>;
 }
 function OwnRequests({ receipt }) {
+  const { hash, key } = useLocation(), section = useRef(null);
   const [estado, setEstado] = useState(""), [cursors, setCursors] = useState([null]), [revision, setRevision] = useState(0);
-  return <section className="cr-own" id="mis-solicitudes" aria-labelledby="cr-own-title"><div className="cr-section-heading"><div><p className="cr-eyebrow">Seguimiento</p><h2 id="cr-own-title">Mis solicitudes</h2></div><button type="button" className="cr-text-button" onClick={() => setRevision(value => value + 1)}>Actualizar listado</button></div>
+  useEffect(() => {
+    if (hash !== "#mis-solicitudes") return;
+    const frame = requestAnimationFrame(() => section.current?.scrollIntoView({ block: "start" }));
+    return () => cancelAnimationFrame(frame);
+  }, [hash, key]);
+  return <section ref={section} className="cr-own" id="mis-solicitudes" aria-labelledby="cr-own-title"><div className="cr-section-heading"><div><h2 id="cr-own-title">Mis solicitudes</h2></div><button type="button" className="cr-text-button" onClick={() => setRevision(value => value + 1)}>Actualizar listado</button></div>
     <div className="cr-filter"><label htmlFor="cr-state">Estado</label><select id="cr-state" value={estado} onChange={event => { setEstado(event.target.value); setCursors([null]); }}><option value="">Todos</option>{Object.entries(citizenStates).map(([value, label]) => <option value={value} key={value}>{label}</option>)}</select></div>
     <RequestPage key={`${receipt || ""}:${estado}:${cursors.at(-1)}:${revision}`} cursor={cursors.at(-1)} estado={estado} revision={revision} canGoBack={cursors.length > 1} onPrevious={() => setCursors(current => current.slice(0, -1))} onNext={cursor => setCursors(current => [...current, cursor])} onRefresh={() => setRevision(value => value + 1)} />
   </section>;
@@ -62,7 +69,7 @@ function CitizenForm({ profile }) {
   return <>
     <div className="cr-compose">
       {state.status === "confirmed" ? <Receipt value={state.receipt} onNew={() => { citizenRequests.startNew(); setForm({ motivo: "", mensaje: "" }); }} /> : <form onSubmit={event => { event.preventDefault(); action.run(signal => citizenRequests.submit(form, signal)); }} aria-busy={action.pending || state.status === "sending"}>
-        <div className="cr-form-heading"><p className="cr-eyebrow">Solicitud ciudadana</p><h2>¿Qué querés compartir?</h2><p>Elegí el motivo y contanos tu propuesta, sugerencia o consulta.</p></div>
+        <div className="cr-form-heading"><h2>¿Qué querés compartir?</h2><p>Elegí el motivo y contanos tu propuesta, sugerencia o consulta.</p></div>
         <div className="cr-profile"><ShieldCheck size={21} strokeWidth={1.5} aria-hidden="true" /><div><strong>{profile.nombre} {profile.apellido}</strong><span>{profile.email}</span>{profile.telefono && <span>{profile.telefono}</span>}{profile.ciudadNombre && <span>{profile.ciudadNombre}</span>}<Link to="/mi-cuenta">Revisar datos de mi cuenta</Link></div></div>
         <div ref={errorRef} tabIndex={-1}><Feedback error={state.error || action.error} /></div>
         {state.status === "uncertain" && <div className="cr-uncertain"><p>{state.error?.status === 429 ? "Se alcanzó un límite de envíos. Conservamos tu mensaje; volvé a intentarlo más tarde." : "El envío todavía no está confirmado. Conservamos el mensaje y su identificador de envío. Al comprobarlo se usa la misma operación para evitar duplicados."}</p><RetryButton error={state.error || action.error} busy={action.busy} className="cr-button cr-secondary" onClick={() => action.run(signal => citizenRequests.retry(signal))}>{state.error?.status === 429 ? "Reintentar envío más tarde" : "Comprobar envío"}</RetryButton></div>}
@@ -77,7 +84,7 @@ function CitizenForm({ profile }) {
 export default function CitizenRequests() {
   const state = useAccount(), action = useAccountAction();
   if (!account.api.configured) return <div className="cr-compose cr-prompt"><h2>Próximamente.</h2><p>El envío de solicitudes desde tu cuenta todavía no está disponible en este entorno.</p></div>;
-  if (!state.authenticated) return <div className="cr-compose cr-prompt"><ShieldCheck size={35} strokeWidth={1.3} aria-hidden="true" /><p className="cr-eyebrow">Participación ciudadana</p><h2>Tu mensaje,<br />desde tu cuenta.</h2><p>Ingresá para enviar una solicitud y consultar su estado. Usamos los datos de tu perfil para que no tengas que completarlos otra vez.</p><Link className="cr-button" to="/ingresar" state={{ returnTo: "/propone" }}>Ingresar y continuar<ArrowRight size={18} aria-hidden="true" /></Link><p>¿Todavía no tenés cuenta? <Link to="/registro" state={{ returnTo: "/propone" }}>Registrarme</Link></p></div>;
+  if (!state.authenticated) return <div className="cr-compose cr-prompt"><ShieldCheck size={35} strokeWidth={1.3} aria-hidden="true" /><h2>Tu mensaje,<br />desde tu cuenta.</h2><p>Ingresá para enviar una solicitud y consultar su estado. Usamos los datos de tu perfil para que no tengas que completarlos otra vez.</p><LoginLink className="cr-button" state={{ returnTo: "/propone" }}>Ingresar y continuar<ArrowRight size={18} aria-hidden="true" /></LoginLink><p>¿Todavía no tenés cuenta? <Link to="/registro" state={{ returnTo: "/propone" }}>Registrarme</Link></p></div>;
   if (!state.profile) return <div className="cr-compose"><p role="status">Cargando los datos de tu cuenta…</p><Feedback error={state.profileError || action.error} />{state.profileError && <RetryButton error={state.profileError || action.error} busy={action.busy} className="cr-text-button" onClick={() => action.run(() => account.loadProfile({ force: true }))}>Volver a cargar mis datos</RetryButton>}</div>;
   return <CitizenForm key={`${state.sessionId}:${state.profile.idUsuario}`} profile={state.profile} />;
 }

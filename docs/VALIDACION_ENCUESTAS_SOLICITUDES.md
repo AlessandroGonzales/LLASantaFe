@@ -19,7 +19,7 @@ deshabilitado. La base habitual y el sitio público de Vercel no se modificaron.
 | Servicios del cliente conectados a API y PostgreSQL reales de prueba | 51 comprobaciones adicionales correctas |
 | ESLint de los archivos modificados | Correcto |
 | Build de producción Vite | Correcto; conserva la advertencia previa de Framer Motion |
-| Suite Node completa | 153 pruebas: 150 correctas y 3 fallos previos de perfiles/imágenes |
+| Suite Node completa | 153 pruebas correctas tras resolver los tres fallos de perfiles/imágenes |
 
 La prueba de Vite excluyó únicamente el reporte auxiliar del visualizador para
 evitar abrir una pestaña; compiló la aplicación con sus plugins habituales.
@@ -100,9 +100,9 @@ Guías completas: [Encuestas](API_ENCUESTAS_LOCAL.md) y
 - El PDF de Solicitud Ciudadana queda para Blob privado/Defender en Azure. No se
   habilitó el selector ni se omitió el antivirus existente. La regresión del backend
   incluye sus simulaciones anteriores, no una certificación de Defender ni malware real.
-- Los tres fallos generales previos están en `tests/profile-pagination.test.js`:
-  personas duplicadas/omitidas, miniatura ausente y cálculo de reducción de peso.
-  No pertenecen a estos dos módulos; deben cerrarse antes de fusionar con main.
+- Los tres fallos generales previos de `tests/profile-pagination.test.js` quedaron
+  resueltos: ID repetido, cobertura de imágenes optimizadas y comprobación de peso.
+  El cierre y las mediciones están en [representantes-rendimiento.md](representantes-rendimiento.md).
 - La medición de carga y la preparación de producción son una etapa posterior.
   Estas pruebas funcionales no fijan una capacidad garantizada de Azure.
 - No se hizo commit, push, fusión ni despliegue durante esta validación.
@@ -111,5 +111,6 @@ Guías completas: [Encuestas](API_ENCUESTAS_LOCAL.md) y
 
 El usuario confirmó que Solicitud Ciudadana funciona correctamente en su prueba
 manual y autorizó conservar esta entrega mediante commits locales. La integración
-continúa en `codex/integracion-api`; el siguiente bloque propuesto es corregir los
-tres fallos previos de perfiles/imágenes antes de preparar la fusión con main.
+continúa en `codex/integracion-api`. Se completó también el cierre de los tres
+fallos previos de perfiles/imágenes. El siguiente bloque es preparar el entorno de
+Azure y probarlo desde un Preview de Vercel antes de fusionar con main.

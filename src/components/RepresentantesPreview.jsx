@@ -111,9 +111,7 @@ export default function RepresentantesPreview() {
             className="lg:hidden text-center"
             aria-hidden="true"
           >
-            <span className="text-sm font-bold tracking-[0.3em] text-liberty-primary uppercase block mb-4">
-              El equipo en el territorio
-            </span>
+
             <div className="text-5xl md:text-6xl font-black uppercase tracking-tighter leading-[0.99] mb-6">
               Nuestros{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r text-white">
@@ -155,9 +153,7 @@ export default function RepresentantesPreview() {
               className="hidden lg:block"
               aria-hidden="true"
             >
-              <span className="text-sm font-bold tracking-[0.3em] text-liberty-primary uppercase block mb-4">
-                El equipo en el territorio
-              </span>
+
               <div className="text-5xl md:text-6xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
                 Nuestros <br className="hidden md:block" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r text-white">
@@ -180,7 +176,7 @@ export default function RepresentantesPreview() {
             <m.div variants={itemVariants} className="mt-4 lg:mt-0">
               <CinematicLink
                 to="/representantes"
-                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-text-secondary text-liberty-bg font-bold uppercase text-xs tracking-[0.2em] rounded-3xl border border-liberty-border hover:border-liberty-primary  w-full sm:w-max focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-liberty-text-secondary text-liberty-bg font-bold uppercase text-sm tracking-[0.2em] rounded-3xl border border-liberty-border hover:border-liberty-primary  w-full sm:w-max focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 Conocer al equipo
               </CinematicLink>

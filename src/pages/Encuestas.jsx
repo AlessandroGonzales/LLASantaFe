@@ -1,3 +1,5 @@
+import SectionTitle from "../components/SectionTitle.jsx";
+import LoginLink from "../components/account/LoginLink.jsx";
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight, CheckCircle2, ClipboardList, ShieldCheck } from "lucide-react";
@@ -38,7 +40,7 @@ function PageList({ cursor, force, onNext, onPrevious, canGoBack, onRefresh }) {
 function SurveyList() {
   const [cursors, setCursors] = useState([null]), [revision, setRevision] = useState(0);
   return <section className="sv-page">
-    <header className="sv-hero"><p className="sv-eyebrow">Participación ciudadana</p><h1>Encuestas<span>Información para participar.</span></h1><div className="sv-hero-bottom"><p>Conocé el motivo de cada consulta y las preguntas que propone. Podés leerlas libremente; para responder, ingresá con tu cuenta.</p><span><ShieldCheck size={17} aria-hidden="true" /> Una respuesta por cuenta</span></div></header>
+    <header className="sv-hero"><SectionTitle title="Encuestas" /><p className="sv-title-description">Información para participar.</p><div className="sv-hero-bottom"><p>Conocé el motivo de cada consulta y las preguntas que propone. Podés leerlas libremente; para responder, ingresá con tu cuenta.</p><span><ShieldCheck size={17} aria-hidden="true" /> Una respuesta por cuenta</span></div></header>
     <div className="sv-section-heading"><h2>Consultas abiertas</h2><button type="button" onClick={() => setRevision(value => value + 1)}>Actualizar listado</button></div>
     <PageList key={`${cursors.at(-1)}:${revision}`} cursor={cursors.at(-1)} force={revision > 0} canGoBack={cursors.length > 1} onPrevious={() => setCursors(current => current.slice(0, -1))} onNext={cursor => setCursors(current => [...current, cursor])} onRefresh={() => setRevision(value => value + 1)} />
   </section>;
@@ -50,7 +52,7 @@ function Receipt({ value }) {
 }
 function LoginPrompt({ id }) {
   const returnTo = `/encuestas/${id}`;
-  return <aside className="sv-login"><ShieldCheck size={27} strokeWidth={1.4} aria-hidden="true" /><div><h2>Ingresá para responder.</h2><p>Las preguntas son públicas. El envío necesita una cuenta para registrar una única respuesta.</p></div><div className="sv-login-actions"><Link className="sv-button" to="/ingresar" state={{ returnTo }}>Ingresar y responder <ArrowRight size={17} aria-hidden="true" /></Link><Link className="sv-text-link" to="/registro" state={{ returnTo }}>Crear una cuenta</Link></div></aside>;
+  return <aside className="sv-login"><ShieldCheck size={27} strokeWidth={1.4} aria-hidden="true" /><div><h2>Ingresá para responder.</h2><p>Las preguntas son públicas. El envío necesita una cuenta para registrar una única respuesta.</p></div><div className="sv-login-actions"><LoginLink className="sv-button" state={{ returnTo }}>Ingresar y responder <ArrowRight size={17} aria-hidden="true" /></LoginLink><Link className="sv-text-link" to="/registro" state={{ returnTo }}>Crear una cuenta</Link></div></aside>;
 }
 function AnswerForm({ detail, onReceipt }) {
   const [values, setValues] = useState(() => Object.create(null)), [confirmed, setConfirmed] = useState(false), [uncertain, setUncertain] = useState(false), [checkedAgain, setCheckedAgain] = useState(false);
@@ -109,12 +111,12 @@ function SurveyDetail({ id, authenticated }) {
   const detail = resource.detail;
   return <article className="sv-page sv-detail-page">
     <Link className="sv-back" to="/encuestas"><ArrowLeft size={16} aria-hidden="true" /> Todas las encuestas</Link>
-    <header className="sv-detail-header"><p className="sv-eyebrow">Encuestas · Participación</p><h1>{detail?.titulo || (proof.value ? "Respuesta registrada" : "Encuesta")}</h1>
+    <header className="sv-detail-header"><SectionTitle title={detail?.titulo || (proof.value ? "Respuesta registrada" : "Encuesta")} />
       {detail && <><div className="sv-detail-tags"><span>{detail.configuracion.preguntas.length} preguntas</span><span>Una respuesta por cuenta</span>{detail.fechaFin && <span>Hasta el {day(detail.fechaFin)}</span>}</div><section className="sv-purpose" aria-label="Motivo de la encuesta"><h2>¿Por qué esta encuesta?</h2><p>{detail.descripcion || "No se publicó una descripción adicional. Podés revisar todas las preguntas antes de decidir si querés responder."}</p></section></>}
     </header>
     {(resource.loading || proof.loading) && <p className="sv-loading" role="status">{resource.loading ? "Cargando encuesta…" : "Comprobando si ya participaste…"}</p>}
     {proof.value && <Receipt value={proof.value} />}
-    {resource.error && !proof.value && <div className="sv-state"><h2>{resource.error.status === 404 ? "Esta encuesta no está disponible." : "No pudimos abrir la encuesta."}</h2><Feedback error={resource.error.status === 404 ? null : resource.error} /><p>Puede haber cerrado o no estar disponible para consulta. Podés volver al listado.</p><RetryButton error={resource.error} className="sv-button sv-button-secondary" onClick={() => setRevision(value => value + 1)}>Volver a consultar</RetryButton>{!authenticated && resource.error.status === 404 && <p>¿Ya participaste? <Link className="sv-text-link" to="/ingresar" state={{ returnTo: `/encuestas/${id}` }}>Ingresá para consultar tu comprobante</Link></p>}</div>}
+    {resource.error && !proof.value && <div className="sv-state"><h2>{resource.error.status === 404 ? "Esta encuesta no está disponible." : "No pudimos abrir la encuesta."}</h2><Feedback error={resource.error.status === 404 ? null : resource.error} /><p>Puede haber cerrado o no estar disponible para consulta. Podés volver al listado.</p><RetryButton error={resource.error} className="sv-button sv-button-secondary" onClick={() => setRevision(value => value + 1)}>Volver a consultar</RetryButton>{!authenticated && resource.error.status === 404 && <p>¿Ya participaste? <LoginLink className="sv-text-link" state={{ returnTo: `/encuestas/${id}` }}>Ingresá para consultar tu comprobante</LoginLink></p>}</div>}
     {detail && <QuestionsHeading count={detail.configuracion.preguntas.length} />}
     {detail && (!authenticated || proof.value || proof.loading || proof.error) && <SurveyPreview questions={detail.configuracion.preguntas} />}
     {detail && !authenticated && <LoginPrompt id={id} />}

@@ -1,3 +1,4 @@
+import SectionTitle from "./SectionTitle.jsx";
 import { useEffect, useRef, useState } from "react";
 import { X, MapPin, Mail, Phone, ExternalLink } from "lucide-react";
 import { presidentesComunalesData } from "../data/presidentesComunales";
@@ -32,14 +33,14 @@ function ProfileDialog({ profile, onClose }) {
           <img src={profile.foto || aguila} alt={profile.foto ? profile.nombre : ""} decoding="async" className={`w-full h-[40vh] lg:h-full lg:max-h-[85dvh] ${profile.foto ? "object-cover" : "object-contain p-12"}`} />
         </div>
         <div className="lg:w-1/2 min-w-0 p-6 md:p-12 bg-gradient-to-br from-liberty-bg to-liberty-surface">
-          <p className="text-xs uppercase tracking-widest text-liberty-primary font-bold mb-4">{profile.cargo || "Presidente comunal"}</p>
+          <p className="text-sm uppercase tracking-widest text-liberty-primary font-bold mb-4">{profile.cargo || "Presidente comunal"}</p>
           <h2 id="presidente-perfil-nombre" className="text-3xl md:text-5xl font-black uppercase tracking-tighter break-words mb-6">{profile.nombre}</h2>
           <dl className="grid sm:grid-cols-2 gap-4 py-6 border-y border-white/10 mb-8">
-            <div><dt className="text-xs uppercase text-liberty-text-secondary">Localidad</dt><dd className="font-bold break-words">{profile.localidad}</dd></div>
-            {profile.profesion && <div><dt className="text-xs uppercase text-liberty-text-secondary">Profesión</dt><dd className="font-bold break-words">{profile.profesion}</dd></div>}
-            {profile.edad != null && <div><dt className="text-xs uppercase text-liberty-text-secondary">Edad</dt><dd className="font-bold">{profile.edad} años</dd></div>}
+            <div><dt className="text-sm uppercase text-liberty-text-secondary">Localidad</dt><dd className="font-bold break-words">{profile.localidad}</dd></div>
+            {profile.profesion && <div><dt className="text-sm uppercase text-liberty-text-secondary">Profesión</dt><dd className="font-bold break-words">{profile.profesion}</dd></div>}
+            {profile.edad != null && <div><dt className="text-sm uppercase text-liberty-text-secondary">Edad</dt><dd className="font-bold">{profile.edad} años</dd></div>}
           </dl>
-          {profile.descripcion && <div className="mb-8"><h3 className="text-xs font-black uppercase tracking-widest text-liberty-text-secondary mb-4">Visión y objetivos</h3><p className="text-base md:text-lg leading-relaxed whitespace-pre-line break-words">{profile.descripcion}</p></div>}
+          {profile.descripcion && <div className="mb-8"><h3 className="text-sm font-black uppercase tracking-widest text-liberty-text-secondary mb-4">Visión y objetivos</h3><p className="text-base md:text-lg leading-relaxed whitespace-pre-line break-words">{profile.descripcion}</p></div>}
           <div className="flex flex-wrap gap-3">
             {profile.proyectos && <a href={profile.proyectos} target="_blank" rel="noopener noreferrer" className={linkClass}><ExternalLink size={18} aria-hidden="true" />Ver proyectos</a>}
             {profile.redes?.instagram && <a href={`https://www.instagram.com/${profile.redes.instagram.replace(/^@/, "")}/`} target="_blank" rel="noopener noreferrer" aria-label={`Instagram de ${profile.nombre}`} className={linkClass}><Instagram size={18} aria-hidden="true" /></a>}
@@ -94,8 +95,8 @@ export default function SeccionPresidentesComunales() {
   return (
     <section aria-labelledby="presidentes-heading" className="relative w-full py-24 md:py-32 bg-liberty-bg text-white overflow-hidden">
       <div className="w-full px-6 md:px-12 lg:px-20 max-w-[1600px] mx-auto relative z-20 mb-16 md:mb-24 text-center">
-        <p className="text-[11px] md:text-xs font-bold tracking-[0.4em] text-liberty-primary uppercase block mb-4">Nuestros representantes</p>
-        <h1 id="presidentes-heading" className="text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter leading-[0.99] mb-6">Presidentes <br />comunales</h1>
+
+        <SectionTitle as="h1" title="Presidentes comunales" id="presidentes-heading" />
         <p className="text-base md:text-lg text-liberty-text-secondary max-w-2xl mx-auto">Conocé a nuestros presidentes comunales que estan dando la batalla contra la casta y defindiendo las ideas de la libertad.</p>
         {localidades.length > 0 && <div className="max-w-md mx-auto mt-10 text-left"><label htmlFor="presidentes-localidad" className="block text-sm font-bold uppercase tracking-widest mb-3">Filtrar por localidad</label><select id="presidentes-localidad" value={localidad} onChange={(event) => setLocalidad(event.target.value)} className="w-full p-4 rounded-xl bg-liberty-card border border-liberty-border text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"><option value="">Todas las localidades</option>{localidades.map((place) => <option key={place} value={place}>{place}</option>)}</select></div>}
       </div>
@@ -107,8 +108,8 @@ export default function SeccionPresidentesComunales() {
               <span className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" aria-hidden="true" />
               <span className="absolute bottom-6 inset-x-0 flex flex-col items-center text-center px-4">
                 <span className="text-white text-sm md:text-base font-black uppercase tracking-widest break-words">{profile.nombre}</span>
-                <span className="flex items-center gap-1 text-xs text-white mt-2"><MapPin size={14} aria-hidden="true" />{profile.localidad}</span>
-                <span className="mt-6 text-liberty-primary font-bold text-xs uppercase tracking-wider">Ver perfil completo</span>
+                <span className="flex items-center gap-1 text-sm text-white mt-2"><MapPin size={14} aria-hidden="true" />{profile.localidad}</span>
+                <span className="mt-6 text-liberty-primary font-bold text-sm uppercase tracking-wider">Ver perfil completo</span>
               </span>
             </button>
           </li>)}

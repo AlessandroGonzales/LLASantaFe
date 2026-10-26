@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import SectionTitle from "./SectionTitle.jsx";
 
 export default function NotFound() {
   useEffect(() => {
@@ -28,9 +29,7 @@ export default function NotFound() {
       className="flex min-h-[80dvh] flex-col items-center justify-center px-6 pb-16 pt-32 text-center"
     >
       <p className="mb-4 text-sm font-bold tracking-[0.25em] text-liberty-primary">404</p>
-      <h1 id="not-found-title" className="text-3xl font-bold tracking-tight sm:text-5xl">
-        Página no encontrada
-      </h1>
+      <SectionTitle id="not-found-title" title="Página no encontrada" />
       <p className="mt-4 max-w-md text-base leading-relaxed text-liberty-text-secondary">
         La página que buscás no existe o cambió de dirección.
       </p>

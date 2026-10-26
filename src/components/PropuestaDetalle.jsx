@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Download, Share2, MapPin } from "lucide-react";
 import { propuestasData } from "../data/propuestasData";
+import SectionTitle from "./SectionTitle.jsx";
 
 export default function PropuestaDetalle() {
   const { id } = useParams();
@@ -12,7 +13,7 @@ export default function PropuestaDetalle() {
       <div className="min-h-screen bg-liberty-bg flex items-center justify-center text-white relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-liberty-primary/10 rounded-full blur-[100px] pointer-events-none" />
         <div className="text-center relative z-10">
-          <h2 className="text-5xl font-black mb-6 uppercase tracking-tight">Propuesta no encontrada</h2>
+          <SectionTitle title="Propuesta no encontrada" />
           <Link to="/propuestas" className="inline-flex items-center gap-2 text-liberty-primary font-bold uppercase tracking-widest hover:text-white transition-colors group">
             <ArrowLeft className="w-5 h-5 group-hover:-translate-x-2 transition-transform" />
             Volver al plan de gobierno
@@ -47,21 +48,19 @@ export default function PropuestaDetalle() {
             >
               {/* Etiquetas asimétricas */}
               <div className="flex flex-wrap items-center gap-3 mb-8">
-                <span className="flex items-center gap-2 text-[10px] md:text-xs uppercase tracking-widest font-black px-4 py-2 bg-liberty-primary rounded-sm">
+                <span className="flex items-center gap-2 text-sm uppercase tracking-widest font-black px-4 py-2 bg-liberty-primary rounded-sm">
                   <MapPin className="w-3.5 h-3.5" />
                   {propuesta.alcance === "provincial"
                     ? "Provincia de Santa Fe"
                     : propuesta.alcance}
                 </span>
-                <span className="text-[10px] md:text-xs uppercase tracking-widest font-black text-white border border-liberty-border/50 px-4 py-2 rounded-sm bg-white/5 ">
+                <span className="text-sm uppercase tracking-widest font-black text-white border border-liberty-border/50 px-4 py-2 rounded-sm bg-white/5 ">
                   {propuesta.categoria}
                 </span>
               </div>
 
               {/* Título y Bajada */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black  bg-clip-text  uppercase tracking-tight leading-[1.05] mb-8">
-                {propuesta.titulo}
-              </h1>
+              <SectionTitle title={propuesta.titulo} />
               
               <div className="relative mb-12">
                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-liberty-primary to-transparent" />
@@ -109,7 +108,7 @@ export default function PropuestaDetalle() {
               {/* Acento superior */}
               <div className="absolute -top-px left-1/2 -translate-x-1/2 w-1/2 h-[2px] bg-gradient-to-r from-transparent via-liberty-primary to-transparent" />
 
-              <h4 className="text-xs uppercase tracking-[0.2em] text-white mb-8 font-black text-center">
+              <h4 className="text-sm uppercase tracking-[0.2em] text-white mb-8 font-black text-center">
                 Involucrate
               </h4>
 

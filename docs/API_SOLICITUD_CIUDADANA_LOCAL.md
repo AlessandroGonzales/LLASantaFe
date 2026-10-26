@@ -138,10 +138,10 @@ Storage, estados de análisis y descarga autorizada siguen pendientes para Azure
   cuenta sin teléfono/localidad pudo enviar sin que se le pidieran esos campos.
 - No se modificaron datos de la base habitual ni se enviaron correos reales.
 - Build Release .NET sin errores/advertencias, build Vite y ESLint de archivos
-  modificados correctos. La suite general mantiene los tres fallos previos de
-  perfiles/imágenes, registrados en INTEGRACION_API_RAMA.md; deben cerrarse antes
-  de fusionar (153 pruebas: 150 correctas y esos tres fallos). Permanece la
-  advertencia previa de importación de Framer Motion.
+  modificados correctos. Los tres fallos previos de perfiles/imágenes quedaron
+  resueltos el 25 de octubre: la suite general pasa las 153 pruebas. El cierre
+  está documentado en representantes-rendimiento.md. Permanece la advertencia
+  previa de importación de Framer Motion.
 
 Sigue la revisión general de la integración; la preparación de producción y PDF
 requiere su entrega de Azure. No se declara lista para desplegar por compilar.
