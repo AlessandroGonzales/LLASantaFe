@@ -3,5 +3,5 @@ const dates = new Intl.DateTimeFormat("es-AR", { dateStyle: "medium", timeStyle:
 export function affiliationDate(value) { return value && Number.isFinite(Date.parse(value)) ? dates.format(new Date(value)) : "Sin registro"; }
 export const affiliationReturn = "/sumate#sumate-formulario";
 export function accountReturn(value) {
-  return [affiliationReturn, "/administracion/afiliaciones"].includes(value) || (typeof value === "string" && /^\/encuestas(?:\/[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12})?$/i.test(value)) ? value : "/mi-cuenta";
+  return [affiliationReturn, "/administracion/afiliaciones", "/propone"].includes(value) || (typeof value === "string" && /^\/encuestas(?:\/[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12})?$/i.test(value)) ? value : "/mi-cuenta";
 }

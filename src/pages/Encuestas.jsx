@@ -54,19 +54,34 @@ function LoginPrompt({ id }) {
 }
 function AnswerForm({ detail, onReceipt }) {
   const [values, setValues] = useState(() => Object.create(null)), [confirmed, setConfirmed] = useState(false), [uncertain, setUncertain] = useState(false), [checkedAgain, setCheckedAgain] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState(() => Object.create(null));
   const action = useAccountAction(), check = useAccountAction(), errorRef = useRef(null);
   const questions = detail.configuracion.preguntas;
   const completed = questions.filter(p => surveyAnswerPresent(p, Object.hasOwn(values, p.id) ? values[p.id] : undefined)).length;
+  const sendError = action.error?.code === "survey_validation"
+    ? Object.keys(fieldErrors).length ? { ...action.error, message: action.error.message, errors: fieldErrors } : null
+    : action.error;
+  function updateAnswer(id, value) {
+    setValues(current => ({ ...current, [id]: value }));
+    setFieldErrors(current => {
+      if (!Object.hasOwn(current, id)) return current;
+      const next = { ...current }; delete next[id]; return next;
+    });
+  }
   useEffect(() => { if (action.error) errorRef.current?.focus(); }, [action.error]);
   return <form className="sv-answer-form" noValidate aria-busy={action.busy || check.busy} onSubmit={event => {
     event.preventDefault(); if (!confirmed || (uncertain && !checkedAgain)) return;
     action.run(async signal => {
       try { const result = await surveys.submit(detail.id, detail.configuracion, values, signal); if (!signal.aborted) onReceipt(result); }
-      catch (error) { if (!signal.aborted && error.code === "survey_uncertain") { setUncertain(true); setCheckedAgain(false); } throw error; }
+      catch (error) {
+        if (!signal.aborted && error.code === "survey_validation") setFieldErrors(error.errors);
+        if (!signal.aborted && error.code === "survey_uncertain") { setUncertain(true); setCheckedAgain(false); }
+        throw error;
+      }
     });
   }}>
     <div className="sv-answer-meta"><span>{completed} de {questions.length} completadas</span><span>Las preguntas opcionales pueden quedar vacías.</span></div>
-    <div ref={errorRef} tabIndex={-1} className="sv-error-focus"><Feedback error={action.error || check.error} /></div>
+    <div ref={errorRef} tabIndex={-1} className="sv-error-focus"><Feedback error={sendError || check.error} /></div>
     {uncertain && <div className="sv-uncertain"><p>Comprobá el envío antes de volver a enviarlo.</p><RetryButton error={check.error || action.error} busy={check.busy || action.busy} className="sv-button sv-button-secondary" onClick={() => check.run(async signal => {
       const result = await surveys.loadReceipt(detail.id, { force: true, signal });
       if (signal.aborted) return;
@@ -75,8 +90,8 @@ function AnswerForm({ detail, onReceipt }) {
     <fieldset className="sv-answer-fields" disabled={action.busy || check.busy}><legend className="sv-sr-only">Respuestas a la encuesta</legend>
       {questions.map((question, index) => <SurveyQuestion key={question.id} question={question} index={index}
         value={Object.hasOwn(values, question.id) ? values[question.id] : undefined}
-        error={Object.hasOwn(action.error?.errors || {}, question.id) ? action.error.errors[question.id] : null}
-        onChange={value => setValues(current => ({ ...current, [question.id]: value }))} />)}
+        error={Object.hasOwn(fieldErrors, question.id) ? fieldErrors[question.id] : null}
+        onChange={value => updateAnswer(question.id, value)} />)}
       <div className="sv-send"><div><h2>Revisá antes de enviar.</h2><p>Las respuestas se asocian a tu cuenta para evitar duplicados. No podrán editarse después del envío.</p></div><label className="sv-confirm"><input type="checkbox" required checked={confirmed} onChange={event => setConfirmed(event.target.checked)} /><span>Revisé mis respuestas y quiero enviarlas.</span></label><button type="submit" className="sv-button" disabled={!confirmed || action.busy || check.busy || (uncertain && !checkedAgain)}>{action.pending ? "Enviando…" : uncertain ? "Volver a enviar respuestas" : "Enviar respuestas"}<ArrowRight size={18} aria-hidden="true" /></button></div>
     </fieldset>
   </form>;

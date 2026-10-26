@@ -1,6 +1,7 @@
 import { createAccountService } from "./accountService.js";
 import { createAffiliationService } from "./affiliationService.js";
 import { createSurveyService } from "./surveyService.js";
+import { createCitizenRequestService } from "./citizenRequestService.js";
 
 export const account = createAccountService({
   baseUrl: import.meta.env.VITE_API_BASE_URL,
@@ -8,3 +9,4 @@ export const account = createAccountService({
 });
 export const affiliation = createAffiliationService(account);
 export const surveys = createSurveyService(account);
+export const citizenRequests = createCitizenRequestService(account);

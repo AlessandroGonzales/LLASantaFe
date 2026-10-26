@@ -5,10 +5,10 @@ No hay push, fusión con main ni cambios en Vercel. Esta entrega reemplaza el en
 del formulario `/sumate` por el flujo autenticado de .NET en esta rama. Otros
 formularios siguen con su destino actual. No se importan ni borran históricos de
 Google Sheets/Drive y no se envía una solicitud a los dos destinos a la vez.
-El handler legado devuelve 410 `form_retired` para `kind=sumate` en esta rama,
-sin validar CAPTCHA ni escribir en Sheets. Conserva su límite de intentos y los
-otros formularios; las fixtures de contrato histórico optan por permitirlo solo
-en pruebas. No cambia el handler desplegado desde la rama main actual.
+El handler legado devuelve 410 `form_retired` para `kind=sumate` y, desde la entrega
+de Solicitud Ciudadana, también `propone`, sin llamar a Redis, CAPTCHA ni Sheets.
+Las fixtures de contrato histórico optan por permitirlo solo en pruebas. No cambia
+el handler desplegado desde la rama main actual.
 
 ## Preparación obligatoria
 
@@ -129,5 +129,6 @@ no crea ni eleva una cuenta real automáticamente.
   de ambos repositorios terminó sin hallazgos; API, Vite y PostgreSQL temporales
   quedaron detenidos. La configuración privada permanece excluida de Git.
 
-Encuestas ya tiene su integración en [API_ENCUESTAS_LOCAL.md](API_ENCUESTAS_LOCAL.md). Solicitudes ciudadanas y PDF/Azure
-mantienen su lugar en el plan. Resolver los tres fallos previos antes de fusionar.
+Encuestas ya tiene su integración en [API_ENCUESTAS_LOCAL.md](API_ENCUESTAS_LOCAL.md).
+Solicitud Ciudadana está en [API_SOLICITUD_CIUDADANA_LOCAL.md](API_SOLICITUD_CIUDADANA_LOCAL.md).
+PDF/Azure sigue pendiente. Resolver los tres fallos previos antes de fusionar.

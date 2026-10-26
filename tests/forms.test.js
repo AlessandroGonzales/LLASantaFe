@@ -115,7 +115,7 @@ function fixture(overrides = {}) {
     }
     return { ok: true, json: async () => data };
   };
-  // Contrato histórico de Sheets: solo estas fixtures permiten el Sumate anterior.
+  // Contrato histórico de Sheets: solo estas fixtures habilitan formularios retirados.
   const handler = createFormsHandler({ env: { ...env, ...overrides.env }, fetchImpl,
     retiredKinds: Object.hasOwn(overrides, "retiredKinds") ? overrides.retiredKinds : [] });
   return { req, res, calls, run: () => handler(req, res) };
@@ -142,12 +142,21 @@ test("Sumate retirado no verifica CAPTCHA ni escribe en Google Sheets", async ()
   assert.equal(f.calls.some(call => call.url.includes("script.google.com") || call.url.includes("challenges.cloudflare.com")), false);
 });
 
-test("retirar Sumate conserva la recepción de propuestas", async () => {
-  const f = fixture({ retiredKinds: undefined, turnstile: { action: "propone" } });
+test("la compatibilidad histórica permite retirar solo Sumate", async () => {
+  const f = fixture({ retiredKinds: ["sumate"], turnstile: { action: "propone" } });
   f.req.body.kind = "propone"; f.req.body.data = proposal;
   await f.run();
   assert.equal(f.res.statusCode, 200);
   assert.equal(f.calls.some(call => call.url.includes("script.google.com")), true);
+});
+
+test("Propone retirado no usa Redis, CAPTCHA ni Sheets, incluso sin configuración anterior", async () => {
+  const f = fixture({ retiredKinds: undefined, env: { TURNSTILE_SECRET_KEY: "", GOOGLE_APPS_SCRIPT_SECRET: "" } });
+  f.req.body.kind = "propone"; f.req.body.data = proposal;
+  await f.run();
+  assert.equal(f.res.statusCode, 410);
+  assert.equal(f.res.body.code, "form_retired");
+  assert.equal(f.calls.length, 0);
 });
 
 for (const [name, overrides, status] of [

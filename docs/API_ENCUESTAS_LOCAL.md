@@ -146,4 +146,22 @@ anterior de importación estática/dinámica de Framer Motion.
 Sin correos reales, cambios en la base habitual o despliegues. La revisión final
 de secretos de ambos repositorios terminó sin hallazgos. API, Vite y PostgreSQL
 temporales quedaron detenidos; las instancias habituales no se alteraron.
-Próximo módulo: solicitudes ciudadanas desde React; PDF/Azure sigue pendiente.
+Solicitud Ciudadana ya tiene su integración de texto y seguimiento en
+[API_SOLICITUD_CIUDADANA_LOCAL.md](API_SOLICITUD_CIUDADANA_LOCAL.md). PDF/Azure sigue pendiente.
+
+## Revisión de cierre: 25 de octubre
+
+Se volvió a comprobar el recorrido público → login con retorno → respuesta →
+comprobante contra .NET/PostgreSQL aislados, con dos cuentas distintas. Cero y
+3.5 se guardaron como números JSON, las categorías como IDs y la selección múltiple
+como array; las opcionales vacías se omitieron. Cada cuenta dejó una sola fila.
+
+Se ajustó la presentación de la validación: al editar una pregunta se retira su
+aviso anterior; los errores de otras preguntas permanecen. El envío vuelve a validar
+todas las respuestas. Corregir un campo no oculta errores de red ni modifica datos.
+
+La integración de cuenta, afiliación, encuestas, solicitudes y formularios históricos
+aprueba 100 pruebas Node. La suite completa ejecuta 153: 150 correctas y los mismos
+tres fallos previos de perfiles/imágenes, pendientes antes de fusionar. Build Vite,
+ESLint de los cambios y revisión de secretos correctos. La regresión existente de
+backend aprobó 975 comprobaciones. No hay migraciones ni dependencias nuevas.

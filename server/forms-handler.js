@@ -80,7 +80,7 @@ async function readBody(req) {
   } catch { throw new FormError("El formulario no pudo leerse."); }
 }
 
-export function createFormsHandler({ env = process.env, fetchImpl = fetch, now = Date.now, retiredKinds = ["sumate"] } = {}) {
+export function createFormsHandler({ env = process.env, fetchImpl = fetch, now = Date.now, retiredKinds = ["sumate", "propone"] } = {}) {
   async function jsonFetch(url, options, timeout = 8000) {
     try {
       const response = await fetchImpl(url, { ...options, signal: AbortSignal.timeout(timeout) });
@@ -112,18 +112,20 @@ export function createFormsHandler({ env = process.env, fetchImpl = fetch, now =
       return res.status(405).json({ ok: false, message: "Método no permitido." });
     }
     try {
+      if (!/^application\/json(?:;|$)/i.test(req.headers["content-type"] || "")) throw new FormError("Formato no permitido.", 415);
+      const body = await readBody(req);
+      // Formularios migrados: responder localmente, sin Redis/CAPTCHA/Sheets.
+      if (retiredKinds.includes(body.kind)) {
+        throw new FormError("Este formulario se trasladó a tu cuenta. Iniciá sesión en el sitio para enviar tu solicitud.", 410, "form_retired");
+      }
+      if (!["sumate", "propone"].includes(body.kind)) throw new FormError("Formulario desconocido.");
       const settings = config(env);
       const origin = req.headers.origin;
       if (!settings.origins.includes(origin)) throw new FormError("Origen no autorizado.", 403, "invalid_origin");
-      if (!/^application\/json(?:;|$)/i.test(req.headers["content-type"] || "")) throw new FormError("Formato no permitido.", 415);
       const ip = clientIp(req, env);
       const namespace = env.FORMS_RATE_NAMESPACE || "lla:forms:v1";
       const ipHash = hmac(env.GOOGLE_APPS_SCRIPT_SECRET, ipBucket(ip));
       await rateLimit([`${namespace}:attempt:${ipHash}`, `${namespace}:attempt:global`], [[20, 600], [3000, 600]]);
-      const body = await readBody(req);
-      if (retiredKinds.includes(body.kind)) {
-        throw new FormError("Este formulario se trasladó a tu cuenta. Iniciá sesión para enviar tu solicitud de afiliación.", 410, "form_retired");
-      }
       if (body.website !== "") throw new FormError("No se pudo verificar la solicitud.", 400, "verification_failed");
       if (!UUID.test(body.requestId || "")) throw new FormError("Identificador de envío inválido.");
       const data = validateFields(body.kind, body.data);

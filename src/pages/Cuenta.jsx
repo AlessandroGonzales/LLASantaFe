@@ -149,7 +149,7 @@ function Profile() {
   if (!state.authenticated && !leaving) return <Navigate to="/ingresar" replace state={{ notice: "Para acceder a tu cuenta, iniciá sesión." }} />;
   return <AccountShell title="Mi cuenta" description="Consultá tus datos y administrá tu acceso.">
     <Feedback {...action} /><Feedback error={state.profileError} />
-    <div className="account-links"><Link to={affiliationReturn}>Mi solicitud de afiliación</Link><Link to="/encuestas">Encuestas</Link>
+    <div className="account-links"><Link to={affiliationReturn}>Mi solicitud de afiliación</Link><Link to="/encuestas">Encuestas</Link><Link to="/propone">Mis solicitudes ciudadanas</Link>
       {isAdministrator(state.profile) && <Link to="/administracion/afiliaciones">Administrar afiliaciones</Link>}</div>
     {state.profileStatus === "loading" && <p role="status">Cargando tu perfil…</p>}
     {state.profileError && <button type="button" className="account-secondary" disabled={action.busy} onClick={() => action.run(() => account.loadProfile({ force: true }))}>Volver a cargar el perfil</button>}

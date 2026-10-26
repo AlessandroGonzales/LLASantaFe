@@ -1,9 +1,9 @@
 # Integración de cuenta con .NET: primer bloque
 
 24 de octubre de 2026. Trabajo local en `codex/integracion-api`, sobre el frontend
-actual. Este bloque conecta cuentas; afiliación, encuestas y solicitudes se
-incorporan en las siguientes entregas. Los formularios vigentes conservan su
-destino actual y el contenido editorial continúa siendo local en React.
+actual. Este documento registra el bloque de cuentas; afiliación, encuestas y
+solicitudes ya tienen sus guías de integración enlazadas al final. El contenido
+editorial continúa siendo local en React.
 
 ## Configuración para probar
 
@@ -155,4 +155,5 @@ Fuentes: [variables y modos de Vite](https://vite.dev/guide/env-and-mode) y
 
 La afiliación ya tiene su entrega de integración en [API_AFILIACION_LOCAL.md](API_AFILIACION_LOCAL.md).
 Encuestas ya tiene su integración en [API_ENCUESTAS_LOCAL.md](API_ENCUESTAS_LOCAL.md).
-Continúan pendientes solicitudes de texto y la preparación de PDF/Azure.
+Solicitudes de texto ya tiene su integración en [API_SOLICITUD_CIUDADANA_LOCAL.md](API_SOLICITUD_CIUDADANA_LOCAL.md).
+Continúan pendientes la preparación de PDF/Azure y la revisión final antes de producción.

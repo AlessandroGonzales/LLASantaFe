@@ -41,6 +41,10 @@ con datos de cuenta y de una bandeja administrativa por estado, descritos en
 [API_AFILIACION_LOCAL.md](API_AFILIACION_LOCAL.md). La preparación de Azure sigue pendiente.
 Encuestas incorpora lectura pública y respuesta con sesión en
 [API_ENCUESTAS_LOCAL.md](API_ENCUESTAS_LOCAL.md), manteniendo los controles de la API.
+Solicitud Ciudadana incorpora texto y seguimiento propios en
+[API_SOLICITUD_CIUDADANA_LOCAL.md](API_SOLICITUD_CIUDADANA_LOCAL.md), con datos del
+perfil y reintentos idempotentes. Los dos formularios migrados dejan de escribir
+en Sheets desde esta rama; el sitio desplegado desde main conserva su versión.
 
 1. Antes de editar, comprobar la rama con `git branch --show-current`.
 2. Conectar primero cliente HTTP y sesión; luego cuenta, afiliación, encuestas y

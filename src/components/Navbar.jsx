@@ -160,13 +160,13 @@ export default function Navbar() {
     >
       <nav
         aria-label="Navegación principal"
-        className="flex h-full w-full items-center justify-between px-4 sm:px-6 lg:px-8 xl:grid xl:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] xl:gap-4"
+        className="flex h-full w-full items-center justify-between px-4 sm:px-6 lg:px-8 2xl:grid 2xl:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] 2xl:gap-4"
       >
         <Link
           to="/"
           onClick={closeMobileMenu}
           aria-label="La Libertad Avanza Santa Fe, ir al inicio"
-          className="group relative z-50 flex min-h-11 items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white shrink-0 xl:justify-self-start"
+          className="group relative z-50 flex min-h-11 items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white shrink-0 2xl:justify-self-start"
         >
           <img
             src={logo}
@@ -189,7 +189,7 @@ export default function Navbar() {
         </Link>
 
         {/* Links centrados en Desktop */}
-        <div className="hidden h-full items-center justify-center gap-2 xl:flex">
+        <div className="hidden h-full items-center justify-center gap-2 2xl:flex">
           <Link
             to="/#noticias"
             aria-current={isHomeSection("#noticias") ? "location" : undefined}
@@ -311,7 +311,7 @@ export default function Navbar() {
         </div>
 
         {/* Botón "Sumate" alineado a la derecha en Desktop */}
-        <div className="hidden items-center gap-3 xl:flex shrink-0 xl:justify-self-end">
+        <div className="hidden items-center gap-3 2xl:flex shrink-0 2xl:justify-self-end">
           <Link to="/mi-cuenta" className={desktopLinkClass(location.pathname === "/mi-cuenta")}>Mi cuenta</Link>
           <Link
             to="/sumate"
@@ -329,7 +329,7 @@ export default function Navbar() {
           aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
           aria-expanded={isOpen}
           aria-controls="mobile-navigation"
-          className="relative z-50 flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-liberty-bg/70 text-white backdrop-blur-md transition-colors hover:border-liberty-primary hover:text-liberty-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white xl:hidden"
+          className="relative z-50 flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-liberty-bg/70 text-white backdrop-blur-md transition-colors hover:border-liberty-primary hover:text-liberty-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white 2xl:hidden"
         >
           <span
             aria-hidden="true"
@@ -358,7 +358,7 @@ export default function Navbar() {
           aria-modal={isOpen ? "true" : undefined}
           aria-label="Menú principal"
           aria-hidden={!isOpen}
-          className={`fixed inset-0 z-40 h-[100dvh] overflow-y-auto bg-liberty-bg px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-24 transition-[opacity,transform,visibility] duration-300 sm:px-10 xl:hidden ${
+          className={`fixed inset-0 z-40 h-[100dvh] overflow-y-auto bg-liberty-bg px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-24 transition-[opacity,transform,visibility] duration-300 sm:px-10 2xl:hidden ${
             isOpen
               ? "visible translate-x-0 opacity-100"
               : "invisible translate-x-full opacity-0"
