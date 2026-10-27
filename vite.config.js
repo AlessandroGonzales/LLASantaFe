@@ -4,6 +4,16 @@ import tailwindcss from '@tailwindcss/vite'
 import { visualizer } from 'rollup-plugin-visualizer'
 
 export default defineConfig({
+  build: {
+    rolldownOptions: {
+      output: {
+        // Agrupa la carga inicial; cada sección conserva sus imports diferidos.
+        codeSplitting: {
+          groups: [{ name: 'initial', tags: ['$initial'] }],
+        },
+      },
+    },
+  },
   plugins: [
     react(),
     tailwindcss(),

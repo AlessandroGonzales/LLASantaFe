@@ -6,7 +6,8 @@ import { account } from "../lib/backend.js";
 import { useAccount } from "../hooks/useAccount.js";
 import { useAccountAction } from "../hooks/useAccountAction.js";
 import { useRegistrationWelcome } from "../context/registrationContext.js";
-import { emptyRegistration, registrationBody, registrationSteps, validateRegistrationStep } from "../lib/registration.js";
+import { emptyRegistration, registrationBody, registrationSteps, validateRegistrationStep, submitRegistration } from "../lib/registration.js";
+import { verifyHuman } from "../lib/turnstile.js";
 import { prepareProfilePhoto } from "../lib/profilePhoto.js";
 import { privacyNotice } from "../data/privacyNotice.js";
 import { Field, Feedback } from "../components/account/AccountForm.jsx";
@@ -32,7 +33,7 @@ export default function Registro() {
   const state = useAccount(), action = useAccountAction(), navigate = useNavigate(), { showWelcome } = useRegistrationWelcome();
   const [step, setStep] = useState(0), [direction, setDirection] = useState("forward"), [form, setForm] = useState(emptyRegistration);
   const [photo, setPhoto] = useState(null), [preparing, setPreparing] = useState(false), [error, setError] = useState(null), [visible, setVisible] = useState(false);
-  const fileInput = useRef(null), photoTask = useRef(null), heading = useRef(null), errorRef = useRef(null);
+  const fileInput = useRef(null), photoTask = useRef(null), heading = useRef(null), errorRef = useRef(null), challengeRef = useRef(null);
   useEffect(() => () => photoTask.current?.abort(), []);
   useEffect(() => () => { if (photo) URL.revokeObjectURL(photo.url); }, [photo]);
   useEffect(() => {
@@ -59,7 +60,11 @@ export default function Registro() {
     if (step < 4) { go(step + 1); return; }
     action.run(async signal => {
       const body = await registrationBody(form, photo?.blob, signal);
-      await account.register(body, signal); signal.throwIfAborted();
+      await submitRegistration({
+        body, signal, register: account.register, verify: verifyHuman, container: challengeRef.current,
+        challengeRequired: !import.meta.env.DEV,
+      });
+      signal.throwIfAborted();
       showWelcome({ nombre: form.nombre.trim(), foto: photo?.blob });
       setForm(emptyRegistration()); navigate("/", { replace: true });
     });
@@ -78,6 +83,7 @@ export default function Registro() {
         {step === 3 && <><div className="registration-password"><Field label="Contraseña" type={visible ? "text" : "password"} autoComplete="new-password" value={form.password} onChange={set("password")} required minLength={15} maxLength={72} /><button type="button" aria-label={visible ? "Ocultar contraseñas" : "Mostrar contraseñas"} aria-pressed={visible} onClick={() => setVisible(value => !value)}>{visible ? <EyeOff size={19} aria-hidden="true" /> : <Eye size={19} aria-hidden="true" />}</button></div><Field label="Repetí tu contraseña" type={visible ? "text" : "password"} autoComplete="new-password" value={form.confirmation} onChange={set("confirmation")} required maxLength={72} /><ul className="registration-password-rules"><li className={form.password.length >= 15 ? "is-met" : ""}><Check size={14} aria-hidden="true" />Al menos 15 caracteres</li><li className={form.password && new TextEncoder().encode(form.password).length <= 72 ? "is-met" : ""}><Check size={14} aria-hidden="true" />Hasta 72 bytes; los emojis pueden ocupar más de uno</li><li className={form.password && form.password === form.confirmation ? "is-met" : ""}><Check size={14} aria-hidden="true" />Ambas contraseñas coinciden</li></ul><p className="registration-security-note"><LockKeyhole size={16} aria-hidden="true" />Elegí una contraseña que uses solo para esta cuenta.</p></>}
         {step === 4 && <><Privacy /><label className="registration-consent"><input type="checkbox" checked={form.aceptaPrivacidad} required onChange={event => setForm(value => ({ ...value, aceptaPrivacidad: event.target.checked }))} /><span>Leí el aviso de privacidad y autorizo el tratamiento de mis datos para las finalidades informadas.</span></label><p className="registration-consent-note">Vos elegís cuándo responder una encuesta, enviar una propuesta o solicitar tu afiliación.</p></>}
       </div></fieldset>
+      <div ref={challengeRef} />
       <div ref={errorRef} tabIndex={-1} className="registration-feedback"><Feedback error={problem} />{!account.api.configured && <p role="status">El registro todavía no está disponible en este entorno. Podés seguir recorriendo el sitio.</p>}{action.error && step === 4 && <button type="button" className="registration-review" disabled={busy} onClick={() => go(0)}>Revisar mis datos</button>}</div>
       <div className="registration-actions">{step > 0 ? <button type="button" className="registration-previous" disabled={busy} onClick={() => go(step - 1)}><ArrowLeft size={17} aria-hidden="true" />Anterior</button> : <span className="registration-optional-note">Tu foto es opcional.</span>}<button type="submit" className="registration-next" disabled={busy || (step === 4 && !account.api.configured)}>{action.pending ? "Creando tu cuenta…" : step === 4 ? "Aceptar y crear mi cuenta" : "Continuar"}<ArrowRight size={17} aria-hidden="true" /></button></div>
       <p className="registration-login">¿Ya tenés una cuenta? <LoginLink>Iniciá sesión</LoginLink></p>

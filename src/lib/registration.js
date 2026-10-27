@@ -1,5 +1,12 @@
 import { validateNewPassword } from "./accountLinks.js";
 import { privacyNotice } from "../data/privacyNotice.js";
+// Cada envío obtiene su desafío; no se conserva ni se reintenta el token de un uso.
+export async function submitRegistration({ body, signal, register, verify, container, challengeRequired = true }) {
+  signal?.throwIfAborted();
+  const token = challengeRequired ? await verify(container, "registro", signal) : undefined;
+  signal?.throwIfAborted();
+  return register(body, signal, token);
+}
 const email = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 const phone = /^\+?[0-9\s\-()]{8,20}$/;
 export const registrationSteps = ["Tu identidad", "Tu lugar", "Tu día a día", "Tu seguridad", "Tu privacidad", "Bienvenida"];

@@ -8,6 +8,16 @@ const origin = "https://api.example.invalid";
 const json = (body, status = 200, headers = {}) => new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json", ...headers } });
 const session = token => ({ token, tokenType: "Bearer", expiresAt: new Date(Date.now() + 900000).toISOString() });
 const profile = { idUsuario: "test-user", email: "test@example.invalid", nombre: "Ana", apellido: "Prueba" };
+test("el token de seguridad del registro viaja en una cabecera y no se persiste", async () => {
+  const { service, calls } = setup(() => json({ mensaje: "Procesado" }, 202));
+  const body = { nombre: "Ana" };
+  await service.register(body, undefined, "token-un-uso");
+  assert.equal(calls[0].headers.get("X-Turnstile-Token"), "token-un-uso");
+  assert.deepEqual(JSON.parse(calls[0].body), body);
+  assert.equal("challengeToken" in service.getSnapshot(), false);
+  await service.register(body);
+  assert.equal(calls[1].headers.has("X-Turnstile-Token"), false);
+});
 function setup(handler) {
   const calls = [];
   const service = createAccountService({ baseUrl: origin, fetchImpl: async (url, init) => {

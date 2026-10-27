@@ -17,7 +17,7 @@ export function SurveyPreview({ questions }) {
 export function SurveyQuestion({ question, index, value, error, onChange }) {
   const fieldId = useId(), helpId = `${fieldId}-help`, errorId = `${fieldId}-error`;
   const description = `${helpId}${error ? ` ${errorId}` : ""}`;
-  return <fieldset className={`sv-question${error ? " sv-question-error" : ""}`}>
+  return <div className={`sv-question-card${error ? " sv-question-error" : ""}`}><fieldset className="sv-question">
     <legend><span className="sv-number">{String(index + 1).padStart(2, "0")}</span><span>{question.texto}</span><small>{question.obligatoria ? "Obligatoria" : "Opcional"}</small></legend>
     <p className="sv-help" id={helpId}>{surveyQuestionHelp[question.tipo]}. <Limits question={question} /></p>
     {question.tipo === "texto" && <textarea id={fieldId} aria-label={question.texto} aria-describedby={description} aria-invalid={Boolean(error)} rows={3} maxLength={question.maxLongitud} value={value || ""} onChange={event => onChange(event.target.value)} />}
@@ -28,5 +28,5 @@ export function SurveyQuestion({ question, index, value, error, onChange }) {
       const previous = Array.isArray(value) ? value : []; onChange(event.target.checked ? [...previous, option.id] : previous.filter(item => item !== option.id));
     }} /><span>{option.texto}</span></label>)}</div>}
     {error && <p className="sv-field-error" id={errorId}>{error}</p>}
-  </fieldset>;
+  </fieldset></div>;
 }

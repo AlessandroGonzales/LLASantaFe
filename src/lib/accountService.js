@@ -92,7 +92,10 @@ export function createAccountService({ now = Date.now, schedule = setTimeout, ca
     subscribe(listener) { listeners.add(listener); return () => listeners.delete(listener); },
     getSnapshot: () => snapshot,
     async login(body, signal) { const result = await api.request("/api/Usuario/login", { method: "POST", body, signal }); signal?.throwIfAborted(); start(result); },
-    register: (body, signal) => api.request("/api/Usuario", { method: "POST", body, signal }),
+    register: (body, signal, challengeToken) => api.request("/api/Usuario", {
+      method: "POST", body, signal,
+      headers: challengeToken ? { "X-Turnstile-Token": challengeToken } : {},
+    }),
     requestVerification: (email, signal) => api.request("/api/Usuario/email/solicitar-verificacion", { method: "POST", body: { email }, signal }),
     confirmEmail: (body, signal) => api.request("/api/Usuario/email/confirmar", { method: "POST", body, signal }),
     requestRecovery: (email, signal) => api.request("/api/Usuario/password/solicitar-recuperacion", { method: "POST", body: { email }, signal }),

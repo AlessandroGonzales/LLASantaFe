@@ -2,5 +2,11 @@ import SectionTitle from "./SectionTitle.jsx";
 import CitizenRequests from "./citizen/CitizenRequests.jsx";
 
 export default function Propone() {
-  return <section className="cr-page"><header className="cr-hero"><SectionTitle as="h1" title="Un espacio" accent="para tu propuesta." breakLine /><p>Compartí proyectos, sugerencias, consultas o inquietudes. Desde tu cuenta podés enviar una solicitud formal y seguir su respuesta.</p></header><CitizenRequests /></section>;
+  return <section className="cr-shell" aria-labelledby="propone-title"><div className="cr-page">
+    <header className="cr-hero">
+      <SectionTitle as="h1" id="propone-title" title="Queremos" accent="escucharte." tone="light" breakLine />
+      <p>Las ideas empiezan con alguien que se anima a compartirlas. Acercanos tu propuesta, contanos qué necesita tu comunidad o hacenos una consulta.</p>
+    </header>
+    <CitizenRequests />
+  </div></section>;
 }

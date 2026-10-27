@@ -15,7 +15,7 @@ import "./Encuestas.css";
 const dayFormat = new Intl.DateTimeFormat("es-AR", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 const receiptFormat = new Intl.DateTimeFormat("es-AR", { dateStyle: "long", timeStyle: "short", timeZone: "America/Argentina/Buenos_Aires" });
 function day(value) { return value && /^\d{4}-\d{2}-\d{2}$/.test(value) ? dayFormat.format(new Date(`${value}T00:00:00Z`)) : ""; }
-function QuestionsHeading({ count }) { return <div className="sv-section-heading"><h2>Las preguntas</h2><span>{count} {count === 1 ? "pregunta" : "preguntas"}</span></div>; }
+function QuestionsHeading() { return <div className="sv-section-heading sv-questions-heading"><h2>Las preguntas</h2></div>; }
 function PageList({ cursor, force, onNext, onPrevious, canGoBack, onRefresh }) {
   const [page, setPage] = useState(null), [error, setError] = useState(null);
   useAccount(); // Al cambiar la cuenta se descartan sus indicadores privados.
@@ -27,32 +27,32 @@ function PageList({ cursor, force, onNext, onPrevious, canGoBack, onRefresh }) {
   return <>
     {error && <div className="sv-state"><Feedback error={error} /><RetryButton error={error} className="sv-button sv-button-secondary" onClick={onRefresh}>Volver a cargar encuestas</RetryButton></div>}
     {!error && !page && <p className="sv-state" role="status">Cargando encuestas…</p>}
-    {page?.items.length === 0 && <div className="sv-state sv-empty"><ClipboardList size={34} strokeWidth={1.2} aria-hidden="true" /><h2>No hay encuestas abiertas.</h2><p>Las próximas consultas estarán disponibles en esta sección.</p></div>}
-    {page && <><div className="sv-card-grid">{page.items.map((item, index) => <article key={item.id} className="sv-card">
-      <div className="sv-card-top"><span className="sv-card-index">{String(index + 1).padStart(2, "0")}</span><span className="sv-open">Abierta</span></div>
+    {page?.items.length === 0 && <div className="sv-state sv-empty"><ClipboardList size={34} strokeWidth={1.2} aria-hidden="true" /><h2>No hay encuestas abiertas.</h2><p>Las próximas encuestas estarán disponibles en esta sección.</p></div>}
+    {page && <><div className="sv-card-grid">{page.items.map(item => <article key={item.id} className="sv-card">
+      <div className="sv-card-top"><span className="sv-card-icon"><ClipboardList size={23} strokeWidth={1.5} aria-hidden="true" /></span><span className="sv-open">Abierta</span></div>
       <h2><Link to={`/encuestas/${item.id}`}>{item.titulo}</Link></h2>
       <p>{item.descripcion || "Consultá las preguntas y los datos que se solicitan antes de responder."}</p>
-      <div className="sv-card-bottom"><span>{surveys.knownReceipt(item.id) ? "Respuesta registrada" : item.fechaFin ? `Hasta el ${day(item.fechaFin)}` : "Una respuesta por cuenta"}</span><Link to={`/encuestas/${item.id}`} aria-label={`Ver encuesta: ${item.titulo}`}><ArrowRight size={21} aria-hidden="true" /></Link></div>
+      <div className="sv-card-bottom">{(surveys.knownReceipt(item.id) || item.fechaFin) && <span>{surveys.knownReceipt(item.id) ? "Respuesta registrada" : `Hasta el ${day(item.fechaFin)}`}</span>}<Link to={`/encuestas/${item.id}`} aria-label={`Ver encuesta: ${item.titulo}`}>Ver encuesta <ArrowRight size={17} aria-hidden="true" /></Link></div>
     </article>)}</div>
-      <div className="sv-pagination"><button type="button" disabled={!canGoBack} onClick={onPrevious}><ArrowLeft size={16} aria-hidden="true" /> Anterior</button><span>12 encuestas por página</span><button type="button" disabled={!page.siguienteCursor} onClick={() => onNext(page.siguienteCursor)}>Siguiente <ArrowRight size={16} aria-hidden="true" /></button></div></>}
+      {(canGoBack || page.siguienteCursor) && <div className="sv-pagination"><button type="button" disabled={!canGoBack} onClick={onPrevious}><ArrowLeft size={16} aria-hidden="true" /> Anterior</button><button type="button" disabled={!page.siguienteCursor} onClick={() => onNext(page.siguienteCursor)}>Siguiente <ArrowRight size={16} aria-hidden="true" /></button></div>}</>}
   </>;
 }
 function SurveyList() {
   const [cursors, setCursors] = useState([null]), [revision, setRevision] = useState(0);
-  return <section className="sv-page">
-    <header className="sv-hero"><SectionTitle title="Encuestas" /><p className="sv-title-description">Información para participar.</p><div className="sv-hero-bottom"><p>Conocé el motivo de cada consulta y las preguntas que propone. Podés leerlas libremente; para responder, ingresá con tu cuenta.</p><span><ShieldCheck size={17} aria-hidden="true" /> Una respuesta por cuenta</span></div></header>
-    <div className="sv-section-heading"><h2>Consultas abiertas</h2><button type="button" onClick={() => setRevision(value => value + 1)}>Actualizar listado</button></div>
+  return <section className="sv-shell" aria-labelledby="surveys-title"><div className="sv-page">
+    <header className="sv-hero"><SectionTitle id="surveys-title" title="Encuestas" tone="light" /><p>Tu experiencia nos ayuda a conocer mejor a nuestra comunidad. Elegí una encuesta, conocé su motivo y compartí tus respuestas.</p></header>
+    <div className="sv-section-heading"><h2>Encuestas abiertas</h2><button type="button" onClick={() => setRevision(value => value + 1)}>Actualizar listado</button></div>
     <PageList key={`${cursors.at(-1)}:${revision}`} cursor={cursors.at(-1)} force={revision > 0} canGoBack={cursors.length > 1} onPrevious={() => setCursors(current => current.slice(0, -1))} onNext={cursor => setCursors(current => [...current, cursor])} onRefresh={() => setRevision(value => value + 1)} />
-  </section>;
+  </div></section>;
 }
 function Receipt({ value }) {
   const heading = useRef(null);
-  useEffect(() => { heading.current?.focus(); }, []);
-  return <div className="sv-receipt" role="status"><CheckCircle2 size={39} strokeWidth={1.3} aria-hidden="true" /><p className="sv-eyebrow">Envío registrado</p><h2 ref={heading} tabIndex={-1}>Tu respuesta ya está registrada.</h2><p>Este comprobante confirma tu participación. Esta cuenta ya respondió y no puede enviar otra respuesta a la misma encuesta.</p><dl><div><dt>Fecha del comprobante</dt><dd>{receiptFormat.format(new Date(value.createdAt))}</dd></div><div><dt>Identificador de respuesta</dt><dd className="sv-reference">{value.id}</dd></div></dl><Link className="sv-text-link" to="/encuestas">Ver otras encuestas <ArrowRight size={16} aria-hidden="true" /></Link></div>;
+  useEffect(() => { heading.current?.focus({ preventScroll: true }); heading.current?.scrollIntoView({ block: "center", behavior: "instant" }); }, []);
+  return <section className="sv-receipt" role="status"><span className="sv-receipt-icon"><CheckCircle2 size={34} strokeWidth={1.5} aria-hidden="true" /></span><h2 ref={heading} tabIndex={-1}>Gracias por responder.</h2><p>Tu respuesta quedó registrada. Gracias por compartir tu experiencia y ayudarnos a conocer mejor a nuestra comunidad.</p><details className="sv-receipt-proof"><summary>Ver comprobante</summary><dl><div><dt>Fecha de participación</dt><dd>{receiptFormat.format(new Date(value.createdAt))}</dd></div><div><dt>Identificador de respuesta</dt><dd className="sv-reference">{value.id}</dd></div></dl></details><Link className="sv-button sv-button-success" to="/encuestas">Ver otras encuestas <ArrowRight size={16} aria-hidden="true" /></Link></section>;
 }
 function LoginPrompt({ id }) {
   const returnTo = `/encuestas/${id}`;
-  return <aside className="sv-login"><ShieldCheck size={27} strokeWidth={1.4} aria-hidden="true" /><div><h2>Ingresá para responder.</h2><p>Las preguntas son públicas. El envío necesita una cuenta para registrar una única respuesta.</p></div><div className="sv-login-actions"><LoginLink className="sv-button" state={{ returnTo }}>Ingresar y responder <ArrowRight size={17} aria-hidden="true" /></LoginLink><Link className="sv-text-link" to="/registro" state={{ returnTo }}>Crear una cuenta</Link></div></aside>;
+  return <aside className="sv-login"><ShieldCheck size={25} strokeWidth={1.5} aria-hidden="true" /><div><h2>Ingresá para participar.</h2><p>Podés leer las preguntas. Para enviar una única respuesta, necesitás tu cuenta.</p></div><div className="sv-login-actions"><LoginLink className="sv-button" state={{ returnTo }}>Ingresar y responder <ArrowRight size={17} aria-hidden="true" /></LoginLink><Link className="sv-text-link" to="/registro" state={{ returnTo }}>Crear una cuenta</Link></div></aside>;
 }
 function AnswerForm({ detail, onReceipt }) {
   const [values, setValues] = useState(() => Object.create(null)), [confirmed, setConfirmed] = useState(false), [uncertain, setUncertain] = useState(false), [checkedAgain, setCheckedAgain] = useState(false);
@@ -82,7 +82,7 @@ function AnswerForm({ detail, onReceipt }) {
       }
     });
   }}>
-    <div className="sv-answer-meta"><span>{completed} de {questions.length} completadas</span><span>Las preguntas opcionales pueden quedar vacías.</span></div>
+    <div className="sv-answer-meta"><span>{completed} de {questions.length} completadas</span><span>Las opcionales pueden quedar vacías.</span></div>
     <div ref={errorRef} tabIndex={-1} className="sv-error-focus"><Feedback error={sendError || check.error} /></div>
     {uncertain && <div className="sv-uncertain"><p>Comprobá el envío antes de volver a enviarlo.</p><RetryButton error={check.error || action.error} busy={check.busy || action.busy} className="sv-button sv-button-secondary" onClick={() => check.run(async signal => {
       const result = await surveys.loadReceipt(detail.id, { force: true, signal });
@@ -94,7 +94,7 @@ function AnswerForm({ detail, onReceipt }) {
         value={Object.hasOwn(values, question.id) ? values[question.id] : undefined}
         error={Object.hasOwn(fieldErrors, question.id) ? fieldErrors[question.id] : null}
         onChange={value => updateAnswer(question.id, value)} />)}
-      <div className="sv-send"><div><h2>Revisá antes de enviar.</h2><p>Las respuestas se asocian a tu cuenta para evitar duplicados. No podrán editarse después del envío.</p></div><label className="sv-confirm"><input type="checkbox" required checked={confirmed} onChange={event => setConfirmed(event.target.checked)} /><span>Revisé mis respuestas y quiero enviarlas.</span></label><button type="submit" className="sv-button" disabled={!confirmed || action.busy || check.busy || (uncertain && !checkedAgain)}>{action.pending ? "Enviando…" : uncertain ? "Volver a enviar respuestas" : "Enviar respuestas"}<ArrowRight size={18} aria-hidden="true" /></button></div>
+      <div className="sv-send"><div><h2>Antes de enviar</h2><p>Revisá tus respuestas. El envío se registra una sola vez y no podrá editarse.</p></div><label className="sv-confirm"><input type="checkbox" required checked={confirmed} onChange={event => setConfirmed(event.target.checked)} /><span>Revisé mis respuestas y quiero enviarlas.</span></label><button type="submit" className="sv-button" disabled={!confirmed || action.busy || check.busy || (uncertain && !checkedAgain)}>{action.pending ? "Enviando…" : uncertain ? "Volver a enviar respuestas" : "Enviar respuestas"}<ArrowRight size={18} aria-hidden="true" /></button></div>
     </fieldset>
   </form>;
 }
@@ -109,22 +109,21 @@ function SurveyDetail({ id, authenticated }) {
     return () => controller.abort();
   }, [id, authenticated, revision]);
   const detail = resource.detail;
-  return <article className="sv-page sv-detail-page">
-    <Link className="sv-back" to="/encuestas"><ArrowLeft size={16} aria-hidden="true" /> Todas las encuestas</Link>
-    <header className="sv-detail-header"><SectionTitle title={detail?.titulo || (proof.value ? "Respuesta registrada" : "Encuesta")} />
-      {detail && <><div className="sv-detail-tags"><span>{detail.configuracion.preguntas.length} preguntas</span><span>Una respuesta por cuenta</span>{detail.fechaFin && <span>Hasta el {day(detail.fechaFin)}</span>}</div><section className="sv-purpose" aria-label="Motivo de la encuesta"><h2>¿Por qué esta encuesta?</h2><p>{detail.descripcion || "No se publicó una descripción adicional. Podés revisar todas las preguntas antes de decidir si querés responder."}</p></section></>}
+  return <div className="sv-shell"><article className="sv-page sv-detail-page">
+    <header className="sv-detail-header"><SectionTitle title={detail?.titulo || (proof.value ? "Respuesta registrada" : "Encuesta")} tone="light" />
+      {detail && <><div className="sv-detail-tags"><span>{detail.configuracion.preguntas.length} {detail.configuracion.preguntas.length === 1 ? "pregunta" : "preguntas"}</span>{detail.fechaFin && <span>Hasta el {day(detail.fechaFin)}</span>}</div><section className="sv-purpose" aria-labelledby="survey-purpose-title"><h2 id="survey-purpose-title">Motivo de la encuesta</h2><p>{detail.descripcion || "Podés revisar las preguntas para conocer qué información se solicita antes de participar."}</p></section></>}
     </header>
     {(resource.loading || proof.loading) && <p className="sv-loading" role="status">{resource.loading ? "Cargando encuesta…" : "Comprobando si ya participaste…"}</p>}
     {proof.value && <Receipt value={proof.value} />}
     {resource.error && !proof.value && <div className="sv-state"><h2>{resource.error.status === 404 ? "Esta encuesta no está disponible." : "No pudimos abrir la encuesta."}</h2><Feedback error={resource.error.status === 404 ? null : resource.error} /><p>Puede haber cerrado o no estar disponible para consulta. Podés volver al listado.</p><RetryButton error={resource.error} className="sv-button sv-button-secondary" onClick={() => setRevision(value => value + 1)}>Volver a consultar</RetryButton>{!authenticated && resource.error.status === 404 && <p>¿Ya participaste? <LoginLink className="sv-text-link" state={{ returnTo: `/encuestas/${id}` }}>Ingresá para consultar tu comprobante</LoginLink></p>}</div>}
-    {detail && <QuestionsHeading count={detail.configuracion.preguntas.length} />}
-    {detail && (!authenticated || proof.value || proof.loading || proof.error) && <SurveyPreview questions={detail.configuracion.preguntas} />}
-    {detail && !authenticated && <LoginPrompt id={id} />}
+    {detail && !authenticated && !proof.value && <LoginPrompt id={id} />}
+    {detail && !proof.value && <QuestionsHeading />}
+    {detail && !proof.value && (!authenticated || proof.loading || proof.error) && <SurveyPreview questions={detail.configuracion.preguntas} />}
     {detail && authenticated && proof.error && <div className="sv-state"><p>Podés leer las preguntas. Para habilitar el envío necesitamos comprobar tu participación.</p><Feedback error={proof.error || action.error} /><RetryButton error={proof.error || action.error} busy={action.busy} className="sv-button sv-button-secondary" onClick={() => action.run(async signal => {
       const value = await surveys.loadReceipt(id, { force: true, signal }); if (!signal.aborted) setProof({ value, error: null, loading: false });
     })}>Comprobar mi participación</RetryButton></div>}
     {detail && authenticated && !proof.value && !proof.loading && !proof.error && <AnswerForm detail={detail} onReceipt={value => setProof({ value, error: null, loading: false })} />}
-  </article>;
+  </article></div>;
 }
 export default function Encuestas() {
   const { id } = useParams(), account = useAccount();
