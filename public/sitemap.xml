@@ -27,4 +27,9 @@
         <priority>0.7</priority>
         <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.lalibertadavanzasantafe.com/presidentes-comunales" />
     </url>
+    <url>
+        <loc>https://www.lalibertadavanzasantafe.com/privacidad</loc>
+        <lastmod>2026-10-27</lastmod>
+        <changefreq>yearly</changefreq>
+    </url>
 </urlset>

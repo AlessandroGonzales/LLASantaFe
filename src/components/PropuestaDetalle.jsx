@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, Download, Share2, MapPin } from "lucide-react";
+import { ArrowLeft, Share2, MapPin } from "lucide-react";
 import { propuestasData } from "../data/propuestasData";
 import SectionTitle from "./SectionTitle.jsx";
 
@@ -26,12 +26,7 @@ export default function PropuestaDetalle() {
   const handleShareWSP = () => {
     const text = `¡Mirá esta propuesta de La Libertad Avanza Santa Fe!\n\n*${propuesta.titulo}*\n${propuesta.bajada}\n\nLee más acá: ${window.location.href}`;
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
-    window.open(whatsappUrl, "_blank");
-  };
-
-  const handleDownloadPDF = () => {
-    // Lógica para descargar el PDF
-    alert("Iniciando descarga del documento completo...");
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -113,15 +108,6 @@ export default function PropuestaDetalle() {
               </h4>
 
               <div className="space-y-4">
-                {/* Botón Descargar PDF */}
-                <button
-                  onClick={handleDownloadPDF}
-                  className="w-full flex items-center justify-center gap-3 bg-liberty-primary font-black uppercase tracking-wider py-4 px-6 rounded-xl  cursor-pointer"
-                >
-                  <Download className="w-5 h-5" />
-                  Descargar Proyecto
-                </button>
-
                 {/* Botón Compartir WSP */}
                 <button
                   onClick={handleShareWSP}

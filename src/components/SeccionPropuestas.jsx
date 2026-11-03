@@ -190,7 +190,7 @@ export default function SeccionPropuestas() {
           height="720"
           loading="eager"
           fetchPriority="high"
-          className="absolute inset-0 h-full w-full object-cover object-[59%_center]"
+          className="absolute inset-0 h-full w-full object-cover object-[60%_center]"
         />
         <div
           aria-hidden="true"
@@ -213,8 +213,10 @@ export default function SeccionPropuestas() {
           className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-4 pt-32 sm:px-8 md:pb-29 lg:px-12"
         >
 
-          <SectionTitle as="h1" title="Un plan para" accent="transformar" breakLine className="max-w-5xl" />
-          <p className="mt-7 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg md:text-xl">
+          <h1 className="max-w-5xl text-[clamp(2.8rem,3.5vw,7.5rem)] font-black uppercase leading-[0.86] tracking-[-0.055em] text-white">
+            Un plan para<span className="block text-liberty-primary">transformar</span>
+          </h1>
+          <p className="mt-2 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg md:text-xl">
             Reformas basadas en la libertad económica, el orden institucional y
             un Estado al servicio de los santafesinos.
           </p>

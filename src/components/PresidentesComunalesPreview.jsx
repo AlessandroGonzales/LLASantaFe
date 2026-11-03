@@ -9,7 +9,7 @@ export default function PresidentesComunalesPreview() {
   const heading = (
     <>
 
-      <div className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl font-black uppercase tracking-tighter leading-[0.99] mb-6">
+      <div className="text-5xl md:text-6xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.99] mb-6">
         Presidentes <br />comunales
       </div>
     </>

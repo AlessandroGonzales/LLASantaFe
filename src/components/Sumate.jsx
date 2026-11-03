@@ -1,4 +1,3 @@
-import SectionTitle from "./SectionTitle.jsx";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import afiliacion from "../assets/militantes.webp";
@@ -26,7 +25,7 @@ export default function Sumate() {
     <div className={styles.page}>
       <header className={styles.hero}>
         <div className={styles.heroCopy}>
-          <SectionTitle as="h1" title="La libertad" accent="empieza con vos" breakLine />
+          <h1>La libertad<span>empieza</span><span className={styles.accent}>con vos</span></h1>
           <p className={styles.invitation}>
             Los grandes cambios se realizan cuando todos están 
             comprometidos. Queremos lo mejor para la provincia y para

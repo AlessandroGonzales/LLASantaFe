@@ -1,4 +1,5 @@
 import logo from "../assets/aguila.webp";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -71,7 +72,10 @@ export default function Footer() {
         <div className="w-full max-w-2xl h-1 bg-gradient-to-r from-transparent via-liberty-border mb-8 mt-4" />
 
         {/* INFO FINAL: COPYRIGHT, FECHA Y DESARROLLADOR */}
-        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 text-liberty-text-secondary text-sm uppercase tracking-[1px]">
+        <Link to="/privacidad" className="text-base text-liberty-text-secondary underline underline-offset-4 mb-6">
+          Privacidad y protección de datos
+        </Link>
+        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 text-liberty-text-secondary text-[12px] uppercase tracking-[1px]">
           
           {/* Izquierda: Copyright */}
           <div className="flex-1 flex justify-center md:justify-start text-center md:text-left">

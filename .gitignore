@@ -21,6 +21,7 @@ bundle-analisis.html
 # Copias y evidencias locales; los archivos ya versionados se conservan.
 /*.zip
 /artifacts/
+/.artifacts/
 
 # Editor directories and files
 .vscode/*

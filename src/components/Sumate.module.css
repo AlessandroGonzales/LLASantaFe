@@ -29,7 +29,7 @@
 }
 .heroCopy { min-width: 0; }
 .heroCopy > .eyebrow { color: #efc3fa; max-width: 33ch; }
-.hero h1 { margin: 26px 0 30px; font-size: clamp(3.4rem, 5.8vw, 5.6rem); font-weight: 900; line-height: 0.97; letter-spacing: -0.06em; }
+.hero h1 { margin: 26px 0 30px; font-size: clamp(3.2rem, 5.4vw, 5.2rem); font-weight: 900; line-height: 0.97; letter-spacing: -0.06em; }
 .hero h1 span { display: block; }
 .accent { color: #e8b0f4; }
 .invitation { max-width: 42ch; font-size: 1rem; line-height: 1.8; color: var(--join-muted); }

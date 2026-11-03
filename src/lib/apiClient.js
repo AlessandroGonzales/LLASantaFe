@@ -40,6 +40,7 @@ function validationErrors(values) {
 export function createApiClient({ baseUrl, allowLocalHttp = false, fetchImpl = globalThis.fetch,
   getToken = () => null, onUnauthorized = () => {}, timeoutMs = 15000 } = {}) {
   const origin = apiOrigin(baseUrl, allowLocalHttp);
+  const ngrokNotice = origin && /\.ngrok-free\.(?:app|dev)$/i.test(new URL(origin).hostname);
   return {
     configured: Boolean(origin),
     async request(path, { method = "GET", body, auth = false, signal, headers = {}, responseType = "json" } = {}) {
@@ -57,6 +58,7 @@ export function createApiClient({ baseUrl, allowLocalHttp = false, fetchImpl = g
         const requestHeaders = new Headers(headers);
         const binary = body instanceof Blob;
         requestHeaders.set("Accept", responseType === "blob" ? "image/jpeg" : "application/json");
+        if (ngrokNotice) requestHeaders.set("ngrok-skip-browser-warning", "1");
         requestHeaders.delete("Authorization");
         if (token) requestHeaders.set("Authorization", `Bearer ${token}`);
         if (body !== undefined) requestHeaders.set("Content-Type", binary ? body.type : "application/json");

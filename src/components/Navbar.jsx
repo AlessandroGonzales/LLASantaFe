@@ -163,7 +163,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 h-14 border-b transition-[background-color,border-color,box-shadow] duration-300 ${
-        isScrolled || isOpen || ["/registro", "/mi-cuenta", "/propone"].includes(location.pathname) || location.pathname.startsWith("/encuestas")
+        isScrolled || isOpen || ["/registro", "/mi-cuenta", "/propone", "/privacidad"].includes(location.pathname) || location.pathname.startsWith("/encuestas")
           ? "border-liberty-border/80 bg-liberty-bg/95 shadow-[0_12px_40px_rgba(10,2,18,0.28)] backdrop-blur-xl"
           : "bg-transparent border-b border-transparent"
       }`}

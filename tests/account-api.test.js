@@ -45,6 +45,20 @@ test("el cliente separa origen .NET y ruta, omite cookies y no agrega JWT a endp
   assert.equal(calls[1].cache, "no-store");
   for (const call of calls) { assert.equal(call.credentials, "omit"); assert.equal(call.redirect, "error"); }
 });
+test("el aviso de ngrok se omite solo en dominios gratuitos exactos y conserva el transporte sin cookies", async () => {
+  for (const [baseUrl, expected] of [["https://demo.ngrok-free.dev", true], ["https://demo.ngrok-free.app", true],
+    ["https://api.example.invalid", false], ["https://demo.ngrok-free.dev.example.invalid", false]]) {
+    const client = createApiClient({ baseUrl, fetchImpl: async (_url, init) => {
+      assert.equal(init.headers.has("ngrok-skip-browser-warning"), expected);
+      if (expected) assert.equal(init.headers.get("ngrok-skip-browser-warning"), "1");
+      assert.equal(init.credentials, "omit");
+      assert.equal(init.headers.has("Authorization"), false);
+      return json({ ok: true });
+    } });
+    assert.deepEqual(await client.request("/api/Departamento"), { ok: true });
+  }
+});
+
 test("origen ausente, credenciales en URL, ruta duplicada y HTTP público se rechazan sin fetch", async () => {
   for (const baseUrl of [undefined, "", "http://api.example.invalid", "https://user:secret@example.invalid", `${origin}/api`, `${origin}?secret=x`]) {
     const client = createApiClient({ baseUrl, fetchImpl: () => assert.fail("No debe consultar un origen inválido") });

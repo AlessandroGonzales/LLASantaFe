@@ -6,6 +6,7 @@ import { LazyMotion } from "framer-motion";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import RouteIndexing from "./components/RouteIndexing.jsx";
 import ScrollToTop from "./ScrollToTop";
 import AccountSession from "./components/AccountSession";
 import LoginProvider from "./components/account/LoginProvider.jsx";
@@ -40,6 +41,7 @@ const SeccionPropone = lazy(() => import("./components/SeccionPropone"));
 const SeccionReclamos = lazy(() => import("./components/SeccionReclamos"));
 const NotFound = lazy(() => import("./components/NotFound"));
 const Registro = lazy(() => import("./pages/Registro.jsx"));
+const Privacidad = lazy(() => import("./pages/Privacidad.jsx"));
 const MisDatos = lazy(() => import("./pages/MisDatos.jsx"));
 const Cuenta = lazy(() => import("./pages/Cuenta"));
 const AdminAfiliaciones = lazy(() => import("./pages/AdminAfiliaciones"));
@@ -98,6 +100,7 @@ function App() {
           <GlobalTransition />
           <ScrollToTop />
           <AccountSession />
+          <RouteIndexing />
 
           <div className="bg-liberty-bg text-liberty-text font-satoshi">
             <Navbar />
@@ -107,6 +110,7 @@ function App() {
                 <Routes>
                   <Route path="/ingresar" element={<LoginRoute><Home /></LoginRoute>} />
                   <Route path="/registro" element={<Registro />} />
+                  <Route path="/privacidad" element={<Privacidad />} />
                   <Route path="/mi-cuenta" element={<MisDatos />} />
                   {accountRoutes.map(path => <Route key={path} path={path} element={<Cuenta />} />)}
                   <Route path="/administracion/afiliaciones" element={<AdminAfiliaciones />} />
